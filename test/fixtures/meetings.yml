@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-11-18
+  nottime: MyString
+  status: 1
+  desired: false
+  randam: MyString
+  teacher: one
+  child: one
+
+two:
+  date: 2019-11-18
+  nottime: MyString
+  status: 1
+  desired: false
+  randam: MyString
+  teacher: two
+  child: two

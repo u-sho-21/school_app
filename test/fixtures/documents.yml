@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  memo: MyText
+  pdf_link: MyText
+  deadline: 2019-11-18
+  randam: MyString
+  public: false
+  teacher: one
+
+two:
+  title: MyString
+  memo: MyText
+  pdf_link: MyText
+  deadline: 2019-11-18
+  randam: MyString
+  public: false
+  teacher: two
