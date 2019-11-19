@@ -2,7 +2,7 @@
 
 <% unless @meetings.empty? %>
   <div id="content" style="padding-bottom: 20px;">
-    <%= form_with(model: @meeting_time, url: user_meeting_time_create_path(@user), local: true) do |f| %>
+    <%= form_with(model: @meeting_time, url: teacher_meeting_times_path(@teacher), local: true) do |f| %>
       <table class="table-bordered table-striped table-condensed">
         <thead>
           <tr>
@@ -32,7 +32,7 @@
 <div id="content">
   <div id="datepicker"></div>
 
-  <%= form_with(model: @meeting, url: teacher_meetings_path(@teacher), local: true) do |f| %>
+  <%= form_with(url: teacher_meetings_update_path(@teacher), local: true) do |f| %>
     <table class="table-bordered table-striped table-condensed" style="width: 50%; margin-top: 20px;">
       <thead>
         <tr>

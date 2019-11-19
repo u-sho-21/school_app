@@ -19,8 +19,8 @@
 
 <div id="top">
   <div id="one">
-    <%= link_to "面談日登録", teacher_meetings_new_path(current_user), class: "btn btn-success top-submit" %>
-    <%= link_to "面談日時編集", "#", class: "btn btn-info top-submit" %>
+    <%= link_to "面談日登録", teacher_meetings_new_path(@teacher), class: "btn btn-success top-submit" %>
+    <%= link_to "面談日時編集", teacher_meetings_edit_path(@teacher), class: "btn btn-info top-submit" %>
   </div>
   <div id="two">
     <%= link_to "面談返信状況確認", "#", class: "btn btn-default top-submit" %>

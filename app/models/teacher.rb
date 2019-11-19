@@ -1,6 +1,7 @@
 class Teacher < ApplicationRecord
   attr_accessor :remember_token
   has_many :meetings
+  has_many :meeting_times
   has_many :children
   before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
