@@ -1,0 +1,40 @@
+<h1>教員トップページ</h1>
+
+<div class="box_title">保護者からのお問い合わせ</div>
+<div class="box_srcollbar">
+    10/06　■■■■■■が再入荷しました。<br>
+    10/05　○○○を追加しました。<br>
+    10/04　■■■ を追加しました。<br>
+    10/03　○○■■■○が再入荷しました。<br>
+    10/02　○■■■■■■○○が再入荷しました。<br>
+    10/01　○○○が再入荷しました。<br>
+    09/28　○○■■○■■■が再入荷しました。<br>
+    09/25　○○○■■■を追加しました。<br>
+    09/23　○○○■■■■■を追加しました。<br>
+    09/22　○○○■■■を追加しました。<br>
+    09/20　○○■■■■○■■■を追加しました。<br>
+    09/18　○○■■○■■■を追加しました。<br>
+    09/17　○■■○○■■■を追加しました。<br>
+</div>
+
+<div id="top">
+  <div id="one">
+    <%= link_to "面談日登録", meetings_new_path, class: "btn btn-success top-submit" %>
+    <%= link_to "面談日時編集", "#", class: "btn btn-info top-submit" %>
+  </div>
+  <div id="two">
+    <%= link_to "面談返信状況確認", "#", class: "btn btn-default top-submit" %>
+    <%= link_to "提出状況確認", "#", class: "btn btn-danger top-submit" %>
+  </div>
+  <div id="three">
+    <%= link_to "入力式提出", "#", class: "btn btn-warning top-submit" %>
+    <%= link_to "選択式提出", "#", class: "btn btn-primary top-submit" %>
+  </div>
+  <div id="four">
+    <%= link_to "アップロード式提出", "#", class: "btn btn-default top-submit" %>
+    <%= link_to "個別連絡", "#", class: "btn btn-success top-submit" %>
+  </div>
+  <div id="five">
+    <%= link_to "保護者一覧", "#", class: "btn btn-info top-submit last" %>
+  </div>
+</div>
