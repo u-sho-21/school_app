@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dummy',to:"users#index"   #git実験ダミー
+
   root 'static_pages#top'
   get '/signup', to: 'users#new'
 
