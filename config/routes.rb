@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get 'meetings/new', to: 'meetings#new'
-
-  resources :teachers
+  resources :teachers do
+    get 'meetings/new', to: 'meetings#new'        # 面談日時登録ページ
+    post 'meetings', to: 'meetings#create'        # 面談日時作成
+  end
 
   resources :users
 

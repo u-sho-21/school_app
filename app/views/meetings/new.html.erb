@@ -1,2 +1,90 @@
-<h1>Meetings#new</h1>
-<p>Find me in app/views/meetings/new.html.erb</p>
+<h1>面談日時登録ページ</h1>
+
+<% unless @meetings.empty? %>
+  <div id="content" style="padding-bottom: 20px;">
+    <%= form_with(model: @meeting_time, url: user_meeting_time_create_path(@user), local: true) do |f| %>
+      <table class="table-bordered table-striped table-condensed">
+        <thead>
+          <tr>
+            <td style="width: 60%;">開始時間</td>
+            <td style="width: 20%;">面談時間</td>
+            <td style="width: 10%;">枠</td>
+            <td></td>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <%= f.select :published_at_hour, @hour, {}, class: 'form-control box', style: "width: 45%;" %> :
+              <%= f.select :published_at_minute_1, @minutes, {}, class: 'form-control box', style: "width: 45%;" %>
+            </td>
+            <td><%= f.select :published_at_minute_2, @minutes, {}, class: 'form-control' %></td>
+            <td><%= f.select :frame, @frame_list, {}, class: 'form-control' %></td>
+            <td><%= f.submit '登録', class: "btn btn-success" %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="content">
+  <div id="datepicker"></div>
+
+  <%= form_with(model: @meeting, url: user_meetings_path(@user), local: true) do |f| %>
+    <table class="table-bordered table-striped table-condensed" style="width: 50%; margin-top: 20px;">
+      <thead>
+        <tr>
+          <td>現在の登録日</td>
+          <td>この日付で登録される</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <div id="content-left">
+              <% for i in 0..dates.length do %>
+                <%= dates[i] %><br>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <div id="content-right">
+              <%= f.text_area :date, class: "form-control", id: "kouho", rows: "7",
+                  placeholder: "カレンダーの日付をクリックすると日時が入ります。", readonly: true %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="datepicker-submit">
+      <%= f.submit "初期化", data: {confirm: "初期化してよろしいですか？"}, class: "btn btn-danger submit-width" %>
+      <%= f.submit "クリア", type: :reset, class: "btn btn-default submit-width" %>
+      <%= f.submit "登録", data: {confirm: "登録してよろしいですか？"}, class: "btn btn-success submit-width" %>
+    </div>
+  <% end %>
+</div>
+
+
+
+<script>
+
+  // datepicker関連
+  $(function(){
+    $("#datepicker").datepicker({
+      minDate: '0',  // 過去の日付を選択不可
+      hideIfNoPrevNext: true,  // 前月矢印削除
+      onSelect: function(selected_date) {   // 日付が選択された時、日付をテキストフィールドへセット
+        var nowText = $("#kouho").val();
+        if (nowText === "") {
+          $("#kouho").val(selected_date);
+        }else {
+          $("#kouho").val(nowText + "\n" + selected_date);
+        }
+      }
+    });
+  });
+
+</script>
