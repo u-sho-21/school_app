@@ -32,7 +32,7 @@
 <div id="content">
   <div id="datepicker"></div>
 
-  <%= form_with(model: @meeting, url: user_meetings_path(@user), local: true) do |f| %>
+  <%= form_with(model: @meeting, url: teacher_meetings_path(@teacher), local: true) do |f| %>
     <table class="table-bordered table-striped table-condensed" style="width: 50%; margin-top: 20px;">
       <thead>
         <tr>
@@ -45,8 +45,8 @@
         <tr>
           <td>
             <div id="content-left">
-              <% for i in 0..dates.length do %>
-                <%= dates[i] %><br>
+              <% dates.each do |date| %>
+                <%= date %><br>
               <% end %>
             </div>
           </td>

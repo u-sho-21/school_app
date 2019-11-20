@@ -11,6 +11,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks',   '~> 5'
 gem 'jbuilder',     '~> 2.5'
+gem 'faker-japanese'              # ダーミーユーザー作成
 gem 'pry-rails'                   # コンソール表示変更&「binding.pry」でデバック
 gem 'jquery-ui-rails'             # DatePickerで使用
 gem 'line-bot-api'                # line-botで使用

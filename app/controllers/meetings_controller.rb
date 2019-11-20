@@ -1,8 +1,9 @@
 class MeetingsController < ApplicationController
-  before_action :correct_teacher,   only: [:new]
+  # before_action :correct_teacher,   only: [:new]
 
   # 面談日時登録ページ
   def new
+    @teacher = Teacher.find(params[:teacher_id])
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
     @hour = (0..23).to_a.map { |v| "%02d" % v }
@@ -12,23 +13,24 @@ class MeetingsController < ApplicationController
 
   # 面談日レコード作成
   def create
+    @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:meeting][:date].first.empty?
-        Meeting.where(user_id: @user.id).delete_all
-        MeetingTime.where(user_id: @user.id).delete_all
+        Meeting.where(teacher_id: @teacher.id).delete_all
+        MeetingTime.where(teacher_id: @teacher.id).delete_all
         params[:meeting][:date].split("\r\n").each do |day|
-          unless @user.meetings.any? {|meeting| meeting.date == day}
-            @user.children.where(user_id: @user).each do |child|
-              record = @user.meetings.build(date: day, child_id: child.id)
+          unless @teacher.meetings.any? {|meeting| meeting.date == day}
+            @teacher.children.where(teacher_id: @teacher.id).each do |child|
+              record = @teacher.meetings.build(date: day, child_id: child.id)
               record.save
             end
           end
         end
         flash[:success] = "面談日を登録しました。次に面談時間を登録してください。"
-        redirect_to new_user_meeting_url
+        redirect_to teacher_meetings_new_url
       else
         flash[:danger] = "入力がありません。"
-        redirect_to new_user_meeting_url
+        redirect_to teacher_meetings_new_url
       end
     end
 
