@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20191118065901) do
     t.string "randam"
     t.boolean "public", default: false
     t.integer "teacher_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["teacher_id"], name: "index_documents_on_teacher_id"
