@@ -1,3 +1,86 @@
-// Place all the styles related to the meetings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* 面談日時登録ページ */
+
+#content-left {
+  text-align: center;
+  font-size: 20px;
+}
+
+#kouho {
+  font-size: 20px;
+}
+
+#datepicker-submit {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.submit-width {
+  width: 15%;
+  margin: 9px;
+}
+
+/* datepicker */
+
+.ui-datepicker .ui-datepicker-header {  //header部分
+    position: relative;
+    padding: .2em 0;
+    font-size: 25px;
+}
+
+.ui-widget-header {   //header部分
+    border: 1px solid #d4ccb0/*{borderColorHeader}*/;
+    background: #ece8da/*{bgColorHeader}*/ /*{bgImgUrlHeader}*/ /*{bgHeaderXPos}*/ /*{bgHeaderYPos}*/ /*{bgHeaderRepeat}*/;
+    color: #433f38/*{fcHeader}*/;
+    font-weight: bold;
+}
+
+.ui-widget-content {    //全体背景など
+    border: 1px solid #dfd9c3;
+    background: #f5f3e5;
+    color: #312e25;
+}
+
+.ui-datepicker table {  //カレンダー日付部分
+    width: 100%;
+    font-size: 25px;
+    border-collapse: collapse;
+    margin: 0 0 .4em;
+}
+
+div.ui-datepicker {   //全体サイズなど
+  font-size: 15px;
+  width: 50%;
+  height: auto;
+  margin: auto;
+}
+
+/* 日曜日のカラー設定 */
+td.ui-datepicker-week-end:last-child a.ui-state-default{
+  background-color: #ffecec;   /* 背景色を設定 */
+  color: #f00!important;       /* 文字色を設定 */
+}
+/* 土曜日のカラー設定 */
+td.ui-datepicker-week-end a.ui-state-default{
+  background-color: #eaeaff;   /* 背景色を設定 */
+  color: #00f!important;       /* 文字色を設定 */
+}
+/* ホバー時の動作 */
+td.ui-datepicker-week-end a.ui-state-hover{
+  opacity: 0.8;
+}
+/* 当日を示す色はそのまま */
+td.ui-datepicker-week-end a.ui-state-highlight{
+  background-color: #fffa90!important;
+}
+
+/* table */
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: center;
+}
