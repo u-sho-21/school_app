@@ -1,0 +1,93 @@
+<h1><%= @child.full_name %>さんの面談管理ページ</h1>
+
+<!-- 子供が二人以上いた場合 -->
+<% unless @children.count == 1 %>
+  <h2>管理ページの切り替えはこちらから</h2>
+  <% @children.each do |child| %>
+    <p style="text-align: center;"><%= link_to "#{child.full_name}さんの管理ページへ", user_meetings_new_user_path(@user, child) unless child.id == @child.id %></p>
+  <% end %>
+<% end %>
+
+<table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+  <thead>
+    <tr>
+      <td>日付</td>
+      <% @meeting_times.each do |meeting_time| %>
+        <td><%= meeting_time.time.to_s(:time) %></td>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% dates.each do |date| %>
+      <tr>
+        <td><%= date %></td>
+        <td colspan="<%= dates.count %>%"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "希望日登録", user_meetings_desired_path(@user), remote: true, class: "btn btn-success" %>
+<div id="desired" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<% @meeting_children.each do |meeting| %>
+  <% if meeting.desired == true %>
+    <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
+    <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+      <thead>
+        <tr>
+          <td>日付</td>
+          <td>都合の悪い時間</td>
+          <td>可・不可チェック(どちらかにチェックを入れてください。)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% dates.each do |date| %>
+          <tr>
+            <td><%= date %></td>
+            <td>
+              <% @meeting_children.each do |meeting| %>
+                <% if meeting.date == date && meeting.desired == true %>
+                  <%= meeting.nottime  unless meeting.nottime.nil? %>
+                <% elsif  meeting.date == date && meeting.status == 2 %>
+                  <%= meeting.nottime  unless meeting.nottime.nil? %>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <% @meeting_children.each do |meeting| %>
+                <% if meeting.date == date && meeting.desired == true %>
+                    面談希望日
+                <% elsif  meeting.date == date && meeting.status == 2 %>
+                  <%= f.select :nottime, @not_time, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
+                    可
+                  <%= f.submit "不可", name: false, value: meeting.id %>
+                <% elsif  meeting.date == date && meeting.status == 3 %>
+                  <%= f.submit "可", name: true, value: meeting.id %>
+                    不可
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      <%= f.submit "都合の悪い時間の更新", class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script>
+
+  $('.js-searchable').select2({
+    maximumSelectionLength: <%= dates.count - 1 %>,
+    width: 300,
+    placeholder: '都合が悪い時間を選択して下さい',
+    language: {
+      maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+    },
+    allowClear: true
+  });
+
+</script>

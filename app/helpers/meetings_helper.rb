@@ -2,11 +2,8 @@ module MeetingsHelper
 
   # 面談日格納(uniq済み)
   def dates
-    @dates = []
-    @meetings.each do |meeting|
-      @dates << meeting.date
-    end
-    return @dates.uniq
+    dates = @meetings.map { |meeting| meeting.date }
+    return dates.uniq
   end
 
   # 面談時間格納

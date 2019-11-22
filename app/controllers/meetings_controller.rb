@@ -94,6 +94,74 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # 保護者面談日時登録ページ
+  def new_user
+    @user = User.find(params[:user_id])
+    @children = Child.where(user_id: @user.id)
+    @child = Child.find(params[:child_id])
+    @teacher = Teacher.find(@child.teacher_id)
+    @meeting_children = @teacher.meetings.where(child_id: @child.id)
+    @meetings = @teacher.meetings.all
+    @meeting_times = @teacher.meeting_times.limit(dates.count)
+    @not_time = @meeting_times.map { |time| time.time.to_s(:time) }
+  end
+
+  # 希望日登録モーダル
+  def desired
+    @user = User.find(params[:user_id])
+    @child = Child.find(params[:child_id])
+    @children = Child.where(user_id: @user.id)
+    @teacher = Teacher.find(@child.teacher_id)
+    @meetings = @teacher.meetings.all
+    @meeting_times = @teacher.meeting_times.limit(dates.count)
+    @not_time = @meeting_times.map { |time| time.time.to_s(:time) }
+  end
+
+  # 面談希望日等決定
+  def desired_update
+    @user = User.find(params[:user_id])
+    @child = Child.find(params[:child_id])
+    @teacher = Teacher.find(@child.teacher_id)
+
+    if params[:commit] == "登録"
+      @meeting_desired = @teacher.meetings.find_by(child_id: @child.id, desired: true)
+      @meeting_desired.update_attributes(desired: false, nottime: nil)
+
+      @meeting_child = @teacher.meetings.find_by(child_id: @child.id, date: params[:status])
+
+      @meeting_child.update_attributes(desired: true, nottime: params[:nottime])
+      flash[:success] = "希望日を登録しました。"
+      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+    end
+
+    @meeting_children = @teacher.meetings.where(child_id: @child.id)
+    if params[:true].present?
+      if @meeting_children.each{|meeting| params[:true] == meeting.id.to_s}
+        @teacher.meetings.find(params[:true].to_s).update_attributes(status: 2)
+      end
+      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+    elsif params[:false].present?
+      if @meeting_children.each{|meeting| params[:false] == meeting.id.to_s}
+        @teacher.meetings.find(params[:false]).update_attributes(status: 3, nottime: nil)
+      end
+      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+    else
+      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+    end
+
+    if params[:commit] == "都合の悪い時間の更新"
+      @meeting_children = @teacher.meetings.where(child_id: @child.id, desired: false)
+      @meeting_children.each do |meeting|
+        if params[:nottime][meeting.id.to_s].present?
+          meeting.update_attributes(nottime: params[:nottime][meeting.id.to_s])
+        end
+      end
+      flash[:success] = "都合の悪い時間を更新しました。"
+      # redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+    end
+
+  end
+
   private
 
     # 面談日時レコード更新時に使用
