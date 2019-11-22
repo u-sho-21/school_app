@@ -1,0 +1,12 @@
+// Place all the styles related to the document_selects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#select_flash{
+    display: block;
+    font-size: 22px;
+    font-weight:bold;
+}
+#teacher_document_table{
+    background-color: #fff;
+    th{background-color: orange;}
+}

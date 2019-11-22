@@ -2,6 +2,7 @@
 
 require 'faker/japanese'
 
+
 User.create!( name: "Sample User",
               email: "sample@email.com",
               password: "password",

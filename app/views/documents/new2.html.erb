@@ -1,0 +1,16 @@
+
+<%= provide(:url,document_create2_path ) %>
+<div class="text-center text-primary">
+  <h1 class="title_font">新規書類作成(入力)</h1>
+</div>
+
+<%= render 'form', document: @document %>
+
+<%= link_to '戻る', documents_path,class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
+
+
+<style>
+body{
+    background-color:#fce2c4
+}
+</style>

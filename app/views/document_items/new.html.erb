@@ -1,0 +1,32 @@
+
+<div class="text-center text-primary">
+  <h1 class="title_font">質問のフォーム作成</h1>
+</div>
+<hr>
+<h2 class="title_font" style="font-size:24px;"><%= "タイトル:#{@document.title}" %><br><br>
+<% if flash[:danger].present? %>
+ <div class="alert alert-danger" id="item_flash"><%= flash[:danger] %></div>
+<% end %>
+<%= render 'form', document_item: @document_item %>
+
+<style>
+  body{ background-color:#00FF00;}
+</style>
+<script>
+  var flg = 1;
+  $(function(){
+   // 自身のページを履歴に追加
+   history.pushState(null, null, null);
+   // ページ戻り時にも自身のページを履歴に追加
+   $(window).on("popstate", function(){
+       history.pushState(null, null, null);
+   });
+     $(window).on("beforeunload",function(e){
+   if(flg) return "本当に離れますか？";
+ });
+  $('#form_id').submit(function(){
+    flg = 0;
+  });
+
+  });
+</script>

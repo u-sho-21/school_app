@@ -1,0 +1,21 @@
+<%= form_with(url:selectcreate_path(@document_item), local: true,id:"form_id") do |form| %>
+  <% if document_select.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(document_select.errors.count, "error") %> prohibited this document_select from being saved:</h2>
+
+      <ul>
+      <% document_select.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.text_area :content, id: :document_select_content,rows:5,class:"form-control",style:"border-radius:12px;",placeholder:"選択肢を作成します。" %>
+  </div><br>
+
+  <div class="actions">
+    <%= form.submit "送信",class:"btn btn-primary btn-lg" %>
+  </div>
+<% end %>
+
