@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action: set_userdocument,only:[:create, :create2]
+  
 
   #掲出状況確認(教員)
   def index
@@ -44,18 +44,64 @@ end
 
 #入力式書類db格納
 def create2             
-    provide(:route,"2")
-    redirect_to document_question_url(@document)
-    return
+  @user = User.all
+  randam = SecureRandom.alphanumeric(10)
+  @user.each do |user|
+      record = user.documents.build(document_params)
+      record.randam = randam
+      record.user_id = user.id
+      if record.save
+        if user.id == 1
+          record.public = true
+          record.save
+        end  
+      else
+        #自作errorチェック
+        error_check
+        redirect_to new2_document_url(document_params)
+        return
+      end    
   end
+  @document = Document.all.last  #作られたユーザーごとの資料の最後
+  redirect_to document_question2_url(@document)
+  return
+end
 
+#表示式作成ページ  
+def new3
+  @document = Document.new 
+end 
+
+#表示式書類db格納
+def create3             
+  @user = User.all
+  randam = SecureRandom.alphanumeric(10)
+  @user.each do |user|
+      record = user.documents.build(document_params)
+      record.randam = randam
+      record.user_id = user.id
+      if record.save
+        if user.id == 1
+          record.public = true
+          record.save
+        end  
+      else
+        #自作errorチェック
+        error_check
+        redirect_to new3_document_url(document_params)
+        return
+      end    
+  end
+  @document = Document.all.last  #作られたユーザーごとの資料の最後
+  redirect_to teacher_url(1)
+  return
+end  
 #教員ファイル削除
 def file_delete
   document = Document.find(params[:document_id])
-  documents = Document.where(memo: document.memo, randam: document.randam)
-  documents.delete_all
+   Document.where(memo: document.memo, randam: document.randam).destroy_all
   flash[:danger] = "資料を削除しました。"
-  redirect_to teacher2_url
+  redirect_to documents_url
 end
  #保護者へ作成した書類公表
  def public_change
@@ -76,25 +122,7 @@ private
   end
   
   def set_userdocument
-    @user = User.all
-  randam = SecureRandom.alphanumeric(10)
-  @user.each do |user|
-      record = user.documents.build(document_params)
-      record.randam = randam
-      record.user_id = user.id
-      if record.save
-        if user.id == 1
-          record.public = true
-          record.save
-        end  
-      else
-        #自作errorチェック
-        error_check
-        redirect_to new"#{yield(:route)}"_document_url(document_params)
-        return
-      end    
-  end
-  @document = Document.all.last  #作られたユーザーごとの資料の最後
+   
   end
   
 end

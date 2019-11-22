@@ -19,8 +19,8 @@
 
 <div id="top">
   <div id="one">
-    <%= link_to "面談日登録", teacher_meetings_new_path(current_user), class: "btn btn-success top-submit" %>
-    <%= link_to "面談日時編集", "#", class: "btn btn-info top-submit" %>
+    <%= link_to "面談日登録", teacher_meetings_new_path(@teacher), class: "btn btn-success top-submit" %>
+    <%= link_to "面談日時編集", teacher_meetings_edit_path(@teacher), class: "btn btn-info top-submit" %>
   </div>
   <div id="two">
     <%= link_to "面談返信状況確認", "#", class: "btn btn-default top-submit" %>
@@ -31,7 +31,7 @@
     <%= link_to "選択式提出", new_document_path, class: "btn btn-primary top-submit" %>
   </div>
   <div id="four">
-    <%= link_to "アップロード式提出", "#", class: "btn btn-default top-submit" %>
+    <%= link_to "アップロード式提出", new3_document_path, class: "btn btn-default top-submit" %>
     <%= link_to "個別連絡", "#", class: "btn btn-success top-submit" %>
   </div>
   <div id="five">

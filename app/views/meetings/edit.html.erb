@@ -1,0 +1,71 @@
+<h1>面談日時編集</h1>
+
+<div id="content">
+  <h2 style="text-align: center;">面談日時の追加</h2>
+  <%= form_with(model: @meeting_time, url: teacher_meetings_path(@teacher), local: true) do |f| %>
+    <table class="table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <td style="width: 20%;">面談日</td>
+          <td style="width: 50%;">開始時間</td>
+          <td style="width: 20%;">面談時間</td>
+          <td style="width: 10%;">枠</td>
+          <td></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><%= f.text_field :date, class: 'form-control date-picker' %></td>
+          <td>
+            <%= f.select :published_at_hour, @hour, {}, class: 'form-control box', style: "width: 45%;" %> :
+            <%= f.select :published_at_minute_1, @minutes, {}, class: 'form-control box', style: "width: 45%;" %>
+          </td>
+          <td><%= f.select :published_at_minute_2, @minutes, {}, class: 'form-control' %></td>
+          <td><%= f.select :frame, @frame_list, {}, class: 'form-control' %></td>
+          <td><%= f.submit '追加', class: "btn btn-success" %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<div id=content>
+  <h2 style="text-align: center;">面談時間の編集</h2>
+  <%= form_with(url: teacher_meetings_edit_path(@teacher), method: :patch, local:true) do |f| %>
+    <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+      <thead>
+        <tr>
+          <td>日付</td>
+          <td colspan="<%= @times.uniq.length %>">面談時間</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% dates.each do |date| %>
+          <tr>
+            <td rowspan="2"><%= date.to_s(:date) %></td>
+            <% @meeting_times.each do |meeting_time| %>
+                <% if meeting_time.time.to_date == date %>
+                  <td><%= meeting_time.time.to_s(:time) %></td>
+                <% end %>
+            <% end %>
+          </tr>
+          <tr>
+            <% @meeting_times.each do |meeting_time| %>
+              <% if meeting_time.time.to_date == date %>
+                <%= fields_for "meeting_times[]", meeting_time do |af| %>
+                    <td><%= af.time_select :time, minute_step: 5, class: "time_select" %></td>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      <%= f.submit "更新", class: "btn btn-primary" %>
+  <% end %>
+  <%#= form_with(url: push_path, local:true) do |f| %>
+      <%#= f.submit "日時確定送信", class: "btn btn-primary"%>
+  <%# end %>
+</div>

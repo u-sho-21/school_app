@@ -1,0 +1,11 @@
+<%= provide(:url,document_create3_path) %>
+
+<div class="text-center text-default">
+  <h1 class="title_font">新規書類作成(表示)</h1>
+</div>
+<%= render 'form', document: @document %><br>
+
+<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
+<style>
+  body{ background-color:#3366CC;}
+</style>
