@@ -84,3 +84,21 @@ table {
 td {
   text-align: center;
 }
+
+/* 希望日モーダル */
+
+.modal-desired {
+  text-align: center;
+}
+
+.form-desired {
+  width: 300px;
+  margin: auto;
+}
+
+#desired-button {
+  margin-top: 20px;
+  .btn {
+    width: 30%;
+  }
+}

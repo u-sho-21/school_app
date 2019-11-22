@@ -1,0 +1,38 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h2 class="modal-title"><%= @user.name %>さんの面談希望日登録</h2>
+    </div>
+    <div class="modal-body modal-desired">
+      <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
+
+        <%= f.label "面談希望日を選択してくだい" %>
+        <%= f.select :status, dates, {}, class: "form-control form-desired" %>
+        <%= f.label "都合悪い時間", style: "padding-top: 10px;"%><br>
+        <%= f.select :nottime, @not_time, { include_hidden: false }, { multiple: true, class: "js-searchable form-control"} %><br>
+
+        <div id="desired-button">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          <%= f.submit "登録", class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $('.js-searchable').select2({
+    maximumSelectionLength: <%= dates.count - 1 %>,
+    width: 300,
+    placeholder: '都合が悪い時間を選択して下さい',
+    language: {
+      maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+    },
+    allowClear: true
+  });
+
+</script>
