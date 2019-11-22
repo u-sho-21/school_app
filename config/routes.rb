@@ -21,4 +21,8 @@ Rails.application.routes.draw do
     patch ':child_id/meetings/desired', to: 'meetings#desired_update', as: :desired_update    # 面談希望日等決定
   end
 
+  resources :users
+  
+  resources :documents
+ 
 end

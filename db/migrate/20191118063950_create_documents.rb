@@ -8,7 +8,7 @@ class CreateDocuments < ActiveRecord::Migration[5.1]
       t.string :randam
       t.boolean :public, default: false
       t.references :teacher, foreign_key: true
-
+      t.integer :user_id
       t.timestamps
     end
   end

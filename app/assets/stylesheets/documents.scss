@@ -1,0 +1,21 @@
+// Place all the styles related to the documents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
+.title_font,label{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: bold;
+}
+.row{
+    background-color: #fff;
+    border-radius:8px;
+    padding-bottom: 2%;
+}
+.alert{
+    width: 30%;
+    display: none;
+}
+.alert2{
+    display: block;
+}
