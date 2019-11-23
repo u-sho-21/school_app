@@ -1,7 +1,10 @@
 <%= provide(:url,document_create3_path) %>
 
 <div class="text-center text-default">
-  <h1 class="title_font">新規書類作成(表示)</h1>
+  <ul class="document_ul">
+    <li id="document_img"><%= image_tag('/explain/pdf.png',size:"60x60",style:"display:inline") %><li>
+    <li><h1 class="title_font">新規書類作成(表示)</h1></li>
+  </ul>
 </div>
 <%= render 'form', document: @document %><br>
 
