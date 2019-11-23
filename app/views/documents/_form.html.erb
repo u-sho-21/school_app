@@ -49,12 +49,14 @@
     <div class="field">
        <% if flashArray %>
         <!-- split分割された配列にdeadlineあるかどうか? -->
-        <%  if flashArray.include?("期限は必須です。") %>
-         <div class="alert alert-danger alert2">期限は必須です。</div>
-        <% end %> 
+        <% if flashArray.include?("期限は必須です。") %>
+          <div class="alert alert-danger alert2">期限は必須です。</div>
+        <% elsif flashArray.include?("日付けが過ぎてます。") %>  
+           <div class="alert alert-danger alert2">日付けが過ぎてます。</div>
+        <% end %>
        <% end %>
       <%= form.label :期限　%>
-      <%= form.date_field :deadline, id: :document_deadline,class:"form-control",value:params[:deadline] %>
+      <%= form.date_field :deadline, id: :document_deadline,class:"form-control" %>
     </div><br>
 
     <div class="actions text-center">

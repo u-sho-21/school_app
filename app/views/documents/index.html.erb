@@ -1,2 +1,57 @@
-<h1>Documents#index</h1>
-<p>Find me in app/views/documents/index.html.erb</p>
+<% if flash[:danger].present? %>
+  <div class="alert alert-danger"><%= flash[:danger] %></div>
+<% end %>
+<div class="text-center text-primary bg-warning" style="padding:8px;font-weight:bold;">
+  <h1><%= "#{@user.name}書類管理ページ" %></h1>
+</div><br>
+<%= link_to "戻る","/teachers/1",class:"btn btn-default",style:"width:25%;" %><br><br>
+<div style="border-top:2px dotted blue;"></div><br>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 bg-info" style="border-radius:12px;">
+   <% if @documents.count >0 %>   
+       <table class="table table-bordered" id= "teacher_document_table" style="margin-top:3%;">
+         <thead>
+           <tr>
+             <th>タイトル</th>
+             <th>期限</th>
+             <th>提出状況</th>
+             <th></th>
+           </tr>
+         </thead>
+         <tbody>
+         <!-- 教員のみの資料表示 -->
+          <% @documents.each do |document| %>
+            <tr>
+              <td><%= document.title %></td>
+              <td>
+                <!-- 書類タイプ -->
+                <% if document.document_items.all.count > 0 %>
+                  提出期限:<span style="color:red"><%= document.deadline %></span>
+                <% elsif document.document_items.all.count == 0 %>
+                  表示期限:<span style="color:red"><%= document.deadline %></span>
+                <% elsif document.deadline.blank? %>
+                 指定無し  
+                <% end %>
+              </td>
+              <td>
+                <% if document.memo.present? %>
+                  <%= reply_count(document.memo,document.randam).to_s + "/" + @users_count.to_s  %>
+                <% end %>  
+              </td>
+              <td>
+                  <%= link_to "削除",file_delete_path(document),class:"btn btn-warning",method: :delete %>
+                  <%= link_to "保護者に提出",public_change_path(document),class:"btn btn-success" %>
+              </td>
+            </tr>
+          <% end %>  
+         </tbody>
+       </table>
+       
+      <% else %>
+       <div style="background-color:#c0c0c0;padding:2%;border-radius:10px;text-align:center;width:100%;">
+           <h1 style="color:#fff;font-weight:bold;">書類がありません</h1>
+           <style>.col-md-8{background-color:#c0c0c0;}</style>
+       </div>
+      <% end %>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+
+<div class="text-center text-primary">
+  <h1 class="title_font">選択肢作成</h1>
+</div><hr>
+<h2 class="title_font" style="font-size:26px;"><%= "質問:#{@document_item.content}" %></h2>
+<% if flash[:danger].present? %>
+  <div class="alert alert-danger" id="select_flash"><%= flash[:danger] %></div>
+<% end %>
+<%= render 'form', document_select: @document_select %>
+<% if @select_count >=2 %>
+  <%= link_to '終了', root_path,class:"btn btn-default btn-lg" %>
+  <%= link_to "新規質問作成",document_question_path(@document_item.document_id),class:"btn btn-primary btn-lg" %>
+<% end %>  
+<style>
+  body{ background-color:#00FF00;}
+</style>
+<script>
+  var flg = 1;
+  $(function(){
+   // 自身のページを履歴に追加
+   history.pushState(null, null, null);
+   // ページ戻り時にも自身のページを履歴に追加
+   $(window).on("popstate", function(){
+       history.pushState(null, null, null);
+   });
+     $(window).on("beforeunload",function(e){
+   if(flg) return "本当に離れますか？";
+ });
+  $('#form_id').submit(function(){
+    flg = 0;
+  });
+
+  });
+</script>
