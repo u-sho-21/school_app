@@ -96,6 +96,7 @@ def create3
   redirect_to teacher_url(1)
   return
 end  
+
 #教員ファイル削除
 def file_delete
   document = Document.find(params[:document_id])
@@ -103,6 +104,7 @@ def file_delete
   flash[:danger] = "資料を削除しました。"
   redirect_to documents_url
 end
+
  #保護者へ作成した書類公表
  def public_change
    document = Document.find(params[:document_id])
@@ -114,6 +116,12 @@ end
   flash[:sucess] = "保護者に提出しました。"
   redirect_to teacher2_url
 end
+
+#選択式作成初期ページモーダル
+def select_modal
+  
+end
+
   
 private
   def document_params

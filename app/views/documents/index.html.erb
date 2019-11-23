@@ -39,7 +39,7 @@
                 <% end %>  
               </td>
               <td>
-                  <%= link_to "削除",file_delete_path(document),class:"btn btn-warning",method: :delete %>
+                  <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning",method: :delete %>
                   <%= link_to "保護者に提出",public_change_path(document),class:"btn btn-success" %>
               </td>
             </tr>

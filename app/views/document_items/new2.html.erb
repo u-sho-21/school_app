@@ -28,12 +28,6 @@
    $(window).on("popstate", function(){
        history.pushState(null, null, null);
    });
-     $(window).on("beforeunload",function(e){
-   if(flg) return "本当に離れますか？";
- });
-  $('#form_id').submit(function(){
-    flg = 0;
-  });
 
   });
 </script>
