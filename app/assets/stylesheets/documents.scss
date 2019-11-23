@@ -6,6 +6,7 @@
 .title_font,label{
     font-family: 'M PLUS Rounded 1c', sans-serif;
     font-weight: bold;
+    margin-top: 2%;
 }
 .row{
     background-color: #fff;
@@ -18,4 +19,24 @@
 }
 .alert2{
     display: block;
+}
+.document_ul{
+    margin:0;
+    padding:2%;
+    list-style: none;
+    li{
+        display: inline-block;
+        text-decoration: none;
+    }
+    #document_img{
+      padding:1%;
+    }
+    .title_font{margin-top: 3%;}
+
+}
+/* スマホ用レイアウト */
+@media screen and (max-width:767px){
+  .text-center{
+      margin-top:10%;
+  }    
 }

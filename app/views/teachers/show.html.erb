@@ -28,7 +28,10 @@
   </div>
   <div id="three">
     <%= link_to "入力式提出", new2_document_path, class: "btn btn-warning top-submit" %>
-    <%= link_to "選択式提出", new_document_path, class: "btn btn-primary top-submit" %>
+    <%= link_to  new_document_path, class: "btn btn-primary top-submit" do %>
+      <%= image_tag('/explain/form.png',size:"20x20") %>
+      選択式提出
+    <% end %>
   </div>
   <div id="four">
     <%= link_to "アップロード式提出", new3_document_path, class: "btn btn-default top-submit" %>
