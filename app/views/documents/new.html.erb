@@ -1,8 +1,14 @@
 <%= provide(:url,documents_path) %>
+<!--モーダル-->
+<div id= "select-first" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 
 <div class="text-center text-primary">
-  <h1 class="title_font">新規書類作成(選択)</h1>
+ <ul class="document_ul">
+    <li id="document_img"><%= image_tag('/explain/form0.png',size:"60x60",style:"display:inline") %><li>
+    <li><h1 class="title_font">新規書類作成(選択)</h1></li>
+  </ul>
 </div>
+<%= link_to "このページの説明見る",select_first_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
 <%= render 'form', document: @document %><br>
 
 <%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>

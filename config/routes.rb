@@ -42,5 +42,7 @@ Rails.application.routes.draw do
   resources :document_selects
   delete "document/file_delete/:document_id",to:"documents#file_delete",as: :file_delete                       #教員ファイル削除
   get "document/public_change/:document_id",to:"documents#public_change",as: :public_change                    #保護者へ提出
-  
+  get 'select_document/first',to:'documents#select_modal',as: :select_first_modal                              #選択式最初のページモーダル
+  get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル 
+  get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル 
 end

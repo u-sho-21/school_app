@@ -22,5 +22,9 @@ class DocumentSelectsController < ApplicationController
     redirect_to document_item_select_path(@document_select.document_item_id)
     end    
   end
+
+  #選択式作成質問ページモーダル
+  def select_modal
+  end
   
 end

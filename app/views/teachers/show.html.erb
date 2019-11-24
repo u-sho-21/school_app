@@ -19,22 +19,49 @@
 
 <div id="top">
   <div id="one">
-    <%= link_to "面談日登録", teacher_meetings_new_path(@teacher), class: "btn btn-success top-submit" %>
-    <%= link_to "面談日時編集", teacher_meetings_edit_path(@teacher), class: "btn btn-info top-submit" %>
+    <%= link_to  teacher_meetings_new_path(@teacher), class: "btn btn-success top-submit" do %>
+       <%= image_tag('/icon/cl.png',size:"20x20") %>
+       面談日登録
+    <% end %>
+    <%= link_to  teacher_meetings_edit_path(@teacher), class: "btn btn-info top-submit" do %>
+       <%= image_tag('/icon/time.png',size:"20x20") %>
+       面談日時編集
+    <% end %>
   </div>
   <div id="two">
-    <%= link_to "面談返信状況確認", "#", class: "btn btn-default top-submit" %>
-    <%= link_to "提出状況確認", documents_path, class: "btn btn-danger top-submit" %>
+    <%= link_to  "#", class: "btn btn-default top-submit" do %>
+      <%= image_tag('/icon/sk.png',size:"20x20") %>
+      面談返信状況確認
+    <% end %>
+    <%= link_to  documents_path, class: "btn btn-danger top-submit" do %>
+       <%= image_tag('/icon/dk.png',size:"20x20") %>
+       提出状況確認
+    <% end %>
   </div>
   <div id="three">
-    <%= link_to "入力式提出", new2_document_path, class: "btn btn-warning top-submit" %>
-    <%= link_to "選択式提出", new_document_path, class: "btn btn-primary top-submit" %>
+    <%= link_to new2_document_path, class: "btn btn-warning top-submit" do %>
+       <%= image_tag('/icon/input0.png',size:"20x20") %>
+       入力式提出
+    <% end %>
+    <%= link_to  new_document_path, class: "btn btn-primary top-submit" do %>
+      <%= image_tag('/explain/form.png',size:"20x20") %>
+      選択式提出
+    <% end %>
   </div>
   <div id="four">
-    <%= link_to "アップロード式提出", new3_document_path, class: "btn btn-default top-submit" %>
-    <%= link_to "個別連絡", "#", class: "btn btn-success top-submit" %>
+    <%= link_to  new3_document_path, class: "btn btn-default top-submit" do %>
+      <%= image_tag('/explain/pdf.png',size:"20x20") %>
+      表示書類
+    <% end %>
+    <%= link_to  "#", class: "btn btn-success top-submit" do %>
+      <%= image_tag('/icon/mail.png',size:"20x20") %>
+      個別連絡
+    <% end %>
   </div>
   <div id="five">
-    <%= link_to "保護者一覧", "#", class: "btn btn-info top-submit last" %>
+    <%= link_to  "#", class: "btn btn-info top-submit last" do %>
+    <%= image_tag('/icon/pe.png',size:"20x20") %>
+    保護者一覧
+    <% end %>
   </div>
 </div>
