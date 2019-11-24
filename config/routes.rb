@@ -45,4 +45,6 @@ Rails.application.routes.draw do
   get 'select_document/first',to:'documents#select_modal',as: :select_first_modal                              #選択式最初のページモーダル
   get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル 
   get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル 
+  get 'input_document/first',to:'documents#input_modal',as: :input_first_modal                                 #入力式最初のページモーダル
+  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                         #入力式2番目のページモーダル 
 end

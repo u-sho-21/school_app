@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
   
-
   #掲出状況確認(教員)
   def index
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
@@ -119,7 +118,10 @@ end
 
 #選択式作成初期ページモーダル
 def select_modal
-  
+end
+
+#入力式作成初期ページモーダル
+def input_modal
 end
 
   

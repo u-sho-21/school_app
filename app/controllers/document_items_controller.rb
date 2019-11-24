@@ -60,7 +60,10 @@ class DocumentItemsController < ApplicationController
    
    #選択式作成質問ページモーダル
    def select_modal
-  
+   end
+
+   #入力式作成初期ページモーダル
+   def input_modal
    end
    
  end

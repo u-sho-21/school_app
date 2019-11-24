@@ -1,4 +1,5 @@
-
+<!--モーダル-->
+<div id= "input-first" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 <%= provide(:url,document_create2_path ) %>
 <div class="text-center text-primary">
   <ul class="document_ul">
@@ -6,7 +7,7 @@
     <li><h1 class="title_font">新規書類作成(入力)</h1></li>
   </ul>
 </div>
-
+<%= link_to "このページの説明見る",input_first_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
 <%= render 'form', document: @document %>
 
 <%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin:1% 0 0 -1%;" %>
