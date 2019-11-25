@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  
+  #教員提出強制終了対策
   #掲出状況確認(教員)
   def index
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
@@ -13,25 +13,25 @@ class DocumentsController < ApplicationController
   end
 #選択式書類db格納
   def create
-  @user = User.all
-  randam = SecureRandom.alphanumeric(10)
-  @user.each do |user|
-      record = user.documents.build(document_params)
-      record.randam = randam
-      record.user_id = user.id
-      if record.save
-        if user.id == 1
-          record.public = true
-          record.save
-        end  
-      else
-        #自作errorチェック
-        error_check
-        redirect_to new_document_url(document_params)
-        return
-      end    
-  end
-  @document = Document.all.last  #作られたユーザーごとの資料の最後
+    @user = User.all
+    randam = SecureRandom.alphanumeric(10)
+    @user.each do |user|
+        record = user.documents.build(document_params)
+        record.randam = randam
+        record.user_id = user.id
+        if record.save
+          if user.id == 1
+            record.public = true
+            record.save
+          end  
+        else
+          #自作errorチェック
+          error_check
+          redirect_to new_document_url(document_params)
+          return
+        end    
+    end
+    @document = Document.all.last  #作られたユーザーごとの資料の最後
     redirect_to document_question_url(@document)
     return
   end

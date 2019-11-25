@@ -27,9 +27,27 @@ module DocumentsHelper
              #https://drive.google.com/open?id=1zAOyAZ0bksdecO6Dtn1R6Lir7XGupf9o
              #https://drive.google.com/open?id=14DUd1bx79G-ZBGB0QNwJ9m_vQbxADVsA
              array = link.split("=")
-             view_url = "https://drive.google.com/file/d/"+array[1]+"/preview"
-             return view_url
+             #分離できない場合splitの0要素に分割元が格納されるのでこれをもとに分岐
+             if array[0] == link
+               url =""
+               link = ""
+               return ""
+             else
+               view_url = "https://drive.google.com/file/d/"+array[1]+"/preview"
+               return view_url
+             end  
            elsif url == "One Drive" 
+            #<iframe src="https://onedrive.live.com/embed?cid=DB0981266CA942BD&resid=DB0981266CA942BD%2168597&authkey=AG97GvFn2j_nhJQ&em=2" width="476" height="288" frameborder="0" scrolling="no"></iframe>
+            array = link.split('"')
+             #分離できない場合splitの0要素に分割元が格納されるのでこれをもとに分岐
+             if array[0] == link
+               url =""
+               link = ""
+               return ""
+             else
+               view_url = array[1]
+               return view_url
+             end  
            end  
          end 
       end
