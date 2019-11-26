@@ -1,0 +1,56 @@
+<h1>面談スケジュール調整</h1>
+
+<div id=content>
+  <%= form_with(url: teacher_schedule_update_path(@teacher), method: :patch, local:true) do |f| %>
+    <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+      <thead>
+        <tr style="background: #FF9933; color: white;">
+          <td>日付</td>
+          <td>希望者</td>
+          <td colspan="<%= @meeting_times.length %>">面談時間</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% dates.each do |date| %>
+          <tr>
+            <!-- 日付 -->
+            <td rowspan="2"><%= date.to_s(:date) %></td>
+            <!-- 希望者 -->
+            <td rowspan="2" style="background: white;">
+              <% @meetings_desired.each do |meeting| %>
+                <% if meeting.date == date %>
+                  <%= Child.find(meeting.child_id).full_name %><br>
+                <% end %>
+              <% end %>
+            </td>
+            <!-- 面談時間 -->
+            <% @meeting_times_all.each do |meeting_time| %>
+                <% if meeting_time.time.to_date == date %>
+                  <td><%= meeting_time.time.to_s(:time) %></td>
+                <% end %>
+            <% end %>
+          </tr>
+          <tr>
+            <!-- 面談者名 -->
+            <% @meeting_times_all.each do |meeting_time| %>
+              <% if meeting_time.time.to_date == date %>
+                <%= fields_for "meeting_times[]", meeting_time do |af| %>
+                <% if meeting_time.name.blank? %>
+                  <td><%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %></td>
+                <% else %>
+                  <td><%= link_to "#{meeting_time.name}", teacher_schedule_update_path(@teacher, meeting_time_id: meeting_time.id), meeting_time_id: meeting_time.id, method: :patch %></td>
+                <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= f.submit "更新", class: "btn btn-success"%>
+  <% end %>
+  <%#= form_with(url: push_path, local:true) do |f| %>
+      <%#= f.submit "スケジュール決定送信", class: "btn btn-primary"%>
+  <%# end %>
+</div>
