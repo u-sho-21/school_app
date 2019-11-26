@@ -2,6 +2,7 @@ class DocumentItemsController < ApplicationController
   #新規選択式作成フォーム
   def new
     @document = Document.find(params[:document_id])
+    item_check_passage   #選択式/入力式は通過時trueにする。
     @document_item = DocumentItem.new
   end
   #選択式質問登録
@@ -30,9 +31,10 @@ class DocumentItemsController < ApplicationController
 
    #新規入力式作成フォーム
    def new2
-    @document = Document.find(params[:document_id])
-    @document_item = DocumentItem.new
-    @item_count = @document.document_items.all.count
+     @document = Document.find(params[:document_id])
+     item_check_passage      #選択式/入力式は通過時trueにする。
+     @document_item = DocumentItem.new
+     @item_count = @document.document_items.all.count
   end
 
   #入力式質問登録

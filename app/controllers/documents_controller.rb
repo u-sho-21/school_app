@@ -6,6 +6,8 @@ class DocumentsController < ApplicationController
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
     @documents = @user.documents.all    
+  #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
+    document_delete2
   end
 #選択式新規作成ページ
   def new
