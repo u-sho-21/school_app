@@ -34,4 +34,76 @@ module MeetingsHelper
     end
     return @times
   end
+
+  # 予約件数
+  def yoyaku_count(teacher, date)
+    yoyaku = teacher.meetings.where(date: date , status: 2).count
+  end
+
+  # 希望者数
+  def desired_count(teacher, date)
+    desired = teacher.meetings.where(date: date, desired: true).count
+  end
+
+  # 都合の悪い時間
+  def not_time(meeting)
+    if meeting.nottime.nil?
+      meeting.nottime = "[]"
+    end
+    nottime_a = meeting.nottime.split(',').map{|m| m.delete('[]" \\')}
+  end
+
+  # 面談日程の返信状況
+  def desired_status(teacher, id)
+    meetings = teacher.meetings.where(child_id: id)
+    desired = meetings.map{|m| m.desired}
+    if meetings.first.date.present?
+      case true
+        when *desired
+          return "返信済み"
+        else
+          return "未返信"
+      end
+    else
+      return "面談予定なし"
+    end
+  end
+
+  # 保護者面談 返信数確認
+  def desired_true_count(teacher, id)
+    meetings = teacher.meetings.where(child_id: id)
+    desired = meetings.map{|m| m.desired}
+    count = 0
+    case true
+      when *desired
+        count += 1
+    end
+    return count
+  end
+
+  # 面談スケジュールセレクト表示
+  def meeting_select(teacher, date, meeting_time)
+    meetings = teacher.meetings.where("(status = ?) OR (desired = ?)", 2, true)
+    meeting_times = teacher.meeting_times.where.not("(name = ? or ?)", "", "nil")
+    names = meeting_times.map{|meeting_time| meeting_time.name}
+    child_name = []
+    meetings.each do |meeting|
+      if meeting.date == date
+        if meeting.nottime.nil?
+          meeting.nottime = "[]"
+        end
+        nottime_a = meeting.nottime.split(',').map{|m| m.delete('[]" \\')}
+
+        case meeting_time.time.to_s(:time)
+          when *nottime_a
+            next
+          else
+            child_name << Child.find(meeting.child_id).full_name
+            names.each{|name| child_name.delete(name)}
+        end
+      end
+    end
+    return child_name.compact.reject(&:empty?).uniq
+  end
+
 end

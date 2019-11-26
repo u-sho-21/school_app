@@ -1,0 +1,25 @@
+<h1>面談状況確認</h1>
+
+<div id="content">
+  <h1><%= "#{@children.count}人中#{@desired_count}人返信済み" %></h1>
+  <h1 style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</h1>
+
+  <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+    <thead>
+      <tr>
+        <td>名前</td>
+        <td>返信状況</td>
+      </tr>
+    </head>
+
+    <tbody>
+      <% @children.each do |child| %>
+        <tr>
+          <td><%= child.full_name %></td>
+          <td><%= desired_status(@teacher, child.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to "スケジュール調整へ", teacher_meetings_index_path(@teacher), class: "btn btn-primary" %>
+</div>
