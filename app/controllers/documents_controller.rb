@@ -81,16 +81,22 @@ def create3
       record = user.documents.build(document_params)
       record.randam = randam
       record.user_id = user.id
-      if record.save
-        if user.id == 1
-          record.public = true
-          record.save
-        end  
+      if params[:document][:pdf_link].present?
+        if record.save
+          if user.id == 1
+            record.public = true
+            record.save
+          end  
+        else
+          #自作errorチェック
+          error_check
+          redirect_to new3_document_url(document_params)
+          return
+        end
       else
-        #自作errorチェック
-        error_check
+        pdf_error_check
         redirect_to new3_document_url(document_params)
-        return
+        return  
       end    
   end
   @document = Document.all.last  #作られたユーザーごとの資料の最後

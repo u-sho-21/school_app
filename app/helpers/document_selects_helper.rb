@@ -15,7 +15,7 @@ module DocumentSelectsHelper
          items = document.document_items.all
          items.each do |item|
           #教員ページにてselect_check(入力式入力途中でブラウザ閉じ)trueでdocument_select1以下ならdocument削除
-           if item.document_selects.all.count  && item.select_check
+           if item.document_selects.all.count<=1 && item.select_check
               document.destroy
            end 
          end 

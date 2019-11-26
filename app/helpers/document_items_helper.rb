@@ -46,6 +46,19 @@ module DocumentItemsHelper
     @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline])  
     flash[:danger] = @errors
   end
+
+  #表示式用errorチェック
+  def pdf_error_check
+    @errors = ""
+    @errors += "タイトルが有りません。:" unless params[:document][:title].present?
+    @errors += "概要は必須です。:" unless params[:document][:memo].present?
+    @errors += "期限は必須です。:" unless params[:document][:deadline].present?
+    @errors += "この書類では入力ください。:" unless params[:document][:pdf_link].present?
+    @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline])  
+    flash[:danger] = @errors
+  end
+
+
   #選択式/入力式は通過時trueにする。
   def item_check_passage
     documents = Document.where(memo: @document.memo,randam: @document.randam)
