@@ -1,8 +1,8 @@
-<h1>面談日時登録ページ</h1>
+<h1>面談日時登録</h1>
 
 <% unless @meetings.empty? %>
   <div id="content" style="padding-bottom: 20px;">
-    <%= form_with(model: @meeting_time, url: teacher_meeting_times_path(@teacher), local: true) do |f| %>
+    <%= form_with(model: @meeting_time, url: teacher_meetings_path(@teacher), local: true) do |f| %>
       <table class="table-bordered table-striped table-condensed">
         <thead>
           <tr>
