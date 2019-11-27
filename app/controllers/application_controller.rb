@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include DocumentsHelper
   include DocumentItemsHelper
+  include DocumentSelectsHelper
   include MeetingsHelper
   
 end

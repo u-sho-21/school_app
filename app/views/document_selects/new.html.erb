@@ -15,11 +15,12 @@
 <% end %>
 <%= render 'form', document_select: @document_select %>
 <% if @select_count >=2 %>
-  <%= link_to '終了', root_path,class:"btn btn-default btn-lg" %>
+  <%= link_to '終了', teacher_path(1),class:"btn btn-default btn-lg" %>
   <%= link_to "新規質問作成",document_question_path(@document_item.document_id),class:"btn btn-primary btn-lg" %>
 <% end %>  
 <style>
   body{ background-color:#00FF00;}
+   #main_alert{display:none;}
 </style>
 <script>
   var flg = 1;
@@ -30,12 +31,6 @@
    $(window).on("popstate", function(){
        history.pushState(null, null, null);
    });
-     $(window).on("beforeunload",function(e){
-   if(flg) return "本当に離れますか？";
- });
-  $('#form_id').submit(function(){
-    flg = 0;
-  });
-
+     
   });
 </script>

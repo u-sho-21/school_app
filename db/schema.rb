@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191118065901) do
+ActiveRecord::Schema.define(version: 20191125081727) do
 
   create_table "answers", force: :cascade do |t|
     t.text "reply"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20191118065901) do
     t.integer "document_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "select_check", default: false
     t.index ["document_id"], name: "index_document_items_on_document_id"
   end
 
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20191118065901) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "item_check", default: false
   end
 
   create_table "meeting_times", force: :cascade do |t|
