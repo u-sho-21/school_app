@@ -8,7 +8,8 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @hour = (0..23).to_a.map { |v| "%02d" % v }
     list = (0..11).to_a.freeze
-    @minutes = list.map { |v| v * 5 }
+    @minutes_list = list.map { |v| v * 5 }
+    @minutes = @minutes_list.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
   end
 
@@ -16,10 +17,10 @@ class MeetingsController < ApplicationController
   def create
     @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
-      unless params[:meeting][:date].first.empty?
+      unless params[:date].blank?
         Meeting.where(teacher_id: @teacher.id).delete_all
         MeetingTime.where(teacher_id: @teacher.id).delete_all
-        params[:meeting][:date].split("\r\n").each do |day|
+        params[:date].split("\r\n").each do |day|
           unless @teacher.meetings.any? {|meeting| meeting.date == day}
             @teacher.children.where(teacher_id: @teacher.id).each do |child|
               record = @teacher.meetings.build(date: day, child_id: child.id)
@@ -51,13 +52,18 @@ class MeetingsController < ApplicationController
         end
       end
 
-      @times.each do |time|
-        addtime = params[:date] + " #{time}"  # 右側の""内の半角スペースは必要なため消さない
-        recode = @teacher.meeting_times.build(time: Time.zone.parse(addtime))
-        recode.save
+      unless params[:date].blank?
+        @times.each do |time|
+          addtime = params[:date] + " #{time}"  # 右側の""内の半角スペースは必要なため消さない
+          recode = @teacher.meeting_times.build(time: Time.zone.parse(addtime))
+          recode.save
+        end
+        flash[:success] = "面談日時を追加しました。"
+        redirect_to teacher_meetings_edit_url(@teacher)
+      else
+        flash[:danger] = "日付が未入力です。"
+        redirect_to teacher_meetings_edit_url(@teacher)
       end
-      flash[:success] = "面談日時を追加しました。"
-      redirect_to teacher_meetings_edit_url(@teacher)
     end
 
     if params[:commit] == "初期化"
@@ -73,7 +79,8 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @hour = (0..23).to_a.map { |v| "%02d" % v }
     list = (0..11).to_a.freeze
-    @minutes = list.map { |v| v * 5 }
+    @minutes_list = list.map { |v| v * 5 }
+    @minutes = @minutes_list.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
@@ -129,8 +136,8 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(@child.teacher_id)
     @meeting_children = @teacher.meetings.where(child_id: @child.id)
     @meetings = @teacher.meetings.all
-    @meeting_times = @teacher.meeting_times.limit(dates.count)
-    @not_time = @meeting_times.map{|time| time.time.to_s(:time)}
+    @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @not_time = @times_count.map{|time| time}
   end
 
   # 希望日登録モーダル
@@ -140,8 +147,8 @@ class MeetingsController < ApplicationController
     @children = Child.where(user_id: @user.id)
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
-    @meeting_times = @teacher.meeting_times.limit(dates.count)
-    @not_time = @meeting_times.map{|time| time.time.to_s(:time)}
+    @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @not_time = @times_count.map{|time| time}
   end
 
   # 面談希望日等決定
@@ -150,6 +157,7 @@ class MeetingsController < ApplicationController
     @child = Child.find(params[:child_id])
     @teacher = Teacher.find(@child.teacher_id)
 
+    # 希望日登録
     if params[:commit] == "登録"
       @meeting_desired = @teacher.meetings.find_by(child_id: @child.id, desired: true)
       @meeting_desired.update_attributes(desired: false, nottime: nil) if @meeting_desired.present?
@@ -161,19 +169,19 @@ class MeetingsController < ApplicationController
       redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
     end
 
+    # 可・不可切り替え
     @meeting_children = @teacher.meetings.where(child_id: @child.id)
-    if params[:true].present?
-      if @meeting_children.each{|meeting| params[:true] == meeting.id.to_s}
-        @teacher.meetings.find(params[:true].to_s).update_attributes(status: 2)
+    @meeting_children.each do |meeting_child|
+      if params[:"#{meeting_child.id}"] == "可"
+        @teacher.meetings.find(meeting_child.id).update_attributes(status: 2)
+        redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
+      elsif params[:"#{meeting_child.id}"] == "不可"
+        @teacher.meetings.find(meeting_child.id).update_attributes(status: 3, nottime: nil)
+        redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
       end
-      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
-    elsif params[:false].present?
-      if @meeting_children.each{|meeting| params[:false] == meeting.id.to_s}
-        @teacher.meetings.find(params[:false]).update_attributes(status: 3, nottime: nil)
-      end
-      redirect_to user_meetings_new_user_url(user_id: @user.id, child_id: @child.id)
     end
 
+    # 都合の悪い時間更新
     if params[:commit] == "都合の悪い時間の更新"
       @meeting_children = @teacher.meetings.where(child_id: @child.id, desired: false)
       params_count = params.each{|params| params}
@@ -196,7 +204,7 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times_all = @teacher.meeting_times.all
-    @meeting_times = @teacher.meeting_times.limit(dates.count)
+    @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @children_name = []
     @teacher.children.each do |child|
       @children_name << child.full_name
@@ -214,7 +222,11 @@ class MeetingsController < ApplicationController
     if params[:commit] == "更新"
       meeting_times_params.each do |key, value|
         meeting_time = MeetingTime.find(key)
-        meeting_time.update_attributes(name: value[:name])
+        if meeting_time.name.blank?
+          meeting_time.update_attributes(name: value[:name])
+        elsif value[:name].present?
+          meeting_time.update_attributes(name: value[:name])
+        end
       end
       flash[:success] = "面談スケジュールを更新しました。"
       redirect_to teacher_meetings_index_url(@teacher)
