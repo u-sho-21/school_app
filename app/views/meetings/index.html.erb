@@ -7,7 +7,7 @@
         <tr style="background: #FF9933; color: white;">
           <td>日付</td>
           <td>希望者</td>
-          <td colspan="<%= @meeting_times.length %>">面談時間</td>
+          <td colspan="<%= @times_count.count %>">面談時間</td>
         </tr>
       </thead>
 
@@ -37,9 +37,18 @@
               <% if meeting_time.time.to_date == date %>
                 <%= fields_for "meeting_times[]", meeting_time do |af| %>
                 <% if meeting_time.name.blank? %>
-                  <td><%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %></td>
+                  <td>
+                    <% unless meeting_select(@teacher, date, meeting_time).blank? %>
+                      <%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %>
+                    <% end %>
+                  </td>
                 <% else %>
-                  <td><%= link_to "#{meeting_time.name}", teacher_schedule_update_path(@teacher, meeting_time_id: meeting_time.id), meeting_time_id: meeting_time.id, method: :patch %></td>
+                  <td>
+                    <%= link_to "#{meeting_time.name}", teacher_schedule_update_path(@teacher, meeting_time_id: meeting_time.id), meeting_time_id: meeting_time.id, method: :patch %>
+                    <% unless meeting_select(@teacher, date, meeting_time).blank? %>
+                      <%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %>
+                    <% end %>
+                  </td>
                 <% end %>
                 <% end %>
               <% end %>

@@ -2,7 +2,7 @@
 
 <div id="content">
   <h2 style="text-align: center;">面談日時の追加</h2>
-  <%= form_with(model: @meeting_time, url: teacher_meetings_path(@teacher), local: true) do |f| %>
+  <%= form_with(model: @meeting_time, url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
     <table class="table-bordered table-striped table-condensed">
       <thead>
         <tr>

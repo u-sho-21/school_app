@@ -14,11 +14,11 @@
 
   <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
     <thead>
-      <tr>
+      <tr style="background: #FF9933; color: white;">
         <td>日付</td>
-        <% @meeting_times.each do |meeting_time| %>
+        <% @times_count.each do |time| %>
           <!-- 面談時間 -->
-          <td><%= meeting_time.time.to_s(:time) %></td>
+          <td><%= time %></td>
         <% end %>
       </tr>
     </thead>
@@ -29,9 +29,9 @@
           <!-- 日付 -->
           <td><%= date %></td>
           <!-- 予約件数 -->
-          <td colspan="<%= dates.count %>%">
-            予約件数: <%= yoyaku_count(@teacher, date) %>
-            希望者数: <%= desired_count(@teacher, date) %>
+          <td colspan="<%= @times_count.count %>%">
+            <div style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></div>
+            <div style="color: red;">希望者数: <%= desired_count(@teacher, date) %></div>
           </td>
         </tr>
       <% end %>
@@ -46,7 +46,7 @@
       <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
       <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
         <thead>
-          <tr>
+          <tr style="background: #FF9933; color: white;">
             <td>日付</td>
             <td>都合の悪い時間</td>
             <td>可・不可チェック(どちらかにチェックを入れてください。)</td>
@@ -70,16 +70,30 @@
               <!-- 可・不可チェック -->
               <td>
                 <% @meeting_children.each do |meeting| %>
-                  <% if meeting.date == date && meeting.desired == true %>
+
+                    <% if meeting.date == date && meeting.desired == true %>
                       面談希望日
-                  <% elsif  meeting.date == date && meeting.status == 2 %>
-                    <%= f.select :nottime, @not_time, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
-                      可
-                    <%= f.submit "不可", name: false, value: meeting.id %>
-                  <% elsif  meeting.date == date && meeting.status == 3 %>
-                    <%= f.submit "可", name: true, value: meeting.id %>
-                      不可
-                  <% end %>
+                    <% elsif  meeting.date == date && meeting.status == 2 %>
+
+                      <div class="btn-group" role="group">
+                        <%= f.select :nottime, @not_time, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <%= f.submit "可", disabled: true, style: "background: #005FFF; color: white; width: 60px", class: "btn btn-default" %>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <%= f.submit "不可", name: meeting.id, style: " background: #FFABCE; color: white; width: 60px", class: "btn btn-default" %>
+                      </div>
+                    <% elsif  meeting.date == date && meeting.status == 3 %>
+                      <div class="btn-group" role="group">
+                        <%= f.submit "可", name: meeting.id, style: "background: #A4C6FF; color: white; width: 60px;" ,class: "btn btn-default" %>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <%= f.submit "不可", disabled: true, style: "background: #FF0461; color: white; width: 60px", class: "btn btn-default" %>
+                      </div>
+
+                    <% end %>
+
                 <% end %>
               </td>
             </tr>
@@ -95,7 +109,7 @@
 <script>
 
   $('.js-searchable').select2({
-    maximumSelectionLength: <%= dates.count - 1 %>,
+    maximumSelectionLength: <%= @times_count.count - 1 %>,
     width: 300,
     placeholder: '都合が悪い時間を選択して下さい',
     language: {

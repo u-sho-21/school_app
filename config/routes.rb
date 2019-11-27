@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :teachers do
 
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
-    post 'meetings', to: 'meetings#create'                                                                     # 面談日作成
-    post 'meetings', to: 'meetings#create2'                                                                    # 面談時間作成
+    post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
+    post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
     get 'meetings/edit', to: 'meetings#edit'                                                                   # 面談日時編集・送信ページ
     patch 'meetings/edit', to: 'meetings#update', as: :meetings_update                                         # 面談日時更新
     get 'meetings', to: 'meetings#index', as: :meetings_index                                                  # 面談スケジュール調整ページ
