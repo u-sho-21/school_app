@@ -1,4 +1,4 @@
-<h1><%= @child.full_name %>さんの面談管理ページ</h1>
+<div id="meeting-top-title"><%= @child.full_name %>さんの面談管理ページ</div>
 
 <% unless @meeting_children.present? %>
   <h1>現在面談予定はございません。</h1>
@@ -12,7 +12,7 @@
     <% end %>
   <% end %>
 
-  <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+  <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
     <thead>
       <tr style="background: #FF9933; color: white;">
         <td>日付</td>
@@ -30,21 +30,24 @@
           <td><%= date %></td>
           <!-- 予約件数 -->
           <td colspan="<%= @times_count.count %>%">
-            <div style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></div>
-            <div style="color: red;">希望者数: <%= desired_count(@teacher, date) %></div>
+          <div>
+            <div id="yoyaku-count" style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></div>
+            <div id="yoyaku-count" style="color: red;">希望者数: <%= desired_count(@teacher, date) %></div>
+          </div>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <%= link_to "希望日登録", user_meetings_desired_path(@user), remote: true, class: "btn btn-success" %>
+  <div id="submit-center">
+    <%= link_to "希望日登録", user_meetings_desired_path(@user), remote: true, class: "btn btn-success submit-width" %>
+  </div>
   <div id="desired" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
   <% @meeting_children.each do |meeting| %>
     <% if meeting.desired == true %>
       <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
-      <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
         <thead>
           <tr style="background: #FF9933; color: white;">
             <td>日付</td>
@@ -100,7 +103,10 @@
           <% end %>
         </tbody>
       </table>
-        <%= f.submit "都合の悪い時間の更新", class: "btn btn-success" %>
+      <div id="submit-center">
+        <%= f.submit "都合の悪い時間の更新", class: "btn btn-success submit-width" %>
+        <%= link_to "戻る", user_path(@user), class: "btn btn-primary submit-width" %>
+      </div>
       <% end %>  <!-- form_with~ -->
     <% end %>  <!-- if meeting.desired == true -->
   <% end %>  <!-- @meeting_children.each do |meeting| -->

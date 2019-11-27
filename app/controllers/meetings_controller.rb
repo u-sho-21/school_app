@@ -8,7 +8,8 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @hour = (0..23).to_a.map { |v| "%02d" % v }
     list = (0..11).to_a.freeze
-    @minutes = list.map { |v| v * 5 }
+    @minutes_list = list.map { |v| v * 5 }
+    @minutes = @minutes_list.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
   end
 
@@ -51,13 +52,18 @@ class MeetingsController < ApplicationController
         end
       end
 
-      @times.each do |time|
-        addtime = params[:date] + " #{time}"  # 右側の""内の半角スペースは必要なため消さない
-        recode = @teacher.meeting_times.build(time: Time.zone.parse(addtime))
-        recode.save
+      unless params[:date].blank?
+        @times.each do |time|
+          addtime = params[:date] + " #{time}"  # 右側の""内の半角スペースは必要なため消さない
+          recode = @teacher.meeting_times.build(time: Time.zone.parse(addtime))
+          recode.save
+        end
+        flash[:success] = "面談日時を追加しました。"
+        redirect_to teacher_meetings_edit_url(@teacher)
+      else
+        flash[:danger] = "日付が未入力です。"
+        redirect_to teacher_meetings_edit_url(@teacher)
       end
-      flash[:success] = "面談日時を追加しました。"
-      redirect_to teacher_meetings_edit_url(@teacher)
     end
 
     if params[:commit] == "初期化"
@@ -73,7 +79,8 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @hour = (0..23).to_a.map { |v| "%02d" % v }
     list = (0..11).to_a.freeze
-    @minutes = list.map { |v| v * 5 }
+    @minutes_list = list.map { |v| v * 5 }
+    @minutes = @minutes_list.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
