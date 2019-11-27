@@ -1,12 +1,13 @@
 class DocumentsController < ApplicationController
-  
-
+  #教員提出強制終了対策
   #掲出状況確認(教員)
   def index
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
     @documents = @user.documents.all    
+  #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
+    document_delete2
   end
 #選択式新規作成ページ
   def new
@@ -14,25 +15,25 @@ class DocumentsController < ApplicationController
   end
 #選択式書類db格納
   def create
-  @user = User.all
-  randam = SecureRandom.alphanumeric(10)
-  @user.each do |user|
-      record = user.documents.build(document_params)
-      record.randam = randam
-      record.user_id = user.id
-      if record.save
-        if user.id == 1
-          record.public = true
-          record.save
-        end  
-      else
-        #自作errorチェック
-        error_check
-        redirect_to new_document_url(document_params)
-        return
-      end    
-  end
-  @document = Document.all.last  #作られたユーザーごとの資料の最後
+    @user = User.all
+    randam = SecureRandom.alphanumeric(10)
+    @user.each do |user|
+        record = user.documents.build(document_params)
+        record.randam = randam
+        record.user_id = user.id
+        if record.save
+          if user.id == 1
+            record.public = true
+            record.save
+          end  
+        else
+          #自作errorチェック
+          error_check
+          redirect_to new_document_url(document_params)
+          return
+        end    
+    end
+    @document = Document.all.last  #作られたユーザーごとの資料の最後
     redirect_to document_question_url(@document)
     return
   end
@@ -80,16 +81,22 @@ def create3
       record = user.documents.build(document_params)
       record.randam = randam
       record.user_id = user.id
-      if record.save
-        if user.id == 1
-          record.public = true
-          record.save
-        end  
+      if params[:document][:pdf_link].present?
+        if record.save
+          if user.id == 1
+            record.public = true
+            record.save
+          end  
+        else
+          #自作errorチェック
+          error_check
+          redirect_to new3_document_url(document_params)
+          return
+        end
       else
-        #自作errorチェック
-        error_check
+        pdf_error_check
         redirect_to new3_document_url(document_params)
-        return
+        return  
       end    
   end
   @document = Document.all.last  #作られたユーザーごとの資料の最後
@@ -119,7 +126,10 @@ end
 
 #選択式作成初期ページモーダル
 def select_modal
-  
+end
+
+#入力式作成初期ページモーダル
+def input_modal
 end
 
   

@@ -1,10 +1,13 @@
 <% provide(:item_url,document_item_create2_path(@document))%>
+<!--モーダル-->
+<div id= "input-second" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 <div class="text-center text-primary">
   <ul class="document_ul">
     <li id="document_img"><%= image_tag('/explain/input3.png',size:"60x60",style:"display:inline") %><li>
     <li><h1 class="title_font">質問項目のフォーム作成</h1></li>
   </ul> 
 </div>
+<%= link_to "このページの説明見る",input_second_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
 <hr>
 <h2 class="title_font" style="font-size:24px;"><%= "タイトル:#{@document.title}" %><br><br>
 <% if flash[:danger].present? %>
@@ -18,6 +21,7 @@
 
 <style>
   body{ background-color:#fce2c4;}
+  #main_alert{display:none;}
 </style>
 <script>
   var flg = 1;

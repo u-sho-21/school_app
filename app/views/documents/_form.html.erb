@@ -25,7 +25,7 @@
       <%= form.text_field :title, id: :document_title,class:"form-control",value:params[:title] %>
     </div><br>
 
-    <!--% unless yield(:url) == document_create3_path % -->
+    
       <div class="field"> 
       <% if flashArray %>
       <!-- split分割された配列にmemoあるかどうか? -->
@@ -35,14 +35,17 @@
       <% end %>
         <%= form.label :資料の概要 %>
         <%= form.text_area :memo, id: :document_memo,class:"form-control",value:params[:memo] %>
-      </div><br>
-    <!--% end % -->
-
+      </div><br>  
+    
     <%= form.label "サービス選択" %>
     <%= form.select :service,service_select,{},class:"form-control" %><br>
 
+    <! -- 表示式のみ外部リンク必須 -->  
+    <%  if yield(:url) == document_create3_path %>
+      <div class="alert alert-info alert2" style="margin-top:1%;width:35%;">この書類では正確に入力ください。</div>  
+    <% end %>
     <div class="field">
-      <%= form.label :外部リンク %>
+      <%= form.label :外部リンク,style:"margin-top:-4%" %>
       <%= form.text_field :service_url, id: :document_pdf_link,class:"form-control",value:params[:service_url] %>
     </div><br>
 

@@ -2,7 +2,8 @@ class DocumentSelectsController < ApplicationController
   #選択肢作成ページ
   def new
     @document_select = DocumentSelect.new
-    @document_item = DocumentItem.find(params[:document_item_id]) 
+    @document_item = DocumentItem.find(params[:document_item_id])
+    select_check_passage               #選択式でdocument#new通過時item_check trueへ  
     @select_count = @document_item.document_selects.all.count 
   end
   #選択肢登録
