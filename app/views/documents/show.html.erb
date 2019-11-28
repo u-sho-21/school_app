@@ -1,0 +1,15 @@
+<div class="text-center">
+  <h1 id="document_user_header">
+    書類タイトル:<span style="color:red"><%= @document.title %></span>
+  </h1>
+</div>
+
+<% if @input_count > 0 && @select_count ==false %>
+  <%= render 'select'%>
+<% elsif @input_count >0 && @select_count %>
+  <%= render 'input' %>  
+<% elsif @input_count == 0 %>  
+   <%= render 'pdf' %>  
+<% end %>
+<hr>
+<%= link_to "戻る",documents_path,class:"btn btn-default" %>

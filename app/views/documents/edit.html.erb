@@ -1,0 +1,49 @@
+<%= provide(:url,document_path(@document)) %>
+
+<div class="text-center text-primary">
+  <h1>提出物編集ページ</h1>
+  <h2 style="font-size:22px;">書類タイトル:<span style="color:red"><%= @document.title %></span></h2>
+</div>
+<%= render 'form', document: @document %><br>
+
+<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
+<% if @document.document_items.count > 0 %>
+<div class="row",id="document_edit_itemarea">
+  <div class="col-md-10 col-md-offset-1">
+    <h2 id="document_item_edit_header">質問の編集</h2>
+
+    <!--選択肢のモーダル-->
+    <div id="document_edit_modal" class="modal fade" role="dialog" tabindex="-1" area-hidden="true"></div>
+
+    <!--編集フォーム-->
+    <%= form_with(model: @document,url:document_update_item_path(@document),local:true,method: :patch) do |f| %>
+    <%= f.submit "質問を編集する",class:"btn btn-warning",style:"margin-top:-3%;" %>
+
+    <table class="table" id="document_itemedit_table">
+    <thead>
+      <tr>
+        <th width="70%;">質問項目</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @document.document_items.each do |item| %>
+        <%= fields_for "items[]", item do |af| %>
+          <tr>
+            <td><%= af.text_area :content,rows:4,class:"form-control" %></td>
+            <td>
+              <%= link_to "削除","#",class:"btn btn-primary btn-lg",style:"width:80%;" if @document.document_items.count > 1 %>
+              <%= link_to "選択肢表示",document_select_editmodal_path(item),remote:true,class:"btn btn-success btn-lg",style:"width:80%;" if item.document_selects.count >0 %>
+            </td>
+          </tr>
+        <% end %>  
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
+  </div>  
+</div>
+<% end %>
+<style>
+  body{ background-color:#d0d0d0;}
+  #main_alert{display:none;}
+</style>

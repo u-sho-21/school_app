@@ -1,0 +1,34 @@
+<hr>
+<div id="pdf-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
+<div style="border:1px solid black;padding:8px;background-color:#fff;">
+  <h3><%= @document.memo %></h3>
+  <strong style="color:red">期限:<%= @document.deadline %></strong>
+</div>
+<hr>
+<% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
+ 
+<% end %> 
+<% item_count = 0 %>
+<%= form_with(url:"#",local:true) do |f| %>
+ <% @document.document_items.each do |item| %>
+   <% item_count += 1 %>
+   <h2 style="background-color:orange;border-left:8px solid blue;padding:12px;">
+     <%= item.content %>
+   </h2>
+   <% item.document_selects.each do |select| %>
+     
+     <div style="border-radius:6px;padding:3px;border:0.5px solid blue;background-color:#fff;">
+       <label style="font-size:16px">
+         <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>">
+         <%= select.content %>
+       </label>  
+     </div>
+   <% end %>
+ <% end %><br>
+ <div class="text-center">
+   <%= f.submit "提出",class:"btn btn-primary",style:"width:40%"%>
+ </div>
+<% end %>
+<style>
+  body{background-color:#FFE4C4;}
+</style>

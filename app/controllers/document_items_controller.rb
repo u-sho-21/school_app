@@ -59,6 +59,9 @@ class DocumentItemsController < ApplicationController
    flash[:danger] = "引き続き項目作るならフォーム入力して送信を終わりなら終了ボタン押してください"
    redirect_to document_question2_url(@document_item.document_id)
    end
+
+   
+   
    
    #選択式作成質問ページモーダル
    def select_modal
@@ -67,6 +70,8 @@ class DocumentItemsController < ApplicationController
    #入力式作成初期ページモーダル
    def input_modal
    end
+
+   
    
  end
   

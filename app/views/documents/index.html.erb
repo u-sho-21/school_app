@@ -20,7 +20,10 @@
          <!-- 教員のみの資料表示 -->
           <% @documents.each do |document| %>
             <tr>
-              <td><%= document.title %></td>
+              <td>
+                <%= document.title %>&emsp;
+                <%= link_to "作成書類確認",document_path(document),class:"btn btn-primary"%>
+              </td>
               <td>
                 <!-- 書類タイプ -->
                 <% if document.document_items.all.count > 0 %>
@@ -38,6 +41,7 @@
               </td>
               <td>
                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning",method: :delete %>
+                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" %>
                   <%= link_to "保護者に提出",public_change_path(document),class:"btn btn-success" %>
               </td>
             </tr>
