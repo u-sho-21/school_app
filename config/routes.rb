@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     post '/itemcreate2',to: 'document_items#create2', as: :item_create2                                        #入力式質問登録処理
     patch '/update/item',to: 'documents#item_update'                                                           #質問項目編集
     patch '/update/select',to: 'documents#select_update'                                                       #選択肢編集
+    post  '/item_add',to:'documents#update_add'
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
   post 'document/create2',to:'documents#create2',as: :document_create2                                         #入力式書類登録処理

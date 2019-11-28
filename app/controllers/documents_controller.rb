@@ -199,6 +199,21 @@ def select_update
   redirect_to documents_url
 end
 
+#編集の際質問項目追加
+ def update_add
+   @document =Document.find(params[:document_id])
+   documents = Document.where(memo: @document.memo, randam: @document.randam) #同じ条件のdocument取り出し。
+   randam = SecureRandom.alphanumeric(10)
+   documents.each do |document|
+     record = document.document_items.build(content: params[:content])
+     record.randam = randam
+     record.document_id = document.id
+     record.save
+   end 
+   redirect_to documents_url
+ end
+ 
+
 #保護者側書類show
 def show
   @document = Document.find(params[:id])

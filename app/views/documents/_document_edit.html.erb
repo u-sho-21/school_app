@@ -12,29 +12,30 @@
           <p class="text-primary">この質問の選択肢を変更します。</p>
           <div class="row">
           <div class="col-md-10 col-md-offset-1">
-           <%= form_with(url:document_update_select_path(@document_item),local:true, method: :patch) do |f| %>
+            <%= form_with(url:document_update_select_path(@document_item),local:true, method: :patch) do |f| %>
            <div class="text-left">
              <%=f.submit "選択肢を編集する",class:"btn btn-primary" %>
            </div>  
-            <table class="table table-bordered" id="document_modal_table">
-              <thead>
-                <tr>
-                  <th>選択肢内容</th><th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @document_item.document_selects.each do |select| %>
-                  <%= fields_for "selects[]",select do |af| %>
-                  <tr>
-                    <td><%=af.text_field :content,style:"height:60px;",class:"form-control" %></td>
-                    <td></td>
-                  </tr>
+             <table class="table table-bordered" id="document_modal_table">
+               <thead>
+                 <tr>
+                   <th>選択肢内容</th><th></th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <% @document_item.document_selects.each do |select| %>
+                   <%= fields_for "selects[]",select do |af| %>
+                    <tr>
+                      <td><%=af.text_field :content,style:"height:60px;",class:"form-control" %></td>
+                      <td></td>
+                    </tr>
                   <% end %>
-                <% end %>
-              </tbody>
-            </table>
+                 <% end %>
+               </tbody>
+             </table>
             <% end %>
-            </div>
+             <div style="border-top:1px dotted black"></div>
+          </div>
           </div>
         </div>
       </div>
