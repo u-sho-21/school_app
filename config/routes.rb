@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'sessions#new'                                                                                      # 保護者ログインページ
   get  '/login/teacher', to: 'sessions#new2'                                                                   # 教員ログインページ
   get '/signup', to: 'users#new'                                                                               # 保護者新規作成ページ
+  get '/signup/:id/child', to: 'users#new2', as: :signup_child                                                     # 生徒新規作成ページ
+  post '/users/:id/child', to: 'users#create2', as: :child_create2                                                 # 生徒新規登録
 
   post   '/login', to: 'sessions#create'                                                                       # 保護者ログイン処理
   post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
