@@ -19,8 +19,8 @@ module SessionsHelper
 
   # 教員remember
   def remember_teacher(teacher)
-    teacher.remember
-    cookies.permanent.signed[:user_id] = teacher.id
+    teacher.remember_teacher
+    cookies.permanent.signed[:teacher_id] = teacher.id
     cookies.permanent[:remember_token] = teacher.remember_token
   end
 
@@ -33,9 +33,9 @@ module SessionsHelper
 
   # 教員forget
   def forget_teacher(teacher)
-    teacher.forget
+    teacher.forget_teacher
     cookies.delete(:teacher_id)
-    cookies.delete(:teacher_token)
+    cookies.delete(:remember_token)
   end
 
   # 保護者ログアウト
@@ -47,9 +47,9 @@ module SessionsHelper
 
   # 教員ログアウト
   def log_out_teacher
-    forget(current_teacher)
+    forget_teacher(current_teacher)
     session.delete(:teacher_id)
-    @current_user = nil
+    @current_teacher = nil
   end
 
   # 保護者現在ユーザー
@@ -71,8 +71,8 @@ module SessionsHelper
       @current_teacher ||= Teacher.find_by(id: teacher_id)
     elsif (teacher_id = cookies.signed[:teacher_id])
       teacher = Teacher.find_by(id: teacher_id)
-      if teacher && teacher.authenticated?(cookies[:remember_token])
-        log_in teacher
+      if teacher && teacher.authenticated_teacher?(cookies[:remember_token])
+        log_in_teacher teacher
         @current_teacher = teacher
       end
     end

@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  root to: 'sessions#new'
-  get  '/login/teacher', to: 'sessions#new2'
-  get '/signup', to: 'users#new'
+  root to: 'sessions#new'                                                                                      # 保護者ログインページ
+  get  '/login/teacher', to: 'sessions#new2'                                                                   # 教員ログインページ
+  get '/signup', to: 'users#new'                                                                               # 保護者新規作成ページ
 
-  # get    '/login', to: 'sessions#new'
-  post   '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  post   '/login', to: 'sessions#create'                                                                       # 保護者ログイン処理
+  post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
+  delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
+  delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
 
   resources :teachers do
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
