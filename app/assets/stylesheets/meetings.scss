@@ -6,6 +6,7 @@
   font-size: 50px;
   font-family: 'M PLUS Rounded 1c';
   margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 #meeting-title {
@@ -27,6 +28,13 @@
 #datepicker-submit {
   text-align: center;
   margin-top: 20px;
+}
+
+/* 面談時間登録ページ */
+
+.box{
+  display: table-cell;  // 横揃え
+  text-align: center;
 }
 
 /* datepicker */

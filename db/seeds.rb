@@ -3,10 +3,11 @@
 require 'faker/japanese'
 
 
-User.create!( name: "Sample User",
-              email: "sample@email.com",
-              password: "password",
-              password_confirmation: "password")
+Teacher.create!( name: "教員",
+                 email: "teacher@example.com",
+                 password: "password",
+                 password_confirmation: "password")
+
 20.times do |n|
   name = Faker::Japanese::Name.last_name
   name2 = Faker::Japanese::Name.first_name

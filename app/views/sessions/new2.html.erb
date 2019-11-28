@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+    <%= form_with(scope: :session, url: teacher_login_path, local: true) do |f| %>
 
       <%= f.label :email, "メールアドレス", class: "label-login" %>
       <%= f.email_field :email, class: 'form-control' %>
@@ -16,12 +16,11 @@
       <% end %>
 
       <div id="submit-center">
-        <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-success submit-width" %>
         <%= f.submit "ログイン", class: "btn btn-lg btn-primary submit-width" %>
       </div>
     <% end %>
     <div id="teacher-login">
-      <%= link_to "教員はこちら", login_teacher_path %>
+      <%= link_to "保護者はこちら", root_path %>
     </div>
   </div>
 </div>

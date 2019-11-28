@@ -21,17 +21,17 @@ class Teacher < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  def remember
+  def remember_teacher
     self.remember_token = Teacher.new_token
     update_attribute(:remember_digest, Teacher.digest(remember_token))
   end
 
-  def authenticated?(remember_token)
+  def authenticated_teacher?(remember_token)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
-  def forget
+  def forget_teacher
     update_attribute(:remember_digest, nil)
   end
 end

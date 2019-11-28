@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#top'
-  get '/signup', to: 'users#new'
+  root to: 'sessions#new'                                                                                      # 保護者ログインページ
+  get  '/login/teacher', to: 'sessions#new2'                                                                   # 教員ログインページ
+  get '/signup', to: 'users#new'                                                                               # 保護者新規作成ページ
+  get '/signup/:id/child', to: 'users#new2', as: :signup_child                                                     # 生徒新規作成ページ
+  post '/users/:id/child', to: 'users#create2', as: :child_create2                                                 # 生徒新規登録
 
-  get    '/login', to: 'sessions#new'
-  post   '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
+  post   '/login', to: 'sessions#create'                                                                       # 保護者ログイン処理
+  post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
+  delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
+  delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
 
   resources :teachers do
-
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
@@ -45,10 +48,10 @@ Rails.application.routes.draw do
   delete "document/file_delete/:document_id",to:"documents#file_delete",as: :file_delete                       #教員ファイル削除
   get "document/public_change/:document_id",to:"documents#public_change",as: :public_change                    #保護者へ提出
   get 'select_document/first',to:'documents#select_modal',as: :select_first_modal                              #選択式最初のページモーダル
-  get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル 
-  get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル 
+  get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル
+  get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル
   get 'input_document/first',to:'documents#input_modal',as: :input_first_modal                                 #入力式最初のページモーダル
-  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル 
+  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル
 
 
 end

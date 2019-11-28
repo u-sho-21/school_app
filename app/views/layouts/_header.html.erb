@@ -1,24 +1,39 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "Sample App", root_path, id: "logo" %>
+    <% if logged_in? %>
+      <%= link_to "学校の面談と提出管理アプリ", user_path(@user), id: "logo" %>
+    <% elsif logged_in_teacher? %>
+      <%= link_to "学校の面談と提出管理アプリ", teacher_path(@teacher), id: "logo" %>
+    <% else %>
+      <%= link_to "学校の面談と提出管理アプリ", root_path, id: "logo" %>
+    <% end %>
+
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Top", root_path %></li>
-        <% if logged_in? %>
+        <li><%= link_to "Top", "#" %></li>
+        <% if logged_in? || logged_in_teacher? %>
           <li><%= link_to "Users", '#' %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Show", current_user %></li>
+              <li><%= link_to "Show", "#" %></li>
               <li><%= link_to "Settings", '#' %></li>
               <li class="divider"></li>
-              <li><%= link_to "Log out", logout_path, method: :delete %></li>
+              <li>
+                <% if logged_in? %>
+                  <%= link_to "ログアウト", logout_path, method: :delete %>
+                <% else %>
+                  <%= link_to "ログアウト", teacher_logout_path, method: :delete %>
+                <% end %>
+              </li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Log in", login_path %></li>
+          <li>
+            <%= link_to "ログイン", root_path %>
+          </li>
         <% end %>
       </ul>
     </nav>
