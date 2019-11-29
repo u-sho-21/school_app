@@ -166,7 +166,11 @@ def item_update
   documents = Document.where(memo:@document.memo,randam: @document.randam)
   item_parameter.each do |id,it|
    item = DocumentItem.find id
-   item.update_attributes(it)
+   unless item.update_attributes(it)
+    flash[:info] = "質問の編集は空白にしないでください。"
+    redirect_to edit_document_url(@document)
+    return
+   end 
   end 
   update_items = @document.document_items.all 
   documents = Document.where(memo: @document.memo, randam: @document.randam)
@@ -188,7 +192,11 @@ def select_update
   sampleselect = @document_item.document_selects.last
   select_parameter.each do |id,item|
     select = DocumentSelect.find id
-    select.update_attributes(item)
+    unless select.update_attributes(item)
+      flash[:info] = "選択肢の編集の際に空白にしないでください。"
+      redirect_to edit_document_url(@document_item.document) 
+      return  
+    end  
   end  
   update_selects = @document_item.document_selects.all
   items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
@@ -211,7 +219,11 @@ end
      record = document.document_items.build(content: params[:content])
      record.randam = randam
      record.document_id = document.id
-     record.save
+     unless record.save
+      flash[:info] = "質問の追加の際に空白にしないでください。"
+      redirect_to edit_document_url(@document) 
+      return
+     end 
      linK_item = record
    end 
    if select_exist == true
@@ -227,7 +239,11 @@ end
   items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
   items.each do |item|
     record = item.document_selects.build(content: params[:content])
-    record.save
+    unless record.save
+      flash[:info] = "選択肢の追加の際に空白にしないでください。"
+      redirect_to edit_document_url(@document_item.document) 
+      return
+    end  
   end  
   flash[:success] ="選択肢を追加しました"
   redirect_to documents_url
@@ -257,7 +273,7 @@ end
 private
   def document_params
     params[:document][:pdf_link] = view_url(params[:document][:service],params[:document][:service_url])
-    params.require(:document).permit(:title, :memo, :pdf_link, :deadline)
+    params.require(:document).permit(:title, :memo, :pdf_link, :deadline, :service_url)
   end
   
   def set_document

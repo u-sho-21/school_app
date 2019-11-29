@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20191128001511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "item_check", default: false
+    t.string "service_url"
   end
 
   create_table "meeting_times", force: :cascade do |t|
@@ -79,7 +80,6 @@ ActiveRecord::Schema.define(version: 20191128001511) do
     t.string "nottime"
     t.integer "status", default: 3
     t.boolean "desired", default: false
-    t.string "randam"
     t.integer "teacher_id"
     t.integer "child_id"
     t.datetime "created_at", null: false
