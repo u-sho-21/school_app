@@ -22,7 +22,7 @@
       <% end %>
      <% end %> 
       <%= form.label :タイトル %>
-      <%= form.text_field :title, id: :document_title,class:"form-control",value:params[:title] %>
+      <%= form.text_field :title, id: :document_title,class:"form-control",value: @document.title.present? ? @document.title : params[:title]  %>
     </div><br>
 
     
@@ -34,7 +34,7 @@
        <% end %>
       <% end %>
         <%= form.label :資料の概要 %>
-        <%= form.text_area :memo, id: :document_memo,class:"form-control",value:params[:memo] %>
+        <%= form.text_area :memo, id: :document_memo,class:"form-control",value:@document.memo.present? ? @document.memo : params[:memo]  %>
       </div><br>  
     
     <%= form.label "サービス選択" %>

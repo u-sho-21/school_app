@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     get '/new2',to: 'document_items#new2',  as: :question2                                                     #入力式提出質問作成ページ
     post '/itemcreate',to: 'document_items#create', as: :item_create                                           #選択式質問登録処理
     post '/itemcreate2',to: 'document_items#create2', as: :item_create2                                        #入力式質問登録処理
+    patch '/update/item',to: 'documents#item_update'                                                           #質問項目編集
+    patch '/update/select',to: 'documents#select_update'                                                       #選択肢編集
+    post  '/item_add',to:'documents#update_add'                                                                #編集画面質問追加
+    post  '/select_add',to:'documents#update_select_add'
 
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
@@ -45,13 +49,15 @@ Rails.application.routes.draw do
   end
   post 'document_select/:document_item_id',to:'document_selects#create',as: :selectcreate                      #選択肢選択肢登録
   resources :document_selects
+  delete 'documentitem/delete/:id',to:'documents#delete_item',as: :document_destroy                            #編集画面質問削除
+  delete 'documentSelect/delete/:id',to:'documents#delete_select',as: :document_select_destroy 
   delete "document/file_delete/:document_id",to:"documents#file_delete",as: :file_delete                       #教員ファイル削除
   get "document/public_change/:document_id",to:"documents#public_change",as: :public_change                    #保護者へ提出
   get 'select_document/first',to:'documents#select_modal',as: :select_first_modal                              #選択式最初のページモーダル
   get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル
   get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル
   get 'input_document/first',to:'documents#input_modal',as: :input_first_modal                                 #入力式最初のページモーダル
-  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル
-
-
+  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル 
+  get 'document_select/:id/select',to:'documents#document_modal',as: :document_select_editmodal                #選択肢編集モーダル
+  
 end

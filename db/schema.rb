@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20191128001511) do
 
   create_table "document_items", force: :cascade do |t|
     t.text "content"
-    t.string "radam"
+    t.string "randam"
     t.integer "document_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,11 +59,10 @@ ActiveRecord::Schema.define(version: 20191128001511) do
     t.date "deadline"
     t.string "randam"
     t.boolean "public", default: false
-    t.integer "teacher_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "item_check", default: false
-    t.index ["teacher_id"], name: "index_documents_on_teacher_id"
   end
 
   create_table "meeting_times", force: :cascade do |t|

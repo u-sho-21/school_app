@@ -25,5 +25,18 @@ module DocumentSelectsHelper
        end  
      end 
    end
+
+   def select_exist
+     result = false
+     @document.document_items.all.each do |item|
+       if item.document_selects.count == 0
+         next
+       elsif item.document_selects.count > 0
+         result = true
+       end 
+     end 
+     return result
+   end
+   
    
 end

@@ -1,5 +1,7 @@
 class DocumentsController < ApplicationController
-  #教員提出強制終了対策
+  before_action :set_document, only:[:edit, :updata]
+  before_action :set_teacher
+
   #掲出状況確認(教員)
   def index
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
@@ -104,6 +106,27 @@ def create3
   return
 end  
 
+#document編集ページ
+def edit
+end
+
+#document編集
+def update
+  @document = Document.find(params[:id])
+  documents = Document.where(memo: @document.memo, randam: @document.randam)
+  documents.each do |document|
+    unless document.update_attributes(document_params)
+      #自作errorチェック
+      error_check
+      redirect_to edit_document_url(document_params)
+      return
+    end    
+  end  
+  redirect_to teacher_url(1)
+  return
+end
+
+
 #教員ファイル削除
 def file_delete
   document = Document.find(params[:document_id])
@@ -132,15 +155,126 @@ end
 def input_modal
 end
 
-  
+#選択肢編集モーダル
+def document_modal
+  @document_item = DocumentItem.find(params[:id])
+end
+
+#質問編集
+def item_update
+  @document = Document.find(params[:document_id])
+  documents = Document.where(memo:@document.memo,randam: @document.randam)
+  item_parameter.each do |id,it|
+   item = DocumentItem.find id
+   item.update_attributes(it)
+  end 
+  update_items = @document.document_items.all 
+  documents = Document.where(memo: @document.memo, randam: @document.randam)
+  documents.each do |document|
+    update_items.each do |up_item|
+       objs = document.document_items.where(randam: up_item.randam)
+       objs.each do |obj|
+        obj.update_attributes(content: up_item.content)
+       end 
+
+    end
+  end  
+  redirect_to documents_url
+end
+
+#選択肢編集
+def select_update
+  @document_item = DocumentItem.find(params[:document_id])
+  sampleselect = @document_item.document_selects.last
+  select_parameter.each do |id,item|
+    select = DocumentSelect.find id
+    select.update_attributes(item)
+  end  
+  update_selects = @document_item.document_selects.all
+  items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
+  items.each do |item|
+    objs = item.document_selects.all
+    objs.count.times do |i|
+      objs[i].update_attributes(content: update_selects[i].content)
+    end  
+  end  
+  redirect_to documents_url
+end
+
+#編集の際質問項目追加
+ def update_add
+   @document =Document.find(params[:document_id])
+   documents = Document.where(memo: @document.memo, randam: @document.randam) #同じ条件のdocument取り出し。
+   linK_item = nil
+   randam = SecureRandom.alphanumeric(10)
+   documents.each do |document|
+     record = document.document_items.build(content: params[:content])
+     record.randam = randam
+     record.document_id = document.id
+     record.save
+     linK_item = record
+   end 
+   if select_exist == true
+    redirect_to document_item_select_url(linK_item)
+   else select_exist == false
+    redirect_to documents_url
+   end 
+ end
+
+ #編集の際選択肢目追加
+ def update_select_add
+  @document_item = DocumentItem.find(params[:document_id])
+  items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
+  items.each do |item|
+    record = item.document_selects.build(content: params[:content])
+    record.save
+  end  
+  flash[:success] ="選択肢を追加しました"
+  redirect_to documents_url
+ end
+
+ #編集画面質問削除
+ def delete_item
+  document = Document.find(params[:obj])
+  DocumentItem.find(params[:id]).destroy
+  flash[:danger] = "削除しました。"
+  redirect_to edit_document_url(document)
+ end
+
+  def delete_select
+    select =  DocumentSelect.find(params[:id])
+    DocumentSelect.find(params[:id]).destroy
+    flash[:danger] = "削除しました。"
+    redirect_to edit_document_url(select.document_item.document)
+  end
+
+#保護者側書類show
+def show
+  @document = Document.find(params[:id])
+  @input_count = @document.document_items.all.count
+  @select_count = select_zerocount?
+end  
 private
   def document_params
     params[:document][:pdf_link] = view_url(params[:document][:service],params[:document][:service_url])
     params.require(:document).permit(:title, :memo, :pdf_link, :deadline)
   end
   
-  def set_userdocument
-   
+  def set_document
+    @document = Document.find(params[:id])
   end
+
+ 
+  
+  #質問編集パラメーター
+  def item_parameter
+    params.permit(items:[:content])[:items]
+  end
+
+  #選択肢編集パラメーター
+  def select_parameter
+    params.permit(selects:[:content])[:selects]
+  end
+  
   
 end

@@ -4,7 +4,7 @@ module DocumentsHelper
         @document.document_items.all.each do |item|
            if item.document_selects.all.count == 0
               next
-           elsif item.document_selects.all.count >0
+           elsif item.document_selects.all.count >=2
               result = false
               break
            end 

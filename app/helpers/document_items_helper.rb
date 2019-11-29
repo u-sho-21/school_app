@@ -66,6 +66,13 @@ module DocumentItemsHelper
       document.update_attributes(item_check: true)
     end  
   end
+
+  def set_teacher
+    if params[:teacher_id]
+     session[:teacher_id] = params[:teacher_id]
+    end
+    @teacher = Teacher.find(session[:teacher_id])
+  end  
     
 
 end

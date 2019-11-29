@@ -1,4 +1,6 @@
 class DocumentSelectsController < ApplicationController
+  before_action :set_teacher
+  
   #選択肢作成ページ
   def new
     @document_select = DocumentSelect.new
