@@ -1,4 +1,4 @@
-<h1>教員トップページ</h1>
+<h1 id="meeting-top-title">教員トップページ</h1>
 
 <div class="box_title">保護者からのお問い合わせ</div>
 <div class="box_srcollbar">
@@ -17,49 +17,49 @@
     09/17　○■■○○■■■を追加しました。<br>
 </div>
 
-<div id="top">
+<div id="teacher-top">
   <div id="one">
-    <%= link_to  teacher_meetings_new_path(@teacher), class: "btn btn-success top-submit" do %>
+    <%= link_to  teacher_meetings_new_path(@teacher), class: "btn btn-success top-button" do %>
        <%= image_tag('/icon/cl.png',size:"20x20") %>
        面談日登録
     <% end %>
-    <%= link_to  teacher_meetings_edit_path(@teacher), class: "btn btn-info top-submit" do %>
+    <%= link_to  teacher_meetings_edit_path(@teacher), class: "btn btn-info top-button" do %>
        <%= image_tag('/icon/time.png',size:"20x20") %>
        面談日時編集
     <% end %>
   </div>
   <div id="two">
-    <%= link_to  teacher_meeting_index2_path(@teacher), class: "btn btn-default top-submit" do %>
+    <%= link_to  teacher_meeting_index2_path(@teacher), class: "btn btn-default top-button" do %>
       <%= image_tag('/icon/sk.png',size:"20x20") %>
       面談返信状況確認
     <% end %>
-    <%= link_to  documents_path, class: "btn btn-danger top-submit" do %>
+    <%= link_to  documents_path(params:{teacher_id: @teacher}), class: "btn btn-danger top-button" do %>
        <%= image_tag('/icon/dk.png',size:"20x20") %>
        提出状況確認
     <% end %>
   </div>
   <div id="three">
-    <%= link_to new2_document_path, class: "btn btn-warning top-submit" do %>
+    <%= link_to new2_document_path(params:{teacher_id: @teacher}), class: "btn btn-warning top-button" do %>
        <%= image_tag('/icon/input0.png',size:"20x20") %>
        入力式提出
     <% end %>
-    <%= link_to  new_document_path, class: "btn btn-primary top-submit" do %>
+    <%= link_to  new_document_path(params:{teacher_id: @teacher}), class: "btn btn-primary top-button" do %>
       <%= image_tag('/explain/form.png',size:"20x20") %>
       選択式提出
     <% end %>
   </div>
   <div id="four">
-    <%= link_to  new3_document_path, class: "btn btn-default top-submit" do %>
+    <%= link_to  new3_document_path(params:{teacher_id: @teacher}), class: "btn btn-default top-button" do %>
       <%= image_tag('/explain/pdf.png',size:"20x20") %>
       表示書類
     <% end %>
-    <%= link_to  "#", class: "btn btn-success top-submit" do %>
+    <%= link_to  "#", class: "btn btn-success top-button" do %>
       <%= image_tag('/icon/mail.png',size:"20x20") %>
       個別連絡
     <% end %>
   </div>
   <div id="five">
-    <%= link_to  "#", class: "btn btn-info top-submit last" do %>
+    <%= link_to  "#", class: "btn btn-info top-button last" do %>
     <%= image_tag('/icon/pe.png',size:"20x20") %>
     保護者一覧
     <% end %>

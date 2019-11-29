@@ -27,7 +27,9 @@
                    <%= fields_for "selects[]",select do |af| %>
                     <tr>
                       <td><%=af.text_field :content,style:"height:60px;",class:"form-control" %></td>
-                      <td></td>
+                      <td>
+                        <%= link_to "削除",document_select_destroy_path(select),data:{confirm:"削除してよろしいですか？"},method: :delete,class:"btn btn-danger btn-lg btn-block" if @document_item.document_selects.count>=2%>
+                      </td>
                     </tr>
                   <% end %>
                  <% end %>
@@ -35,6 +37,13 @@
              </table>
             <% end %>
              <div style="border-top:1px dotted black"></div>
+             <p id="document_item_add_p">
+               選択肢を追加するには下のフォームに入力して追加してください。
+             </p>
+             <%= form_with(url:document_select_add_path(@document_item),local:true) do |f| %>
+               <%= f.text_area :content,rows:4,class:"form-control",placeholder:"追加項目を入力してください。" %>
+               <%= f.submit "選択肢追加",class:"btn btn-primary",style:"margin-top:1%;" %>
+             <% end %>
           </div>
           </div>
         </div>

@@ -1,4 +1,6 @@
 class DocumentItemsController < ApplicationController
+  before_action :set_teacher
+  
   #新規選択式作成フォーム
   def new
     @document = Document.find(params[:document_id])
@@ -60,9 +62,6 @@ class DocumentItemsController < ApplicationController
    redirect_to document_question2_url(@document_item.document_id)
    end
 
-   
-   
-   
    #選択式作成質問ページモーダル
    def select_modal
    end
@@ -70,9 +69,6 @@ class DocumentItemsController < ApplicationController
    #入力式作成初期ページモーダル
    def input_modal
    end
-
-   
-   
  end
   
 end

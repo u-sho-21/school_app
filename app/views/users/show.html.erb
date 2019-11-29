@@ -1,10 +1,24 @@
-<h1><%= @user.name + @user.name2 %></h1>
+<h1 id="meeting-top-title"><%= @user.name + @user.name2 %>さんの管理ページ</h1>
 
 
-<div id="top">
-
-  <%= link_to "面談ページへ", user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), class: "btn btn-success top-submit" %>
-
-  <%= link_to "提出ページへ", "#", class: "btn btn-info top-submit" %>
+<div id="user-top">
+  <div id="one">
+    <%= link_to "面談ページへ", user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), class: "btn btn-success top-button" %>
+  </div>
+  <div id="two">
+    <%= link_to "提出ページへ", "#", class: "btn btn-success top-button" %>
+  </div>
+  <div id="three">
+    <%= link_to "保護者情報編集", "#", class: "btn btn-success top-button" %>
+  </div>
+  <div id="four">
+    <%= link_to "生徒さん登録/編集", "#", class: "btn btn-success top-button" %>
+  </div>
+  <div id="five">
+    <%= link_to "先生へ連絡する", "#", class: "btn btn-success top-button" %>
+  </div>
+  <div id="six">
+    <%= link_to "先生からのお便り", "#", class: "btn btn-success top-button" %>
+  </div>
 
 </div>

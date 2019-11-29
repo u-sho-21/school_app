@@ -1,5 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only:[:edit, :updata]
+  before_action :set_teacher
+
   #掲出状況確認(教員)
   def index
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
@@ -203,16 +205,48 @@ end
  def update_add
    @document =Document.find(params[:document_id])
    documents = Document.where(memo: @document.memo, randam: @document.randam) #同じ条件のdocument取り出し。
+   linK_item = nil
    randam = SecureRandom.alphanumeric(10)
    documents.each do |document|
      record = document.document_items.build(content: params[:content])
      record.randam = randam
      record.document_id = document.id
      record.save
+     linK_item = record
    end 
-   redirect_to documents_url
+   if select_exist == true
+    redirect_to document_item_select_url(linK_item)
+   else select_exist == false
+    redirect_to documents_url
+   end 
  end
- 
+
+ #編集の際選択肢目追加
+ def update_select_add
+  @document_item = DocumentItem.find(params[:document_id])
+  items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
+  items.each do |item|
+    record = item.document_selects.build(content: params[:content])
+    record.save
+  end  
+  flash[:success] ="選択肢を追加しました"
+  redirect_to documents_url
+ end
+
+ #編集画面質問削除
+ def delete_item
+  document = Document.find(params[:obj])
+  DocumentItem.find(params[:id]).destroy
+  flash[:danger] = "削除しました。"
+  redirect_to edit_document_url(document)
+ end
+
+  def delete_select
+    select =  DocumentSelect.find(params[:id])
+    DocumentSelect.find(params[:id]).destroy
+    flash[:danger] = "削除しました。"
+    redirect_to edit_document_url(select.document_item.document)
+  end
 
 #保護者側書類show
 def show
@@ -229,6 +263,8 @@ private
   def set_document
     @document = Document.find(params[:id])
   end
+
+ 
   
   #質問編集パラメーター
   def item_parameter

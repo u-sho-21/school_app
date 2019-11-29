@@ -1,12 +1,14 @@
-<h1>面談状況確認</h1>
+<div id="meeting-top-title">面談状況確認</div>
 
 <div id="content">
-  <h1><%= "#{@children.count}人中#{@desired_count}人返信済み" %></h1>
-  <h1 style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</h1>
+<div id="meeting-title">
+  <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
+  <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+</div>
 
-  <table class="table-bordered table-striped table-condensed" style="width: 100%; margin-top: 20px;">
+  <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
     <thead>
-      <tr>
+      <tr style="background: #FF9933; color: white;">
         <td>名前</td>
         <td>返信状況</td>
       </tr>
@@ -16,10 +18,16 @@
       <% @children.each do |child| %>
         <tr>
           <td><%= child.full_name %></td>
-          <td><%= desired_status(@teacher, child.id) %></td>
+          <% if desired_status(@teacher, child.id) =="返信済み" %>
+            <td style="color: red;"><%= desired_status(@teacher, child.id) %></td>
+          <% else %>
+            <td style="color: blue;"><%= desired_status(@teacher, child.id) %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <%= link_to "スケジュール調整へ", teacher_meetings_index_path(@teacher), class: "btn btn-primary" %>
+  <div id="submit-center">
+    <%= link_to "スケジュール調整へ", teacher_meetings_index_path(@teacher), class: "btn btn-primary submit-width" %>
+  </div>
 </div>
