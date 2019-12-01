@@ -9,3 +9,41 @@
     color: darkblue;
     font-weight:bold;
 }
+/*   user     */
+#document_user_table{
+    th{
+        background: rgb(214,185,92);
+        background: -moz-linear-gradient(top,  rgba(214,185,92,1) 0%, rgba(180,183,14,1) 1%, rgba(254,182,69,1) 28%, rgba(237,225,118,1) 66%);
+        background: -webkit-linear-gradient(top,  rgba(214,185,92,1) 0%,rgba(180,183,14,1) 1%,rgba(254,182,69,1) 28%,rgba(237,225,118,1) 66%);
+        background: linear-gradient(to bottom,  rgba(214,185,92,1) 0%,rgba(180,183,14,1) 1%,rgba(254,182,69,1) 28%,rgba(237,225,118,1) 66%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6b95c', endColorstr='#ede176',GradientType=0 );
+        border: 1px solid black;
+    }
+    td{border: 1px solid black;font-weight: bold;}
+}
+/*提出物期限案内分岐*/
+#document_users_span{
+    background: rgb(255,48,25);
+    background: -moz-linear-gradient(top,  rgba(255,48,25,1) 0%, rgba(207,4,4,1) 30%, rgba(207,4,4,1) 30%);
+    background: -webkit-linear-gradient(top,  rgba(255,48,25,1) 0%,rgba(207,4,4,1) 30%,rgba(207,4,4,1) 30%);
+    background: linear-gradient(to bottom,  rgba(255,48,25,1) 0%,rgba(207,4,4,1) 30%,rgba(207,4,4,1) 30%);
+    box-shadow: 3px 3px 3px cyan;
+   
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 );
+    color: #fff;
+    font-weight: bold;
+    padding: 6px;
+
+
+}
+#document_users_span2{
+    background: rgb(143,196,0);
+    background: -moz-linear-gradient(top,  rgba(143,196,0,1) 7%, rgba(143,196,0,1) 21%, rgba(143,196,0,1) 74%);
+    background: -webkit-linear-gradient(top,  rgba(143,196,0,1) 7%,rgba(143,196,0,1) 21%,rgba(143,196,0,1) 74%);
+    background: linear-gradient(to bottom,  rgba(143,196,0,1) 7%,rgba(143,196,0,1) 21%,rgba(143,196,0,1) 74%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fc400', endColorstr='#8fc400',GradientType=0 );
+    color: #fff;
+    font-weight: bold;
+    
+
+}

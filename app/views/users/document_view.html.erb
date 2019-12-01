@@ -2,21 +2,14 @@
   <h1 class="title_font">
     書類タイトル:<span style="color:red"><%= @document.title %></span>
   </h1>
-  <% if !current_teacher.nil? %>
-   <h3>教員専用ページ</h3>
-   <p style="color:red;">*教員確認用なので、操作はできません。</p>
-  <% end %>
 </div>
 
 <% if @input_count > 0 && @select_count ==false %>
   <%= render 'layouts/documents/select'%>
 <% elsif @input_count >0 && @select_count %>
-  <%= render 'layouts/documents/input' %>  
+  <%= render '/layouts/documents/input' %>  
 <% elsif @input_count == 0 %>  
    <%= render 'layouts/documents/pdf' %>  
 <% end %>
 <hr>
-
-<% if !current_teacher.nil? %>
-  <%= link_to "戻る",documents_path,class:"btn btn-default" %> 
-<% end %>
+<%= link_to "戻る",user_documets_path(@user),class:"btn btn-default" ,class:"btn btn-default" %>

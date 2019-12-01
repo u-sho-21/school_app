@@ -1,0 +1,44 @@
+<hr>
+<div id="pdf-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
+<div class="document_user_box">
+  <span class="document_box-title">概要</span>
+  <p><%= @document.memo %></p>
+  <strong style="color:red">期限:<%=@document.deadline %></strong>
+</div>
+<hr>
+<% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
+ 
+<% end %> 
+<% item_count = 0 %>
+<%= form_with(url:"#",local:true) do |f| %>
+ <% @document.document_items.each do |item| %>
+   <% item_count += 1 %>
+   <h2 id="document_user_question_h2">
+     <%= item.content %>
+   </h2>
+  <div class="document_user_select">
+   <% item.document_selects.each do |select| %>
+       <label id="document_select_label">
+
+       <!--教員用は選択出来なくする。-->
+        <% if !current_teacher.nil?%>
+          <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" disabled >
+        <% else %> 
+          <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio">
+        <% end%>  
+         <p><%= obj = select.content %><p>
+        <% unless obj == item.document_selects.last.content %> <!--最後の要素の境界線を消す-->
+         <hr id="document_dotted">
+       <% end%>  
+       </label>
+       <br>  
+   <% end %>
+   </div> 
+ <% end %><br>
+ <div class="text-center">
+   <%= f.submit "提出",class:"btn btn-primary",style:"width:40%;height:60px" if current_teacher.nil? %>
+ </div>
+<% end %>
+<style>
+  body{background-color:#FFE4C4;}
+</style>

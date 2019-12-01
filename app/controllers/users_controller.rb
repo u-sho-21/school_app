@@ -46,6 +46,22 @@ class UsersController < ApplicationController
     end
   end
 
+  #保護者提出ページ
+  def document_show
+    @user = User.find(params[:user_id])
+    @documents = @user.documents.all
+    public_check
+    
+  end
+
+  def document_view
+    @document = Document.find(params[:id])
+    @input_count = @document.document_items.all.count
+    @select_count = select_zerocount?
+    @user = User.find(params[:user_id]) 
+  end
+  
+
   private
 
     def user_params

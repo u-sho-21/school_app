@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20191128001511) do
     t.datetime "updated_at", null: false
     t.boolean "item_check", default: false
     t.string "service_url"
+    t.boolean "check", default: false
+    t.integer "teacher_id"
   end
 
   create_table "meeting_times", force: :cascade do |t|

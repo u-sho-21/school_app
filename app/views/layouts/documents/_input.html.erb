@@ -1,6 +1,7 @@
-<div style="border:1px solid black;padding:6px;background-color:#fff;">
-  <h3><%= @document.memo %></h3>
-  <strong style="color:red"><%=@document.deadline %></strong>
+<div class="document_user_box">
+  <span class="document_box-title">概要</span>
+  <p><%= @document.memo %></p>
+  <strong style="color:red">期限:<%=@document.deadline %></strong>
 </div>
 <hr>
 <% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
@@ -10,7 +11,7 @@
 <% count_item = 0 %>
 <%= form_with(url:"#",local:true) do |f| %>
   <% @document.document_items.each do |item| %>
-    <%= f.label item.content %>
+    <%= f.label item.content,class:"title_font" %>
      <textarea name="tx<%= count_item %>" class="form-control" rows="5"></textarea>
      <% count_item += 1 %>
   <% end %><br>

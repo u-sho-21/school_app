@@ -68,10 +68,15 @@ module DocumentItemsHelper
   end
 
   def set_teacher
-    if params[:teacher_id]
-     session[:teacher_id] = params[:teacher_id]
-    end
-    @teacher = Teacher.find(session[:teacher_id])
+    if session[:teacher_id].nil?
+      if logged_in?
+        redirect_to user_url(current_user)
+      else
+        redirect_to root_url  
+      end  
+    else  
+      @teacher = Teacher.find(session[:teacher_id])
+    end  
   end  
     
 
