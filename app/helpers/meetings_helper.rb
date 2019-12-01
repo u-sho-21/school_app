@@ -57,7 +57,7 @@ module MeetingsHelper
   def desired_status(teacher, id)
     meetings = teacher.meetings.where(child_id: id)
     desired = meetings.map{|m| m.desired}
-    if meetings.first.date.present?
+    unless desired.empty?
       case true
         when *desired
           return "返信済み"

@@ -18,8 +18,10 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:date].blank?
-        Meeting.where(teacher_id: @teacher.id).delete_all
-        MeetingTime.where(teacher_id: @teacher.id).delete_all
+        # Meeting.where(teacher_id: @teacher.id).delete_all
+        @teacher.meetings.all.delete_all
+        # MeetingTime.where(teacher_id: @teacher.id).delete_all
+        @teacher.meeting_times.all.delete_all
         params[:date].split("\r\n").each do |day|
           unless @teacher.meetings.any? {|meeting| meeting.date == day}
             @teacher.children.where(teacher_id: @teacher.id).each do |child|
@@ -85,6 +87,11 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
     @times = @teacher.meeting_times.map { |time| time.time }
+    # 面談日登録がない場合表示されない
+    unless @teacher.meetings.first.present?
+      flash[:info] = "面談日が登録されていません。"
+      redirect_to teacher_url(@teacher)
+    end
   end
 
   # 面談時間レコード作成
@@ -99,7 +106,8 @@ class MeetingsController < ApplicationController
     addtime_2 = @started_time_2.to_i
 
     if params[:commit] == "登録"
-      MeetingTime.where(teacher_id: @teacher.id).delete_all
+      # MeetingTime.where(teacher_id: @teacher.id).delete_all
+      @teacher.meeting_times.all.delete_all
       @times = times(addtime_1, addtime_2, @frame, @minutes)
 
       dates.each do |date|
@@ -210,6 +218,7 @@ class MeetingsController < ApplicationController
       @children_name << child.full_name
     end
     @desired_count = @teacher.meetings.where(desired: false).count
+    # 全員返信でない場合表示されないように
     # unless @desired_count == 0
     #   flash[:info] = "未返信の方がいるため、スケジュール調整はまだできません。"
     #   redirect_to teacher_meeting_index2_url(@teacher)
