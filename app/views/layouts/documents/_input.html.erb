@@ -14,11 +14,15 @@
 <%= form_with(url:"#",local:true) do |f| %>
   <% @document.document_items.each do |item| %>
     <%= f.label item.content,class:"title_font",style:"margin-top:1%"%>
-     <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください" ></textarea>
+    <% if current_teacher.nil?%>
+       <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください" ></textarea>
+    <% else %>
+      <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください" readonly=true></textarea>
+    <% end %>
      <% count_item += 1 %><br><br>
   <% end %><br><br><br>
   <div class="text-center">
-    <%= f.submit "提出",class:"btn btn-primary btn-lg",style:"width:40%;height:50px" %>
+    <%= f.submit "提出",class:"btn btn-primary btn-lg",style:"width:40%;height:50px" if current_teacher.nil? %>
   </div>
 <% end %>    
 <style>

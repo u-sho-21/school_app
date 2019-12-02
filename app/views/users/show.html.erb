@@ -15,14 +15,14 @@
     <% end %>
   </div>
   <div id="three">
-    <%= link_to  "#", class: "btn btn-success top-button" do %>
+    <%= link_to  edit_user_path(@user), class: "btn btn-success top-button" do %>
       <i class="fas fa-user"></i>
       保護者情報編集
     <% end %>
   </div>
   <div id="four">
-    <%= link_to  "#", class: "btn btn-success top-button" do %>
-      <i class="fas fa-user-graduate"></i>
+    <%= link_to  user_users_index2_path(@user), class: "btn btn-success top-button" do %>
+       <i class="fas fa-user-graduate"></i>
       生徒さん登録/編集
     <% end %>
   </div>

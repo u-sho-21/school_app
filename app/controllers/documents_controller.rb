@@ -23,7 +23,7 @@ class DocumentsController < ApplicationController
         record = user.documents.build(document_params)
         record.randam = randam
         record.user_id = user.id
-        record.teacher_ids = current_teacher.id
+        record.teacher_id = current_teacher.id
         if record.save
           if user.id == 1
             record.public = true

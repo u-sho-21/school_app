@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root to: 'sessions#new'                                                                                      # 保護者ログインページ
   get  '/login/teacher', to: 'sessions#new2'                                                                   # 教員ログインページ
   get '/signup', to: 'users#new'                                                                               # 保護者新規作成ページ
-  get '/signup/:id/child', to: 'users#new2', as: :signup_child                                                     # 生徒新規作成ページ
-  post '/users/:id/child', to: 'users#create2', as: :child_create2                                                 # 生徒新規登録
+  get '/signup/:id/child', to: 'users#new2', as: :signup_child                                                 # 生徒新規作成ページ
+  post '/users/:id/child', to: 'users#create2', as: :child_create2                                             # 生徒新規登録
 
   post   '/login', to: 'sessions#create'                                                                       # 保護者ログイン処理
   post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
 
   resources :teachers do
+    get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
@@ -23,12 +24,15 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
+    get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
+    patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新
     get  ':child_id/meetings/new_user', to: 'meetings#new_user', as: :meetings_new_user                        # 保護者面談日時登録ページ
     get  ':child_id/meetings/desired', to: 'meetings#desired', as: :meetings_desired                           # 希望日登録モーダル
     patch ':child_id/meetings/desired', to: 'meetings#desired_update', as: :desired_update                     # 面談希望日等決定
     get   '/documets', to: 'users#document_show'                                                               #保護者提出ページへ
     get   '/documetView/:id', to: 'users#document_view',as:  :document_view                                    #保護者提出一覧へ
-    get   "file_show/:document_id",to:"users#file_show",as: :file_show                                        #提出後保護者ﾘﾝｸ
+    get   "file_show/:document_id",to:"users#file_show",as: :file_show                                         #提出後保護者ﾘﾝｸ
   end
   get  '/document_link/modal/:id', to: 'users#link', as: :document_link                                        #外部サービスモーダル
 
@@ -54,15 +58,16 @@ Rails.application.routes.draw do
   post 'document_select/:document_item_id',to:'document_selects#create',as: :selectcreate                      #選択肢選択肢登録
   resources :document_selects
   delete 'documentitem/delete/:id',to:'documents#delete_item',as: :document_destroy                            #編集画面質問削除
-  delete 'documentSelect/delete/:id',to:'documents#delete_select',as: :document_select_destroy 
+  delete 'documentSelect/delete/:id',to:'documents#delete_select',as: :document_select_destroy
   delete "document/file_delete/:document_id",to:"documents#file_delete",as: :file_delete                       #教員ファイル削除
   get "document/public_change/:document_id",to:"documents#public_change",as: :public_change                    #保護者へ提出
   get 'select_document/first',to:'documents#select_modal',as: :select_first_modal                              #選択式最初のページモーダル
   get 'select_document/second',to:'document_items#select_modal',as: :select_second_modal                       #選択式2番目のページモーダル
   get 'select_document/third',to:'document_selects#select_modal',as: :select_third_modal                       #選択式3番目のページモーダル
   get 'input_document/first',to:'documents#input_modal',as: :input_first_modal                                 #入力式最初のページモーダル
-  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル 
+  get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル
   get 'document_select/:id/select',to:'documents#document_modal',as: :document_select_editmodal                #選択肢編集モーダル
   post 'document/check_delete',to:'documents#check_delete',as: :document_check_delete                          #教員チェックボックス複数削除
   post "documents/selectform/:id",to:"users#selectform",as: :selectform                                        #保護者選択式フォームpost送信
+
 end

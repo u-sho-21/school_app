@@ -18,7 +18,7 @@
       <% @children.each do |child| %>
         <tr>
           <td><%= child.full_name %></td>
-          <% if desired_status(@teacher, child.id) =="返信済み" %>
+          <% if desired_status(@teacher, child.id) == "返信済み" %>
             <td style="color: red;"><%= desired_status(@teacher, child.id) %></td>
           <% else %>
             <td style="color: blue;"><%= desired_status(@teacher, child.id) %></td>
