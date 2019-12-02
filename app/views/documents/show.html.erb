@@ -6,6 +6,10 @@
    <h3>教員専用ページ</h3>
    <p style="color:red;">*教員確認用なので、操作はできません。</p>
   <% end %>
+  <% if !current_teacher.nil? %>
+    <%= link_to "戻る",documents_path,class:"btn btn-default",style:"margin-bottom:1%;width:20%" %> 
+  <% end %>
+
 </div>
 
 <% if @input_count > 0 && @select_count ==false %>
@@ -15,8 +19,4 @@
 <% elsif @input_count == 0 %>  
    <%= render 'layouts/documents/pdf' %>  
 <% end %>
-<hr>
 
-<% if !current_teacher.nil? %>
-  <%= link_to "戻る",documents_path,class:"btn btn-default" %> 
-<% end %>

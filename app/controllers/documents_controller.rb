@@ -23,7 +23,7 @@ class DocumentsController < ApplicationController
         record = user.documents.build(document_params)
         record.randam = randam
         record.user_id = user.id
-        record.teacher_id = current_teacher.id
+        record.teacher_ids = current_teacher.id
         if record.save
           if user.id == 1
             record.public = true
@@ -291,6 +291,9 @@ def show
   @select_count = select_zerocount?
   @user = User.find(params[:user]) if params[:user].present?
 end  
+
+
+#*******************************************PRIVATE***************************************************************************
 private
   def document_params
     params[:document][:pdf_link] = view_url(params[:document][:service],params[:document][:service_url])

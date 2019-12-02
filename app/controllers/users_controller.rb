@@ -54,12 +54,45 @@ class UsersController < ApplicationController
     
   end
 
+  #保護者提出一覧ページ
   def document_view
     @document = Document.find(params[:id])
     @input_count = @document.document_items.all.count
     @select_count = select_zerocount?
     @user = User.find(params[:user_id]) 
   end
+
+  #保護者提出外部サービスﾘﾝｸ
+  def link
+    @document = Document.find(params[:id])
+  end
+  
+  #選択式保護者処理
+def selectform
+  @document = Document.find(params[:id])
+  answer = Answer.new
+  answer.document_id = params[:id]
+  reply = ""
+  100.times do |i|
+    str = "rd"+i.to_s
+    if params[str].present?
+      reply += params[str] + ":"
+    end  
+  end  
+  answer.reply = reply
+  answer.user_id = current_user.id
+  if answer.save
+    debugger
+   redirect_to user_url(current_user)
+  else 
+    render :selectform
+  end 
+end
+
+#ユーザー用ファイル表示  
+def file_show
+  @document = Document.find(params[:document_id])
+end
   
 
   private

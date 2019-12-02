@@ -1,12 +1,12 @@
 <div class="text-center text-success">
   <h1 class="title_font"><%= "#{@user.name}さんページ" %></h1>
 </div>
-<hr>
-<%= link_to "メニューへ",user_path(@user),class:"btn btn-info",width:"width:60%;" %>
 <div class="bg-primary" style="border-top:1px dotted"></div>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-10 col-md-offset-1">
   　<h2 class="title_font" style="font-size:20px">提出状況</h2>
+   <%= link_to "メニューへ",user_path(@user),class:"btn btn-info",style:"margin-top:-2%" %>
+   <span class="title_font">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
    <% if @user.documents.all.count > 0   %>
     <table class="table table-bordered" id="document_user_table">
       <thead>
@@ -25,26 +25,28 @@
           <% if document.public %>
           <tr>
             <td>
-              <% if document.document_items.all.count > 0 && document.answers.last.nil? %>
-                <span id="document_users_span"><%= "期限#{document.deadline}" if document.deadline.present? %></span>
-              <% elsif document.document_items.count == 0 && document.answers.last.nil? %>
-                 <span id="document_users_span"><%= "表示期限#{document.deadline+7}" if document.deadline.present? %></span>
-              <% else %>
-              　 <span id="document_users_span2">提出済み</span>
+             <% if document.deadline > Date.today %>
+              <span id="document_users_span"><%= "期限#{document.deadline}"  %></span>
+             <% else %>
+               <span id="document_users_span">終了</span>
+             <% end %>
+              <% unless document.answers.count == 0 %>
+                 <div style="color:blue;margin-top:1%;"><i class="fas fa-share-square"></i>提出済み</div>
               <% end %>
             </td>
-            <td width="60%"> <%= document.title %></td>
+            <td width="60%">
+              <% if document.answers.count == 0 %>
+                <%= document.title %>
+              <% else %> 
+                <span style="color:green"><i class="fas fa-check-circle"></i></span><%= link_to document.title,user_file_show_path(@user,document) %> 
+              <% end %> 
+            </td>
             <td>
-                  <% if document.answers.count == 0 %>
+                  <% if document.answers.count == 0 && document.deadline > Date.today  %>
                     <!-- ユーザー1の時は表示しない -->
                     <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
-                    
-                  <% else %> 
-                    <span class="text-primary" style="font-size:14px;">
-                        <%= link_to document.title,file_show_user_path(@user,document) %>
-                    </span>
-                    <span style="color:orange">済み</span>
-                    <%= link_to "やり直す",document_path(document),class:"btn btn-warning" %> 
+                  <% elsif document.answers.count > 0 && document.deadline > Date.today  %> 
+                    <%= link_to "やり直す",document_path(document),class:"btn btn-warning" unless @user.id == 1%> 
                <% end %>
             </td>
           </tr>

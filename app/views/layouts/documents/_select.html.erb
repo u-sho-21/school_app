@@ -7,10 +7,10 @@
 </div>
 <hr>
 <% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
- 
+ <%= link_to "外部資料表示",document_link_path(@document),remote:true,style:"font-size:24px;" %>
 <% end %> 
 <% item_count = 0 %>
-<%= form_with(url:"#",local:true) do |f| %>
+<%= form_with(url:selectform_path(@document),local:true) do |f| %>
  <% @document.document_items.each do |item| %>
    <% item_count += 1 %>
    <h2 id="document_user_question_h2">
