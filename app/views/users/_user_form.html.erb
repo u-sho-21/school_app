@@ -1,0 +1,23 @@
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <%= f.label :name, "姓", class: "label-signup" %>
+  <%= f.text_field :name, class: "form-control" %>
+
+  <%= f.label :name2, "名", class: "label-signup" %>
+  <%= f.text_field :name2, class: "form-control" %>
+
+  <%= f.label :email, "メールアドレス", class: "label-signup" %>
+  <%= f.email_field :email, class: "form-control" %>
+
+  <%= f.label :phone, "電話番号", class: "label-signup" %>
+  <%= f.text_field :phone, class: "form-control" %>
+
+  <%= f.label :password, "パスワード", class: "label-signup" %>
+  <%= f.password_field :password, class: "form-control" %>
+
+  <%= f.label :password_confirmation, "パスワード確認", class: "label-signup" %>
+  <%= f.password_field :password_confirmation, class: "form-control" %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-signup" %>
+<% end %>
