@@ -1,0 +1,15 @@
+<div id="meeting-top-title">生徒さんの編集と登録</div>
+
+<div id="child-signup">
+  <%= link_to "生徒さんの登録はこちら", signup_child_path(@user) %>
+</div>
+
+<table class="table meeting-table">
+  <tbody>
+    <% @children.each do |child| %>
+    <tr style="font-size: 25px;">
+      <td><%= link_to "#{child.full_name}さんの編集", user_users_edit2_path(user_id: @user.id, child_id: child.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

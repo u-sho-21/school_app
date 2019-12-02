@@ -1,0 +1,17 @@
+<div id="meeting-top-title"><%= @child.full_name %>さんの編集</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: @child, url: user_users_update2_path(user_id: params[:user_id], child_id: params[:child_id]), local: true) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :name_1, "姓", class: "label-signup" %>
+      <%= f.text_field :name_1, class: "form-control" %>
+
+      <%= f.label :name_2, "名", class: "label-signup" %>
+      <%= f.text_field :name_2, class: "form-control" %>
+
+      <%= f.submit "更新", class: "btn btn-primary btn-block btn-signup" %>
+    <% end %>
+  </div>
+</div>

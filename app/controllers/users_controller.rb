@@ -65,10 +65,55 @@ class UsersController < ApplicationController
     redirect_to teacher_teacher_index2_url(params[:teacher_id])
   end
 
-  private
+  # 保護者編集ページ
+  def edit
+    @user = User.find(params[:id])
+  end
 
+  # 保護者更新
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "#{@user.name + @user.name2}さんの登録情報を更新しました。"
+      redirect_to user_url(@user)
+    else
+      flash[:danger] = "失敗"
+      redirect_to user_url(@user)
+    end
+  end
+
+  # 生徒情報登録/編集ページ
+  def index2
+    @user = User.find(params[:user_id])
+    @children = @user.children.all
+  end
+
+  # 生徒情報編集ページ
+  def edit2
+    @user = User.find(params[:user_id])
+    @child = @user.children.find(params[:child_id])
+  end
+
+  # 生徒情報更新
+  def update2
+    @user = User.find(params[:user_id])
+    @child = @user.children.find(params[:child_id])
+    if @child.update_attributes(child_params)
+      @child.update_attributes(full_name: @child.name_1 + @child.name_2)
+      flash[:success] = "生徒さん情報を更新しました。"
+      redirect_to user_users_index2_url(@user)
+    end
+  end
+
+  private
+    # 保護者情報登録/更新
     def user_params
       params.require(:user).permit(:name, :name2, :email, :phone, :password, :password_confirmation)
+    end
+
+    # 生徒情報登録/更新
+    def child_params
+      params.require(:child).permit(:name_1, :name_2)
     end
 
 end

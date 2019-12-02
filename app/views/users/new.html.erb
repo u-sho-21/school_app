@@ -1,29 +1,9 @@
+<% provide(:button_text, '新規作成') %>
+
 <div id="meeting-top-title">保護者新規登録</div>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @user, local: true) do |f| %>
-      <%= render 'shared/error_messages' %>
-
-      <%= f.label :name, "姓", class: "label-signup" %>
-      <%= f.text_field :name, class: "form-control" %>
-
-      <%= f.label :name2, "名", class: "label-signup" %>
-      <%= f.text_field :name2, class: "form-control" %>
-
-      <%= f.label :email, "メールアドレス", class: "label-signup" %>
-      <%= f.email_field :email, class: "form-control" %>
-
-      <%= f.label :phone, "電話番号", class: "label-signup" %>
-      <%= f.text_field :phone, class: "form-control" %>
-
-      <%= f.label :password, "パスワード", class: "label-signup" %>
-      <%= f.password_field :password, class: "form-control" %>
-
-      <%= f.label :password_confirmation, "パスワード確認", class: "label-signup" %>
-      <%= f.password_field :password_confirmation, class: "form-control" %>
-
-      <%= f.submit "登録", class: "btn btn-primary btn-block btn-signup" %>
-    <% end %>
+    <%= render "user_form" %>
   </div>
 </div>

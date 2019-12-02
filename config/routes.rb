@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
 
   resources :teachers do
-    get 'index2', to: 'teachers#index2', as: :teacher_index2                                              # 保護者一覧ページ
+    get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
+    get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
+    patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新
     get  ':child_id/meetings/new_user', to: 'meetings#new_user', as: :meetings_new_user                        # 保護者面談日時登録ページ
     get  ':child_id/meetings/desired', to: 'meetings#desired', as: :meetings_desired                           # 希望日登録モーダル
     patch ':child_id/meetings/desired', to: 'meetings#desired_update', as: :desired_update                     # 面談希望日等決定
