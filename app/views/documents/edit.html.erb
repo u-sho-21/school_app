@@ -1,5 +1,10 @@
 <%= provide(:url,document_path(@document)) %>
 
+<!--バリデーションメッセージ-->
+    <% if flash[:info].present? %>
+     <div id="document_validation"><%= flash[:info] %></div>
+    <% end %>
+
 <div class="text-center text-primary">
   <h1>提出物編集ページ</h1>
   <h2 style="font-size:22px;">書類タイトル:<span style="color:red"><%= @document.title %></span></h2>
@@ -16,13 +21,16 @@
 <div class="row" id="document_edit_itemarea">
   <div class="col-md-10 col-md-offset-1">
     <h2 id="document_item_edit_header">質問の編集</h2>
-
+    
     <!--選択肢のモーダル-->
     <div id="document_edit_modal" class="modal fade" role="dialog" tabindex="-1" area-hidden="true"></div>
 
     <!--編集フォーム-->
     <%= form_with(model: @document,url:document_update_item_path(@document),local:true,method: :patch) do |f| %>
-    <%= f.submit "質問を編集する",class:"btn btn-info",style:"margin-top:-3%;" %>
+    <%= f.submit "質問を編集する",class:"btn btn-info"%>
+    <span id="document_explain_span">
+    　　←編集を確定させるにはこのボタンを押してください。
+    </span>
 
     <table class="table" id="document_itemedit_table">
       <thead>

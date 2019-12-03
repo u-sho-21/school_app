@@ -23,6 +23,7 @@ class DocumentsController < ApplicationController
         record = user.documents.build(document_params)
         record.randam = randam
         record.user_id = user.id
+        record.teacher_id = current_teacher.id
         if record.save
           if user.id == 1
             record.public = true
@@ -53,6 +54,7 @@ def create2
       record = user.documents.build(document_params)
       record.randam = randam
       record.user_id = user.id
+      record.teacher_id = current_teacher.id
       if record.save
         if user.id == 1
           record.public = true
@@ -83,6 +85,7 @@ def create3
       record = user.documents.build(document_params)
       record.randam = randam
       record.user_id = user.id
+      record.teacher_id = current_teacher.id
       if params[:document][:pdf_link].present?
         if record.save
           if user.id == 1
@@ -135,6 +138,22 @@ def file_delete
   redirect_to documents_url
 end
 
+#複数document削除
+def check_delete
+  delete_parameter.each do |id,item|
+    if item[:check] == "1"
+      document = Document.find id
+      documents = Document.where(memo: document.memo, randam: document.randam)
+      documents.each do |obj|
+        obj.destroy
+      end  
+    end  
+  end 
+  flash[:danger] = "削除しました。" 
+  redirect_to documents_url
+end
+
+
  #保護者へ作成した書類公表
  def public_change
    document = Document.find(params[:document_id])
@@ -143,8 +162,8 @@ end
      document.public =true
      document.save
   end  
-  flash[:sucess] = "保護者に提出しました。"
-  redirect_to teacher2_url
+  flash[:success] = "保護者に提出しました。"
+  redirect_to documents_url
 end
 
 #選択式作成初期ページモーダル
@@ -166,7 +185,11 @@ def item_update
   documents = Document.where(memo:@document.memo,randam: @document.randam)
   item_parameter.each do |id,it|
    item = DocumentItem.find id
-   item.update_attributes(it)
+   unless item.update_attributes(it)
+    flash[:info] = "質問の編集は空白にしないでください。"
+    redirect_to edit_document_url(@document)
+    return
+   end 
   end 
   update_items = @document.document_items.all 
   documents = Document.where(memo: @document.memo, randam: @document.randam)
@@ -188,7 +211,11 @@ def select_update
   sampleselect = @document_item.document_selects.last
   select_parameter.each do |id,item|
     select = DocumentSelect.find id
-    select.update_attributes(item)
+    unless select.update_attributes(item)
+      flash[:info] = "選択肢の編集の際に空白にしないでください。"
+      redirect_to edit_document_url(@document_item.document) 
+      return  
+    end  
   end  
   update_selects = @document_item.document_selects.all
   items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
@@ -211,7 +238,11 @@ end
      record = document.document_items.build(content: params[:content])
      record.randam = randam
      record.document_id = document.id
-     record.save
+     unless record.save
+      flash[:info] = "質問の追加の際に空白にしないでください。"
+      redirect_to edit_document_url(@document) 
+      return
+     end 
      linK_item = record
    end 
    if select_exist == true
@@ -227,7 +258,11 @@ end
   items = DocumentItem.where(content: @document_item.content, randam: @document_item.randam)
   items.each do |item|
     record = item.document_selects.build(content: params[:content])
-    record.save
+    unless record.save
+      flash[:info] = "選択肢の追加の際に空白にしないでください。"
+      redirect_to edit_document_url(@document_item.document) 
+      return
+    end  
   end  
   flash[:success] ="選択肢を追加しました"
   redirect_to documents_url
@@ -241,6 +276,7 @@ end
   redirect_to edit_document_url(document)
  end
 
+ #編集画面選択肢削除
   def delete_select
     select =  DocumentSelect.find(params[:id])
     DocumentSelect.find(params[:id]).destroy
@@ -253,11 +289,15 @@ def show
   @document = Document.find(params[:id])
   @input_count = @document.document_items.all.count
   @select_count = select_zerocount?
+  @user = User.find(params[:user]) if params[:user].present?
 end  
+
+
+#*******************************************PRIVATE***************************************************************************
 private
   def document_params
     params[:document][:pdf_link] = view_url(params[:document][:service],params[:document][:service_url])
-    params.require(:document).permit(:title, :memo, :pdf_link, :deadline)
+    params.require(:document).permit(:title, :memo, :pdf_link, :deadline, :service_url)
   end
   
   def set_document
@@ -275,6 +315,10 @@ private
   def select_parameter
     params.permit(selects:[:content])[:selects]
   end
-  
+
+  #document複数削除パラメーター
+  def delete_parameter
+    params.permit(boxs: [:check])[:boxs]
+  end
   
 end

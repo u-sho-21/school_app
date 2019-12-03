@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     get  ':child_id/meetings/new_user', to: 'meetings#new_user', as: :meetings_new_user                        # 保護者面談日時登録ページ
     get  ':child_id/meetings/desired', to: 'meetings#desired', as: :meetings_desired                           # 希望日登録モーダル
     patch ':child_id/meetings/desired', to: 'meetings#desired_update', as: :desired_update                     # 面談希望日等決定
+    get   '/documets', to: 'users#document_show'                                                               #保護者提出ページへ
+    get   '/documetView/:id', to: 'users#document_view',as:  :document_view                                    #保護者提出一覧へ
+    get   "file_show/:document_id",to:"users#file_show",as: :file_show                                         #提出後保護者ﾘﾝｸ
   end
+  get  '/document_link/modal/:id', to: 'users#link', as: :document_link                                        #外部サービスモーダル
 
   resources :documents do
     get '/new',to: 'document_items#new',  as: :question                                                        #選択式提出質問作成ページ
@@ -63,5 +67,7 @@ Rails.application.routes.draw do
   get 'input_document/first',to:'documents#input_modal',as: :input_first_modal                                 #入力式最初のページモーダル
   get 'input_document/second',to:'document_items#input_modal',as: :input_second_modal                          #入力式2番目のページモーダル
   get 'document_select/:id/select',to:'documents#document_modal',as: :document_select_editmodal                #選択肢編集モーダル
-
+  post 'document/check_delete',to:'documents#check_delete',as: :document_check_delete                          #教員チェックボックス複数削除
+  post "documents/selectform/:id",to:"users#selectform",as: :selectform                                        #保護者選択式フォームpost送信
+  post "documents/inputform/:id",to:"users#inputform",as: :inputform                                           #保護者入力式フォームpost送信
 end

@@ -11,3 +11,93 @@
     background-color: #fff;
     th{background-color: orange;}
 }
+/* 保護者提出ページ */
+.document_user_box {
+    position: relative;
+    background: #d6ebff;
+    box-shadow: 0px 0px 0px 5px #d6ebff;
+    border: dashed 2px white;
+    border-radius: 6px;
+    padding: 0.2em 0.5em;
+    color: #454545;
+}
+.document_user_box::after {
+    position: absolute;
+    content: '';
+    right: -7px;
+    top: -7px;
+    border-width: 0 15px 15px 0;
+    border-style: solid;
+    border-color: #d6ebff #FFE4C4 #d6ebff;
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+.document_box-title{
+    background-color: rgb(93, 93, 172);
+    color: rgb(255, 255, 255);
+    padding: 6px;
+}
+.document_user_box p {
+    margin: 0; 
+    padding: 8px;
+}
+#document_user_question_h2{
+    background: rgb(234,185,45);
+    background: -moz-linear-gradient(top,  rgba(234,185,45,1) 0%, rgba(199,152,16,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(234,185,45,1) 0%,rgba(199,152,16,1) 100%);
+    background: linear-gradient(to bottom,  rgba(234,185,45,1) 0%,rgba(199,152,16,1) 100%);
+    border-left:12px solid coral;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eab92d', endColorstr='#c79810',GradientType=0 );
+    color: #fff;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+    font-size: 22px;
+    font-weight: bold;
+    padding: 18px;
+    
+}
+.document_user_select{
+    background-color: #fff;
+    padding:15px 10px;
+    padding-top: 40px;
+	border:1px solid #bbb;
+	border-radius: 8px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset,
+                0 0 2px rgba(255, 255, 255, 0.3) inset,
+                0 0 10px rgba(0, 0, 0, 0.1) inset,
+                0 1px 20px rgba(0, 0, 0, 0.1);
+	width: 100%;
+}
+.document_select_radio{
+   width: 2em;
+   height: 2em;
+   margin-top: 1%;
+   
+}
+#document_dotted{
+    display:block;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    border-top: 1px dashed #cccccc;  
+    margin-top: 3.2%;  
+}
+#document_select_label{
+    display: block;
+    width: 100%;
+    p{
+        margin: -3% 0 0 10%;
+    }
+}
+#document_download_title{
+    font-size: 16px;
+    margin-bottom: 2%;
+}
+/*保護者提出済みページタイトル*/
+.document_user_submit_title{
+   border-radius: 6px;
+   background-color:#c0c0c0;
+   color: #fff;
+   font-size: 20px;
+   padding: 16px;
+}
+
+/* 保護者提出ページここまで*/
