@@ -69,5 +69,5 @@ Rails.application.routes.draw do
   get 'document_select/:id/select',to:'documents#document_modal',as: :document_select_editmodal                #選択肢編集モーダル
   post 'document/check_delete',to:'documents#check_delete',as: :document_check_delete                          #教員チェックボックス複数削除
   post "documents/selectform/:id",to:"users#selectform",as: :selectform                                        #保護者選択式フォームpost送信
-
+  post "documents/inputform/:id",to:"users#inputform",as: :inputform                                           #保護者入力式フォームpost送信
 end

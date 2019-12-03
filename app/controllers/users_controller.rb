@@ -94,16 +94,41 @@ def selectform
   answer.reply = reply
   answer.user_id = current_user.id
   if answer.save
-    debugger
    redirect_to user_url(current_user)
   else 
     render :selectform
   end 
 end
 
-#ユーザー用ファイル表示  
+#入力式保護者処理
+def inputform  
+  @document = Document.find(params[:id])
+  answer = Answer.new
+  answer.document_id = params[:id]
+  reply = ""
+  100.times do |i|
+    str= "tx"+i.to_s 
+    if params[str].present?
+      reply += params[str]+":"
+    end   
+  end   
+  answer.reply = reply
+  answer.user_id = current_user.id
+  if answer.save
+    redirect_to user_url(current_user)
+  else
+    render :inputform
+  end  
+end
+
+#保護者提出済みファイル表示ページ  
 def file_show
   @document = Document.find(params[:document_id])
+  @user = User.find(params[:user_id])
+  @items = @document.document_items.all
+  @count = @items.count
+  @answers = @document.answers.last.reply.split(":")
+
 end
   
   # 保護者削除

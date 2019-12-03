@@ -12,6 +12,9 @@
 <% item_count = 0 %>
 <%= form_with(url:selectform_path(@document),local:true) do |f| %>
  <% @document.document_items.each do |item| %>
+   <!--　編集の場合の判別パラメーター、登録時は不要 -->
+   <% update_params = @document.answers.last.reply.split(":")[item_count] if @document.answers.count >0 %>
+
    <% item_count += 1 %>
    <h2 id="document_user_question_h2">
      <%= item.content %>
@@ -19,12 +22,17 @@
   <div class="document_user_select">
    <% item.document_selects.each do |select| %>
        <label id="document_select_label">
-
+      
        <!--教員用は選択出来なくする。-->
         <% if !current_teacher.nil?%>
           <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" disabled >
         <% else %> 
-          <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio">
+        <!-- 編集時のパラメーターで分岐-->
+          <% if update_params == select.content.to_s %>
+            <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" checked="checked">
+          <% else %>
+             <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio">
+          <% end %>
         <% end%>  
          <p><%= obj = select.content %><p>
         <% unless obj == item.document_selects.last.content %> <!--最後の要素の境界線を消す-->

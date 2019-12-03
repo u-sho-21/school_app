@@ -38,7 +38,8 @@
               <% if document.answers.count == 0 %>
                 <%= document.title %>
               <% else %> 
-                <span style="color:green"><i class="fas fa-check-circle"></i></span><%= link_to document.title,user_file_show_path(@user,document) %> 
+                <span style="color:green"><i class="fas fa-check-circle"></i></span>
+                <%= link_to document.title,user_file_show_path(@user,document) %> 
               <% end %> 
             </td>
             <td>
@@ -46,7 +47,7 @@
                     <!-- ユーザー1の時は表示しない -->
                     <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
                   <% elsif document.answers.count > 0 && document.deadline > Date.today  %> 
-                    <%= link_to "やり直す",document_path(document),class:"btn btn-warning" unless @user.id == 1%> 
+                    <%= link_to "やり直す",user_document_view_path(@user,document),class:"btn btn-warning" unless @user.id == 1%> 
                <% end %>
             </td>
           </tr>
