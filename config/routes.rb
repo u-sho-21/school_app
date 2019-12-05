@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :teachers do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
+    get 't_message', to: 'teachers#t_message', as: :t_message                                                  # 個別連絡ページ
+    post 't_message_create', to: 'teachers#t_message_create', as: :t_message_create                            # 個別連絡送信
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    get  'messages', to: 'users#messages', as: :users_messages                                                 # 先生からのお便り一覧
     get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
     get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
     patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新

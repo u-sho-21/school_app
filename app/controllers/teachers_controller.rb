@@ -13,4 +13,32 @@ class TeachersController < ApplicationController
     @users = User.all
   end
 
+  # 個別連絡ページ
+  def t_message
+    @teacher = Teacher.find(params[:teacher_id])
+    @children = @teacher.children.all
+    @users = User.joins(:children).where(children: {teacher_id: @teacher.id})
+    @users_name = @users.uniq.map{|m| m.name + m.name2}
+    @t_message = @teacher.t_messages.build
+  end
+
+  # 個別連絡送信
+  def t_message_create
+    @teacher = Teacher.find(params[:teacher_id])
+    @t_message = @teacher.t_messages.build(t_message_params)
+    if @t_message.save
+      flash[:success] = "送信しました。"
+      redirect_to teacher_path(@teacher)
+    else
+      flash[:danger] = "失敗"
+      redirect_to teacher_t_message_path(@teacher)
+    end
+  end
+
+  private
+
+    def t_message_params
+      params.require(:t_message).permit(:title, :content, select_user: [])
+    end
+
 end

@@ -1,0 +1,28 @@
+<h1 id="meeting-top-title">先生からのお便り一覧</h1>
+
+<table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
+    <thead>
+      <tr style="background: #FF9933; color: white;">
+        <td>日付</td>
+        <td>内容</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @t_messages.each do |t_message| %>
+        <% unless t_message_content(t_message, @user).blank? %>
+        <tr>
+          <!-- 日付 -->
+          <td>
+            <%= t_message.created_at.to_s(:date) %>
+          </td>
+          <!-- 内容 -->
+          <td>
+            <%= link_to "#{t_message.title}", "#" %><br>
+            <%= t_message_content(t_message, @user) %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>

@@ -3,6 +3,7 @@ class Teacher < ApplicationRecord
   has_many :meetings
   has_many :meeting_times
   has_many :children
+  has_many :t_messages
   before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name,  presence: true, length: { maximum: 50 }

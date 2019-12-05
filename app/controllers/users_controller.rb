@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # 保護者トップページ
   def show
     @user = User.find(params[:id])
-    @child = Child.where(user_id: @user.id).first
+    @child = @user.children.first
     if @child.nil?
       redirect_to signup_child_url
     end
@@ -103,6 +103,14 @@ class UsersController < ApplicationController
     else
       render :edit2
     end
+  end
+
+  # 先生からのお便り一覧
+  def messages
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @t_messages = @teacher.t_messages.all
   end
 
   private
