@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
   delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
+  get    'select_date', to: 'meetings#select_date'
 
   resources :teachers do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ

@@ -52,7 +52,6 @@ class UsersController < ApplicationController
       end
       redirect_to @user
     else
-      flash.now[:danger] = "入力内容が間違っています。"
       render :new2
     end
   end
@@ -77,8 +76,7 @@ class UsersController < ApplicationController
       flash[:success] = "#{@user.name + @user.name2}さんの登録情報を更新しました。"
       redirect_to user_url(@user)
     else
-      flash[:danger] = "失敗"
-      redirect_to user_url(@user)
+      render :edit
     end
   end
 
@@ -102,6 +100,8 @@ class UsersController < ApplicationController
       @child.update_attributes(full_name: @child.name_1 + @child.name_2)
       flash[:success] = "生徒さん情報を更新しました。"
       redirect_to user_users_index2_url(@user)
+    else
+      render :edit2
     end
   end
 

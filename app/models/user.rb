@@ -4,8 +4,8 @@ class User < ApplicationRecord
   has_many :documents
   has_many :children, dependent: :destroy
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :name,  presence: true, length: { maximum: 30 }
-  validates :name2, presence: true, length: { maximum: 30 }
+  validates :name,  presence: true, length: { maximum: 10 }
+  validates :name2, presence: true, length: { maximum: 10 }
   validates :email, presence: true, length: { maximum: 100 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true

@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(url: child_create2_path(@user), local: true) do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/child_error_messages' %>
 
       <%= f.label :name_1, "姓", class: "label-signup" %>
       <%= f.text_field :name_1, class: "form-control" %>
