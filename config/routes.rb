@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   resources :users do
     get  'messages', to: 'users#messages', as: :users_messages                                                 # 先生からのお便り一覧
+    get  'p_message', to: 'users#p_message', as: :p_message                                                    # 教員へ連絡ページ
+    post 'p_message_create', to: 'users#p_message_create', as: :p_message_create                               # 教員へ連絡送信
     get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
     get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
     patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新

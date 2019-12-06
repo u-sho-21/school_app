@@ -15,7 +15,7 @@
     <%= link_to "生徒さん登録/編集", user_users_index2_path(@user), class: "btn btn-success top-button" %>
   </div>
   <div id="five">
-    <%= link_to "先生へ連絡する", "#", class: "btn btn-success top-button" %>
+    <%= link_to "先生へ連絡する", user_p_message_path(@user), class: "btn btn-success top-button" %>
   </div>
   <div id="six">
     <%= link_to "先生からのお便り", user_users_messages_path(@user), class: "btn btn-success top-button" %>

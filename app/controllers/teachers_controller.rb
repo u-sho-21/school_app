@@ -3,6 +3,7 @@ class TeachersController < ApplicationController
   # 教員トップページ
   def show
     @teacher = Teacher.find(params[:id])
+    @p_messages = @teacher.p_messages.all
     #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
     document_delete2
   end
@@ -37,6 +38,7 @@ class TeachersController < ApplicationController
 
   private
 
+    # 個別連絡
     def t_message_params
       params.require(:t_message).permit(:title, :content, select_user: [])
     end

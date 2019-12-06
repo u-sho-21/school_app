@@ -4,10 +4,6 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), local: true) do |f| %>
 
-      <%#= fields_for @t_message do |e| %>
-        <%#= e.hidden_field :t_message, :value => @t_message.id %>
-      <%# end %>
-
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control" %>
 

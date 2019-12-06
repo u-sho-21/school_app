@@ -1,0 +1,18 @@
+<h1 id="meeting-top-title">先生へ連絡</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: @p_message, url: user_p_message_create_path(@user), local: true) do |f| %>
+
+      <%= f.label :title, "タイトル", class: "label-signup" %>
+      <%= f.text_field :title, class: "form-control" %>
+
+      <%= f.label :content, "内容", class: "label-signup" %>
+      <%= f.text_area :content, class: "form-control" %>
+
+      <%= f.hidden_field :teacher_id, :value => @teacher.id %>
+
+      <%= f.submit "送信", class: "btn btn-primary btn-block btn-signup" %>
+    <% end %>
+  </div>
+</div>

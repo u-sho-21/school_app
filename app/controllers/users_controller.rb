@@ -17,6 +17,8 @@ class UsersController < ApplicationController
   # 生徒新規登録ページ
   def new2
     @user = User.find(params[:id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
     @child = @user.children.build
   end
 
@@ -35,7 +37,7 @@ class UsersController < ApplicationController
   # 生徒新規登録
   def create2
     @user = User.find(params[:id])
-    @child = @user.children.build(name_1: params[:name_1], name_2: params[:name_2], teacher_id: 1) # 先生が一人の場合のみ限定
+    @child = @user.children.build(child_params)
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
     if @child.save
@@ -113,6 +115,29 @@ class UsersController < ApplicationController
     @t_messages = @teacher.t_messages.all
   end
 
+  # 先生への連絡ページ
+  def p_message
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @p_message = @user.p_messages.build
+  end
+
+  # 先生への連絡送信
+  def p_message_create
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @p_message = @user.p_messages.build(p_message_params)
+    if @p_message.save
+      flash[:success] = "送信しました。"
+      redirect_to user_url(@user)
+    else
+      flash.now[:danger] = "失敗です。"
+      render :p_message
+    end
+  end
+
   private
     # 保護者情報登録/更新
     def user_params
@@ -121,7 +146,12 @@ class UsersController < ApplicationController
 
     # 生徒情報登録/更新
     def child_params
-      params.require(:child).permit(:name_1, :name_2)
+      params.require(:child).permit(:name_1, :name_2, :teacher_id)
+    end
+
+    # 先生への連絡
+    def p_message_params
+      params.require(:p_message).permit(:title, :content, :teacher_id)
     end
 
 end
