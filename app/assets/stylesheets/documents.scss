@@ -77,6 +77,28 @@
     padding: 18px;
     
 }
+/*自作バリデーションフラッシュ格納エリア*/
+#document_validation{
+    border-radius: 5px;
+    background: rgb(249,209,204);
+    background: -moz-linear-gradient(top,  rgba(249,209,204,1) 30%, rgba(247,100,84,1) 75%);
+    background: -webkit-linear-gradient(top,  rgba(249,209,204,1) 30%,rgba(247,100,84,1) 75%);
+    background: linear-gradient(to bottom,  rgba(249,209,204,1) 30%,rgba(247,100,84,1) 75%);
+    color: mintcream;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9d1cc', endColorstr='#f76454',GradientType=0 );
+    font-weight: bold;
+    padding:10px;
+    text-align: center;
+    
+
+}
+/* 質問編集フォームの注意書き*/
+#document_explain_span{
+    color: mediumblue;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0 0 10px -0.5%;
+}
 #document_modal_table{
     background-color: #fff;
     th{background-color: bisque;}

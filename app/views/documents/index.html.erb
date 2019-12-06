@@ -5,25 +5,26 @@
 <%= link_to "戻る","/teachers/1",class:"btn btn-default",style:"width:25%;" %><br><br>
 <div style="border-top:2px dotted blue;"></div><br>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2 bg-info" style="border-radius:12px;">
+  <div class="col-md-10 col-md-offset-1 bg-info" style="border-radius:12px;">
    <% if @documents.count >0 %>   
+      <%= form_with(url:document_check_delete_path,local:true) do |f| %>
        <table class="table table-bordered" id= "teacher_document_table" style="margin-top:3%;">
          <thead>
            <tr>
-             <th>タイトル</th>
+             <th colspan="2">タイトル</th>
              <th>期限</th>
              <th>提出状況</th>
              <th></th>
+             <th>削除</th>
            </tr>
          </thead>
          <tbody>
          <!-- 教員のみの資料表示 -->
           <% @documents.each do |document| %>
+            <%= fields_for "boxs[]",document do |af| %>
             <tr>
-              <td>
-                <%= document.title %>&emsp;
-                <%= link_to "作成書類確認",document_path(document),class:"btn btn-primary"%>
-              </td>
+              <td><%= document.title %></td>
+              <td><%= link_to "作成書類確認",document_path(document),class:"btn btn-primary"%></td>
               <td>
                 <!-- 書類タイプ -->
                 <% if document.document_items.all.count > 0 %>
@@ -44,11 +45,17 @@
                   <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" %>
                   <%= link_to "保護者に提出",public_change_path(document),class:"btn btn-success" %>
               </td>
+              <td><%= af.check_box :check,class:"form-control" %></td>
             </tr>
+            <% end %>
           <% end %>  
          </tbody>
        </table>
-       
+       <div class="text-right">
+         <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
+         <%= f.submit "複数削除",class:"btn btn-danger" %>
+       </div>
+      <% end %> 
       <% else %>
        <div style="background-color:#c0c0c0;padding:2%;border-radius:10px;text-align:center;width:100%;">
            <h1 style="color:#fff;font-weight:bold;">書類がありません</h1>

@@ -46,7 +46,7 @@
     <% end %>
     <div class="field">
       <%= form.label :外部リンク,style:"margin-top:-4%" %>
-      <%= form.text_field :service_url, id: :document_pdf_link,class:"form-control",value:params[:service_url] %>
+      <%= form.text_field :service_url, id: :document_pdf_link,class:"form-control",value:@document.service_url.present? ? @document.service_url : params[:service_url] %>
     </div><br>
 
     <div class="field">
