@@ -45,6 +45,17 @@ module MeetingsHelper
     desired = teacher.meetings.where(date: date, desired: true).count
   end
 
+  # 日付別面談時間
+  def date_meeting_time(teacher, date)
+    date_times = []
+    teacher.meeting_times.all.each do |meeting_time|
+      if meeting_time.time.to_s(:date) == date
+        date_times << meeting_time.time.to_s(:time)
+      end
+    end
+    return date_times
+  end
+
   # 都合の悪い時間
   def not_time(meeting)
     if meeting.nottime.nil?

@@ -16,25 +16,25 @@
     <thead>
       <tr style="background: #FF9933; color: white;">
         <td>日付</td>
-        <% @times_count.each do |time| %>
-          <!-- 面談時間 -->
-          <td><%= time %></td>
-        <% end %>
+        <td colspan="<%= @times_count.count %>">面談時間</td>
       </tr>
     </thead>
 
     <tbody>
       <% dates.each do |date| %>
         <tr>
-          <!-- 日付 -->
-          <td><%= date %></td>
-          <!-- 予約件数 -->
-          <td colspan="<%= @times_count.count %>%">
-          <div>
-            <div id="yoyaku-count" style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></div>
-            <div id="yoyaku-count" style="color: red;">希望者数: <%= desired_count(@teacher, date) %></div>
-          </div>
+          <td> <!-- 日付 -->
+            <%= date.to_s(:date) %>
+            <div>
+              <div id="yoyaku-count" style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></div>
+              <div id="yoyaku-count" style="color: red;">希望者数: <%= desired_count(@teacher, date) %></div>
+            </div>
           </td>
+          <% @meeting_times.each do |meeting_time| %>
+            <% if meeting_time.time.to_date == date %>
+              <td><%= meeting_time.time.to_s(:time) %></td> <!-- 面談時間 -->
+            <% end %>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -79,7 +79,7 @@
                     <% elsif  meeting.date == date && meeting.status == 2 %>
 
                       <div class="btn-group" role="group">
-                        <%= f.select :nottime, @not_time, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
+                        <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
                       </div>
                       <div class="btn-group" role="group">
                         <%= f.submit "可", disabled: true, style: "background: #005FFF; color: white; width: 60px", class: "btn btn-default" %>

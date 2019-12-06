@@ -10,9 +10,14 @@ Rails.application.routes.draw do
   post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
   delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
+  get    'select_date', to: 'meetings#select_date'
 
   resources :teachers do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
+    get 't_message', to: 'teachers#t_message', as: :t_message                                                  # 個別連絡ページ
+    post 't_message_create', to: 'teachers#t_message_create', as: :t_message_create                            # 個別連絡送信
+    get ':id/t_message_reply', to: 'teachers#t_message_reply', as: :t_message_reply                            # 保護者への返信ページ
+    patch ':id/t_message_reply_send', to: 'teachers#t_message_reply_send', as: :t_message_reply_send
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
@@ -24,6 +29,9 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+    get  'messages', to: 'users#messages', as: :users_messages                                                 # 先生からのお便り一覧
+    get  'p_message', to: 'users#p_message', as: :p_message                                                    # 教員へ連絡ページ
+    post 'p_message_create', to: 'users#p_message_create', as: :p_message_create                               # 教員へ連絡送信
     get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
     get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
     patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新
