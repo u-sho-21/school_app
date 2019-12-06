@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # 保護者トップページ
   def show
     @user = User.find(params[:id])
-    @child = Child.where(user_id: @user.id).first
+    @child = @user.children.first
     if @child.nil?
       redirect_to signup_child_url
     end
@@ -17,6 +17,8 @@ class UsersController < ApplicationController
   # 生徒新規登録ページ
   def new2
     @user = User.find(params[:id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
     @child = @user.children.build
   end
 
@@ -35,7 +37,7 @@ class UsersController < ApplicationController
   # 生徒新規登録
   def create2
     @user = User.find(params[:id])
-    @child = @user.children.build(name_1: params[:name_1], name_2: params[:name_2], teacher_id: 1) # 先生が一人の場合のみ限定
+    @child = @user.children.build(child_params)
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
     if @child.save
@@ -52,7 +54,6 @@ class UsersController < ApplicationController
       end
       redirect_to @user
     else
-      flash.now[:danger] = "入力内容が間違っています。"
       render :new2
     end
   end
@@ -151,8 +152,7 @@ end
       flash[:success] = "#{@user.name + @user.name2}さんの登録情報を更新しました。"
       redirect_to user_url(@user)
     else
-      flash[:danger] = "失敗"
-      redirect_to user_url(@user)
+      render :edit
     end
   end
 
@@ -177,6 +177,40 @@ end
       @child.update_attributes(full_name: @child.name_1 + @child.name_2)
       flash[:success] = "生徒さん情報を更新しました。"
       redirect_to user_users_index2_url(@user)
+    else
+      render :edit2
+    end
+  end
+
+  # 先生からのお便り一覧
+  def messages
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @t_messages = @teacher.t_messages.all
+    @p_messages = @user.p_messages.all
+  end
+
+  # 先生への連絡ページ
+  def p_message
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @p_message = @user.p_messages.build
+  end
+
+  # 先生への連絡送信
+  def p_message_create
+    @user = User.find(params[:user_id])
+    @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
+    @p_message = @user.p_messages.build(p_message_params)
+    if @p_message.save
+      flash[:success] = "送信しました。"
+      redirect_to user_url(@user)
+    else
+      flash.now[:danger] = "失敗です。"
+      render :p_message
     end
   end
 
@@ -188,7 +222,12 @@ end
 
     # 生徒情報登録/更新
     def child_params
-      params.require(:child).permit(:name_1, :name_2)
+      params.require(:child).permit(:name_1, :name_2, :teacher_id)
+    end
+
+    # 先生への連絡
+    def p_message_params
+      params.require(:p_message).permit(:title, :content, :teacher_id)
     end
 
 end

@@ -18,9 +18,7 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:date].blank?
-        # Meeting.where(teacher_id: @teacher.id).delete_all
         @teacher.meetings.all.delete_all
-        # MeetingTime.where(teacher_id: @teacher.id).delete_all
         @teacher.meeting_times.all.delete_all
         params[:date].split("\r\n").each do |day|
           unless @teacher.meetings.any? {|meeting| meeting.date == day}
@@ -47,7 +45,7 @@ class MeetingsController < ApplicationController
       addtime_2 = @started_time_2.to_i
       @times = times(addtime_1, addtime_2, @frame, @minutes)
 
-      unless @teacher.meetings.any? {|meeting| meeting.date == params[:date]}
+      unless @teacher.meetings.any? {|meeting| meeting.date.to_date == params[:date].to_date}
         @teacher.children.where(teacher_id: @teacher).each do |child|
           record = @teacher.meetings.build(date: params[:date], child_id: child.id)
           record.save
@@ -88,8 +86,8 @@ class MeetingsController < ApplicationController
     @meeting_times = @teacher.meeting_times.all
     @times = @teacher.meeting_times.map { |time| time.time }
     # 面談日登録がない場合表示されない
-    unless @teacher.meetings.first.present?
-      flash[:info] = "面談日が登録されていません。"
+    unless @teacher.meeting_times.first.present?
+      flash[:info] = "面談日時が登録されていません。"
       redirect_to teacher_url(@teacher)
     end
   end
@@ -106,7 +104,6 @@ class MeetingsController < ApplicationController
     addtime_2 = @started_time_2.to_i
 
     if params[:commit] == "登録"
-      # MeetingTime.where(teacher_id: @teacher.id).delete_all
       @teacher.meeting_times.all.delete_all
       @times = times(addtime_1, addtime_2, @frame, @minutes)
 
@@ -144,8 +141,15 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(@child.teacher_id)
     @meeting_children = @teacher.meetings.where(child_id: @child.id)
     @meetings = @teacher.meetings.all
+    @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
-    @not_time = @times_count.map{|time| time}
+    # @not_time = @times_count.map{|time| time}
+  end
+
+  def select_date
+    @teacher = Teacher.find(params[:teacher_id])
+    @select_date = @teacher.meetings.find(params[:status])
+    @select_dates = date_meeting_time(@teacher, @select_date.date)
   end
 
   # 希望日登録モーダル
@@ -155,8 +159,10 @@ class MeetingsController < ApplicationController
     @children = Child.where(user_id: @user.id)
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
+    @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
-    @not_time = @times_count.map{|time| time}
+    # @not_time = @times_count.map{|time| time}
+    @date_first = date_meeting_time(@teacher, @meeting_times.first.time.to_s(:date))
   end
 
   # 面談希望日等決定

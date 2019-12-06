@@ -2,19 +2,11 @@
 
 <div class="box_title">保護者からのお問い合わせ</div>
 <div class="box_srcollbar">
-    10/06　■■■■■■が再入荷しました。<br>
-    10/05　○○○を追加しました。<br>
-    10/04　■■■ を追加しました。<br>
-    10/03　○○■■■○が再入荷しました。<br>
-    10/02　○■■■■■■○○が再入荷しました。<br>
-    10/01　○○○が再入荷しました。<br>
-    09/28　○○■■○■■■が再入荷しました。<br>
-    09/25　○○○■■■を追加しました。<br>
-    09/23　○○○■■■■■を追加しました。<br>
-    09/22　○○○■■■を追加しました。<br>
-    09/20　○○■■■■○■■■を追加しました。<br>
-    09/18　○○■■○■■■を追加しました。<br>
-    09/17　○■■○○■■■を追加しました。<br>
+  <% @p_messages.each do |p_message| %>
+    <%= p_message.created_at.to_s(:date) %>
+    <%= link_to p_message.title, teacher_t_message_reply_path(@teacher, id: p_message.id) %>
+    <%= "(返信済み)" if p_message.reply.present? %><br>
+  <% end %>
 </div>
 
 <div id="teacher-top">
@@ -53,7 +45,7 @@
       <%= image_tag('/explain/pdf.png',size:"20x20") %>
       表示書類
     <% end %>
-    <%= link_to "#", class: "btn btn-success top-button" do %>
+    <%= link_to teacher_t_message_path(@teacher), class: "btn btn-success top-button" do %>
       <%= image_tag('/icon/mail.png',size:"20x20") %>
       個別連絡
     <% end %>
