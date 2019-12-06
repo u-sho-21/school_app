@@ -7,17 +7,13 @@
   　<h2 class="title_font" style="font-size:20px">提出状況</h2>
    <%= link_to "メニューへ",user_path(@user),class:"btn btn-info",style:"margin-top:-2%" %>
    <span class="title_font">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
-   <% if @user.documents.all.count > 0   %>
+   
+   <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
-        <!-- 保護者側でthを表示するか分岐 -->
-        <% if (@user.documents.all.count ==1 && @user.id == 1) || public_check %>
           <th class="th" width="27%">期限</th>
           <th class="th" colspan="2">タイトル</th>
-        <% else %>  
-           <div class="bg-info text-center" style="padding:2%;">まだ提出物ありません。</div>
-        <% end %>  
         </tr>
       </thead>
       <tbody>

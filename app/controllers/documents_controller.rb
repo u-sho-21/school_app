@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only:[:edit, :updata]
+  before_action :set_document, only:[:edit, :updata, :user_view]
   before_action :set_teacher
 
   #掲出状況確認(教員)
@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
-    @documents = @user.documents.all    
+    @documents = @user.documents.all   
   #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
     document_delete2
   end
@@ -133,7 +133,10 @@ end
 #教員ファイル削除
 def file_delete
   document = Document.find(params[:document_id])
-   Document.where(memo: document.memo, randam: document.randam).destroy_all
+   objs =Document.where(memo: document.memo, randam: document.randam)
+   objs.each do |obj|
+     obj.destroy
+   end  
   flash[:danger] = "資料を削除しました。"
   redirect_to documents_url
 end
@@ -177,6 +180,12 @@ end
 #選択肢編集モーダル
 def document_modal
   @document_item = DocumentItem.find(params[:id])
+end
+
+#保護者回答一覧モーダル
+def answer_modal
+  @answer = Answer.find(params[:answer_id])
+  @no = params[:num]
 end
 
 #質問編集
@@ -271,7 +280,11 @@ end
  #編集画面質問削除
  def delete_item
   document = Document.find(params[:obj])
-  DocumentItem.find(params[:id]).destroy
+  obj = DocumentItem.find(params[:id])
+  documents = DocumentItem.where(content: obj.content, randam: obj.randam )
+  documents.each do |document|
+    document.destroy
+  end  
   flash[:danger] = "削除しました。"
   redirect_to edit_document_url(document)
  end
@@ -280,6 +293,10 @@ end
   def delete_select
     select =  DocumentSelect.find(params[:id])
     DocumentSelect.find(params[:id]).destroy
+    selects = DocumentSelect.where(content: select.content, randam: select.randam)
+    selects.each do |select|
+      select.destroy
+    end  
     flash[:danger] = "削除しました。"
     redirect_to edit_document_url(select.document_item.document)
   end
@@ -292,6 +309,12 @@ def show
   @user = User.find(params[:user]) if params[:user].present?
 end  
 
+#保護者の提出した書類教員確認ページ
+ def user_view
+   @document = Document.find(params[:document_id])
+   @users = User.paginate(page: params[:page],per_page: 3)
+ end
+ 
 
 #*******************************************PRIVATE***************************************************************************
 private
@@ -301,7 +324,11 @@ private
   end
   
   def set_document
-    @document = Document.find(params[:id])
+    if params[:id]
+      @document = Document.find(params[:id])
+    elsif params[:document_id]  
+      @document = Document.find(params[:document_id])
+    end  
   end
 
  

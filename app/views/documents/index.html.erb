@@ -21,6 +21,7 @@
          <tbody>
          <!-- 教員のみの資料表示 -->
           <% @documents.each do |document| %>
+
             <%= fields_for "boxs[]",document do |af| %>
             <tr>
               <td><%= document.title %></td>
@@ -30,20 +31,24 @@
                 <% if document.document_items.all.count > 0 %>
                   提出期限:<span style="color:red"><%= document.deadline %></span>
                 <% elsif document.document_items.all.count == 0 %>
-                  表示期限:<span style="color:red"><%= document.deadline %></span>
+                  期限:<span style="color:red"><%= document.deadline %></span>
                 <% elsif document.deadline.blank? %>
                  指定無し  
                 <% end %>
               </td>
               <td>
                 <% if document.memo.present? %>
-                  <%= reply_count(document.memo,document.randam).to_s + "/" + @users_count.to_s  %>
+                  <%= link_to reply_count(document.memo,document.randam).to_s + "/" + @users_count.to_s,document_users_view_path(document)  %>
                 <% end %>  
               </td>
               <td>
-                  <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning",method: :delete %>
-                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" %>
-                  <%= link_to "保護者に提出",public_change_path(document),class:"btn btn-success" %>
+                 <% if document.publicCheck? %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning btn-block",method: :delete %>
+                 <% else %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning",method: :delete %>
+                 <% end %>
+                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" unless document.publicCheck? == true %>
+                  <%= link_to "保護者に提出",public_change_path(document),data:{confirm:"提出しますと保護者に通知されますので編集出来なくなりますがよろしいでしょうか？"},class:"btn btn-success" unless document.publicCheck? == true %>
               </td>
               <td><%= af.check_box :check,class:"form-control" %></td>
             </tr>
