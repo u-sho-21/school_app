@@ -4,7 +4,8 @@
 <div class="box_srcollbar">
   <% @p_messages.each do |p_message| %>
     <%= p_message.created_at.to_s(:date) %>
-    <%= link_to p_message.title, "#" %><br>
+    <%= link_to p_message.title, teacher_t_message_reply_path(@teacher, id: p_message.id) %>
+    <%= "(返信済み)" if p_message.reply.present? %><br>
   <% end %>
 </div>
 

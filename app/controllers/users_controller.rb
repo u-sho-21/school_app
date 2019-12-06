@@ -113,6 +113,7 @@ class UsersController < ApplicationController
     @child = @user.children.first
     @teacher = Teacher.find(@child.teacher_id)
     @t_messages = @teacher.t_messages.all
+    @p_messages = @user.p_messages.all
   end
 
   # 先生への連絡ページ

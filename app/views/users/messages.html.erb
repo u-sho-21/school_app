@@ -1,9 +1,11 @@
 <h1 id="meeting-top-title">先生からのお便り一覧</h1>
 
-<table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
+<% if @t_messages.first.present? %>
+  <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
     <thead>
       <tr style="background: #FF9933; color: white;">
         <td>日付</td>
+        <td>タイトル</td>
         <td>内容</td>
       </tr>
     </thead>
@@ -11,18 +13,43 @@
     <tbody>
       <% @t_messages.each do |t_message| %>
         <% unless t_message_content(t_message, @user).blank? %>
-        <tr>
-          <!-- 日付 -->
-          <td>
-            <%= t_message.created_at.to_s(:date) %>
-          </td>
-          <!-- 内容 -->
-          <td>
-            <%= link_to "#{t_message.title}", "#" %><br>
-            <%= t_message_content(t_message, @user) %>
-          </td>
-        </tr>
+          <tr>
+            <!-- 日付 -->
+            <td><%= t_message.created_at.to_s(:date) %></td>
+            <!-- タイトル -->
+            <td><%= t_message.title %></td>
+            <!-- 内容 -->
+            <td><%= t_message_content(t_message, @user) %></td>
+          </tr>
         <% end %>
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <div id="meeting-title">お便りなし</div>
+<% end %>
+
+<h1 id="meeting-top-title">先生からの返信</h1>
+
+
+<table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
+  <thead>
+    <tr style="background: #FF9933; color: white;">
+      <td>返信日</td>
+      <td>タイトル</td>
+      <td>相談内容</td>
+      <td>返信内容</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @p_messages.each do |p_message| %>
+        <tr>
+          <td><%= p_message.updated_at.to_s(:date) %></td>
+          <td><%= p_message.title %></td>
+          <td><%= p_message.content %></td>
+          <td><%= p_message.reply if p_message.reply.present? %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

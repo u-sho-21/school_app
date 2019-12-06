@@ -36,6 +36,26 @@ class TeachersController < ApplicationController
     end
   end
 
+  # 保護者への返信ページ
+  def t_message_reply
+    @teacher = Teacher.find(params[:teacher_id])
+    @p_message = @teacher.p_messages.find(params[:id])
+    @user = User.find(@p_message.user_id)
+  end
+
+  # 保護者への返信処理
+  def t_message_reply_send
+    @teacher = Teacher.find(params[:teacher_id])
+    @p_message = @teacher.p_messages.find(params[:id])
+    if @p_message.update_attributes(reply: params[:p_message][:reply])
+      flash[:success] = "返信しました。"
+      redirect_to teacher_path(@teacher)
+    else
+      flash.now[:danger] = "失敗です。"
+      render :t_message_reply
+    end
+  end
+
   private
 
     # 個別連絡

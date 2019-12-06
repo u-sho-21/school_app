@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
     get 't_message', to: 'teachers#t_message', as: :t_message                                                  # 個別連絡ページ
     post 't_message_create', to: 'teachers#t_message_create', as: :t_message_create                            # 個別連絡送信
+    get ':id/t_message_reply', to: 'teachers#t_message_reply', as: :t_message_reply                            # 保護者への返信ページ
+    patch ':id/t_message_reply_send', to: 'teachers#t_message_reply_send', as: :t_message_reply_send
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
     post 'meetings/create', to: 'meetings#create', as: :meeting_create                                         # 面談日作成
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
