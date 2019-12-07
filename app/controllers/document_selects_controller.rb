@@ -15,6 +15,9 @@ class DocumentSelectsController < ApplicationController
     if params[:content].blank?
       flash[:danger] = "必ず書き込んでください。"
       redirect_to document_item_select_url(@document_item)
+    elsif params[:content].length > 50   
+      flash[:danger] = "50文字以内でお願いします。"
+      redirect_to document_item_select_url(@document_item)
     else
       @document_items = DocumentItem.where(content: @document_item.content,randam: @document_item.randam) #前項のdocumentからのid content
       @document_items.each do |item|

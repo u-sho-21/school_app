@@ -3,8 +3,8 @@ class Document < ApplicationRecord
   has_many :answers,dependent: :destroy
   belongs_to :user
   #バリデーション
-  validates :title,presence:true
-  validates :memo,presence:true
+  validates :title,presence:true,length: { maximum: 50 }
+  validates :memo,presence:true,length: { maximum: 100 }
   validates :deadline,presence:true
   validate :deadline_check
   #カスタムバリデーション
