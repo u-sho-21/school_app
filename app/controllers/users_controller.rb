@@ -82,14 +82,26 @@ class UsersController < ApplicationController
   
   #選択式保護者処理
 def selectform
+ 
   @document = Document.find(params[:id])
+  @user = User.find @document.user.id
   answer = Answer.new
   answer.document_id = params[:id]
   reply = ""
-  100.times do |i|
-    str = "rd"+i.to_s
+  @document.document_items.count.times do |i|
+    str = "rd"+(i+1).to_s
     if params[str].present?
       reply += params[str] + ":"
+    elsif params[str].blank?
+      reply += " :"
+    end  
+  end
+  objs = reply.split(":")
+  objs.each do |obj|
+    if obj.blank?
+      flash[:danger] = "必須です。必ず各項目選択ください。" 
+      redirect_to user_document_view_path(@user,@document,params:{reply: reply})
+      return   
     end  
   end  
   answer.reply = reply
@@ -97,22 +109,40 @@ def selectform
   if answer.save
    redirect_to user_url(current_user)
   else 
-    render :selectform
+    render :selectform 
   end 
 end
 
 #入力式保護者処理
 def inputform  
   @document = Document.find(params[:id])
+  @user = User.find @document.user.id
   answer = Answer.new
   answer.document_id = params[:id]
   reply = ""
-  100.times do |i|
+  @document.document_items.count.times do |i|
     str= "tx"+i.to_s 
     if params[str].present?
       reply += params[str]+":"
-    end   
-  end   
+    else
+      reply += "null:"  
+    end  
+  end  
+    objs = reply.split(":")
+    reply =""
+    objs.length.times do |i|
+      if objs[i] == "null"
+        objs[i] = ""
+      end  
+      reply += objs[i].to_s+":"
+    end
+    objs.each do |ob|
+      if ob.blank?
+        flash[:danger] = "必須です。入力してください。" 
+        redirect_to user_document_view_path(@user,@document,params:{reply: reply})
+        return
+      end  
+    end  
   answer.reply = reply
   answer.user_id = current_user.id
   if answer.save

@@ -37,4 +37,34 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  #ユーザーのドキュメントに提出されたものがあるかどうか？
+  def documentPublic?
+    documents = self.documents.where(public: true)
+    if documents.count >0
+      return true
+    else
+      return false
+    end  
+  end
+
+
+  #ユーザーとdocumentごとのdocument_item取得
+  def userDocumentItem(document)
+    obj = self.documents.find_by(memo: document.memo, randam: document.randam)
+    items = obj.document_items.all
+    return items
+  end
+
+  #ユーザーとdocumentごとのanswer取得
+  def userAnswers(document)
+    obj = self.documents.find_by(memo: document.memo, randam: document.randam)
+    answerData = obj.answers.last
+    if answerData.present?
+      return answerData
+    end
+  end
+  
+  
+  
 end

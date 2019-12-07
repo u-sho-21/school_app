@@ -7,41 +7,42 @@
 </div>
 <hr>
 <% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
- <%= link_to "外部資料表示",document_link_path(@document),remote:true,style:"font-size:24px;" %>
+  <%= link_to "外部資料表示",document_link_path(@document),remote:true,style:"font-size:24px;" %>
 <% end %> 
 <% item_count = 0 %>
 <%= form_with(url:selectform_path(@document),local:true) do |f| %>
  <% @document.document_items.each do |item| %>
    <!--　編集の場合の判別パラメーター、登録時は不要 -->
    <% update_params = @document.answers.last.reply.split(":")[item_count] if @document.answers.count >0 %>
-
+   <% param = params[:reply].split(":")[item_count].to_s if params[:reply].present? %>
+  
    <% item_count += 1 %>
    <h2 id="document_user_question_h2">
      <%= item.content %>
    </h2>
-  <div class="document_user_select">
+  <table class="document_user_select">
    <% item.document_selects.each do |select| %>
-       <label id="document_select_label">
-      
+      <tr>
+       <td>
        <!--教員用は選択出来なくする。-->
+      
         <% if !current_teacher.nil?%>
-          <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" disabled >
+           <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" disabled id="document_select_label">
         <% else %> 
         <!-- 編集時のパラメーターで分岐-->
-          <% if update_params == select.content.to_s %>
-            <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" checked="checked">
+          <% if (update_params == select.content.to_s) || (select.content.to_s == param ) %>
+            <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" checked="checked" id="document_select_label">
           <% else %>
-             <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio">
+             <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" id="document_select_label">
           <% end %>
         <% end%>  
-         <p><%= obj = select.content %><p>
+         &emsp;&emsp;&emsp;&emsp;<label style="display:block;margin-top:-4%;margin-left:8%;"><%= obj = select.content %></label>
         <% unless obj == item.document_selects.last.content %> <!--最後の要素の境界線を消す-->
-         <hr id="document_dotted">
        <% end%>  
-       </label>
-       <br>  
+       <br> 
+       </td></tr> 
    <% end %>
-   </div> 
+   </table> 
  <% end %><br>
  <div class="text-center">
    <%= f.submit "提出",class:"btn btn-primary",style:"width:40%;height:60px" if current_teacher.nil? %>

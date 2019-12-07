@@ -15,6 +15,9 @@ class DocumentItemsController < ApplicationController
     if params[:content].blank?
       flash[:danger] = "必ず入力してください。" 
       redirect_to document_question_url(@document)
+    elsif params[:content].length > 50   
+      flash[:danger] = "50文字以内でお願いします。"
+      redirect_to document_question_url(@document)  
     else
       @documents = Document.where(memo: @document.memo,randam: @document.randam)  #メモの内容 ランダム文字列で判別
       randam = SecureRandom.alphanumeric(10)
@@ -44,8 +47,11 @@ class DocumentItemsController < ApplicationController
     @document = Document.find(params[:document_id])
    
    #未入力処理
-   if params[:content].blank?
+   if params[:content].blank? 
      flash[:danger] = "必ず入力してください。" 
+     redirect_to document_question2_url(@document)
+   elsif params[:content].length > 50   
+    flash[:danger] = "50文字以内でお願いします。"
      redirect_to document_question2_url(@document)
    else
      @documents = Document.where(memo: @document.memo,randam: @document.randam)  #メモの内容 ランダム文字列で判別

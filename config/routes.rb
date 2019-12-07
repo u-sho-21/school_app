@@ -52,7 +52,8 @@ Rails.application.routes.draw do
     patch '/update/item',to: 'documents#item_update'                                                           #質問項目編集
     patch '/update/select',to: 'documents#select_update'                                                       #選択肢編集
     post  '/item_add',to:'documents#update_add'                                                                #編集画面質問追加
-    post  '/select_add',to:'documents#update_select_add'
+    post  '/select_add',to:'documents#update_select_add'                                                       #編集画面選択追加
+    get   'users_view' ,to:'documents#user_view'                                                               #保護者提出回答一覧
 
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
@@ -78,4 +79,7 @@ Rails.application.routes.draw do
   post 'document/check_delete',to:'documents#check_delete',as: :document_check_delete                          #教員チェックボックス複数削除
   post "documents/selectform/:id",to:"users#selectform",as: :selectform                                        #保護者選択式フォームpost送信
   post "documents/inputform/:id",to:"users#inputform",as: :inputform                                           #保護者入力式フォームpost送信
-end
+  resources :answers do
+    get "modal/:num",  to:"documents#answer_modal",as: :modal                                                  #ピックアップモーダル
+  end
+end 

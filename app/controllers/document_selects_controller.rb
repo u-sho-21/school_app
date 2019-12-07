@@ -11,13 +11,18 @@ class DocumentSelectsController < ApplicationController
   #選択肢登録
   def create
     @document_item = DocumentItem.find(params[:document_item_id])
+    randam = SecureRandom.alphanumeric(10)
     if params[:content].blank?
       flash[:danger] = "必ず書き込んでください。"
+      redirect_to document_item_select_url(@document_item)
+    elsif params[:content].length > 50   
+      flash[:danger] = "50文字以内でお願いします。"
       redirect_to document_item_select_url(@document_item)
     else
       @document_items = DocumentItem.where(content: @document_item.content,randam: @document_item.randam) #前項のdocumentからのid content
       @document_items.each do |item|
       record = item.document_selects.build(content: params[:content],document_item_id: item.id)
+      record.randam = randam 
       record.save
     end  
     @document_select = DocumentSelect.where(document_item_id: @document_item.id).last
