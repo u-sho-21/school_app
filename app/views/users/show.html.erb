@@ -27,16 +27,14 @@
     <% end %>
   </div>
   <div id="five">
-    <%= link_to  user_p_message_path(@user), class: "btn btn-success top-button" do %>
+    <%= link_to user_p_message_path(@user), class: "btn btn-success top-button" do  %>
       <i class="fas fa-paper-plane"></i>
       先生へ連絡する
     <% end %>
   </div>
   <div id="six">
-    <%= link_to user_users_messages_path(@user), class: "btn btn-success top-button" do  %>
+    <%= link_to  user_users_messages_path(@user), class: "btn btn-success top-button" do %>
       <i class="fas fa-envelope-open-text"></i>
       先生からのお便り
     <% end %>
   </div>
-
-</div>

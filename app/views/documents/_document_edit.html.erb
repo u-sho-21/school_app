@@ -31,7 +31,7 @@
                     <tr>
                       <td><%=af.text_field :content,style:"height:60px;",class:"form-control" %></td>
                       <td>
-                        <%= link_to "削除",document_select_destroy_path(select),data:{confirm:"削除してよろしいですか？"},method: :delete,class:"btn btn-danger btn-lg btn-block" if @document_item.document_selects.count>=2%>
+                        <%= link_to "削除",document_select_destroy_path(select),data:{confirm:"削除してよろしいですか？"},method: :delete,class:"btn btn-danger btn-lg btn-block" if @document_item.document_selects.count>=3 %>
                       </td>
                     </tr>
                   <% end %>

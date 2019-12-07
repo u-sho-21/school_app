@@ -1,0 +1,71 @@
+<div id="document_answer_reply" class="modal fade" role="dialog" tabindex="-1" areahidden="true" style="width:80%;margin-left:10%;"></div>
+
+<div class="text-center">
+  <h1 class=" title_font" style="letter-spacing:8px;">保護者提出一覧</h1>
+  <h2 class=" title_font" style="font-size:22px">提出物タイトル:<span style="color:red"><%= @document.title %></span></h2>
+</div>
+<%= link_to "戻る",documents_path,class:"btn btn-default",style:"width:20%;margin-bottom:1px" %>
+<h1 id="document_user_reply_show" class="title_font">各保護者の提出内容</h1>
+<% answerNO = 0 %>
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+     <!--ページネーション-->
+    <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+    <table class="table" id="document_user_reply_table">
+      <% @users.each do |user| %>
+       <% unless user.id == 1%>
+        <tr>
+          <th>
+            <%= user.name+ ""+user.name2+ "さん"%>
+            <input type="button" value="▲" id="bt<%= user.id %>" onclick='func("<%= user.id %>")'class="document_js_btn">
+          </th>
+          <% user.userDocumentItem(@document).each do |item| %>  <!-- userモデル参照-->
+            <tr>
+              <td class="slide<%= user.id %>">
+                <span style="color:red">質問:</span><%= item.content %>
+                <div id="document_user_reply_div">
+                  <span>保護者回答</span><br>
+                  <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(':')[answerNO].present? %>
+                    <strong><%= user.userAnswers(@document).reply.split(':')[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
+                  <% else %>
+                    <strong style="color:red;font-size:30px;">まだ回答されてません。</strong>
+                  <% end %>  
+                 
+                </div>
+                 <div style="text-align:right;color:orange">
+                  <% unless user.userAnswers(@document).nil? %>
+                    <% unless user.userAnswers(@document).reply.split(":")[answerNO].blank? %>
+                      <%= link_to answer_modal_path(user.userAnswers(@document),answerNO),remote:true  do  %>   <!-- userモデル参照-->
+                        <i class="fas fa-search-plus"></i>
+                        ピックアップ
+                      <% end%>  
+                    <% end %>
+                  <% end %>  
+                 </div>
+              </td>
+            </tr>
+            <% answerNO += 1 %>
+          <% end %>
+        </tr>
+       <% end %> 
+      <% end %>
+    </table>
+  </div>
+</div>
+<script>
+ 
+  function func(num) {
+    $(".slide"+num).slideToggle();
+    
+    var str = $("#bt"+num).val();
+    if(str == "▲"){
+      $("#bt"+num).val("▼");
+    }
+    else if(str == "▼"){
+       $("#bt"+num).val("▲");
+    }
+  }
+</script>

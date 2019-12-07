@@ -1,0 +1,19 @@
+<div clas="modal-dialog">
+  <div class="modal-content"  style="background:#f0f0f0;">
+    <div class="modal-header">
+       <div class="text-center">
+         <h1 class="title_font" style="font-size:26px"><%= @answer.document.title %></h1>
+         <h3 class="title_font" style="font-size:18px"><span style="color:red">回答者:</span><%= "#{@answer.user.name+""+@answer.user.name2}さん" %>
+       </div>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+       <div id="document_user_reply_div" style="height:500px">
+         <span style="color:#fff;background:blue;padding:1px" class="title_font">回答</span><br>
+         <strong><%= @answer.reply.split(":")[@no.to_i] %></strong>
+       </div>
+    </div>
+  </div>
+</div>

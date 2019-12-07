@@ -15,8 +15,15 @@
   <% @document.document_items.each do |item| %>
     <%= f.label item.content,class:"title_font",style:"margin-top:1%"%>
     <% if current_teacher.nil?%>
-       <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください"
-        ><%= @document.answers.last.reply.split(":")[count_item] if @document.answers.count > 0 %></textarea>
+    <!--未入力処理-->
+      <% if params[:reply].nil? %>
+        <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください"
+          ><%= @document.answers.last.reply.split(":")[count_item] if @document.answers.count > 0 %></textarea>
+      <% else%>
+        <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください"
+          ><%= params[:reply].split(":")[count_item] if params[:reply].present? %></textarea> 
+      <% end %> 
+    <!--/未入力処理-->  
     <% else %>
       <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください" readonly=true></textarea>
     <% end %>
