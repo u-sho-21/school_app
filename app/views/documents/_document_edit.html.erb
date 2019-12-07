@@ -15,6 +15,9 @@
             <%= form_with(url:document_update_select_path(@document_item),local:true, method: :patch) do |f| %>
            <div class="text-left">
              <%=f.submit "選択肢を編集する",class:"btn btn-primary" %>
+             <span id="document_explain_span">
+    　　       ←編集を確定させるにはこのボタンを押してください。
+             </span>
            </div>  
              <table class="table table-bordered" id="document_modal_table">
                <thead>

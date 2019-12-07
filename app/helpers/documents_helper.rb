@@ -76,7 +76,5 @@ module DocumentsHelper
      end 
      return result
    end
-   
-   
               
 end

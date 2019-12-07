@@ -4,6 +4,5 @@ class ApplicationController < ActionController::Base
   include DocumentsHelper
   include DocumentItemsHelper
   include DocumentSelectsHelper
-  include MeetingsHelper
-  
+  include MeetingsHelper 
 end

@@ -1,0 +1,35 @@
+
+<div class="text-center">
+  <h1 class="title_font text-primary">提出した書類</h1>
+  <div class="text-left"><%= link_to "戻る",user_documets_path(@user),class:"btn btn-default",style:"width:20%;" %></div>
+   <div style="border-top:1px dotted #c0c0c0;">
+</div>  
+ 
+ <div class="text-right title_font"><%= "#{@user.name}さん提出"%></div>
+ <div class="row">
+   <div class="col-md-10 col-md-offset-1">
+     <div class="document_user_submit_title text-left title_font">
+        タイトル:<span style="color:red"><%= @document.title%></span>
+     </div><br>
+     <div class="text-left text-primary title_font">質問と回答</div>
+
+     <table class="table table-responsive" style="border:1px solid #c0c0c0;">
+      <% @count.times do |i| %>
+        <thead>
+          <th style="background-color:orange"><span style="color:red">質問:</span><%= @items[i].content %></th>
+        </thead>
+        <tbody>
+          <td style="text-align:left" class="title_font">
+             <span style="color:blue">回答</span><br>
+             <%= @answers[i] %>
+          </td>
+        </tbody>
+      <% end %>
+     </table>
+   </div>
+ </div>
+  
+
+
+
+

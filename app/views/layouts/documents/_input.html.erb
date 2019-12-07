@@ -1,0 +1,31 @@
+<hr>
+<div class="document_user_box">
+  <span class="document_box-title">概要</span>
+  <p><%= @document.memo %></p>
+  <strong style="color:red">期限:<%=@document.deadline %></strong>
+</div>
+<hr style="color:black">
+<% unless @document.pdf_link.blank? || @document.pdf_link.nil? %>
+ <%= link_to "外部資料表示",document_link_path(@document),remote:true,style:"font-size:24px;" %><br>
+ <div style="border-top:1px dotted brown;margin-bottom:1%"></div>
+<% end %>  
+<div id="pdf-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
+<% count_item = 0 %>
+<%= form_with(url:inputform_path(@document),local:true) do |f| %>
+  <% @document.document_items.each do |item| %>
+    <%= f.label item.content,class:"title_font",style:"margin-top:1%"%>
+    <% if current_teacher.nil?%>
+       <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください"
+        ><%= @document.answers.last.reply.split(":")[count_item] if @document.answers.count > 0 %></textarea>
+    <% else %>
+      <textarea name="tx<%= count_item %>" class="form-control use_icon" rows="5" placeholder=" &#xf15c; 入力してください" readonly=true></textarea>
+    <% end %>
+     <% count_item += 1 %><br><br>
+  <% end %><br><br><br>
+  <div class="text-center">
+    <%= f.submit "提出",class:"btn btn-primary btn-lg",style:"width:40%;height:50px" if current_teacher.nil? %>
+  </div>
+<% end %>    
+<style>
+  body{background-color:#FFE4C4;}
+</style>
