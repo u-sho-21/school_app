@@ -3,6 +3,7 @@
 <!--バリデーションメッセージ-->
     <% if flash[:info].present? %>
      <div id="document_validation"><%= flash[:info] %></div>
+    
     <% end %>
 
 <div class="text-center text-primary">
@@ -70,6 +71,9 @@
   #main_alert{display:none;}
   #document_edit_itemarea{
     display: none;
+  }
+  .row{
+    padding:5% 0%;
   }
 </style>
 <script>

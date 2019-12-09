@@ -43,7 +43,9 @@ module DocumentItemsHelper
     @errors += "タイトルが有りません。:" unless params[:document][:title].present?
     @errors += "概要は必須です。:" unless params[:document][:memo].present?
     @errors += "期限は必須です。:" unless params[:document][:deadline].present?
-    @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline])  
+    @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline]) 
+    @errors += "50文字以内でお願いします。:" if params[:document][:title].size > 50
+    @errors += "100文字以内でお願いします。:" if params[:document][:memo].size > 100
     flash[:danger] = @errors
   end
 
@@ -54,7 +56,10 @@ module DocumentItemsHelper
     @errors += "概要は必須です。:" unless params[:document][:memo].present?
     @errors += "期限は必須です。:" unless params[:document][:deadline].present?
     @errors += "この書類では入力ください。:" unless params[:document][:pdf_link].present?
-    @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline])  
+    @errors += "日付けが過ぎてます。:"  unless document_date_check?(params[:document][:deadline])
+    @errors += "50文字以内でお願いします。:" if params[:document][:title].size > 50  
+    @errors += "100文字以内でお願いします。:" if params[:document][:memo].size > 100
+    @errors += "正確に入力ください。:" unless  params[:document][:pdf_link].present?
     flash[:danger] = @errors
   end
 

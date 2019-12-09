@@ -37,7 +37,7 @@
                 <% end %>
               </td>
               <td>
-                <% if document.memo.present? %>
+                <% if document.memo.present? && document.document_items.count > 0 && document.publicCheck? %>
                   <%= link_to reply_count(document.memo,document.randam).to_s + "/" + @users_count.to_s,document_users_view_path(document)  %>
                 <% end %>  
               </td>
