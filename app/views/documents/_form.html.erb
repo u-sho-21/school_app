@@ -19,6 +19,8 @@
        <!-- split分割された配列にtitleあるかどうか? -->
       <% if flashArray.include?("タイトルが有りません。") %>
        <div class="alert alert-danger alert2">タイトルが有りません。</div>
+      <% elsif flashArray.include?("50文字以内でお願いします。")  %> 
+        <div class="alert alert-danger alert2">50文字以内です。</div>
       <% end %>
      <% end %> 
       <%= form.label :タイトル %>
@@ -31,6 +33,8 @@
       <!-- split分割された配列にmemoあるかどうか? -->
        <% if  flashArray.include?("概要は必須です。") %>
          <div class="alert alert-danger alert2">概要は必須です。</div>
+       <% elsif flashArray.include?("100文字以内でお願いします。") %>
+         <div class="alert alert-danger alert2">100文字以内です。</div>  
        <% end %>
       <% end %>
         <%= form.label :資料の概要 %>
@@ -41,8 +45,10 @@
     <%= form.select :service,service_select,{},class:"form-control" %><br>
 
     <! -- 表示式のみ外部リンク必須 -->  
-    <%  if yield(:url) == document_create3_path %>
+    <%  if yield(:url) == document_create3_path || (document.item_check? == false) &&  params[:pdf_link].nil?  %>  <!--documentモデル参照-->
       <div class="alert alert-info alert2" style="margin-top:1%;width:35%;">この書類では正確に入力ください。</div>  
+    <% elsif document.item_check? == false && flashArray.include?("正確に入力ください。") &&  params[:pdf_link].blank? %>  
+       <div class="alert alert-danger alert2" style="margin-top:1%;width:35%;">正確に入力ください。</div>  
     <% end %>
     <div class="field">
       <%= form.label :外部リンク,style:"margin-top:-4%" %>

@@ -115,17 +115,33 @@ end
 
 #document編集
 def update
+  params[:document][:pdf_link] = view_url(params[:document][:service],params[:document][:service_url])
   @document = Document.find(params[:id])
   documents = Document.where(memo: @document.memo, randam: @document.randam)
   documents.each do |document|
-    unless document.update_attributes(document_params)
-      #自作errorチェック
-      error_check
-      redirect_to edit_document_url(document_params)
-      return
-    end    
+    if document.document_items.count == 0;
+    #表示式
+      if params[:document][:pdf_link].present?
+        unless document.update_attributes(document_params) 
+          pdf_error_check
+          redirect_to edit_document_url(document_params)
+          return
+        end
+      else   
+        pdf_error_check
+        redirect_to edit_document_url(document_params)
+        return   
+      end
+    #選択、入力
+    else
+      unless document.update_attributes(document_params) 
+        error_check
+        redirect_to edit_document_url(document_params)
+        return
+      end  
+    end
   end  
-  redirect_to teacher_url(1)
+  redirect_to documents_url
   return
 end
 
@@ -195,7 +211,11 @@ def item_update
   item_parameter.each do |id,it|
    item = DocumentItem.find id
    unless item.update_attributes(it)
-    flash[:info] = "質問の編集は空白にしないでください。"
+    if it[:content].blank?
+      flash[:info] = "質問の編集は空白にしないでください。"
+    elsif it[:content].size > 100 
+      flash[:info] = "100文字以内でお願いします。"
+    end  
     redirect_to edit_document_url(@document)
     return
    end 
@@ -221,7 +241,11 @@ def select_update
   select_parameter.each do |id,item|
     select = DocumentSelect.find id
     unless select.update_attributes(item)
-      flash[:info] = "選択肢の編集の際に空白にしないでください。"
+      if item[:content].blank?
+        flash[:info] = "選択肢の編集は空白にしないでください。"
+      elsif item[:content].size > 100 
+        flash[:info] = "100文字以内でお願いします。"
+      end  
       redirect_to edit_document_url(@document_item.document) 
       return  
     end  
@@ -248,7 +272,11 @@ end
      record.randam = randam
      record.document_id = document.id
      unless record.save
-      flash[:info] = "質問の追加の際に空白にしないでください。"
+      if params[:content].blank?
+        flash[:info] = "質問の追加の際に空白にしないでください。"
+      elsif params[:content].size > 100
+        flash[:info] = "100文字以内でお願いします。"
+      end    
       redirect_to edit_document_url(@document) 
       return
      end 
@@ -268,8 +296,12 @@ end
   items.each do |item|
     record = item.document_selects.build(content: params[:content])
     unless record.save
-      flash[:info] = "選択肢の追加の際に空白にしないでください。"
-      redirect_to edit_document_url(@document_item.document) 
+      if params[:content].blank?
+        flash[:info] = "選択肢の追加の際に空白にしないでください。"
+      elsif params[:content].size > 100
+        flash[:info] = "100文字以内でお願いします。"
+      end    
+      redirect_to edit_document_url(@document_item.document)
       return
     end  
   end  
