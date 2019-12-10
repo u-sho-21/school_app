@@ -160,9 +160,9 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
-    @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    # @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     # @not_time = @times_count.map{|time| time}
-    @date_first = date_meeting_time(@teacher, @meeting_times.first.time.to_s(:date))
+    # @date_first = date_meeting_time(@teacher, @meeting_times.first.time.to_s(:date))
   end
 
   # 面談希望日等決定
@@ -197,7 +197,7 @@ class MeetingsController < ApplicationController
 
     # 都合の悪い時間更新
     if params[:commit] == "都合の悪い時間の更新"
-      @meeting_children = @teacher.meetings.where(child_id: @child.id, desired: false)
+      @meeting_children = @teacher.meetings.where(child_id: @child.id)
       params_count = params.each{|params| params}
       if params_count.count > 8
         @meeting_children.each do |meeting|
