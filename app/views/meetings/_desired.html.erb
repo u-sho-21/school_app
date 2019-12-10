@@ -11,8 +11,6 @@
 
         <%= f.label "面談希望日を選択してください" %>
         <%= f.select :status, options_from_collection_for_select(@teacher.meetings.where(child_id: @child.id), :date, :date), {}, id: "status", class: "form-control form-desired" %>
-        <%= f.label "都合が悪い時間", style: "padding-top: 10px;" %><br>
-        <%= f.select :nottime, options_for_select(@date_first), { include_hidden: false }, { multiple: true, class: "js-searchable form-control", id: "nottime" } %>
 
         <div id="desired-button">
           <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
@@ -22,26 +20,3 @@
     </div>
   </div>
 </div>
-
-<script>
-
-  $('.js-searchable').select2({
-    maximumSelectionLength: <%= @times_count.count - 1 %>,
-    width: 300,
-    placeholder: '都合が悪い時間を選択して下さい',
-    language: {
-      maximumSelected: (args) => 'すべての時間を選択してしまいます'
-    },
-    allowClear: true
-  });
-
-  $(function() {
-    $('#status').change(function() {
-      $.get({
-        url: "#{select_date_path}",
-        data: { status: $('#status').has('option:selected').val() }
-      });
-    });
-  });
-
-</script>

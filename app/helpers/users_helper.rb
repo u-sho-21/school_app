@@ -1,4 +1,3 @@
-
 module UsersHelper
 
   # 先生からのお便り保護者絞り込み
@@ -13,4 +12,4 @@ module UsersHelper
     end
     return content
   end
-end  
+end

@@ -75,11 +75,37 @@
                 <% @meeting_children.each do |meeting| %>
 
                     <% if meeting.date == date && meeting.desired == true %>
+                      <div class="btn-group" role="group">
+                        <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control", name: "nottime[#{meeting.id}][]" } %>
+                        <script>
+                          $('.<%= meeting.id %>').select2({
+                            maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
+                            width: 300,
+                            placeholder: '都合が悪い時間を選択して下さい',
+                            language: {
+                              maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+                            },
+                            allowClear: true
+                          });
+                        </script>
+                      </div>
                       面談希望日
                     <% elsif  meeting.date == date && meeting.status == 2 %>
 
                       <div class="btn-group" role="group">
-                        <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "js-searchable form-control", name: "nottime[#{meeting.id}][]" } %>
+                        <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control", name: "nottime[#{meeting.id}][]" } %>
+                        <script>
+                          $('.<%= meeting.id %>').select2({
+                            maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
+                            width: 300,
+                            placeholder: '都合が悪い時間を選択して下さい',
+                            language: {
+                              maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+                            },
+                            allowClear: true
+                          });
+                        </script>
+
                       </div>
                       <div class="btn-group" role="group">
                         <%= f.submit "可", disabled: true, style: "background: #005FFF; color: white; width: 60px", class: "btn btn-default" %>
@@ -111,17 +137,3 @@
     <% end %>  <!-- if meeting.desired == true -->
   <% end %>  <!-- @meeting_children.each do |meeting| -->
 <% end %>  <!-- unless @meeting_children.present? -->
-
-<script>
-
-  $('.js-searchable').select2({
-    maximumSelectionLength: <%= @times_count.count - 1 %>,
-    width: 300,
-    placeholder: '都合が悪い時間を選択して下さい',
-    language: {
-      maximumSelected: (args) => 'すべての時間を選択してしまいます。'
-    },
-    allowClear: true
-  });
-
-</script>

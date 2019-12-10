@@ -64,6 +64,11 @@ module MeetingsHelper
     nottime_a = meeting.nottime.split(',').map{|m| m.delete('[]" \\')}
   end
 
+  # 日付別nottimeの選択制限
+  def select2_limit(teacher, meeting)
+    @teacher.meeting_times.map{|m| m.time.to_s(:time) if m.time.to_s(:date) == meeting.date.to_s(:date)}.compact.count - 1
+  end
+
   # 面談日程の返信状況
   def desired_status(teacher, id)
     meetings = teacher.meetings.where(child_id: id)

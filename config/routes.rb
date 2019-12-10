@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
   get    'select_date', to: 'meetings#select_date'
+  post '/push' => 'linebot#push'                                                                               # Lineプッシュ処理
 
   resources :teachers do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
@@ -82,4 +83,4 @@ Rails.application.routes.draw do
   resources :answers do
     get "modal/:num",  to:"documents#answer_modal",as: :modal                                                  #ピックアップモーダル
   end
-end 
+end
