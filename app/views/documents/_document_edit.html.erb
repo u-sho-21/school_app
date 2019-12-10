@@ -7,6 +7,9 @@
       </button>
      </div> 
       <div class="modal-body">
+        <% if flash[:info].present? %>
+         <div class="alert alert-danger"><%= flash[:info] %></div>
+        <% end %>
         <div class="text-center">
           <h3 id="document_edit_modal-h3"><%= "質問項目:#{@document_item.content}"  %></h3>
           <p class="text-primary">この質問の選択肢を変更します。</p>

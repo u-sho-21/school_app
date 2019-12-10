@@ -7,6 +7,7 @@ class Document < ApplicationRecord
   validates :memo,presence:true,length: { maximum: 100 }
   validates :deadline,presence:true
   validate :deadline_check
+  
   #カスタムバリデーション
   
   def deadline_check
@@ -16,6 +17,15 @@ class Document < ApplicationRecord
       end  
     end  
   end
+
+  #表示式のみ空禁止
+  def view_presence
+    if self.document_items.count == 0 && self.service_url.blank?
+      errors.add(:self,"必須です。")  
+    end  
+    
+  end
+  
 
   #管理者以外のユーザーでpublic trueになっているかチェック(user 1は管理者のため必要)
   def publicCheck?
@@ -31,5 +41,19 @@ class Document < ApplicationRecord
       end 
     end 
   end
+
+  def item_check?
+    if self.title.present?
+      items = self.document_items.all
+      if items.count >0
+        return true
+      else
+        return false
+      end   
+    end   
+  end
+  
+
+  
   
 end
