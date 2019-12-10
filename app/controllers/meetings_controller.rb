@@ -143,7 +143,6 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
-    # @not_time = @times_count.map{|time| time}
   end
 
   def select_date
@@ -160,9 +159,6 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(@child.teacher_id)
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
-    # @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
-    # @not_time = @times_count.map{|time| time}
-    # @date_first = date_meeting_time(@teacher, @meeting_times.first.time.to_s(:date))
   end
 
   # 面談希望日等決定
