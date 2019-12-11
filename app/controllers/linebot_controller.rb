@@ -10,10 +10,10 @@ class LinebotController < ApplicationController
         config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
       }
 
-      message={
-      type: 'text',
-      text: 'テスト'
-      }
+      # message={
+      # type: 'text',
+      # text: 'テスト'
+      # }
 
       # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
       # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
