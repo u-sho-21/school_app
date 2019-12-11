@@ -231,12 +231,14 @@ class MeetingsController < ApplicationController
   def schedule_update
     @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
-      meeting_times_params.each do |key, value|
-        meeting_time = MeetingTime.find(key)
-        if meeting_time.name.blank?
-          meeting_time.update_attributes(name: value[:name])
-        elsif value[:name].present?
-          meeting_time.update_attributes(name: value[:name])
+      if meeting_times_params.present?
+        meeting_times_params.each do |key, value|
+          meeting_time = MeetingTime.find(key)
+          if meeting_time.name.blank?
+            meeting_time.update_attributes(name: value[:name])
+          elsif value[:name].present?
+            meeting_time.update_attributes(name: value[:name])
+          end
         end
       end
       flash[:success] = "面談スケジュールを更新しました。"
