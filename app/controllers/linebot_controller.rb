@@ -1,7 +1,7 @@
 class LinebotController < ApplicationController
 
   # pushアクションのCSRFトークン認証を無効
-  protect_from_forgery :except => [:push]
+  # protect_from_forgery :except => [:push]
 
   # LINEプッシュ処理
   def push
