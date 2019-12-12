@@ -133,6 +133,22 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # 面談日時個別削除
+  def destroy
+    @teacher = Teacher.find(params[:teacher_id])
+    if params[:id]
+      @meeting_time = @teacher.meeting_times.find(params[:id])
+      @meeting_time.destroy
+    elsif params[:date]
+      @meetings = @teacher.meetings.where(date: params[:date])
+      @meetings.destroy_all
+      @meeting_times = @teacher.meeting_times.all
+      @meeting_times.each {|meeting_time| meeting_time.destroy if meeting_time.time.to_s(:date) == params[:date]}
+    end
+    flash[:success] = "削除しました。"
+    redirect_to teacher_meetings_edit_url(@teacher)
+  end
+
   # 保護者面談日時登録ページ
   def new_user
     @user = User.find(params[:user_id])
@@ -226,6 +242,9 @@ class MeetingsController < ApplicationController
     #   redirect_to teacher_meeting_index2_url(@teacher)
     # end
   end
+
+  # schedule_updateアクションのCSRFトークン認証を無効
+  protect_from_forgery :except => [:schedule_update]
 
   # 面談スケジュール更新
   def schedule_update

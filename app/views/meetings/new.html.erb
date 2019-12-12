@@ -1,10 +1,13 @@
-<div id="meeting-top-title">面談日時登録</div>
+<div id="meeting-top-title">
+  <%= image_tag('/icon/cl.png',size:"60x60",style:"display:inline") %>
+  面談日時登録
+</div>
 
-<div id="datepicker"></div>
+<div id="datepicker" style="margin-bottom: 20px;"></div>
 
 <% unless @meetings.empty? %>
-  <div id="content">
-    <div id="meeting-title" style="margin-top: 20px;">面談時間の登録</div>
+  <div id="content-meeting">
+    <div id="meeting-title">面談時間の登録</div>
     <%= form_with(model: @meeting_time, url: teacher_meeting_create2_path(@teacher), local: true) do |f| %>
       <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-bottom: 20px;">
         <thead>
@@ -32,7 +35,7 @@
   </div>
 <% end %>
 
-<div id="content">
+<div id="content-meeting">
   <div id="meeting-title">面談日の登録</div>
   <%= form_with(url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
     <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">

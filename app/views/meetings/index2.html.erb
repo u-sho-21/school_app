@@ -1,12 +1,15 @@
-<div id="meeting-top-title">面談状況確認</div>
-
-<div id="content">
-<div id="meeting-title">
-  <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
-  <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+<div id="meeting-top-title" class="text-center text-primary bg-warning">
+  <%= image_tag('/icon/sk.png',size:"60x60",style:"display:inline") %>
+  面談返信状況確認
 </div>
 
-  <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
+<div id="content-meeting">
+  <div id="meeting-title" class="bg-info" style="border-radius:12px;">
+    <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
+    <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+  </div>
+
+  <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 70%; margin-top: 20px;">
     <thead>
       <tr style="background: #FF9933; color: white;">
         <td>名前</td>
