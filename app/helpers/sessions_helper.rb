@@ -97,4 +97,16 @@ module SessionsHelper
   def logged_in_teacher?
     !current_teacher.nil?
   end
+
+  #ヘッダーﾘﾝｸ分岐
+  def link_check
+    if logged_in?
+      return user_path(current_user)
+    elsif  logged_in_teacher?
+      return teacher_path(current_teacher)
+    else  
+      return root_path
+    end     
+  end
+  
 end
