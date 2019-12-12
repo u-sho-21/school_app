@@ -15,9 +15,9 @@
         <% dates.each do |date| %>
           <tr>
             <!-- 日付 -->
-            <td rowspan="2"><%= date.to_s(:date) %></td>
+            <td rowspan="2" class="bg-info"><%= date.to_s(:date) %></td>
             <!-- 希望者 -->
-            <td rowspan="2" style="background: white;">
+            <td rowspan="2" class="bg-warning">
               <% @meetings_desired.each do |meeting| %>
                 <% if meeting.date == date %>
                   <%= Child.find(meeting.child_id).full_name %><br>
@@ -27,7 +27,7 @@
             <!-- 面談時間 -->
             <% @meeting_times_all.each do |meeting_time| %>
                 <% if meeting_time.time.to_date == date %>
-                  <td><%= meeting_time.time.to_s(:time) %></td>
+                  <td class="bg-success"><%= meeting_time.time.to_s(:time) %></td>
                 <% end %>
             <% end %>
           </tr>
@@ -59,12 +59,9 @@
     </table>
     <div id="submit-center">
       <%= f.submit "更新", class: "btn btn-success submit-width"%>
+      <%= form_with(url: push_path, local:true) do |f| %>
+        <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-width"%>
+      <% end %>
     </div>
-  <% end %>
-</div>
-
-<div id="submit-center">
-  <%= form_with(url: push_path, local:true) do |f| %>
-    <%= f.submit "スケジュール決定送信", class: "btn btn-primary submit-width"%>
   <% end %>
 </div>

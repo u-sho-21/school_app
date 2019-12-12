@@ -1,4 +1,7 @@
-<div id="meeting-top-title">面談日時編集</div>
+<div id="meeting-top-title">
+  <%= image_tag('/icon/time.png',size:"60x60",style:"display:inline") %>
+  面談日時編集
+</div>
 
 <div id="content">
   <div id="meeting-title">面談日時の追加</div>
@@ -44,10 +47,16 @@
       <tbody>
         <% dates.each do |date| %>
           <tr>
-            <td rowspan="2"><%= date %></td>
+            <td rowspan="2">
+              <%= date %>
+              <%= link_to "❎", teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+            </td>
             <% @meeting_times.each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
-                <td><%= meeting_time.time.to_s(:time) %></td>
+                <td>
+                  <%= meeting_time.time.to_s(:time) %>
+                  <%= link_to "❎", teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+                </td>
               <% end %>
             <% end %>
           </tr>
@@ -66,7 +75,7 @@
     <div id="submit-center">
       <%= f.submit "更新", class: "btn btn-success submit-width" %>
       <%= form_with(url: push_path, local:true) do |f| %>
-        <%= f.submit "日時確定送信", class: "btn btn-primary submit-width" %>
+        <%= f.submit "日時確定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-width" %>
       <% end %>
     </div>
   <% end %>

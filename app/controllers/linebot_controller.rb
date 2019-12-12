@@ -1,5 +1,8 @@
 class LinebotController < ApplicationController
 
+  # pushアクションのCSRFトークン認証を無効
+  protect_from_forgery :except => [:push]
+
   # LINEプッシュ処理
   def push
     if params[:commit] == "スケジュール決定送信"
@@ -18,7 +21,7 @@ class LinebotController < ApplicationController
       # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
       # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
       # "url": "埋め込みurl"                                              onedriveの場合
-      image_url = "https://push-test-pta.herokuapp.com/image01.jpg"
+      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
 
       message={
         "type": "flex",
@@ -27,7 +30,7 @@ class LinebotController < ApplicationController
           "type": "bubble",
           "hero": {
             "type": "image",
-            "url": "https://drive.google.com/uc?id=1r91Q47VDfzuj9yjdVinLzBrltcHv62oz",
+            "url": image_url,
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover"
@@ -81,7 +84,7 @@ class LinebotController < ApplicationController
                 "action": {
                   "type": "uri",
                   "label": "サイトへ",
-                  "uri": ""
+                  "uri": "https://school-app-pta.herokuapp.com"
                 }
               }
             ]
@@ -106,7 +109,7 @@ class LinebotController < ApplicationController
       # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
       # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
       # "url": "埋め込みurl"                                              onedriveの場合
-      image_url = "https://push-test-pta.herokuapp.com/image01.jpg"
+      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
 
       message={
         "type": "flex",
@@ -169,7 +172,7 @@ class LinebotController < ApplicationController
                 "action": {
                   "type": "uri",
                   "label": "サイトへ",
-                  "uri": "https://push-test-pta.herokuapp.com"
+                  "uri": "https://school-app-pta.herokuapp.com"
                 }
               }
             ]

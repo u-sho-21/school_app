@@ -7,12 +7,20 @@
   font-family: 'M PLUS Rounded 1c';
   margin-bottom: 30px;
   margin-top: 30px;
+  padding: 8px;
+  font-weight: bold;
 }
 
 #meeting-title {
   text-align: center;
   font-size: 25px;
   font-family: 'M PLUS Rounded 1c';
+}
+/* content整え */
+
+#content-meeting {
+  width: 70%;
+  margin: auto;
 }
 
 /* 面談日時登録ページ */
