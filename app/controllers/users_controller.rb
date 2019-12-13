@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @child = @user.children.first
+    session[:child_id] = @child.id unless @child.nil?
     if @child.nil?
       redirect_to signup_child_url
     end
@@ -18,7 +19,11 @@ class UsersController < ApplicationController
   def new2
     @user = User.find(params[:id])
     @child = @user.children.first
-    @teacher = Teacher.find(@child.teacher_id)
+    if @child.nil?
+      @teacher = Teacher.find 1
+    else
+      @teacher = Teacher.find(@child.teacher_id)
+    end     
     @child = @user.children.build
   end
 
