@@ -3,6 +3,32 @@
   <h1>教員書類管理ページ</h1>
 </div><br>
 <%= link_to "メニューへ","/teachers/1",class:"btn btn-default",style:"width:25%;" %><br><br>
+
+<!--保護者提出後モーダルにてline push_pathにpost送信-->
+
+<% if params[:send] == "提出確定" && logged_in_teacher? %>
+   <div id="document_line" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+        <div class="modal-header">
+          <div class="text-center">保護者へ通知</div>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <%= form_with(url:push_path,local:true) do |f| %>
+            <div class="text-center">保護者へ通知しますよろしいでしょうか？ <br><br>
+               <%= f.submit "提出を通知する。",class:"btn btn-primary"%>
+            </div>  
+          <% end %>
+        </div>
+       </div>
+     </div>
+   </div>
+<% end %>
+
+<!--モーダル処理終了-->
 <div style="border-top:2px dotted blue;"></div><br>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 bg-info" style="border-radius:12px;">
@@ -69,3 +95,8 @@
       <% end %>
   </div>
 </div>
+<script>
+  $(function(){
+     $("#document_line").modal("show");
+  });
+</script>
