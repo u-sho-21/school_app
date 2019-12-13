@@ -36,7 +36,7 @@
             <% @meeting_times_all.each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
                 <%= fields_for "meeting_times[]", meeting_time do |af| %>
-                <% if meeting_time.name.blank? %>
+                <% if meeting_time.name.empty? %>
                   <td>
                     <% unless meeting_select(@teacher, date, meeting_time).empty? %>
                       <%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %>
