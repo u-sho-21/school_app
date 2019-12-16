@@ -49,13 +49,17 @@
           <tr>
             <td rowspan="2">
               <%= date %>
-              <%= link_to "❎", teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+              <%= link_to teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
+              <% end %>
             </td>
             <% @meeting_times.each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
                 <td>
                   <%= meeting_time.time.to_s(:time) %>
-                  <%= link_to "❎", teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+                  <%= link_to teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                    <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
+                  <% end %>
                 </td>
               <% end %>
             <% end %>
