@@ -344,7 +344,7 @@ end
 #保護者の提出した書類教員確認ページ
  def user_view
    @document = Document.find(params[:document_id])
-   @users = User.paginate(page: params[:page],per_page: 3)
+   @users = User.paginate(page: params[:page],per_page: 10)
  end
  
 
