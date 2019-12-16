@@ -9,7 +9,7 @@
 			</button>
 			<!-- ユーザー、教員、未ログインでタイトル分岐-->
 			<a class="navbar-brand school_title" href="<%= link_check %>">
-			   <span class="title_font" style="font-size:24px;color:#fff"><i class="fas fa-school"></i>学校の面談と提出アプリ</span>
+			   <span class="title_font" style="font-size:24px;color:#fff"><%= fa_icon("home") %>学校の面談と提出アプリ</span>
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbarEexample7">
@@ -18,37 +18,37 @@
 			    <i class="fas fa-sign-out-alt"></i>
                 ログアウト&emsp;
 			  </p><% end %>
-			<% elsif logged_in? && current_user.children.count >0 %> 
+			<% elsif logged_in? && current_user.children.count >0 %>
 			  <p class="navbar-text navbar-right"><%= link_to  logout_path, method: :delete,class:"btn btn-danger" do %>
 			    <i class="fas fa-sign-out-alt"></i>
 			    ログアウト&emsp;
 			  </p><% end %>
 			<% elsif controller.action_name == "new2" && controller.controller_name == "users" %>  <!-- 生徒登録 -->
 
-			<% else %>  
+			<% else %>
 			   <p class="navbar-text navbar-right"><%= link_to  root_path,class:"btn btn-success" do %>
 			   　<i class="fas fa-sign-in-alt" ></i>
 			     ログイン&emsp;
 			   </p><% end %>
-			<% end %> 
+			<% end %>
 
 			<!-- 教員、保護者タブ-->
 			<% active = controller.action_name %>
 			<ul class="nav navbar-nav">
 			  <% if  logged_in_teacher? %>
-			    
+
 			    <li class="<%= "active" if active == "show" %>"><%= link_to "トップページ", teacher_path(current_teacher) %></li>
 				<li class="<%= "active" if active == "index2" %>"><%= link_to "面談スケジュール",teacher_meeting_index2_path(current_teacher) %></li>
 				<li class="<%= "active" if active == "index" %>"><%= link_to "提出状況", documents_path(params:{teacher_id: current_teacher}) %></li>
 				<li class="<%= "active" if active == "t_message" %>"><%= link_to "保護者連絡", teacher_t_message_path(current_teacher)  %></li>
-			  <% elsif logged_in? && current_user.children.count >0 %>	
+			  <% elsif logged_in? && current_user.children.count >0 %>
 			    <li class="<%= "active" if active == "show" %>"><%= link_to "トップページ", user_path(@user) %></li>
 				<li class="<%= "active" if active == "new_user" %>"><%= link_to "面談ページへ", user_meetings_new_user_path(user_id: @user.id, child_id: session[:child_id] ) %></li>
 				<li class="<%= "active" if active == "document_show"%>"><%= link_to "提出ページへ",  user_documets_path(@user) %></li>
 				<li class="<%= "active" if active == "messages"%>"><%= link_to "お便り",user_users_messages_path(@user) %></li>
-			  <% end %>	
+			  <% end %>
 			</ul>
-			
+
 		</div>
 	</div>
 
