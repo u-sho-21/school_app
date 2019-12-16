@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     post 'meetings/create2', to: 'meetings#create2', as: :meeting_create2                                      # 面談時間作成
     get 'meetings/edit', to: 'meetings#edit'                                                                   # 面談日時編集・送信ページ
     patch 'meetings/edit', to: 'meetings#update', as: :meetings_update                                         # 面談日時更新
-    delete 'meetings/destroy', to: 'meetings#destroy', as: :meetings_destroy                                       # 面談日時個別削除
+    delete 'meetings/destroy', to: 'meetings#destroy', as: :meetings_destroy                                   # 面談日時個別削除
     get 'meetings', to: 'meetings#index', as: :meetings_index                                                  # 面談スケジュール調整ページ
     get 'meetings/status', to: 'meetings#index2', as: :meeting_index2                                          # 面談状況確認ページ
     patch 'meetings', to: 'meetings#schedule_update', as: :schedule_update                                     # 面談スケジュール更新

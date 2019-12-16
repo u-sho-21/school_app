@@ -36,16 +36,16 @@
             <% @meeting_times_all.each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
                 <%= fields_for "meeting_times[]", meeting_time do |af| %>
-                <% if meeting_time.name.blank? %>
+                <% unless meeting_time.name.present? %>
                   <td>
-                    <% unless meeting_select(@teacher, date, meeting_time).blank? %>
+                    <% if meeting_select(@teacher, date, meeting_time).present? %>
                       <%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %>
                     <% end %>
                   </td>
                 <% else %>
                   <td>
                     <%= link_to "#{meeting_time.name}", teacher_schedule_update_path(@teacher, meeting_time_id: meeting_time.id), meeting_time_id: meeting_time.id, method: :patch %>
-                    <% unless meeting_select(@teacher, date, meeting_time).blank? %>
+                    <% if meeting_select(@teacher, date, meeting_time).present? %>
                       <%= af.select :name, meeting_select(@teacher, date, meeting_time), include_blank: true, class: "form-control" %>
                     <% end %>
                   </td>

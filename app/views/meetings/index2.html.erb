@@ -22,7 +22,7 @@
         <tr>
           <td><%= child.full_name %></td>
           <% if desired_status(@teacher, child.id) == "返信済み" %>
-            <td style="color: red;"><%= desired_status(@teacher, child.id) %></td>
+            <td style="color: red;"><span style="color: green;"><i class="far fa-check-circle"></i></span><%= desired_status(@teacher, child.id) %></td>
           <% else %>
             <td style="color: blue;"><%= desired_status(@teacher, child.id) %></td>
           <% end %>

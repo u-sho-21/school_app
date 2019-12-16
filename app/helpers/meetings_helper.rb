@@ -100,7 +100,7 @@ module MeetingsHelper
   # 面談スケジュールセレクト表示
   def meeting_select(teacher, date, meeting_time)
     meetings = teacher.meetings.where("(status = ?) OR (desired = ?)", 2, true)
-    meeting_times = teacher.meeting_times.where.not("(name = ? or ?)", "", "nil")
+    meeting_times = teacher.meeting_times.where.not("(name = ? or ?)", "", nil)
     names = meeting_times.map{|meeting_time| meeting_time.name}
     child_name = []
     meetings.each do |meeting|
