@@ -6,7 +6,7 @@
 </div>
 <%= link_to "戻る",documents_path,class:"btn btn-default",style:"width:20%;margin-bottom:1px" %>
 <h1 id="document_user_reply_show" class="title_font">各保護者の提出内容</h1>
-<% answerNO = 0 %>
+
 
 
 <div class="row">
@@ -14,7 +14,7 @@
 
      <!--ページネーション-->
     <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
-    <table class="table" id="document_user_reply_table">
+    <table class="table table-responsive" id="document_user_reply_table">
       <% @users.each do |user| %>
        <% unless user.id == 1%>
         <tr>
@@ -23,6 +23,7 @@
             <input type="button" value="▲" id="bt<%= user.id %>" onclick='func("<%= user.id %>")'class="document_js_btn">
           </th>
           <% user.userDocumentItem(@document).each do |item| %>  <!-- userモデル参照-->
+            <% answerNO = 0 %>
             <tr>
               <td class="slide<%= user.id %>">
                 <span style="color:red">質問:</span><%= item.content %>
@@ -30,6 +31,7 @@
                   <span>保護者回答</span><br>
                   <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(':')[answerNO].present? %>
                     <strong><%= user.userAnswers(@document).reply.split(':')[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
+                
                   <% else %>
                     <strong style="color:red;font-size:30px;">まだ回答されてません。</strong>
                   <% end %>  

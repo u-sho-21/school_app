@@ -60,9 +60,8 @@ class User < ApplicationRecord
   def userAnswers(document)
     obj = self.documents.find_by(memo: document.memo, randam: document.randam)
     answerData = obj.answers.last
-    if answerData.present?
-      return answerData
-    end
+    return answerData
+    
   end
   
   
