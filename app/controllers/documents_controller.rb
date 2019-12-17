@@ -94,7 +94,7 @@ def create3
           end  
         else
           #自作errorチェック
-          error_check
+          pdf_error_check
           redirect_to new3_document_url(document_params)
           return
         end
@@ -197,6 +197,10 @@ end
 def document_modal
   @document_item = DocumentItem.find(params[:id])
 end
+
+def pdf_modal
+end
+
 
 #保護者回答一覧モーダル
 def answer_modal

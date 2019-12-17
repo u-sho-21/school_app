@@ -26,8 +26,16 @@
     margin-right: 53%;
     margin-bottom: 1%;
 }
+.alert2{
+    width:60%;
+}
 @media screen and (max-width:767px){
     #document_form_pc_button{display:none;}
+    #document_hyouji_title{
+       font-size: 18px;
+       font-weight: 900;
+    }
+    .alert2{font-size: 8px;}
 }
 @media screen and (min-width:768px){
     #document_form_phone_button{display:none;}

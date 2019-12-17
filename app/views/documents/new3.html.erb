@@ -1,11 +1,12 @@
 <%= provide(:url,document_create3_path) %>
+<div id= "pdf" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 
 <div class="text-center text-default">
   <ul class="document_ul">
     <li id="document_img"><%= image_tag('/explain/pdf.png', id:"document_hyouji_img") %><li>
     <li><h1 class="title_font" id="document_hyouji_title">新規書類作成(表示)</h1></li>
   </ul>
-  <div style="font-size:22px;"><%= link_to "#",style:"text-decoration: underline;" do %>
+  <div style="font-size:22px;margin-bottom:4%;"><%= link_to pdf_modal_documents_path,remote:true,style:"text-decoration: underline;" do %>
    <i class="fas fa-question-circle"></i>
    このページの説明
   <% end %></div>
@@ -17,7 +18,7 @@
 <!---------------------------------------------------CSS-------------------------------------------------------------------------------------->
 <style>
   body,.row{background:#E6E6FA;}
-  .document_form{box-shadow:6px 6px 6px #F5F5DC;}
+  #document_form{box-shadow: 6px 6px 14px 6px #6666FF;}
   #main_alert{display:none;}
   /*フォームタイトル*/
   #document_form_title_label{
