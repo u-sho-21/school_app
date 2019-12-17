@@ -7,9 +7,12 @@ class MeetingsController < ApplicationController
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
     @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list = (0..11).to_a.freeze
-    @minutes_list = list.map { |v| v * 5 }
-    @minutes = @minutes_list.map { |v| "%02d" % v }
+    list1 = (0..11).to_a.freeze
+    list2 = (1..11).to_a.freeze
+    @minutes_list1 = list1.map { |v| v * 5 }
+    @minutes_list2 = list2.map { |v| v * 5 }
+    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
+    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
   end
 
@@ -78,9 +81,12 @@ class MeetingsController < ApplicationController
   def edit
     @teacher = Teacher.find(params[:teacher_id])
     @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list = (0..11).to_a.freeze
-    @minutes_list = list.map { |v| v * 5 }
-    @minutes = @minutes_list.map { |v| "%02d" % v }
+    list1 = (0..11).to_a.freeze
+    list2 = (1..11).to_a.freeze
+    @minutes_list1 = list1.map { |v| v * 5 }
+    @minutes_list2 = list2.map { |v| v * 5 }
+    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
+    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all

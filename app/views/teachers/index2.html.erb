@@ -1,9 +1,9 @@
 <div id="meeting-top-title">保護者一覧</div>
 
-<table class="table meeting-table">
+<table class="table meeting-table" id="full_user">
   <thead>
     <tr>
-      <td>名前</td>
+      <td><i class="fas fa-user-circle"></i>名前</td>
       <td>メールアドレス</td>
       <td>電話番号</td>
       <td>ユーザー削除</td>
@@ -15,7 +15,7 @@
       <tr>
       <% unless user.id == 1 %>  <!--教員管理用のユーザー取り除きました。-->
         <td>
-          <div data-toggle="collapse" href="#<%= user.id %>" style="cursor: pointer;"><%= user.name + user.name2 %></div>
+          <div data-toggle="collapse" href="#<%= user.id %>" style="cursor: pointer;"><i class="fas fa-user-circle"></i><%= user.name + user.name2 %></div>
             <div id="<%= user.id %>" class="panel-collapse collapse">
               <% user.children.each do |child| %>
                 <div class="panel-body" style="color: red;">生徒名：<%= child.full_name %></div>
@@ -25,7 +25,7 @@
         <td><%= user.email %></td>
         <td><%= user.phone %></td>
         <td><%= link_to "削除", user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete, style: "color: red;" %></td>
-      <% end %>  
+      <% end %>
       </tr>
     <% end %>
   </tbody>

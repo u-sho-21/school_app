@@ -31,8 +31,7 @@ class TeachersController < ApplicationController
       flash[:success] = "送信しました。"
       redirect_to teacher_path(@teacher)
     else
-      flash[:danger] = "失敗"
-      redirect_to teacher_t_message_path(@teacher)
+      render :t_message
     end
   end
 
@@ -51,7 +50,7 @@ class TeachersController < ApplicationController
       flash[:success] = "返信しました。"
       redirect_to teacher_path(@teacher)
     else
-      flash.now[:danger] = "失敗です。"
+      flash.now[:danger] = "入力に誤りがあります。"
       render :t_message_reply
     end
   end
