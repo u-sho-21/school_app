@@ -23,9 +23,9 @@
           <tr>
             <td>
               <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
-              <%= f.select :published_at_minute_1, @minutes, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+              <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
             </td>
-            <td><%= f.select :published_at_minute_2, @minutes, {}, class: 'form-control select-font' %></td>
+            <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
             <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
             <td><%= f.submit '登録', class: "btn btn-success" %></td>
           </tr>
@@ -50,7 +50,7 @@
         <tr>
           <td>
             <div id="content-left">
-              <% dates.each do |date| %>
+              <% dates.sort.each do |date| %>
                 <%= date %><br>
               <% end %>
             </div>
