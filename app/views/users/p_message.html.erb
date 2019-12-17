@@ -2,13 +2,14 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @p_message, url: user_p_message_create_path(@user), local: true) do |f| %>
+    <%= form_with(model: @p_message, url: user_p_message_create_path(@user), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
-      <%= f.text_field :title, class: "form-control" %>
+      <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
 
       <%= f.label :content, "内容", class: "label-signup" %>
-      <%= f.text_area :content, class: "form-control" %>
+      <br><span style="color: red">100文字以内で入力してください。</span>
+      <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
       <%= f.hidden_field :teacher_id, :value => @teacher.id %>
 
@@ -16,3 +17,11 @@
     <% end %>
   </div>
 </div>
+
+<script>
+
+  $(function(){
+    jQuery("#form_1").validationEngine();
+  });
+
+</script>

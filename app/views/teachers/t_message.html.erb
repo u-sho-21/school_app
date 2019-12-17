@@ -2,13 +2,14 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
-      <%= f.text_field :title, class: "form-control" %>
-
+      <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
+      
       <%= f.label :content, "内容", class: "label-signup" %>
-      <%= f.text_area :content, class: "form-control" %>
+      <br><span style="color: red">100文字以内で入力してください。</span>
+      <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
       <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
       <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "js-searchable form-control" } %>
@@ -23,7 +24,16 @@
 <script>
 
   $('.js-searchable').select2({
-    placeholder: '送信ユーザー選択'
+    maximumSelectionLength: 5,
+    placeholder: '送信ユーザー選択',
+    language: {
+      maximumSelected: (args) => '一度の送信では最大５人までです。'
+    },
+    allowClear: true
+  });
+
+  $(function(){
+    jQuery("#form_1").validationEngine();
   });
 
 </script>
