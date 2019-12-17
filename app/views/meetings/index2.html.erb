@@ -1,5 +1,5 @@
-<div id="meeting-top-title" class="text-center text-primary bg-warning">
-  <%= image_tag('/icon/sk.png',size:"60x60",style:"display:inline") %>
+<div id="meeting-top-title" class="text-primary bg-warning">
+  <i class="fas fa-inbox"></i>
   面談返信状況確認
 </div>
 
@@ -12,15 +12,15 @@
   <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 70%; margin-top: 20px;">
     <thead>
       <tr style="background: #FF9933; color: white;">
-        <td>名前</td>
-        <td>返信状況</td>
+        <td style="width: 40%;"><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
+        <td><i class="far fa-paper-plane" style="color: green;"></i>返信状況</td>
       </tr>
     </head>
 
     <tbody>
       <% @children.each do |child| %>
         <tr>
-          <td><i class="fas fa-user-circle"></i><%= child.full_name %></td>
+          <td style="text-align: left; padding-left: 5%;"><i class="fas fa-user-circle" style="color: #000000;"></i><%= child.full_name %></td>
           <% if desired_status(@teacher, child.id) == "返信済み" %>
             <td style="color: red;"><span style="color: green;"><i class="far fa-check-circle"></i></span><%= desired_status(@teacher, child.id) %></td>
           <% else %>
