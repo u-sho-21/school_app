@@ -48,7 +48,7 @@ module MeetingsHelper
   # 日付別面談時間
   def date_meeting_time(teacher, date)
     date_times = []
-    teacher.meeting_times.all.each do |meeting_time|
+    teacher.meeting_times.all.order(:time).each do |meeting_time|
       if meeting_time.time.to_s(:date) == date
         date_times << meeting_time.time.to_s(:time)
       end
@@ -100,7 +100,7 @@ module MeetingsHelper
   # 面談スケジュールセレクト表示
   def meeting_select(teacher, date, meeting_time)
     meetings = teacher.meetings.where("(status = ?) OR (desired = ?)", 2, true)
-    meeting_times = teacher.meeting_times.where.not("(name = ? or ?)", "", nil)
+    meeting_times = teacher.meeting_times.where.not(name: "")
     names = meeting_times.map{|meeting_time| meeting_time.name}
     child_name = []
     meetings.each do |meeting|

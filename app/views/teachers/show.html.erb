@@ -12,17 +12,17 @@
 <div id="teacher-top">
   <div id="one">
     <%= link_to  teacher_meetings_new_path(@teacher), class: "btn btn-success top-button" ,id:"teacher_bt" do %>
-       <%= image_tag('/icon/cl.png',size:"20x20") %>
+       <i class="far fa-calendar-alt"></i>
        面談日登録
     <% end %>
     <%= link_to  teacher_meetings_edit_path(@teacher), class: "btn btn-info top-button",id:"teacher_bt" do %>
-       <%= image_tag('/icon/time.png',size:"20x20") %>
+       <i class="far fa-clock"></i>
        面談日時編集
     <% end %>
   </div>
   <div id="two">
     <%= link_to teacher_meeting_index2_path(@teacher), class: "btn btn-default top-button",id:"teacher_bt",style:"background:#c0c0c0"  do %>
-      <%= image_tag('/icon/sk.png',size:"20x20") %>
+      <i class="fas fa-inbox"></i>
       面談返信状況確認
     <% end %>
     <%= link_to documents_path(params:{teacher_id: @teacher}), class: "btn btn-danger top-button",id:"teacher_bt" do %>

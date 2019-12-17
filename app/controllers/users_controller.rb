@@ -244,7 +244,7 @@ end
       flash[:success] = "送信しました。"
       redirect_to user_url(@user)
     else
-      flash.now[:danger] = "失敗です。"
+      flash.now[:danger] = "入力に誤りがあります。"
       render :p_message
     end
   end

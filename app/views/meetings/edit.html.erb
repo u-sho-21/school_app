@@ -1,5 +1,5 @@
-<div id="meeting-top-title">
-  <%= image_tag('/icon/time.png',size:"60x60",style:"display:inline") %>
+<div id="meeting-top-title" class="bg-info">
+  <i class="far fa-clock"></i>
   面談日時編集
 </div>
 
@@ -22,9 +22,9 @@
           <td><%= f.text_field :date, class: 'form-control date-picker select-font' %></td>
           <td>
             <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
-            <%= f.select :published_at_minute_1, @minutes, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+            <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
           </td>
-          <td><%= f.select :published_at_minute_2, @minutes, {}, class: 'form-control select-font' %></td>
+          <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
           <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
           <td><%= f.submit '追加', class: "btn btn-success" %></td>
         </tr>
@@ -45,17 +45,21 @@
       </thead>
 
       <tbody>
-        <% dates.each do |date| %>
+        <% dates.sort.each do |date| %>
           <tr>
             <td rowspan="2">
               <%= date %>
-              <%= link_to "❎", teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+              <%= link_to teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
+              <% end %>
             </td>
-            <% @meeting_times.each do |meeting_time| %>
+            <% @meeting_times.order(:time).each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
                 <td>
                   <%= meeting_time.time.to_s(:time) %>
-                  <%= link_to "❎", teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" %>
+                  <%= link_to teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                    <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
+                  <% end %>
                 </td>
               <% end %>
             <% end %>
