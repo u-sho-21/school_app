@@ -2,14 +2,29 @@
 
 <div class="text-center text-default">
   <ul class="document_ul">
-    <li id="document_img"><%= image_tag('/explain/pdf.png',size:"60x60",style:"display:inline") %><li>
-    <li><h1 class="title_font">新規書類作成(表示)</h1></li>
+    <li id="document_img"><%= image_tag('/explain/pdf.png', id:"document_hyouji_img") %><li>
+    <li><h1 class="title_font" id="document_hyouji_title">新規書類作成(表示)</h1></li>
   </ul>
+  <div style="font-size:22px;"><%= link_to "#",style:"text-decoration: underline;" do %>
+   <i class="fas fa-question-circle"></i>
+   このページの説明
+  <% end %></div>
+  <%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",id:"document_form_pc_button" %>
 </div>
-<%= render 'form', document: @document %><br>
 
-<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
+<%= render 'form', document: @document %><br>
+<div class="tex-center"><%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-block",id:"document_form_phone_button" %></div>
+<!---------------------------------------------------CSS-------------------------------------------------------------------------------------->
 <style>
- 
+  body,.row{background:#E6E6FA;}
+  .document_form{box-shadow:6px 6px 6px #F5F5DC;}
   #main_alert{display:none;}
+  /*フォームタイトル*/
+  #document_form_title_label{
+    background:#4689FF;
+    border-left:5px solid #00008B;
+    color:#D9E5FF;
+    padding:5px 10%;
+    margin-bottom:2%;
+  }
 </style>
