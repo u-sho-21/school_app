@@ -33,7 +33,7 @@
           </tr>
           <tr>
             <!-- 面談者名 -->
-            <% @meeting_times_all.each do |meeting_time| %>
+            <% @meeting_times_all.order(:time).each do |meeting_time| %>
               <% if meeting_time.time.to_date == date %>
                 <%= fields_for "meeting_times[]", meeting_time do |af| %>
                 <% unless meeting_time.name.present? %>
