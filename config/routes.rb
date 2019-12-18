@@ -55,7 +55,9 @@ Rails.application.routes.draw do
     post  '/item_add',to:'documents#update_add'                                                                #編集画面質問追加
     post  '/select_add',to:'documents#update_select_add'                                                       #編集画面選択追加
     get   'users_view' ,to:'documents#user_view'                                                               #保護者提出回答一覧
-
+    collection do
+      get 'pdf_modal'
+    end
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
   post 'document/create2',to:'documents#create2',as: :document_create2                                         #入力式書類登録処理

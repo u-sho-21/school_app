@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
-    @documents = @user.documents.all   
+    @documents = @user.documents.all.order('id asc')   
   #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
     document_delete2
   end
@@ -94,7 +94,7 @@ def create3
           end  
         else
           #自作errorチェック
-          error_check
+          pdf_error_check
           redirect_to new3_document_url(document_params)
           return
         end
@@ -197,6 +197,10 @@ end
 def document_modal
   @document_item = DocumentItem.find(params[:id])
 end
+
+def pdf_modal
+end
+
 
 #保護者回答一覧モーダル
 def answer_modal
@@ -344,7 +348,7 @@ end
 #保護者の提出した書類教員確認ページ
  def user_view
    @document = Document.find(params[:document_id])
-   @users = User.paginate(page: params[:page],per_page: 10)
+   @users = User.paginate(page: params[:page],per_page: 10).order('id asc')
  end
  
 
