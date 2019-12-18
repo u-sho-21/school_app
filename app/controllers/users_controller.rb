@@ -217,6 +217,15 @@ end
     end
   end
 
+  # 生徒情報削除
+  def child_destroy
+    @user = User.find(params[:user_id])
+    @child = @user.children.find(params[:child_id])
+    @child.destroy
+    flash[:success] = "生徒情報を削除しました。"
+    redirect_to user_users_index2_url(@user)
+  end
+
   # 先生からのお便り一覧
   def messages
     @user = User.find(params[:user_id])
