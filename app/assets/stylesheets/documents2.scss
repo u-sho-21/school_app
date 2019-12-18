@@ -1,0 +1,42 @@
+/*表示式教員*/
+#document_hyouji_title{  /*タイトル*/
+    color: #000080;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    margin-top: 2%;
+    padding-top: 3px;
+}
+#document_hyouji_img{   /*イメージ*/
+   width: 50px;
+   height: 50px;
+  
+}
+.document_ul{
+    margin-top: 1%;
+}
+/*表示式教員*/
+/* form*/
+#document_title-forms,#document_memo-forms,#document_select-forms,#document_pdf_link-forms,#document_deadline-forms{
+    margin-top: 2%;
+    height:50px;
+}
+#document_form_pc_button{
+    width:15%;
+    margin-right: 53%;
+    margin-bottom: 1%;
+}
+.alert2{
+    width:60%;
+}
+@media screen and (max-width:767px){
+    #document_form_pc_button{display:none;}
+    #document_hyouji_title{
+       font-size: 18px;
+       font-weight: 900;
+    }
+    .alert2{font-size: 8px;}
+}
+@media screen and (min-width:768px){
+    #document_form_phone_button{display:none;}
+}

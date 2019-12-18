@@ -13,7 +13,7 @@
     </div>
   <% end %>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2" id="document_form"><br>
+  <div class="col-md-9 col-md-offset-2" id="document_form"><br>
     <div class="field">
      <% if flashArray %>
        <!-- split分割された配列にtitleあるかどうか? -->
@@ -23,8 +23,8 @@
         <div class="alert alert-danger alert2">50文字以内です。</div>
       <% end %>
      <% end %> 
-      <%= form.label :タイトル %>
-      <%= form.text_field :title, id: :document_title,class:"form-control",value: @document.title.present? ? @document.title : params[:title]  %>
+      <label id="document_form_title_label">タイトル&emsp;<span style="color:#FF4F50">(必須です)</span></label>
+      <%= form.text_field :title, id:"document_title-forms",class:"form-control fa",placeholder:"\uf304　書類のタイトルです。",value: @document.title.present? ? @document.title : params[:title]  %>
     </div><br>
 
     
@@ -37,22 +37,25 @@
          <div class="alert alert-danger alert2">100文字以内です。</div>  
        <% end %>
       <% end %>
-        <%= form.label :資料の概要 %>
-        <%= form.text_area :memo, id: :document_memo,class:"form-control",value:@document.memo.present? ? @document.memo : params[:memo]  %>
-      </div><br>  
-    
-    <%= form.label "サービス選択" %>
-    <%= form.select :service,service_select,{},class:"form-control" %><br>
+        <label id="document_form_title_label">資料の概要&emsp;<span style="color:#FF4F50">(必須です)</span></label>
+        <%= form.text_area :memo, id:"document_memo-forms",class:"form-control fa",placeholder:"\uf304　書類の概要です。",value:@document.memo.present? ? @document.memo : params[:memo]  %>
+      </div><br>
+      
+        
+    <label id="document_form_title_label">外部サービス</label>
+    <%= form.select :service,service_select,{},class:"form-control",id:"document_select-forms" %><br>
 
-    <! -- 表示式のみ外部リンク必須 -->  
-    <%  if yield(:url) == document_create3_path || (document.item_check? == false) &&  params[:pdf_link].nil?  %>  <!--documentモデル参照-->
-      <div class="alert alert-info alert2" style="margin-top:1%;width:35%;">この書類では正確に入力ください。</div>  
-    <% elsif document.item_check? == false && flashArray.include?("正確に入力ください。") &&  params[:pdf_link].blank? %>  
-       <div class="alert alert-danger alert2" style="margin-top:1%;width:35%;">正確に入力ください。</div>  
-    <% end %>
+    <% if flashArray %>
+       <% if  flashArray.include?("この書類では入力ください。") %>
+         <div class="alert alert-danger alert2">この書類では正確に入力ください。</div>
+       <% elsif flashArray.include?("1正確に入力ください。") %>
+         <div class="alert alert-danger alert2">正確に入力ください。</div>  
+       <% end %>
+      <% end %>
+
     <div class="field">
-      <%= form.label :外部リンク,style:"margin-top:-4%" %>
-      <%= form.text_field :service_url, id: :document_pdf_link,class:"form-control",value:@document.service_url.present? ? @document.service_url : params[:service_url] %>
+      <label id="document_form_title_label">外部リンク&emsp;<span style="color:#FF4F50"><%= "(必須です)" if yield(:url) == document_create3_path || (document.item_check? == false) &&  params[:pdf_link].nil?  %></span></label>
+      <%= form.text_field :service_url, id:"document_pdf_link-forms",class:"form-control fa",placeholder:"\uf381　書類のURLを入力ください。",value:@document.service_url.present? ? @document.service_url : params[:service_url] %>
     </div><br>
 
     <div class="field">
@@ -64,12 +67,12 @@
            <div class="alert alert-danger alert2">日付けが過ぎてます。</div>
         <% end %>
        <% end %>
-      <%= form.label :期限　%>
-      <%= form.date_field :deadline, id: :document_deadline,class:"form-control" %>
+      <label id="document_form_title_label">期限&emsp;<span style="color:#FF4F50">(必須です)</span></label>
+      <%= form.date_field :deadline, id:"document_deadline-forms",class:"form-control" %>
     </div><br>
 
     <div class="actions text-center">
-      <%= form.submit "送信",class:"btn btn-primary btn-lg" %>
+      <%= form.submit "送信",class:"btn btn-primary btn-lg",style:"width:25%" %>
     </div>
   </div>
 </div>  

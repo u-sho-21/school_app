@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   #保護者提出ページ
   def document_show
     @user = User.find(params[:user_id])
-    @documents = @user.documents.all
+    @documents = @user.documents.all.order("id asc")
     public_check
     
   end
