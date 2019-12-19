@@ -4,6 +4,9 @@ class DocumentsController < ApplicationController
 
   #掲出状況確認(教員)
   def index
+    if params[:input]
+      flash.now[:success] = "作成しました。"
+    end  
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
@@ -105,6 +108,7 @@ def create3
       end    
   end
   @document = Document.all.last  #作られたユーザーごとの資料の最後
+  flash[:success] = "作成しました。"
   redirect_to teacher_url(1)
   return
 end  
@@ -140,7 +144,8 @@ def update
         return
       end  
     end
-  end  
+  end 
+  flash[:success] = "編集しました。" 
   redirect_to documents_url
   return
 end
@@ -235,6 +240,7 @@ def item_update
 
     end
   end  
+  flash[:success] = "編集しました。" 
   redirect_to documents_url
 end
 
@@ -262,6 +268,7 @@ def select_update
       objs[i].update_attributes(content: update_selects[i].content)
     end  
   end  
+  flash[:success] = "編集しました。" 
   redirect_to documents_url
 end
 
@@ -287,8 +294,10 @@ end
      linK_item = record
    end 
    if select_exist == true
+    flash[:success] = "追加しました。" 
     redirect_to document_item_select_url(linK_item)
    else select_exist == false
+    flash[:success] = "作成しました。"
     redirect_to documents_url
    end 
  end
@@ -321,7 +330,7 @@ end
   documents.each do |document|
     document.destroy
   end  
-  flash[:danger] = "削除しました。"
+  flash[:info] = "削除しました。"
   redirect_to edit_document_url(document)
  end
 
@@ -333,7 +342,7 @@ end
     selects.each do |select|
       select.destroy
     end  
-    flash[:danger] = "削除しました。"
+    flash[:info] = "削除しました。"
     redirect_to edit_document_url(select.document_item.document)
   end
 

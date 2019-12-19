@@ -1,6 +1,7 @@
 // Place all the styles related to the document_items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 #item_flash{
     display: block;
     width: 30%;
@@ -9,6 +10,16 @@
     color: darkblue;
     font-weight:bold;
 }
+#document_img img{
+    width: 60px;
+    height: 60px;
+ }
+ #document_item_new_button{
+     width: 20%;
+ }
+ #document_item_new_button2{
+    width: 20%;
+ }
 /*   user     */
 #document_user_table{
     th{
@@ -53,4 +64,59 @@
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+/*入力式質問ページ*/
+#document_new_item_title{ /*タイトル*/
+    color: #8B0000;
+    font-size: 38px;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    letter-spacing: 10px;
+}
+#document_new_item_title2{
+    color: #007700;
+    font-size: 38px;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    letter-spacing: 10px;
+}
+#document_new_item_link{
+    text-decoration:underline;
+    font-size:24px;
+    display: block;
+    margin-top: -2%;
+}
+/*入力式質問ページ*/
+@media screen and (max-width:767px){
+    #document_new_item_title,#document_new_item_title2{
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        margin-bottom: -10%;
+    }
+    #document_new_item_link{
+        margin-top: -5%;
+        font-size: 16px;
+    }
+    #document_new_item_div{
+        margin-bottom:4%;
+        #document_new_item_label{
+            padding: 3% 20%;
+        }
+    }
+    #document_img img{
+        width: 40px;
+        height: 40px;
+     }
+     #document_item_new_button{
+        width: 100%;
+        margin-bottom: 3%;
+    }
+    #document_item_new_button2{
+        width: 100%;
+     }
+     #item_flash{
+         width: 100%;
+     }
+    
 }

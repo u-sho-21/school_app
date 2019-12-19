@@ -12,7 +12,7 @@
 <div id="pdf-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
 <% count_item = 0 %>
 <%= form_with(url:inputform_path(@document),local:true) do |f| %>
-  <% @document.document_items.each do |item| %>
+  <% @document.document_items.order('id asc').each do |item| %>
     <%= f.label item.content,class:"title_font",style:"margin-top:1%"%>
     <% if current_teacher.nil?%>
     <!--未入力処理-->
