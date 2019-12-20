@@ -23,11 +23,6 @@
   font-family: 'M PLUS Rounded 1c';
 }
 @media screen and (max-width:767px){
-  #meeting-top-title{
-    color:blue;
-    font-size: 24px;
-    margin-top: 10%;
-  }
   #user-top {
     text-align: center;
     #one,#two,#three,#four,#five,#six {
@@ -38,7 +33,7 @@
         font-size: 18px;
         font-weight: bold;
         font-family: 'M PLUS Rounded 1c';
-        
+
       }
     }
     #two{margin-top: -7%;}
