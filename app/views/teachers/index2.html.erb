@@ -10,6 +10,7 @@
     <tr>
       <td><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
       <td class="smart-cell"><i class="far fa-envelope"></i>メールアドレス</td>
+      <td class="smart-cell"><i class="fas fa-phone-alt"></i>電話番号</td>
       <td><i class="fas fa-user-minus"></i>削除</td>
     </tr>
   </thead>
@@ -57,6 +58,7 @@
             </script>
           </td>
           <td class="smart-cell"><%= user.email %></td>
+          <td class="smart-cell"><%= user.phone %></td>
           <td><%= link_to "削除", user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete, style: "color: red;" %></td>
         <% end %>
       </tr>
@@ -67,13 +69,13 @@
 
  <div id="menu">
   <ul>
-    <li id="menu-title">名前</li>
+    <li id="menu-title"><i class="fas fa-user-circle"></i>ユーザー名</li>
     <li id="menu-name"></li>
-    <li id="menu-title">メールアドレス</li>
+    <li id="menu-title"><i class="far fa-envelope"></i>メールアドレス</li>
     <li id="menu-email"></li>
-    <li id="menu-title">電話番号</li>
+    <li id="menu-title"><i class="fas fa-phone-alt"></i>電話番号</li>
     <li id="menu-phone"></li>
-    <li id="menu-title">生徒名</li>
+    <li id="menu-title"><i class="fas fa-user-graduate"></i>生徒名</li>
     <%  @users.each do |user| %>
       <% user.children.each do |child| %>
         <li class="child-<%= child.id %>"></li>

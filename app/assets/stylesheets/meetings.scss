@@ -16,11 +16,66 @@
   font-size: 25px;
   font-family: 'M PLUS Rounded 1c';
 }
+
 /* content整え */
 
 #content-meeting {
   width: 70%;
   margin: auto;
+  margin-top: 5%;
+}
+
+
+/* 背景 */
+
+.meeting-new {
+  padding: 0.2em 0.5em;
+    margin: 2em 0;
+    color: #565656;
+    background: #fcd69e;
+    box-shadow: 0px 0px 0px 10px #fcd69e;
+    border: dashed 2px #ffffff;
+    border-radius: 8px;
+    padding-bottom: 20px;
+}
+
+.meeting-time {
+  position: relative;
+  background: #c6e4ff;
+  box-shadow: 0px 0px 0px 5px #c6e4ff;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+}
+.meeting-time:after{
+  position: absolute;
+  content: '';
+  right: -7px;
+  top: -7px;
+  border-width: 0 15px 15px 0;
+  border-style: solid;
+  border-color: #c6e4ff #fff #c6e4ff;
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.meeting-date {
+  position: relative;
+  background: #ffb6c1;
+  box-shadow: 0px 0px 0px 5px #ffb6c1;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+}
+
+.meeting-date:after{
+  position: absolute;
+  content: '';
+  right: -7px;
+  top: -7px;
+  border-width: 0 15px 15px 0;
+  border-style: solid;
+  border-color: #ffb6c1 #fff #ffb6c1;
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 /* 面談日時登録ページ */
@@ -36,7 +91,7 @@
 #datepicker-submit {
   text-align: center;
   margin-top: 20px;
-  margin-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 /* 面談時間登録ページ */
@@ -55,9 +110,9 @@
 }
 
 .ui-widget-header {   //header部分
-    border: 1px solid #d4ccb0/*{borderColorHeader}*/;
-    background: #ece8da/*{bgColorHeader}*/ /*{bgImgUrlHeader}*/ /*{bgHeaderXPos}*/ /*{bgHeaderYPos}*/ /*{bgHeaderRepeat}*/;
-    color: #433f38/*{fcHeader}*/;
+    border: 1px solid #9acd32/*{borderColorHeader}*/;
+    background: #9acd32/*{bgColorHeader}*/ /*{bgImgUrlHeader}*/ /*{bgHeaderXPos}*/ /*{bgHeaderYPos}*/ /*{bgHeaderRepeat}*/;
+    color: #ffffff/*{fcHeader}*/;
     font-weight: bold;
     font-family: 'M PLUS Rounded 1c';
 }
@@ -69,9 +124,10 @@
 }
 
 .ui-datepicker table {  //カレンダー日付部分
-    font-size: 18px;
-    font-family: 'M PLUS Rounded 1c';
-    margin: 0 0 .4em;
+  font-size: 18px;
+  font-family: 'M PLUS Rounded 1c';
+  margin: 0 0 .4em;
+
 }
 
 .ui-state-default {  //日付セルの高さ
@@ -175,3 +231,29 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   width: 90%;
 }
 
+/* スマートフォン対応 */
+
+@media screen and (max-width:767px){
+  #meeting-top-title{
+    font-size: 24px;
+  }
+  #meeting-title {
+    font-size: 18px;
+  }
+  #content-meeting {
+    width: 100%;
+  }
+  #content-left,#kouho {
+    font-size: 13px;
+  }
+  div.ui-datepicker {   //全体サイズなど
+    font-size: 13px;
+    width: 100%;
+  }
+  .meeting-table {
+    font-size: 13px;
+  }
+  .select-font {
+    font-size: 13px;
+  }
+}

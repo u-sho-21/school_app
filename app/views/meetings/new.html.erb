@@ -1,78 +1,79 @@
-<div id="meeting-top-title" class="bg-info">
-  <i class="far fa-calendar-alt"></i>
-  面談日時登録
-</div>
+<div class="meeting-new">
+  <div id="meeting-top-title">
+    <i class="far fa-calendar-alt"></i>
+    面談日時登録
+  </div>
 
-<div id="datepicker" style="margin-bottom: 20px;"></div>
+  <div id="datepicker"></div>
 
-<% unless @meetings.empty? %>
-  <div id="content-meeting">
-    <div id="meeting-title">面談時間の登録</div>
-    <%= form_with(model: @meeting_time, url: teacher_meeting_create2_path(@teacher), local: true) do |f| %>
-      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-bottom: 20px;">
+  <% unless @meetings.empty? %>
+    <div id="content-meeting" class="meeting-time">
+      <div id="meeting-title"><i class="far fa-clock"></i>面談時間の登録</div>
+      <%= form_with(model: @meeting_time, url: teacher_meeting_create2_path(@teacher), local: true) do |f| %>
+        <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-bottom: 20px;">
+          <thead>
+            <tr style="background: #FF9933; color: white;">
+              <td>開始時間</td>
+              <td>面談時間</td>
+              <td>枠</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
+                <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+              </td>
+              <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
+              <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="datepicker-submit">
+          <%= f.submit '登録', class: "btn btn-success submit-width" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div id="content-meeting" class="meeting-date">
+    <div id="meeting-title"><i class="far fa-calendar-plus"></i>面談日の登録</div>
+    <%= form_with(url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
+      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">
         <thead>
           <tr style="background: #FF9933; color: white;">
-            <td style="width: 60%;">開始時間</td>
-            <td style="width: 20%;">面談時間</td>
-            <td style="width: 10%;">枠</td>
-            <td></td>
+            <td>現在の登録日</td>
+            <td>この日付で登録されます</td>
           </tr>
         </thead>
 
         <tbody>
           <tr>
             <td>
-              <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
-              <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+              <div id="content-left">
+                <% dates.sort.each do |date| %>
+                  <%= date %><br>
+                <% end %>
+              </div>
             </td>
-            <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
-            <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
-            <td><%= f.submit '登録', class: "btn btn-success" %></td>
+            <td>
+              <div id="content-right">
+                <%= f.text_area :date, class: "form-control", id: "kouho", rows: "7",
+                    placeholder: "カレンダーの日付をクリックすると日時が入ります。", readonly: true %>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
+      <div id="datepicker-submit">
+        <%= f.submit "初期化", data: {confirm: "初期化してよろしいですか？"}, class: "btn btn-danger submit-width" %>
+        <%= f.submit "クリア", type: :reset, class: "btn btn-default submit-width" %>
+        <%= f.submit "登録", data: {confirm: "登録してよろしいですか？"}, class: "btn btn-success submit-width" %>
+      </div>
     <% end %>
   </div>
-<% end %>
-
-<div id="content-meeting">
-  <div id="meeting-title">面談日の登録</div>
-  <%= form_with(url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
-    <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">
-      <thead>
-        <tr style="background: #FF9933; color: white;">
-          <td>現在の登録日</td>
-          <td>この日付で登録されます</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>
-            <div id="content-left">
-              <% dates.sort.each do |date| %>
-                <%= date %><br>
-              <% end %>
-            </div>
-          </td>
-          <td>
-            <div id="content-right">
-              <%= f.text_area :date, class: "form-control", id: "kouho", rows: "7",
-                  placeholder: "カレンダーの日付をクリックすると日時が入ります。", readonly: true %>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="datepicker-submit">
-      <%= f.submit "初期化", data: {confirm: "初期化してよろしいですか？"}, class: "btn btn-danger submit-width" %>
-      <%= f.submit "クリア", type: :reset, class: "btn btn-default submit-width" %>
-      <%= f.submit "登録", data: {confirm: "登録してよろしいですか？"}, class: "btn btn-success submit-width" %>
-    </div>
-  <% end %>
 </div>
-
-
 
 <script>
 
@@ -93,3 +94,9 @@
   });
 
 </script>
+
+<style>
+  body {
+    background-color: #f7f5e6;;
+  }
+</style>
