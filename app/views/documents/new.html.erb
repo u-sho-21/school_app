@@ -1,18 +1,45 @@
 <%= provide(:url,documents_path) %>
+<div>
+
+<ol class="stepBar">STEP
+  <li class="visited"><span>1</span><br>書類の概要作成</li>
+  <li><span>2</span><br>質問項目作成</li>
+  <li><span>3</span><br>選択肢作成</li>
+</ol>
+<div>
+<br>
+
 <!--モーダル-->
 <div id= "select-first" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 
-<div class="text-center text-primary">
- <ul class="document_ul">
-    <li id="document_img"><%= image_tag('/explain/form0.png',size:"60x60",style:"display:inline") %><li>
-    <li><h1 class="title_font">新規書類作成(選択)</h1></li>
-  </ul>
-</div>
-<%= link_to "このページの説明見る",select_first_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
-<%= render 'form', document: @document %><br>
+<div class="text-center">
 
-<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
+ <ul class="document_ul">
+    <li id="document_img"><%= image_tag('/explain/form0.png',id:"document_hyouji_img") %><li>
+    <li><h1 class="title_font" id="document_hyouji_title3">新規書類作成(選択)</h1></li>
+  </ul>
+  <div style="font-size:22px;margin-bottom:4%;">
+  <%= link_to select_first_modal_path,remote:true,style:"text-decoration: underline;" do  %>
+    <i class="fas fa-question-circle"></i>
+    このページの説明
+  <% end %></div>
+  <%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",id:"document_form_pc_button" %>
+</div>
+<%= render 'form', document: @document %><br>
+<div class="tex-center"><%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-block",id:"document_form_phone_button" %></div>
+<!---------------------------------------------------CSS-------------------------------------------------------------------------------------->
 <style>
- #document_form{background:"#f0f0f0;"}
+  body,.row{background:#99CC66;}
+  #document_form{box-shadow: 6px 6px 14px 6px #008800;}
   #main_alert{display:none;}
+  /*フォームタイトル*/
+  #document_form_title_label{
+    background:#008000;
+    border-left:5px solid #FF6666;
+    color:#99FF99;
+    padding:5px 10%;
+    margin-bottom:2%;
+  }
+ 
+
 </style>

@@ -22,11 +22,11 @@
             <%= user.name+ ""+user.name2+ "さん"%>
             <input type="button" value="▲" id="bt<%= user.id %>" onclick='func("<%= user.id %>")'class="document_js_btn">
           </th>
-          <% user.userDocumentItem(@document).each do |item| %>  <!-- userモデル参照-->
-            <% answerNO = 0 %>
+          <% items= user.userDocumentItem(@document) %>  <!-- userモデル参照-->
+          <% items.count.times do |answerNO| %>  <!-- document_item数をanswerNOにしている。-->
             <tr>
               <td class="slide<%= user.id %>">
-                <span style="color:red">質問:</span><%= item.content %>
+                <span style="color:red">質問:</span><%= items[answerNO].content %>
                 <div id="document_user_reply_div">
                   <span>保護者回答</span><br>
                   <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(':')[answerNO].present? %>
@@ -49,7 +49,6 @@
                  </div>
               </td>
             </tr>
-            <% answerNO += 1 %>
           <% end %>
         </tr>
        <% end %> 

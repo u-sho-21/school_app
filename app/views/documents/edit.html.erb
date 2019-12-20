@@ -7,17 +7,17 @@
     <% end %>
 
 <div class="text-center text-primary">
-  <h1>提出物編集ページ</h1>
-  <h2 style="font-size:22px;">書類タイトル:<span style="color:red"><%= @document.title %></span></h2>
+  <h1 class="title_font" id="document_hyouji_title"><span style="color:#FF4F02"><i class="fas fa-edit"></i></span>書類編集ページ</h1>
 </div>
+
 <%= render 'form', document: @document %><br>
 
-<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin-left:-1%;" %>
 <% if @document.document_items.count > 0 %>
 <!-- 入力/選択式ﾘﾝｸ -->
 
 <div class="text-center" style="border-top: 2px dotted #fff;">
-  <button id="document_area_view" onclick="documrntView()">質問/選択肢の編集はこちら</button>
+  <%= link_to '戻る', teacher_path(1),class:"btn btn-default",id:"document_edit_back_button" %>
+  <button id="document_area_view" onclick="documrntView()" class="btn btn-primary">質問/選択肢の編集はこちら</button>
 </div>  
 <div class="row" id="document_edit_itemarea">
   <div class="col-md-10 col-md-offset-1">
@@ -30,7 +30,7 @@
     <%= form_with(model: @document,url:document_update_item_path(@document),local:true,method: :patch) do |f| %>
     <%= f.submit "質問を編集する",class:"btn btn-info"%>
     <span id="document_explain_span">
-    　　←編集を確定させるにはこのボタンを押してください。
+    　　編集を確定させるにはこのボタンを押してください。
     </span>
 
     <table class="table" id="document_itemedit_table">
@@ -45,8 +45,8 @@
             <tr>
               <td><%= af.text_area :content,rows:4,class:"form-control" %></td>
               <td>
-                <%= link_to "削除",document_destroy_path(item,params:{obj: @document.id}),data:{confirm:"削除しますか？"},method: :delete,class:"btn btn-primary btn-lg",style:"width:80%;" if @document.document_items.count > 1 %>
-                <%= link_to "選択肢表示",document_select_editmodal_path(item),remote:true,class:"btn btn-success btn-lg",style:"width:80%;" if item.document_selects.count >0 %>
+                <%= link_to "削除",document_destroy_path(item,params:{obj: @document.id}),data:{confirm:"削除しますか？"},method: :delete,class:"btn btn-primary btn-lg document_edit_delete_button",style:"width:80%;" if @document.document_items.count > 1 %>
+                <%= link_to "選択肢表示",document_select_editmodal_path(item),remote:true,class:"btn btn-success btn-lg document_edit_select_button",style:"width:80%;" if item.document_selects.count >0 %>
               </td>
             </tr>
           <% end %>  
@@ -67,14 +67,29 @@
 <% end %>
 <!--全体に影響しそうなのでここでcss js書き込み-->
 <style>
-  body{ background-color:#d0d0d0;}
+  body,.row{background:#DED799;}
+  #document_form{box-shadow: 6px 6px 14px 6px #996633;}
   #main_alert{display:none;}
-  #document_edit_itemarea{
-    display: none;
+  #document_hyouji_title{
+    color:#A0522D;
+    margin:4% 0 6% 0;
+    letter-spacing:12px;
   }
-  .row{
-    padding:5% 0%;
+  #document_edit_itemarea{display:none;}
+  #document_form_title_label{
+    background:#FF4F02;
+    border-left:5px solid #9966FF;
+    color:#FFC0CB;
+    padding:5px 10%;
+    margin-bottom:2%;
   }
+  @media screen and (max-width:767px){
+    #document_edit_page_label{
+      margin-top:10%;
+    }
+    
+  }
+  
 </style>
 <script>
   let count = 1;
