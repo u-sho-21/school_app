@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :login_check,only:[:new, :new2]
 
   # 保護者ログインページ(rootページでもある)
   def new

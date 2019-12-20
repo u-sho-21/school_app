@@ -22,6 +22,33 @@
   font-size: 30px;
   font-family: 'M PLUS Rounded 1c';
 }
+/* 保護者回答フォーム */
+.document_user_answer_title{
+  font-size: 40px;
+  margin-bottom: 1%;
+}
+.document_user_answer_pc_button{
+  width: 15%;
+  margin: 3% 0 1% 0;
+
+}
+/*表示式*/
+
+.document_user_pdf_download_p{ 
+  color:blue;
+}
+.document_user_answer_phone_button{display: none;}
+/*入力式*/
+
+.document_user_anser_input_label{
+   background: chocolate;
+   border-left:4px solid blue;
+   color: floralwhite;
+   padding: 5px 10px 5px 10px;
+   margin-bottom: 1%;
+}
+
+/* ------   スマートフォン -------   */
 @media screen and (max-width:767px){
   #meeting-top-title{
     color:blue;
@@ -47,4 +74,27 @@
     max-width: 100%;
   }
   .box_srcollbar{margin-bottom: 5%;}
+  /* 保護者回答フォーム */
+  .document_user_answer_title{
+    font-size: 22px;
+    margin-bottom: 15%;
+  }
+  .document_user_answer_pc_button{display: none;}
+  .document_user_answer_phone_button{
+    display: block;
+    width: 100%;
+    padding: 20px 0;
+  }
+  .document_user_pdf_download_p{ /*表示式*/
+    font-size: 10px;
+  }
+  /*入力式*/
+  .document_user_anser_input_label{
+    padding: 2% 10px 2% 10px;
+    margin-bottom: 3%;
+  }
+  .document_user_answer_submit{
+    margin-top: -5%;
+  }
+  
 }

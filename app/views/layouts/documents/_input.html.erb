@@ -1,4 +1,4 @@
-<hr>
+
 <div class="document_user_box">
   <span class="document_box-title">概要</span>
   <p><%= @document.memo %></p>
@@ -13,7 +13,7 @@
 <% count_item = 0 %>
 <%= form_with(url:inputform_path(@document),local:true) do |f| %>
   <% @document.document_items.order('id asc').each do |item| %>
-    <%= f.label item.content,class:"title_font",style:"margin-top:1%"%>
+    <%= f.label item.content,class:"title_font document_user_anser_input_label" %>
     <% if current_teacher.nil?%>
     <!--未入力処理-->
       <% if params[:reply].nil? %>
@@ -29,7 +29,7 @@
     <% end %>
      <% count_item += 1 %><br><br>
   <% end %><br><br><br>
-  <div class="text-center">
+  <div class="text-center document_user_answer_submit">
     <%= f.submit "提出",class:"btn btn-primary btn-lg",style:"width:40%;height:50px" if current_teacher.nil? %>
   </div>
 <% end %>    
