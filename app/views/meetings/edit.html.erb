@@ -1,86 +1,110 @@
-<div id="meeting-top-title" class="bg-info">
-  <i class="far fa-clock"></i>
-  面談日時編集
-</div>
+<div class="meeting-back">
+  <div id="meeting-top-title">
+    <i class="far fa-clock"></i>
+    面談日時編集
+  </div>
 
-<div id="content">
-  <div id="meeting-title">面談日時の追加</div>
-  <%= form_with(model: @meeting_time, url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
-    <table class="table-bordered table-striped table-condensed meeting-table">
-      <thead>
-        <tr style="background: #FF9933; color: white;">
-          <td style="width: 20%;">面談日</td>
-          <td style="width: 50%;">開始時間</td>
-          <td style="width: 20%;">面談時間</td>
-          <td style="width: 10%;">枠</td>
-          <td></td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td><%= f.text_field :date, class: 'form-control date-picker select-font' %></td>
-          <td>
-            <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
-            <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
-          </td>
-          <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
-          <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
-          <td><%= f.submit '追加', class: "btn btn-success" %></td>
-        </tr>
-      </tbody>
-    </table>
-  <% end %>
-</div>
-
-<div id=content>
-  <div id="meeting-title" style="margin-top: 20px;">面談時間の編集</div>
-  <%= form_with(url: teacher_meetings_edit_path(@teacher), method: :patch, local:true) do |f| %>
-    <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">
-      <thead>
-        <tr style="background: #FF9933; color: white;">
-          <td>日付</td>
-          <td colspan="<%= @times.uniq.length %>">面談時間</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% dates.sort.each do |date| %>
+  <div id="content" class="meeting-date">
+    <div id="meeting-title"><i class="far fa-calendar-plus"></i>面談日時の追加</div>
+    <%= form_with(model: @meeting_time, url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
+      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">
+        <thead>
           <tr>
-            <td rowspan="2">
-              <%= date %>
-              <%= link_to teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
-                <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
-              <% end %>
-            </td>
-            <% @meeting_times.each do |meeting_time| %>
-              <% if meeting_time.time.to_date == date %>
-                <td>
-                  <%= meeting_time.time.to_s(:time) %>
-                  <%= link_to teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
-                    <span style="color: red;"><i class="fas fa-minus-circle"></i></span>
-                  <% end %>
-                </td>
-              <% end %>
-            <% end %>
+            <td style="background: #FF9933; color: white;">面談日</td>
+            <td style="background: #ffffff;" colspan="2"><%= f.text_field :date, class: 'form-control date-picker select-font' %></td>
           </tr>
+          <tr style="background: #79c06e; color: white;">
+            <td style="width: 50%;">開始時間</td>
+            <td>面談時間</td>
+            <td>枠</td>
+          </tr>
+        </thead>
+
+        <tbody>
           <tr>
-            <% @meeting_times.each do |meeting_time| %>
-              <% if meeting_time.time.to_date == date %>
-                <%= fields_for "meeting_times[]", meeting_time do |af| %>
-                    <td><%= af.time_select :time, minute_step: 5, class: "time_select" %></td>
+            <td>
+              <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
+              <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+            </td>
+            <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
+            <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="submit-center">
+        <%= f.submit '追加', class: "btn btn-success submit-width" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id=content class="meeting-edit">
+    <div id="meeting-title"><i class="fas fa-edit"></i>面談時間の編集</div>
+    <%= form_with(url: teacher_meetings_edit_path(@teacher), method: :patch, local:true) do |f| %>
+    <div class="scroll-table">
+      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%;">
+        <thead>
+          <tr style="background: #FF9933; color: white;">
+            <td>日付</td>
+            <td colspan="<%= @times.uniq.length %>" id="scroll-ajust">面談時間</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% dates.sort.each do |date| %>
+            <tr>
+              <td rowspan="2" style="background: #4496d3; color: #ffffff;">
+                <%= date %>
+                <%= link_to teacher_meetings_destroy_path(@teacher, date: date), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                  <span style="color: #ffffff;"><i class="fas fa-eraser"></i></span>
+                <% end %>
+              </td>
+              <% @meeting_times.each do |meeting_time| %>
+                <% if meeting_time.time.to_date == date %>
+                  <td>
+                    <%= meeting_time.time.to_s(:time) %>
+                    <%= link_to teacher_meetings_destroy_path(@teacher, id: meeting_time.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "margin-left: 10px;" do %>
+                      <span><i class="fas fa-eraser"></i></span>
+                    <% end %>
+                  </td>
                 <% end %>
               <% end %>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div id="submit-center">
-      <%= f.submit "更新", class: "btn btn-success submit-width" %>
-      <%= form_with(url: push_path, local:true) do |f| %>
-        <%= f.submit "日時確定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-width" %>
-      <% end %>
+            </tr>
+            <tr>
+              <% @meeting_times.each do |meeting_time| %>
+                <% if meeting_time.time.to_date == date %>
+                  <%= fields_for "meeting_times[]", meeting_time do |af| %>
+                      <td style="background: #ffffff;"><%= af.time_select :time, minute_step: 5 %></td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
+      <div style="text-align: left;"><i class="fas fa-exclamation-circle" style="color: red;"></i><i class="fas fa-eraser"></i>アイコンは削除</div>
+      <div id="submit-center">
+        <%= f.submit "更新", class: "btn btn-success submit-edit" %>
+        <%= form_with(url: push_path, local:true) do |f| %>
+          <%= f.submit "日時確定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+<script>
+
+  $('.date-picker').datepicker({
+    beforeShow: function(input, inst){
+      inst.dpDiv.css({marginTop: 0 + 'px', marginLeft: -40 + 'px'});
+    }
+  });
+</script>
+
+
+<style>
+  body {
+    background-color: #f7f5e6;;
+  }
+</style>

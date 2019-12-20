@@ -28,15 +28,15 @@
 
 /* 背景 */
 
-.meeting-new {
+.meeting-back {
   padding: 0.2em 0.5em;
-    margin: 2em 0;
-    color: #565656;
-    background: #fcd69e;
-    box-shadow: 0px 0px 0px 10px #fcd69e;
-    border: dashed 2px #ffffff;
-    border-radius: 8px;
-    padding-bottom: 20px;
+  margin: 2em 0;
+  color: #565656;
+  background: #fcd69e;
+  box-shadow: 0px 0px 0px 10px #fcd69e;
+  border: dashed 2px #ffffff;
+  border-radius: 8px;
+  padding-bottom: 20px;
 }
 
 .meeting-time {
@@ -78,6 +78,27 @@
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
+.meeting-edit {
+  position: relative;
+  background: #dbebc4;
+  box-shadow: 0px 0px 0px 5px #dbebc4;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+  margin-top: 5%;
+}
+
+.meeting-edit:after{
+  position: absolute;
+  content: '';
+  right: -7px;
+  top: -7px;
+  border-width: 0 15px 15px 0;
+  border-style: solid;
+  border-color: #dbebc4 #fff #dbebc4;
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
 /* 面談日時登録ページ */
 
 #content-left {
@@ -94,6 +115,7 @@
   padding-bottom: 20px;
 }
 
+
 /* 面談時間登録ページ */
 
 .box{
@@ -102,12 +124,6 @@
 }
 
 /* datepicker */
-
-.ui-datepicker .ui-datepicker-header {  //header部分
-    position: relative;
-    padding: .2em 0;
-    font-size: 18px;
-}
 
 .ui-widget-header {   //header部分
     border: 1px solid #9acd32/*{borderColorHeader}*/;
@@ -137,8 +153,12 @@
 div.ui-datepicker {   //全体サイズなど
   margin: auto;
   font-size: 18px;
-  width: 60%;
+  width: 70%;
   height: auto;
+}
+
+#ui-datepicker-div {   //ポップアップ後のdatepicker
+  width: 30%;
 }
 
 /* 日曜日のカラー設定 */
@@ -169,6 +189,17 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   font-family: 'M PLUS Rounded 1c';
   text-align: center;
 }
+
+.scroll-table {
+    overflow: auto;
+    white-space: nowrap;
+    border: solid 1px #ddd;
+    table {
+      margin: 0;
+      border: none;
+    }
+    -webkit-overflow-scrolling: touch;
+  }
 
 /* 保護者面談管理ページ */
 
@@ -206,8 +237,8 @@ td.ui-datepicker-week-end a.ui-state-highlight{
 
 #submit-center {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 .submit-width {
@@ -216,10 +247,18 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   font-family: 'M PLUS Rounded 1c';
 }
 
-.select-font {
+.submit-edit {
+  width: 30%;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c';
 }
+
+.select-font {
+  font-size: 18px;
+  font-family: 'M PLUS Rounded 1c';
+  cursor: pointer;
+}
+
 
 /* 面談スケジュール調整ページ */
 
@@ -255,5 +294,18 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   }
   .select-font {
     font-size: 13px;
+  }
+  .submit-edit {
+    width: 50%;
+  }
+  #line-btn {
+    margin-top: 2%;
+  }
+  #scroll-ajust {
+    text-align: left;
+    padding-left: 12%;
+  }
+  #ui-datepicker-div {   //ポップアップ後のdatepicker
+    width: 80%;
   }
 }

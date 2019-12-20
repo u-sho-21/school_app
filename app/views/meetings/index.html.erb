@@ -63,7 +63,7 @@
     <div id="submit-center">
       <%= f.submit "更新", class: "btn btn-success submit-width"%>
       <%= form_with(url: push_path, local:true) do |f| %>
-        <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-width"%>
+        <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-width", id: "line-btn" %>
       <% end %>
     </div>
   <% end %>
