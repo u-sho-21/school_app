@@ -50,20 +50,6 @@
   text-align: center;
   margin: auto;
 }
-@media screen and (max-width:767px){
-  #teacher-top{
-
-    #one,#two,#three,#four,#five{
-      margin-top: 0px;
-      .top-button {
-        width: 100%;
-        height: 45px;
-
-      }
-    }
-  }
-  #teacher_bt{margin-bottom: 5%;height:45px;font-weight:bold;}
-}
 
 /* teacher-top*/
 .box_srcollbar{
@@ -73,7 +59,7 @@
 /* 保護者一覧ページ*/
 
 .users-table {
-  width: 70%;
+  width: 100%;
   font-size:18px;
   margin: auto;
   font-family: 'M PLUS Rounded 1c';
@@ -97,44 +83,6 @@
   color: red;
 }
 
-@media screen and (max-width:767px){
-  .smart-cell {
-    display: none;
-  }
-}
-
-
-
-// * {
-//   padding: 0;
-//   margin: 0;
-//   box-sizing: border-box;
-// }
-
-// body {
-//   margin: 0;
-//   padding: 0;
-//   font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-//   background-color: #eee;
-// }
-
-/*---------- header ----------*/
-// header {
-//   width: 100%;
-//   background-color: #f390b9;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   z-index: 10;
-// }
-// .header-contents {
-//   position: relative;
-//   width: 100%;
-//   max-width: 960px;
-//   padding: 10px;
-//   margin: 0 auto;
-//   text-align: center;
-// }
 
 /*---------- #menu ----------*/
 #menu {
@@ -171,16 +119,8 @@
   background: -webkit-linear-gradient(to bottom, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to bottom, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-// #menu_btn {
-//   position: absolute;
-//   top: 5px;
-//   right: 5px;
-//   color: #fff;
-//   border-radius: 5px;
-//   padding: 6px 20px;
-//   background-color: #191970;
-//   cursor: pointer;
-// }
+
+
 /* --- .menu-background --- */
 .menu-background {
   position: fixed;
@@ -201,34 +141,21 @@
   opacity: 1;
 }
 
-/* ---------- main ----------*/
-// main {
-//   height: 100%;
-//   padding: 0 50px;
-// }
-// .main-wrapper {
-//   position: relative;
-//   width: 100%;
-//   max-width: 960px;
-//   height: 250px;
-//   margin: 0 auto;
-//   background-color: #fff;
-//   text-align: center;
-// }
-// .main-wrapper h1 {
-//   line-height: 250px;
-//   vertical-align: middle;
-// }
+/* スマートフォン対応 */
 
-/* ---------- footer ---------- */
-// footer {
-//   width: 100%;
-//   background-color: #00ff7f;
-//   text-align: center;
-// }
-// .footer-wrapper {
-//   width: 100%;
-//   max-width: 960px;
-//   margin: 0 auto;
-//   padding: 10px;
-// }
+@media screen and (max-width:767px){
+  #teacher-top{
+    #one,#two,#three,#four,#five{
+      margin-top: 0px;
+      .top-button {
+        width: 100%;
+        height: 45px;
+
+      }
+    }
+  }
+  #teacher_bt{margin-bottom: 5%;height:45px;font-weight:bold;}
+  .smart-cell {
+    display: none;
+  }
+}
