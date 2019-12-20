@@ -1,23 +1,48 @@
 <% provide(:item_url,document_item_create_path(@document)) %>
-
+<ol class="stepBar">STEP
+  <li class="visited"><span>1</span><br>書類の概要作成<label style="color:red">(済み)</label></li>
+  <li class="visited"><span>2</span><br>質問項目作成</li>
+  <li><span>3</span><br>選択肢作成</li>
+</ol>
 <!--モーダル-->
 <div id= "select-second" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 <div class="text-center text-primary">
  <ul class="document_ul">
-    <li id="document_img"><%= image_tag('/explain/form1.png',size:"60x60",style:"display:inline") %><li>
-    <li><h1 class="title_font">質問項目のフォーム作成</h1></li>
+    <li id="document_img"><%= image_tag('/explain/form1.png',style:"display:inline") %><li>
+    <li><h1 id="document_new_item_title2" class="title_font">質問項目のフォーム作成</h1></li>
   </ul>
+  
 </div>
-<%= link_to "このページの説明見る",select_second_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
+
+<div class="text-center">
+  <%= link_to select_second_modal_path,remote:true,style:"text-decoration:underline;" ,id:"document_new_item_link" do %>
+    <i class="fas fa-question-circle"></i>
+    このページの説明見る
+  <% end %>
+</div> 
 <hr>
-<h2 class="title_font" style="font-size:24px;"><%= "タイトル:#{@document.title}" %><br><br>
 <% if flash[:danger].present? %>
  <div class="alert alert-danger" id="item_flash"><%= flash[:danger] %></div>
 <% end %>
+<div id="document_new_item_div">
+  <label id="document_new_item_label"><%= "書類タイトル:#{@document.title}" %></label>
+</div>  
+
 <%= render 'form', document_item: @document_item %>
 
 <style>
+  body,.row{background:#99CC66;;}
   #main_alert{display:none;}
+  #document_new_item_label{
+    background:#008800;
+    border-left:5px solid #FF0033;
+    color:#CCFF33;
+    padding:10px 20% 10px 10px;
+    margin-bottom:2%;
+    text-align:center;
+  }
+ 
+
 </style>
 <script>
   var flg = 1;

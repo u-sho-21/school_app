@@ -13,6 +13,13 @@
     </div>
   <% end %>
 <div class="row">
+ <!-- editアクションのみ-->
+  <% if controller.action_name == "edit" %>
+    <label id="document_edit_page_label">
+      書類タイトル:<%= @document.title %>
+    </label>  
+  <% end %>
+  <!--editのみ-->
   <div class="col-md-9 col-md-offset-2" id="document_form"><br>
     <div class="field">
      <% if flashArray %>

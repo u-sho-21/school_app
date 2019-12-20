@@ -11,7 +11,7 @@
 <% end %> 
 <% item_count = 0 %>
 <%= form_with(url:selectform_path(@document),local:true) do |f| %>
- <% @document.document_items.each do |item| %>
+ <% @document.document_items.order('id asc').each do |item| %>
    <!--　編集の場合の判別パラメーター、登録時は不要 -->
    <% update_params = @document.answers.last.reply.split(":")[item_count] if @document.answers.count >0 %>
    <% param = params[:reply].split(":")[item_count].to_s if params[:reply].present? %>
@@ -21,7 +21,7 @@
      <%= item.content %>
    </h2>
   <table class="document_user_select">
-   <% item.document_selects.each do |select| %>
+   <% item.document_selects.order('id asc').each do |select| %>
       <tr>
        <td>
        <!--教員用は選択出来なくする。-->
