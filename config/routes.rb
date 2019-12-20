@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get  'children/index2', to: 'users#index2', as: :users_index2                                              # 生徒情報登録/編集ページ
     get  ':child_id/edit2', to: 'users#edit2', as: :users_edit2                                                # 生徒情報編集ページ
     patch ':child_id/edit2', to: 'users#update2', as: :users_update2                                           # 生徒情報更新
+    delete ':child_id/destroy', to: 'users#child_destroy', as: :child_destroy                                  # 生徒情報削除
     get  ':child_id/meetings/new_user', to: 'meetings#new_user', as: :meetings_new_user                        # 保護者面談日時登録ページ
     get  ':child_id/meetings/desired', to: 'meetings#desired', as: :meetings_desired                           # 希望日登録モーダル
     patch ':child_id/meetings/desired', to: 'meetings#desired_update', as: :desired_update                     # 面談希望日等決定
