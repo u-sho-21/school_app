@@ -89,7 +89,7 @@ class MeetingsController < ApplicationController
     @minutes2 = @minutes_list2.map { |v| "%02d" % v }
     @frame_list = [1,2,3,4,5,6,7,8]
     @meetings = @teacher.meetings.all
-    @meeting_times = @teacher.meeting_times.all
+    @meeting_times = @teacher.meeting_times.all.order(:time)
     @times = @teacher.meeting_times.map { |time| time.time }
     # 面談日登録がない場合表示されない
     unless @teacher.meeting_times.first.present?

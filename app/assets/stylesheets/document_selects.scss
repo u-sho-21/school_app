@@ -4,7 +4,7 @@
 #select_flash{
     display: block;
     font-size: 18px;
-    width: 30%;
+    width: 40%;
     
 }
 #teacher_document_table{
@@ -162,3 +162,49 @@
     color:#0000bb;
 }
 /* 保護者提出ページここまで*/
+/*選択肢作成ページ*/
+
+#document_select_new_title{
+    letter-spacing: 12px;
+    font-size: 36px;
+    margin-bottom: 2%;
+    color: #006600;
+}
+#document_ul{margin-bottom: 4%;}
+#document_select_new_link{
+    margin-top: 10%;
+    font-size: 20px;
+}
+#document_img img{
+    width: 50px;
+    height: 50px;
+    margin-right: 1%;
+}
+#document_select_new_submit{
+    width:24%;
+    margin-right: 52%;
+}
+#document_select_finish_button{
+    width:10%;
+}
+@media screen and (max-width:767px){
+    #document_select_new_submit,#document_select_finish_button,#document_select_new_question_button{
+        width:100%;
+        margin-bottom: 2%;
+    }
+    #document_select_new_title{
+        font-size: 24px;
+    }
+    #document_img img{
+        width: 30px;
+        height: 30px; 
+    }
+    #document_select_new_title{
+        margin-bottom: -1%;
+    }
+    #select_flash{
+        width: 100%;
+    }
+
+
+}

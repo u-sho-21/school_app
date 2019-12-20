@@ -1,8 +1,10 @@
+
 /*表示式教員*/
 #document_hyouji_title{  /*タイトル*/
     color: #000080;
-    font-size: 28px;
+    font-size: 38px;
     font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     letter-spacing: 10px;
     margin-top: 2%;
     padding-top: 3px;
@@ -16,6 +18,28 @@
     margin-top: 1%;
 }
 /*表示式教員*/
+/*入力式*/
+#document_hyouji_title2{  /*タイトル*/
+    color: #8B0000;
+    font-size: 38px;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    letter-spacing: 10px;
+    margin-top: 2%;
+    padding-top: 3px;
+}
+/*入力式*/
+/*選択式*/
+#document_hyouji_title3{  /*タイトル*/
+    color: #007700;
+    font-size: 38px;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    letter-spacing: 10px;
+    margin-top: 2%;
+    padding-top: 3px;
+}
+/*選択式*/
 /* form*/
 #document_title-forms,#document_memo-forms,#document_select-forms,#document_pdf_link-forms,#document_deadline-forms{
     margin-top: 2%;
@@ -29,14 +53,107 @@
 .alert2{
     width:60%;
 }
+
+.stepBar {
+    display: flex;
+    max-width: 400px;
+    position: relative;
+    margin: 20px auto;
+    text-align: center;
+    margin-top:2%;
+    margin-left:25%;
+    margin-bottom:-1%;
+  }
+  .stepBar li {
+    font-size: 12px;
+    font-weight:bold;
+    list-style: none;
+    position: relative;
+    width: 33.333%;
+  }
+  .stepBar li:after {
+    background: #D0E1F9;
+    content: "";
+    width: calc(100% - 24px);
+    height: 4px;
+    position: absolute;
+    left: calc(-50% + 12px);
+    top: 10px;
+  }
+  .stepBar li:first-child:after {
+    display: none;
+    margin-top:2%;
+  }
+  .stepBar li span {
+    background: #D0E1F9;
+    color: #ffffff;
+    display: inline-block;
+    height: 24px;
+    margin-bottom: 5px;
+    line-height: 24px;
+    width: 24px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .stepBar .visited:after {
+    background: #4D648D;
+  }
+  .stepBar .visited span {
+    background: #4D648D;
+  }
+  /* edit page*/
+  #document_edit_page_label{
+    background: #FFA500;
+    border-left:6px solid #00008B;
+    margin-left: 16.5%;
+    margin-bottom: 1.5%;
+    padding: 10px 20% 10px 10px;
+   
+  }
+  #document_edit_back_button{ /*戻るボタン*/
+    width:22%;
+    margin-bottom: 2%;
+  }
+  .document_edit_delete_button,.document_edit_select_button{width:80%;}
 @media screen and (max-width:767px){
     #document_form_pc_button{display:none;}
-    #document_hyouji_title{
-       font-size: 18px;
+    #document_hyouji_title,#document_hyouji_title2,#document_hyouji_title3{
+       font-size: 20px;
        font-weight: 900;
     }
+    #document_hyouji_img{   /*イメージ*/
+        width: 40px;
+        height: 40px;
+       
+     }
     .alert2{font-size: 8px;}
-}
+    .stepBar{margin-left: -10%;}
+    #document_edit_page_label{
+       margin-left:2%;
+       margin-bottom: 4%;
+    }
+    .document_edit_delete_button,.document_edit_select_button{
+      width: 30%;
+      font-size: 8px;
+      font-weight: bold;
+      padding:12px;
+      margin-bottom: 20%;
+    }
+    #document_explain_span{
+      font-size: 10px;
+    }
+    #document_edit_back_button,#document_area_view{
+      width: 100%;
+      padding:25px 0;
+      margin-bottom: 4%;
+    }
+    #document_form_phone_button{
+      margin-top: 3%;
+      padding: 20px 0;
+    }
+}  
 @media screen and (min-width:768px){
     #document_form_phone_button{display:none;}
+    
 }

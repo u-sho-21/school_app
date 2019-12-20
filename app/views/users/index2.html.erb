@@ -8,7 +8,10 @@
   <tbody>
     <% @children.each do |child| %>
     <tr style="font-size: 25px;">
-      <td><%= link_to "#{child.full_name}さんの編集", user_users_edit2_path(user_id: @user.id, child_id: child.id) %></td>
+      <td>
+        <%= link_to "#{child.full_name}さんの編集", user_users_edit2_path(user_id: @user.id, child_id: child.id) %>
+        | <%= link_to "削除", user_child_destroy_path(user_id: @user.id, child_id: child.id), data: {confirm: "削除しますがよろしいですか？"}, method: :delete, style: "color: red;" %>
+      </td>
     </tr>
     <% end %>
   </tbody>

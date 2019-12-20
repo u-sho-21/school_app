@@ -1,26 +1,60 @@
 <!--モーダル-->
+<ol class="stepBar">STEP
+  <li class="visited"><span>1</span><br>書類の概要作成<label style="color:red">(済み)</label></li>
+  <li class="visited"><span>2</span><br>質問項目作成<label style="color:red">(済み)</label></li>
+  <li class="visited"><span>3</span><br>選択肢作成</li>
+</ol>
 <div id= "select-third" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 
 <div class="text-center text-primary">
   <ul class="document_ul">
-    <li id="document_img"><%= image_tag('/explain/form2.png',size:"60x60",style:"display:inline") %><li>
-    <li> <h1 class="title_font">選択肢作成</h1></li>
-  </ul>
+    <li id="document_img"><%= image_tag('/explain/form2.png',style:"display:inline") %><li>
+    <li> <h1 class="title_font" id="document_select_new_title">選択肢作成</h1></li>
+  </ul></div>
+<div class="text-center">
+  <%= link_to select_third_modal_path,remote:true,style:"text-decoration:underline;",id:"document_select_new_link" do %>
+    <i class="fas fa-question-circle"></i>
+    このページの説明見る
+  <% end %>
 </div>  
-<%= link_to "このページの説明見る",select_third_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
+
 <hr>
-<h2 class="title_font" style="font-size:26px;"><%= "質問:#{@document_item.content}" %></h2>
 <% if flash[:danger].present? %>
   <div class="alert alert-danger" id="select_flash"><%= flash[:danger] %></div>
 <% end %>
+<label id="document_new_select_label">
+  <span style="color:#EEFFFF;fon-size:28px;"><i class="fas fa-comment"></i></span>
+  <%= "質問:#{@document_item.content}" %>
+</label>
+
 <%= render 'form', document_select: @document_select %>
-<% if @select_count >=2 %>
-  <%= link_to '終了', teacher_path(1),class:"btn btn-default btn-lg" %>
-  <%= link_to "新規質問作成",document_question_path(@document_item.document_id),class:"btn btn-primary btn-lg" %>
-<% end %>  
+
 <style>
- 
+   body,.row{background:#99CC66;}
    #main_alert{display:none;}
+   #document_new_select_label{
+     display:inline-block;
+     background:#008000;
+     border-left: 6px solid red;
+     color:#CCFF99;
+     padding:12px 15% 12px 10px;
+     font-size:20px;
+     margin-bottom:2%;
+     margin-top:-1%;
+
+   }
+  .stepBar{
+    margin-left:32%;
+    margin-bottom:2%;
+  }
+  @media screen and (max-width:767px){
+    .stepBar{
+      margin-left:-10%;
+      margin-bottom:-4%;
+   
+  }
+
+
 </style>
 <script>
   var flg = 1;

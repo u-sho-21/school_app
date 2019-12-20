@@ -68,9 +68,167 @@
 /* teacher-top*/
 .box_srcollbar{
   max-width:100%;
+}
+
 /* 保護者一覧ページ*/
+
+.users-table {
+  width: 70%;
+  font-size:18px;
+  margin: auto;
+  font-family: 'M PLUS Rounded 1c';
+}
+
+#users-thead {
+  background: #2980B9;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
 #full_user {
   max-width: 100%;
 }
+
+.user-info {
+  cursor: pointer;
 }
+
+.user-info.moji {
+  color: red;
+}
+
+@media screen and (max-width:767px){
+  .smart-cell {
+    display: none;
+  }
+}
+
+
+
+// * {
+//   padding: 0;
+//   margin: 0;
+//   box-sizing: border-box;
+// }
+
+// body {
+//   margin: 0;
+//   padding: 0;
+//   font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+//   background-color: #eee;
+// }
+
+/*---------- header ----------*/
+// header {
+//   width: 100%;
+//   background-color: #f390b9;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 10;
+// }
+// .header-contents {
+//   position: relative;
+//   width: 100%;
+//   max-width: 960px;
+//   padding: 10px;
+//   margin: 0 auto;
+//   text-align: center;
+// }
+
+/*---------- #menu ----------*/
+#menu {
+  width: 100%;
+  max-width: 250px;
+  height: 100%;
+  background: #EDE574;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E1F5C4, #EDE574); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  transform: translate(250px);
+  transition: all .5s;
+}
+#menu.open {
+  transform: translate(0);
+}
+#menu ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#menu li {
+  padding: 8px;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+#menu li#menu-title {
+  color: #FFFFFF;
+  background: #283048;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+// #menu_btn {
+//   position: absolute;
+//   top: 5px;
+//   right: 5px;
+//   color: #fff;
+//   border-radius: 5px;
+//   padding: 6px 20px;
+//   background-color: #191970;
+//   cursor: pointer;
+// }
+/* --- .menu-background --- */
+.menu-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.menu-background.open {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+/* ---------- main ----------*/
+// main {
+//   height: 100%;
+//   padding: 0 50px;
+// }
+// .main-wrapper {
+//   position: relative;
+//   width: 100%;
+//   max-width: 960px;
+//   height: 250px;
+//   margin: 0 auto;
+//   background-color: #fff;
+//   text-align: center;
+// }
+// .main-wrapper h1 {
+//   line-height: 250px;
+//   vertical-align: middle;
+// }
+
+/* ---------- footer ---------- */
+// footer {
+//   width: 100%;
+//   background-color: #00ff7f;
+//   text-align: center;
+// }
+// .footer-wrapper {
+//   width: 100%;
+//   max-width: 960px;
+//   margin: 0 auto;
+//   padding: 10px;
+// }

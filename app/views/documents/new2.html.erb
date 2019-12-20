@@ -1,22 +1,37 @@
 <!--モーダル-->
 <div id= "input-first" class= "modal fade" role = "dialog" tabindex = "-1" aria-hidden = "true" ></div>
 <%= provide(:url,document_create2_path ) %>
-<div class="text-center text-primary">
+<ol class="stepBar">STEP
+  <li class="visited"><span>1</span><br>書類の概要作成</li>
+  <li><span>2</span><br>質問項目作成</li>
+</ol>
+<br>
+
+<div class="text-center">
   <ul class="document_ul">
-    <li id="document_img"><%= image_tag('/explain/input2.png',size:"60x60",style:"display:inline") %><li>
-    <li><h1 class="title_font">新規書類作成(入力)</h1></li>
+    <li id="document_img"><%= image_tag('/explain/input2.png',id:"document_hyouji_img") %><li>
+    <li><h1 class="title_font" id="document_hyouji_title2">新規書類作成(入力)</h1></li>
   </ul>
+<div style="font-size:22px;margin-bottom:4%;">
+  <%= link_to input_first_modal_path,remote:true,style:"text-decoration: underline;" do  %>
+    <i class="fas fa-question-circle"></i>
+    このページの説明
+  <% end %></div>
+  <%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",id:"document_form_pc_button" %>
 </div>
-<%= link_to "このページの説明見る",input_first_modal_path,remote:true,style:"font-size:24px;text-decoration:underline;" %>
 <%= render 'form', document: @document %>
-
-<%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-lg",style:"margin:1% 0 0 -1%;" %>
-
-
+<div class="tex-center"><%= link_to '戻る', teacher_path(1),class:"btn btn-default btn-block",id:"document_form_phone_button" %></div>
+<!---------------------------------------------------CSS-------------------------------------------------------------------------------------->
 <style>
-  body{
-      
-      
-  }
+  body,.row{background:#FFC7AF;}
+  #document_form{box-shadow: 6px 6px 14px 6px #FF4F02;}
   #main_alert{display:none;}
+  /*フォームタイトル*/
+  #document_form_title_label{
+    background:#FFA07A;
+    border-left:5px solid #00008B;
+    color:#FFEBCD;
+    padding:5px 10%;
+    margin-bottom:2%;
+  }
 </style>

@@ -6,7 +6,7 @@
       <%= render 'shared/child_error_messages' %>
 
       <%= f.label :name_1, "姓", class: "label-signup" %>
-      <%= f.text_field :name_1, class: "form-control" %>
+      <%= f.text_field :name_1, class: "form-control", value: @user.name %>
 
       <%= f.label :name_2, "名", class: "label-signup" %>
       <%= f.text_field :name_2, class: "form-control" %>
