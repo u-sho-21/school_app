@@ -1,81 +1,69 @@
-<div id="meeting-top-title"><i class="fas fa-users" style="color: #000000;"></i>保護者一覧</div>
+<div id="meeting-top-title">
+  <i class="fas fa-users" style="color: #000000;"></i>
+  保護者一覧
+</div>
 
-<%# <body> %>
-  <%# <header style="padding-top: 100px;"> %>
-    <%# <div class="header-contents"> %>
-      <%# <div id="menu_btn">MENU</div> %>
-      <%# <h1>header</h1> %>
-    <%# </div><!-- /.header-contents --> %>
-  <%# </header> %>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 
+<table class="table table-striped users-table bg-warning" id="full_user">
+  <thead id="users-thead">
+    <tr>
+      <td><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
+      <td class="smart-cell"><i class="far fa-envelope"></i>メールアドレス</td>
+      <td><i class="fas fa-user-minus"></i>削除</td>
+    </tr>
+  </thead>
 
-
-  <%# <main> %>
-    <%# <div class="main-wrapper"> %>
-      <table class="table table-striped users-table bg-warning" id="full_user">
-        <thead id="users-thead">
-          <tr>
-            <td><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
-            <td class="smart-cell"><i class="far fa-envelope"></i>メールアドレス</td>
-            <td><i class="fas fa-user-minus"></i>削除</td>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <% unless user.id == 1 %>  <!--教員管理用のユーザー取り除きました。-->
-                <td>
-                  <div id="<%= user.id %>" class="user-info">
-                    <i class="fas fa-user-circle"></i><%= user.name + user.name2 %>
-                  </div>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <% unless user.id == 1 %>  <!--教員管理用のユーザー取り除きました。-->
+          <td>
+            <div id="<%= user.id %>" class="user-info">
+              <i class="fas fa-user-circle"></i><%= user.name + user.name2 %>
+            </div>
 
 
-                  <script>
-                    // メインコンテンツをヘッダーの高さ分だけずらす
-                    var headerHeight = $('header').outerHeight();
-                    $('#menu').css('margin-top', headerHeight + 'px');
+            <script>
+              // メインコンテンツをヘッダーの高さ分だけずらす
+              var headerHeight = $('header').outerHeight();
+              $('#menu').css('margin-top', headerHeight + 'px');
 
-                    // MENUボタンがクリックされたときの処理
-                    $('#<%= user.id %>').on('click', function(){
-                      if($(this).hasClass('active')) {
-                        $(this).removeClass('active');
-                        // $(this).text('MENU');
-                        $('#menu').removeClass('open');
-                        $('.menu-background').removeClass('open');
-                      } else {
-                        $(this).addClass('active');
-                        $('#menu-name').text('<%= user.name + user.name2 %>')
-                        $('#menu-email').text('<%= user.email %>')
-                        $('#menu-phone').text('<%= user.phone %>')
-                        // $('#child-<%= user.id %>').text('<%= user.name %>')
-                        // $(this).text('CLOSE');
-                        $(this).addClass('moji');
-                        $('#menu').addClass('open');
-                        $('.menu-background').addClass('open');
-                      }
-                    });
+              // MENUボタンがクリックされたときの処理
+              $('#<%= user.id %>').on('click', function(){
+                if($(this).hasClass('active')) {
+                  $(this).removeClass('active');
+                  $('#menu').removeClass('open');
+                  $('.menu-background').removeClass('open');
+                } else {
+                  $(this).addClass('active');
+                  $('#menu-name').text('<%= user.name + user.name2 %>')
+                  $('#menu-email').text('<%= user.email %>')
+                  $('#menu-phone').text('<%= user.phone %>')
+                  $(this).addClass('moji');
+                  $('#menu').addClass('open');
+                  $('.menu-background').addClass('open');
+                }
+              });
 
-                    // メニューの背景がクリックされたときの処理
-                    $('.menu-background').on('click', function(){
-                      if($(this).hasClass('open')) {
-                        $(this).removeClass('open');
-                        $('.user-info').removeClass('moji');
-                        // $('#user-info').removeClass('active').text('MENU');
-                        $('#menu').removeClass('open');
-                      }
-                    });
-                  </script>
-                </td>
-                <td class="smart-cell"><%= user.email %></td>
-                <td><%= link_to "削除", user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete, style: "color: red;" %></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
+              // メニューの背景がクリックされたときの処理
+              $('.menu-background').on('click', function(){
+                if($(this).hasClass('open')) {
+                  $(this).removeClass('open');
+                  $('.user-info').removeClass('moji');
+                  $('#menu').removeClass('open');
+                }
+              });
+            </script>
+          </td>
+          <td class="smart-cell"><%= user.email %></td>
+          <td><%= link_to "削除", user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete, style: "color: red;" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 
-      </table>
-      <%# <div id="menu_btn">MENU</div> %>
+</table>
 
  <div id="menu">
   <ul>
@@ -102,55 +90,4 @@
   </ul>
 </div>
 
-      <%# <div id="menu">
-        <ul>
-          <li></li>
-          <li>メニュー2</li>
-          <li>メニュー3</li>
-          <li>メニュー4</li>
-          <li>メニュー5</li>
-        </ul>
-      </div> %>
-      <div class="menu-background"></div>
-    <%# </div><!-- /.main-wrapper --> %>
-  <%# </main> %>
-
-  <%# <footer> %>
-    <%# <div class="footer-wrapper"> %>
-      <%# <h1>footer</h1> %>
-    <%# </div><!-- /.footer-wrapper --> %>
-  <%# </footer> %>
-
-  <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<%# </body> %>
-
-<script>
-// // メインコンテンツをヘッダーの高さ分だけずらす
-// var headerHeight = $('header').outerHeight();
-// $('main').css('padding-top', headerHeight + 'px');
-// $('#menu').css('margin-top', headerHeight + 'px');
-
-// // MENUボタンがクリックされたときの処理
-// $('#user-info').on('click', function(){
-//   if($(this).hasClass('active')) {
-//     $(this).removeClass('active');
-//     // $(this).text('MENU');
-//     $('#menu').removeClass('open');
-//     $('.menu-background').removeClass('open');
-//   } else {
-//     $(this).addClass('active');
-//     // $(this).text('CLOSE');
-//     $('#menu').addClass('open');
-//     $('.menu-background').addClass('open');
-//   }
-// });
-
-// // メニューの背景がクリックされたときの処理
-// $('.menu-background').on('click', function(){
-//   if($(this).hasClass('open')) {
-//     $(this).removeClass('open');
-//     // $('#user-info').removeClass('active').text('MENU');
-//     $('#menu').removeClass('open');
-//   }
-// });
-</script>
+<div class="menu-background"></div>
