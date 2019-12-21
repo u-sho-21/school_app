@@ -91,8 +91,9 @@
 }
 .document_user_select_radio{
     display: block;
+    width:100%;
     margin-top: -4%;
-    margin-left: 10%;
+    margin-left: 5%;
     
 }
 #document_download_title{
@@ -219,7 +220,7 @@
     }  
   #document_select_label{
     display: block;
-    width: 100%;
+    width:10%;
     margin-top:2%;
     margin-left: 1%;
   }
@@ -228,8 +229,8 @@
     font-size: 16px;
     width: 100%;
     height: 100%;
-    margin-top: -14%;
-    margin-left: 30%;
+    margin-top: -16%;
+    margin-left: 15%;
   }
   .document_user_select td{
       padding:20px;
