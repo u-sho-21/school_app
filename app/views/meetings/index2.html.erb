@@ -1,36 +1,47 @@
-<div id="meeting-top-title" class="text-primary bg-warning">
-  <i class="fas fa-inbox"></i>
-  面談返信状況確認
-</div>
-
-<div id="content-meeting">
-  <div id="meeting-title" class="bg-info" style="border-radius:12px;">
-    <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
-    <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+<div class="meeting-back">
+  <div id="meeting-top-title" class="text-primary">
+    <i class="fas fa-inbox"></i>
+    面談返信状況確認
   </div>
 
-  <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 70%; margin-top: 20px;">
-    <thead>
-      <tr style="background: #FF9933; color: white;">
-        <td style="width: 40%;"><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
-        <td><i class="far fa-paper-plane" style="color: green;"></i>返信状況</td>
-      </tr>
-    </head>
+  <div id="content-meeting" class="meeting-status">
+    <div id="meeting-title" class="bg-info" style="border-radius:12px;">
+      <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
+      <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+    </div>
 
-    <tbody>
-      <% @children.each do |child| %>
-        <tr>
-          <td style="text-align: left; padding-left: 5%;"><i class="fas fa-user-circle" style="color: #000000;"></i><%= child.full_name %></td>
-          <% if desired_status(@teacher, child.id) == "返信済み" %>
-            <td style="color: red;"><span style="color: green;"><i class="far fa-check-circle"></i></span><%= desired_status(@teacher, child.id) %></td>
-          <% else %>
-            <td style="color: blue;"><%= desired_status(@teacher, child.id) %></td>
-          <% end %>
+    <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 100%; margin-top: 20px;">
+      <thead>
+        <tr style="background: #FF9933; color: white;">
+          <td style="width: 60%;"><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
+          <td><i class="far fa-paper-plane" style="color: green;"></i>返信状況</td>
         </tr>
+      </head>
+
+      <tbody>
+        <% @children.each do |child| %>
+          <tr>
+            <td style="text-align: left; padding-left: 5%;"><i class="fas fa-user-circle" style="color: #000000;"></i><%= child.full_name %></td>
+            <% if desired_status(@teacher, child.id) == "返信済み" %>
+              <td style="color: red;"><span style="color: green;"><i class="far fa-check-circle"></i></span><%= desired_status(@teacher, child.id) %></td>
+            <% else %>
+              <td style="color: blue;"><%= desired_status(@teacher, child.id) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div id="submit-center">
+      <%= link_to teacher_meetings_index_path(@teacher), class: "btn btn-primary btn-lg" do %>
+        <i class="far fa-calendar-check"></i>
+        スケジュール調整へ
       <% end %>
-    </tbody>
-  </table>
-  <div id="submit-center">
-    <%= link_to "スケジュール調整へ", teacher_meetings_index_path(@teacher), class: "btn btn-primary submit-width" %>
+    </div>
   </div>
 </div>
+
+<style>
+  body {
+    background-color: #f7f5e6;;
+  }
+</style>
