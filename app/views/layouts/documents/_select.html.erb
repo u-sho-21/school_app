@@ -25,7 +25,6 @@
       <tr>
        <td>
        <!--教員用は選択出来なくする。-->
-      
         <% if !current_teacher.nil?%>
            <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" disabled id="document_select_label">
         <% else %> 
@@ -36,7 +35,7 @@
              <input type="radio" name="rd<%= item_count %>" value="<%= select.content %>" class="document_select_radio" id="document_select_label">
           <% end %>
         <% end%>  
-         &emsp;&emsp;&emsp;&emsp;<label style="display:block;margin-top:-4%;margin-left:8%;"><%= obj = select.content %></label>
+         &emsp;&emsp;&emsp;&emsp;<label class="document_user_select_radio"><%= obj = select.content %></label>
         <% unless obj == item.document_selects.last.content %> <!--最後の要素の境界線を消す-->
        <% end%>  
        <br> 

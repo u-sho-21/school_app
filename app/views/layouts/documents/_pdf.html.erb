@@ -1,4 +1,4 @@
-<hr>
+
 <div class="document_user_box">
   <span class="document_box-title">概要</span>
   <p><%= @document.memo %></p>
@@ -19,10 +19,12 @@
     <a href="https://drive.google.com/uc?export=download&id=<%= @document.pdf_link.to_s.split('/')[5] %>" download style="font-size:30px;" >
       <i class="fas fa-file-download"><span style="text-decoration:underline;">ダウンロード</span></i>
     </a>
+    <p class="document_user_pdf_download_p">(ダウンロードするには外部サービスのアカウントが必要です。)</p>
   <% elsif @document.pdf_link.to_s.split('/')[2] == "onedrive.live.com" %>  
     <a href="https://onedrive.live.com/download?<%= @document.pdf_link.to_s.split('&')[1] %>" download style="font-size:30px" id="a">
       <i class="fas fa-file-download"><span style="text-decoration:underline;">ダウンロード</span></i>
     </a>
+    <p class="document_user_pdf_download_p">(ダウンロードするには外部サービスのアカウントが必要です。)</p>
   <% end %> 
  <% end %>   
 </div>  

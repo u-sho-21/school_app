@@ -108,5 +108,15 @@ module SessionsHelper
       return root_path
     end     
   end
+
+  #ログイン時ログイン画面、新規作成画面アクセス不可
+   def login_check
+     if logged_in?
+       redirect_to user_url(current_user)  #保護者ログイン時はログイン画面アクセスでuser showにリダイレクト
+     elsif logged_in_teacher?
+       redirect_to teacher_url(current_teacher) #教員ログイン時はログイン画面アクセスでteacher showにリダイレクト
+     end  
+   end
+   
   
 end

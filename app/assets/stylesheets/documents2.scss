@@ -122,13 +122,16 @@
        font-size: 20px;
        font-weight: 900;
     }
+    #document_hyouji_title3{
+      margin-top: -10%;
+    }
     #document_hyouji_img{   /*イメージ*/
         width: 40px;
         height: 40px;
        
      }
     .alert2{font-size: 8px;}
-    .stepBar{margin-left: -10%;}
+    .stepBar{margin-left: -10%;margin-bottom: -2%;}
     #document_edit_page_label{
        margin-left:2%;
        margin-bottom: 4%;
@@ -152,6 +155,7 @@
       margin-top: 3%;
       padding: 20px 0;
     }
+    
 }  
 @media screen and (min-width:768px){
     #document_form_phone_button{display:none;}

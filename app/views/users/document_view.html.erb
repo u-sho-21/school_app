@@ -1,9 +1,9 @@
 <div class="text-center">
-  <h1 class="title_font">
+  <h1 class="title_font document_user_answer_title">
     書類タイトル:<span style="color:red"><%= @document.title %></span>
   </h1>
 </div>
-<%= link_to "戻る",user_documets_path(@user),class:"btn btn-default" ,class:"btn btn-default",style:"width:20%" %>
+<%= link_to "戻る",user_documets_path(@user),class:"btn btn-default btn btn-default document_user_answer_pc_button" %>
 <% if @input_count > 0 && @select_count ==false %>
   <%= render 'layouts/documents/select'%>
 <% elsif @input_count >0 && @select_count %>
@@ -12,3 +12,4 @@
    <%= render 'layouts/documents/pdf' %>  
 <% end %>
 <hr>
+<%= link_to "戻る",user_documets_path(@user),class:"btn btn-default btn btn-default document_user_answer_phone_button" %>

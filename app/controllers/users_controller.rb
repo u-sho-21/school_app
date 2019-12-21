@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :login_check, only:[:new]
 
   # 保護者トップページ
   def show
