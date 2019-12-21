@@ -75,7 +75,7 @@
         <% end %>
        <% end %>
       <label id="document_form_title_label">期限&emsp;<span style="color:#FF4F50">(必須です)</span></label>
-      <%= form.date_field :deadline, id:"document_deadline-forms",class:"form-control" %>
+      <%= form.text_field :deadline, id:"document_deadline-forms",class:"form-control",id:"date_picker" %>
     </div><br>
 
     <div class="actions text-center">
@@ -91,4 +91,45 @@
     padding:20px 40px;
 
   }
+  .ui-datepicker .ui-datepicker-header {  
+    position: relative;
+    padding: .2em 0;
+    font-size: 18px;
+}
+
+.ui-widget-header {   
+    border: 1px solid #d4ccb0;
+    background: #c0c0c0;
+    color: #433f38;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c';
+}
+
+.ui-widget-content {    
+    border: 1px solid #dfd9c3;
+    background: #d0d0d0;
+    color: #312e25;
+}
+
+.ui-datepicker table {  
+    font-size: 18px;
+    font-family: 'M PLUS Rounded 1c';
+    margin: 0 0 .4em;
+}
+
+.ui-state-default {  
+  height: 45px;
+}
+
+div.ui-datepicker {   
+  margin: auto;
+  font-size: 18px;
+  width: 30%;
+  height: auto;
+}
+@media screen and (max-width:767px){
+  div.ui-datepicker{
+    width:80%;
+  }
+}
 </style>
