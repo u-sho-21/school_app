@@ -55,6 +55,8 @@
     
 }
 .document_user_select{
+    table-layout: fixed;
+    word-wrap: break-word;
     background-color: #fff;
     padding:15px 10px;
     border: 1px dotted #c0c0c0;
@@ -67,6 +69,8 @@
     width: 100%;
     td{
         border-bottom:1px dotted #bbb;
+        table-layout: fixed;
+        word-wrap: break-word;
     }
 }
 .document_select_radio{
@@ -92,6 +96,8 @@
 .document_user_select_radio{
     display: block;
     width:100%;
+    table-layout: fixed;
+    word-wrap: break-word;
     margin-top: -4%;
     margin-left: 5%;
     
@@ -227,8 +233,10 @@
   .document_user_select_radio{
     display: block;
     font-size: 16px;
-    width: 100%;
+    width: 50%;
     height: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
     margin-top: -16%;
     margin-left: 15%;
   }

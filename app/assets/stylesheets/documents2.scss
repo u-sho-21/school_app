@@ -116,6 +116,10 @@
     margin-bottom: 2%;
   }
   .document_edit_delete_button,.document_edit_select_button{width:80%;}
+  /*教員の保護者提出フォーム確認ページ*/
+  .teacher_create_form_title{
+      font-size: 38px;
+  }
 @media screen and (max-width:767px){
     #document_form_pc_button{display:none;}
     #document_hyouji_title,#document_hyouji_title2,#document_hyouji_title3{
@@ -155,6 +159,9 @@
       margin-top: 3%;
       padding: 20px 0;
     }
+    .teacher_create_form_title{
+      font-size: 22px;
+  }
     
 }  
 @media screen and (min-width:768px){

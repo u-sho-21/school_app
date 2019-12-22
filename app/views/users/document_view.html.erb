@@ -1,6 +1,7 @@
 <div class="text-center">
   <h1 class="title_font document_user_answer_title">
-    書類タイトル:<span style="color:red"><%= @document.title %></span>
+    書類タイトル<br><br>
+    <div style="color:red">[<%= @document.title %>]</div>
   </h1>
 </div>
 <%= link_to "戻る",user_documets_path(@user),class:"btn btn-default btn btn-default document_user_answer_pc_button" %>
