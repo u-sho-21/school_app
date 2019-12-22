@@ -1,4 +1,4 @@
-<h1 id="meeting-top-title">教員トップページ</h1>
+<div id="meeting-top-title" class="title_font text-center">教員トップページ</div>
 
 <div class="box_title">保護者からのお問い合わせ</div>
 <div class="box_srcollbar">
@@ -8,53 +8,101 @@
     <%= "(返信済み)" if p_message.reply.present? %><br>
   <% end %>
 </div>
+   <label class="teacher_menu_title">メニュー</label>
+    <div class="col-md-9 col-md-offset-2">
+     <div class="row teacher_row">
+    <div class="container">
+      <div class="row" style="background:none">
 
-<div id="teacher-top">
-  <div id="one">
-    <%= link_to  teacher_meetings_new_path(@teacher), class: "" ,id:"teacher_bt" do %>
-       <i class="far fa-calendar-alt"></i>
-       <div>面談日時登録</div>
-    <% end %>
-    <%= link_to  teacher_meetings_edit_path(@teacher), class: "",id:"teacher_bt" do %>
-       <i class="far fa-clock"></i>
-       <div>面談時間登録</div>
+        <div class="col-md-1 col-xs-6 col-md-offset-1">
+           <%= link_to  teacher_meetings_new_path(@teacher) ,id:"teacher_bt" do %>
+             <span class="teacher_link_icon"><i class="far fa-calendar-alt"></i></span>
+             <div class="teacher_icon_title">面談日時登録</div>
+           <% end %>
+        </div>
 
-    <% end %>
-  </div>
-  <div id="two">
-    <%= link_to teacher_meeting_index2_path(@teacher), class: "",id:"teacher_bt" do %>
-      <i class="fas fa-inbox"></i>
-      <div>面談返信状況確認</div>
-    <% end %>
-    <%= link_to documents_path(params:{teacher_id: @teacher}), class: "",id:"teacher_bt" do %>
-       <i class="fas fa-book-open"></i>
-       <div>提出状況確認</div>
-    <% end %>
-  </div>
-  <div id="three">
-    <%= link_to new2_document_path(params:{teacher_id: @teacher}), class: "",id:"teacher_bt" do %>
-      <i class="fas fa-file-signature"></i>
-      <div>入力式提出</div>
-    <% end %>
-    <%= link_to new_document_path(params:{teacher_id: @teacher}), class: "",id:"teacher_bt" do %>
-      <i class="far fa-list-alt"></i>
-      <div>選択式提出</div>
-    <% end %>
-  </div>
-  <div id="four">
-    <%= link_to new3_document_path(params:{teacher_id: @teacher}), class: "",id:"teacher_bt" do %>
-      <i class="fas fa-paste"></i>
-      <div>表示書類</div>
-    <% end %>
-    <%= link_to teacher_t_message_path(@teacher), class: "",id:"teacher_bt" do %>
-      <i class="fas fa-comments"></i>
-      <div>個別連絡</div>
-    <% end %>
-  </div>
-  <div id="five">
-    <%= link_to teacher_teacher_index2_path(@teacher), class: "last" do %>
-    <i class="fas fa-users"></i>
-    <div>保護者一覧</div>
-    <% end %>
-  </div>
-</div>
+        <div class="col-md-1 col-xs-6 col-md-offset-1">
+          <%= link_to  teacher_meetings_edit_path(@teacher),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="far fa-clock"></i></span>
+            <div class="teacher_icon_title">面談時間登録</div>
+          <% end %>
+        </div>
+
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to teacher_meeting_index2_path(@teacher),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-inbox"></i></span>
+            <div class="teacher_icon_title">面談返信確認</div>
+          <% end %>
+        </div>
+
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to documents_path(params:{teacher_id: @teacher}),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-book-open"></i></span>
+            <div class="teacher_icon_title">提出状況確認</div>
+          <% end %>
+        </div>  
+      </div>
+      <!-- row一つ目終了-->
+      <!--　row NO2 -->
+      <div class="row" style="background:none">
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to new2_document_path(params:{teacher_id: @teacher}),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-file-signature"></i></span>
+            <div class="teacher_icon_title">入力提出作成</div>
+         <% end %>
+
+        </div>  
+
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to new_document_path(params:{teacher_id: @teacher}),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="far fa-list-alt"></i></span>
+            <div class="teacher_icon_title">選択提出作成</div>
+          <% end %>
+        </div>   
+
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to new3_document_path(params:{teacher_id: @teacher}),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-paste"></i></span>
+            <div class="teacher_icon_title">表示書類作成</div>
+          <% end %>
+        </div>  
+
+
+        <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to teacher_t_message_path(@teacher),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-comments"></i></span>
+            <div class="teacher_icon_title">個別連絡</div>
+          <% end %>
+        </div>  
+      </div>
+     <!-- /row2 -->
+　　　<!-- row3 -->
+     <div class="row" style="background:none">
+       <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to teacher_teacher_index2_path(@teacher), class: "last" do %>
+            <span class="teacher_link_icon"> <i class="fas fa-users"></i></span>
+            <div class="teacher_icon_title">保護者一覧</div>
+          <% end %>
+        </div>  
+     </div>
+     <!-- /row3-->
+
+
+    </div>
+   </div>
+   </div>
+
+
+<style>
+ body{
+   background-image:url("../school.jpg");
+   background-size:cover;
+ }
+ .teacher_row{
+   background:rgba(0,0,0,0.5);
+   box-shadow:2px 2px 4px 4px #000;
+   width:-30px;
+ }
+ 
+ 
+</style>

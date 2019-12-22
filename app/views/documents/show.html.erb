@@ -1,6 +1,7 @@
 <div class="text-center">
-  <h1 class="title_font">
-    書類タイトル:<span style="color:red"><%= @document.title %></span>
+  <h1 class="title_font teacher_create_form_title">
+    書類タイトル<br><br>
+    <div style="color:red">[<%= @document.title %>]</div>
   </h1>
   <% if !current_teacher.nil? %>
    <h3>教員専用ページ</h3>
