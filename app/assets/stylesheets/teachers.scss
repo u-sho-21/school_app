@@ -17,14 +17,40 @@
     }
   }
 }
+#meeting-top-title{
+  color: blue;
+  font-size: 44px;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+.teacher_menu_title{
+  background-color: darkorange;
+  border-left: solid 4px blue;
+  font-weight: bold;
+  padding: 10px 10% 10px 10%;
+  margin-left: 17%;
+  margin-bottom: 1%;
 
-#teacher_bt{margin-bottom: 1%;height:45px;font-weight:bold;}
-
-/* teacher-top*/
-.box_srcollbar{
-  max-width:100%;
 }
 
+.teacher_link_icon{
+  font-size: 80px;
+  color: rgba(244, 248, 16,1);
+  margin-left: -40%;
+  padding: 10px;
+  border-radius: 50%;
+}
+.teacher_icon_title{
+  color: rgba(255, 255, 255,1);
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: -50%;
+}
+.teacher_link_icon:hover{
+  background-color: cyan;
+}
+
+/* teacher-top*/
 .box_srcollbar {
   overflow:auto;
   width:500px;
@@ -34,7 +60,9 @@
   background-color:#F9F9F9;
   color:#000;
   font-size:15px;
-  margin: auto;
+  margin: 0 auto;
+  margin-bottom: 3%;
+  max-width:100%;
   font-family: 'M PLUS Rounded 1c';
 }
 
@@ -50,12 +78,6 @@
   text-align: center;
   margin: auto;
 }
-
-/* teacher-top*/
-.box_srcollbar{
-  max-width:100%;
-}
-
 /* 保護者一覧ページ*/
 
 .users-table {
@@ -110,7 +132,7 @@
 #menu li {
   padding: 8px;
   color: black;
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
 }
 
 #menu li#menu-title {
@@ -144,6 +166,9 @@
 /* スマートフォン対応 */
 
 @media screen and (max-width:767px){
+  #meeting-top-title{
+    font-size: 28px;
+  }
   #teacher-top{
     #one,#two,#three,#four,#five{
       margin-top: 0px;
@@ -157,5 +182,18 @@
   #teacher_bt{margin-bottom: 5%;height:45px;font-weight:bold;}
   .smart-cell {
     display: none;
+  }
+  .teacher_link_icon{
+    margin-left: 10%;
+  }
+  .teacher_icon_title{
+    margin-left: 2%;
+    margin-bottom: 3%;
+    font-size: 16px;
+  }
+  .teacher_menu_title{
+    width: 100%;
+    margin-left: 0;
+    padding-left: 40%;
   }
 }

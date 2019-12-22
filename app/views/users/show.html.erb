@@ -3,38 +3,45 @@
 
 <div id="user-top">
   <div id="one">
-    <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), class: "btn btn-success top-button" do %>
+    <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), class: "" do %>
       <i class="far fa-calendar-check"></i>
-      面談ページへ
+      <div>面談ページへ</div>
     <% end %>
   </div>
   <div id="two">
-    <%= link_to  user_documets_path(@user), class: "btn btn-success top-button" do %>
+    <%= link_to  user_documets_path(@user), class: "" do %>
       <i class="fas fa-file-alt"></i>
-      提出ページへ
+      <div>提出ページへ</div>
     <% end %>
   </div>
   <div id="three">
-    <%= link_to  edit_user_path(@user), class: "btn btn-success top-button" do %>
+    <%= link_to  edit_user_path(@user), class: "" do %>
       <i class="fas fa-user"></i>
-      保護者情報編集
+      <div>保護者情報編集</div>
     <% end %>
   </div>
   <div id="four">
-    <%= link_to  user_users_index2_path(@user), class: "btn btn-success top-button" do %>
+    <%= link_to  user_users_index2_path(@user), class: "" do %>
        <i class="fas fa-user-graduate"></i>
-      生徒さん登録/編集
+       <div>生徒さん登録/編集</div>
     <% end %>
   </div>
   <div id="five">
-    <%= link_to user_p_message_path(@user), class: "btn btn-success top-button" do  %>
+    <%= link_to user_p_message_path(@user), class: "" do  %>
       <i class="fas fa-paper-plane"></i>
-      先生へ連絡する
+      <div>先生へ連絡する</div>
     <% end %>
   </div>
   <div id="six">
-    <%= link_to  user_users_messages_path(@user), class: "btn btn-success top-button" do %>
+    <%= link_to  user_users_messages_path(@user), class: "" do %>
       <i class="fas fa-envelope-open-text"></i>
-      先生からのお便り
+      <div>先生からのお便り</div>
     <% end %>
   </div>
+
+<style>
+  body {
+    background-image: url("/image01.jpg");
+  }
+
+</style>
