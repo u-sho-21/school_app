@@ -85,11 +85,13 @@
       <div style="text-align: left;"><i class="fas fa-exclamation-circle" style="color: red;"></i><i class="fas fa-eraser"></i>アイコンは削除</div>
       <div id="submit-center">
         <%= f.submit "更新", class: "btn btn-success submit-edit" %>
-        <%= form_with(url: push_path, local:true) do |f| %>
-          <%= f.submit "日時確定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
-        <% end %>
       </div>
     <% end %>
+    <div id="submit-center">
+      <%= form_with(url: push_path, local:true) do |f| %>
+        <%= f.submit "日時確定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
+      <% end %>
+    </div>
   </div>
 </div>
 
