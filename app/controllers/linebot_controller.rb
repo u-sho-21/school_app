@@ -96,6 +96,7 @@ class LinebotController < ApplicationController
       response = client.push_message(group_id, message)
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
+
     end
 
     if params[:commit] == "日時確定送信"
@@ -181,10 +182,11 @@ class LinebotController < ApplicationController
         }
       }
 
-      group_id = "U685c5837843ee542a0a22baa03cc50c6"
+      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
+      flash[:success] = "送信完了"
+      redirect_to teacher_path(current_teacher)
 
-      redirect_to teacher_path(@teacher)
     end
 
     if params[:commit] == "提出を通知する。"
