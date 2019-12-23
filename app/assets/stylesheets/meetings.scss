@@ -311,7 +311,7 @@ td.ui-datepicker-week-end a.ui-state-highlight{
 }
 
 .submit-single {
-  width: 30%;
+  width: 40%;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c';
 }
@@ -369,14 +369,14 @@ td.ui-datepicker-week-end a.ui-state-highlight{
     font-size: 14px;
   }
   .submit-single {
-    width: 70%;
+    width: 100%;
     font-size: 14px;
   }
   .select-font {
     font-size: 13px;
   }
   .submit-edit {
-    width: 70%;
+    width: 100%;
     font-size: 14px;
   }
   #submit-center {
@@ -407,5 +407,8 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   }
   .not-time-select, .select2-selection {
     font-size: 10px;
+  }
+  .schedule-btn {
+    font-size: 14px;
   }
 }
