@@ -100,7 +100,7 @@ class LinebotController < ApplicationController
 
     if params[:commit] == "日時確定送信"
       require 'line/bot'
-      
+
 
       client = Line::Bot::Client.new { |config|
         config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -114,7 +114,7 @@ class LinebotController < ApplicationController
 
       message={
         "type": "flex",
-        "altText": "this is a flex message",
+        "altText": "面談の日時が決まりました。サイトから希望日の入力をお願いします。",
         "contents": {
           "type": "bubble",
           "hero": {
@@ -173,7 +173,7 @@ class LinebotController < ApplicationController
                 "action": {
                   "type": "uri",
                   "label": "サイトへ",
-                  "uri": "https://school-app-pta.herokuapp.com"
+                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
                 }
               }
             ]
@@ -181,7 +181,7 @@ class LinebotController < ApplicationController
         }
       }
 
-      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
+      group_id = "U685c5837843ee542a0a22baa03cc50c6"
       response = client.push_message(group_id, message)
 
       redirect_to teacher_path(@teacher)
@@ -278,6 +278,6 @@ class LinebotController < ApplicationController
       response = client.push_message(group_id, message)
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
-    end 
+    end
   end
 end

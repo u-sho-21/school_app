@@ -138,6 +138,25 @@
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
+.meeting-user {
+  position: relative;
+  background: #dbebc4;
+  box-shadow: 0px 0px 0px 5px #dbebc4;
+  border: dashed 2px white;
+  padding: 0.2em 0.5em;
+  color: #454545;
+}
+
+.meeting-user:after{
+    position: absolute;
+    content: '';
+    right: -7px;
+    top: -7px;
+    border-width: 0 15px 15px 0;
+    border-style: solid;
+    border-color: #dbebc4 #fff #dbebc4;
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
 
 
 /* 面談日時登録ページ */
@@ -292,7 +311,7 @@ td.ui-datepicker-week-end a.ui-state-highlight{
 }
 
 .submit-single {
-  width: 30%;
+  width: 40%;
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c';
 }
@@ -307,6 +326,10 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c';
   cursor: pointer;
+}
+
+.not-time-select {
+  width: 300px;
 }
 
 
@@ -346,14 +369,14 @@ td.ui-datepicker-week-end a.ui-state-highlight{
     font-size: 14px;
   }
   .submit-single {
-    width: 70%;
+    width: 100%;
     font-size: 14px;
   }
   .select-font {
     font-size: 13px;
   }
   .submit-edit {
-    width: 70%;
+    width: 100%;
     font-size: 14px;
   }
   #submit-center {
@@ -375,5 +398,17 @@ td.ui-datepicker-week-end a.ui-state-highlight{
     #meeting-title {
       font-size: 15px;
     }
+  }
+  #yoyaku-count {
+    font-size: 9px;
+  }
+  .not-time-select {
+    width: 170px;
+  }
+  .not-time-select, .select2-selection {
+    font-size: 10px;
+  }
+  .schedule-btn {
+    font-size: 14px;
   }
 }
