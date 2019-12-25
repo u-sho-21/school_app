@@ -1,8 +1,8 @@
 
-<div class="text-center text-primary bg-warning" style="padding:8px;font-weight:bold;">
-  <h1>教員書類管理ページ</h1>
+<div class="title_font document_index_title_h1">
+  <h1><i class="fas fa-book-open"></i>&emsp;教員書類管理ページ</h1>
 </div><br>
-<%= link_to "メニューへ","/teachers/1",class:"btn btn-default",style:"width:25%;" %><br><br>
+<%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %><br><br>
 
 <!--保護者提出後モーダルにてline push_pathにpost送信-->
 
@@ -29,9 +29,9 @@
 <% end %>
 
 <!--モーダル処理終了-->
-<div style="border-top:2px dotted blue;"></div><br>
-<div class="row">
-  <div class="col-md-10 col-md-offset-1 bg-info" style="border-radius:12px;">
+<div style="border-top:1px dotted blue;"></div><br>
+<div class="row" style="background:#f0f0f0">
+  <div class="col-md-10 col-md-offset-1">
    <% if @documents.count >0 %>   
       <%= form_with(url:document_check_delete_path,local:true) do |f| %>
        <table class="table table-bordered" id= "teacher_document_table" style="margin-top:3%;">
@@ -41,7 +41,7 @@
              <th>期限</th>
              <th>提出状況</th>
              <th></th>
-             <th>削除</th>
+             <th width="3%;">削除</th>
            </tr>
          </thead>
          <tbody>
@@ -69,20 +69,74 @@
               </td>
               <td>
                  <% if document.publicCheck? %>
-                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning btn-block",method: :delete %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete %>
                  <% else %>
-                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-warning",method: :delete %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger",method: :delete %>
                  <% end %>
                   <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" unless document.publicCheck? == true %>
                   <%= link_to "保護者に提出",public_change_path(document),data:{confirm:"提出しますと保護者に通知されますので編集出来なくなりますがよろしいでしょうか？"},class:"btn btn-success" unless document.publicCheck? == true %>
               </td>
-              <td><%= af.check_box :check,class:"form-control" %></td>
+              <td><%= af.check_box :check,class:"form-check-input" %></td>
             </tr>
             <% end %>
           <% end %>  
          </tbody>
        </table>
-       <div class="text-right">
+<!-- *******************スマホ用テーブル****************************************************** -->
+       <table class="table table-bordered document_teacher_index_table_phone">
+        <thead>
+          <tr>
+            <th width="70%;">タイトル</th>
+            <th></th>
+            <th width="5%;">削除</th>
+          </tr>
+        </thead>
+        <tbody>
+           <!-- 教員のみの資料表示 -->
+          <% @documents.each do |document| %>
+            <%= fields_for "boxs[]",document do |af| %>
+              <tr>
+                <td>
+                <!-- 第一column -->
+                  <%= link_to document_path(document) do %>
+                    <i class="fas fa-search"></i>
+                    <strong><%= document.title %></strong>
+                  <% end %><br><br>
+                   <!-- 書類タイプ -->
+                   <% if document.document_items.all.count > 0 %>
+                     <div><strong style="background:#f0f0f0;padding:1% 0;">提出期限:<span style="color:red"><%= document.deadline %></span></strong></div>
+                   <% elsif document.document_items.all.count == 0 %>
+                     <div><strong style="background:#f0f0f0;padding:1% 0;">期限:<span style="color:red"><%= document.deadline %></span></strong></div>
+                   <% end %>
+
+                   <% if document.memo.present? && document.document_items.count > 0 && document.publicCheck? %>
+                     <%= link_to "提出数:#{reply_count(document.memo,document.randam).to_s}" + "/" + @users_count.to_s,document_users_view_path(document),class:"btn btn-block",style:"background:#c0c0c0;color:#fff;"  %>
+                   <% end %>  
+                </td>
+                <!--/ 第一column -->
+                <!-- 第2column -->
+                <td>
+                  <% if document.publicCheck? %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete,style:"padding:30px 0;" %>
+                 <% else %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete %>
+                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary btn-block" unless document.publicCheck? == true %>
+                  <%= link_to "保護者に提出",public_change_path(document),data:{confirm:"提出しますと保護者に通知されますので編集出来なくなりますがよろしいでしょうか？"},class:"btn btn-success btn-block" unless document.publicCheck? == true %>
+                 <% end %>  
+                </td>
+                <!-- /第2column -->
+                <!-- 第3column -->
+                 <td><%= af.check_box :check,class:"form-check-input",style:"width:1.5em;height:1.5em;margin-top:120%;" %></td>
+                <!-- 第3column -->
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+       </table>
+
+<!-- /*******************スマホ用テーブル****************************************************** -->
+
+       <div class="text-right document_index_submit_btn3">
          <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
          <%= f.submit "複数削除",class:"btn btn-danger" %>
        </div>
@@ -95,6 +149,7 @@
       <% end %>
   </div>
 </div>
+<%= link_to "メニューへ","/teachers/1",class:"btn btn-default btn-block document_index_back_btn2_phone" %><br><br>
 <script>
   $(function(){
      $("#document_line").modal("show");

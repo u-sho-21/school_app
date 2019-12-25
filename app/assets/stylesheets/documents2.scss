@@ -120,6 +120,17 @@
   .teacher_create_form_title{
       font-size: 38px;
   }
+/*-----------教員提出一覧ページ-------------------------------------------------*/
+.document_index_title_h1{
+  color: #000099;
+  font-weight: 300;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  letter-spacing: 8px;
+}
+.document_teacher_index_table_phone{display: none;}
+.document_index_back_btn2{width: 25%;}
+.document_index_back_btn2_phone{display: none;}
+  
 @media screen and (max-width:767px){
     #document_form_pc_button{display:none;}
     #document_hyouji_title,#document_hyouji_title2,#document_hyouji_title3{
@@ -162,7 +173,28 @@
     .teacher_create_form_title{
       font-size: 22px;
   }
-    
+  /*-----------教員提出一覧ページ-------------------------------------------------*/
+.document_index_title_h1{
+  color: #000099;
+  font-size: 10px;
+  font-weight: 300;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  max-width: 100%;
+  margin-left: 2%;
+  margin-bottom: -20%;
+  text-align: center;
+  }
+  .document_index_back_btn2{display: none;}
+  #teacher_document_table{display: none;}
+  .document_teacher_index_table_phone{
+    background-color: #fff;
+    display: table;
+    margin-top: 10%;
+    th{background-color: orange;}
+  }
+  .document_index_submit_btn3{margin-right: 40%;} 
+  #document_explain_span{width: 200%;margin-left: -50%;} 
+  .document_index_back_btn2_phone{display: block;margin-top: 10%;}
 }  
 @media screen and (min-width:768px){
     #document_form_phone_button{display:none;}

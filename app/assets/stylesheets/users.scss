@@ -1,6 +1,5 @@
 
 /* 保護者トップページ */
-
 #user-top {
   text-align: center;
   #one,#two,#three,#four,#five,#six {
@@ -12,7 +11,63 @@
     }
   }
 }
+/* user show */
+.user_show_title{
+  font-size: 32px;
+  background-color: pink;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #3c1585d5;
+  letter-spacing: 8px;
+  padding: 12px 0;
+  margin-left: 16%;
+  margin-bottom: 5%;
+  width: 70%;
+  .user_title-border{
+    border: 2px dotted #b895f5d5;
+    padding: 8px 0;
+    margin-left: 3%;
+    width: 95%;
+  }
+}
+.user_icon_area{
+  background: rgba(29, 236, 10, 0.9);
+  border-radius: 8px;
+  box-shadow:2px 3px 4px 5px green;
+  padding: 20px 0;
+}
+.user_link_icon{
+  font-size: 80px;
+  color: rgb(11, 33, 235);
+  margin-left: -25%;
+  padding: 20px;
+  border-radius: 50%;
+  text-decoration: none;
+}
+.user_icon_title{
+  color: rgb(11, 33, 235);
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: -40%;
+  
+}
+.user_link_icon:hover{
+  background-color: cyan;
+  text-decoration: none;
+}
+.user_link_icon:visited{
+  text-decoration: none;
+}
+.user_area_label{
+  background-color: red;
+  padding: 10px 10% 10px 10%;
+  border-bottom: 4px solid blue;
+  margin-top: -5%;
+  margin-bottom: 3%;
 
+}
+
+/* user show */
 /* 生徒登録/編集ページ */
 
 #child-signup {
@@ -50,6 +105,18 @@
 
 /* ------   スマートフォン -------   */
 @media screen and (max-width:767px){
+  /* user show */
+  .user_show_title{
+    font-size: 18px;
+    color: #3c1585d5;
+    letter-spacing: 0;
+    background-color: pink;
+    width: 100%;
+    margin: 0;
+    margin-top: 10%;
+    margin-bottom: 6%;
+  }
+  /* user show */
   #user-top {
     text-align: center;
     #one,#two,#three,#four,#five,#six {
@@ -63,8 +130,17 @@
 
       }
     }
-    #two{margin-top: -7%;}
   }
+  .user_link_icon{
+    margin-right:2%;
+  }
+  .user_icon_title{
+    font-size: 12px;
+    font-weight: bold;
+    margin-left:-10%;
+    width: 100%;
+  }
+  
   .box_title{
     max-width: 100%;
   }
