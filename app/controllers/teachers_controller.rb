@@ -14,6 +14,12 @@ class TeachersController < ApplicationController
     @users = User.all
   end
 
+  # 保護者詳細ページ
+  def show2
+    @teacher = Teacher.find(params[:teacher_id])
+    @user = User.find(params[:user_id])
+  end
+
   # 個別連絡ページ
   def t_message
     @teacher = Teacher.find(params[:teacher_id])
