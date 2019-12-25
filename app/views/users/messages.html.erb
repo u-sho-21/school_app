@@ -31,6 +31,7 @@
 
 <h1 id="meeting-top-title">先生からの返信</h1>
 
+<% if @p_messages.any? {|p_message| p_message.reply.present?} %>
 
 <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
   <thead>
@@ -53,3 +54,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+  <div id="meeting-title">返信なし</div>
+<% end %>
