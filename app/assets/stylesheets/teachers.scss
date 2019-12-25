@@ -96,75 +96,28 @@
   background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#full_user {
-  max-width: 100%;
+.user-index2 {
+  padding: 0.2em 0.5em;
+  margin: 2em 0;
+  color: #565656;
+  background: #ffeaea;
+  box-shadow: 0px 0px 0px 10px #ffeaea;
+  border: dashed 2px #ffc3c3;
+  border-radius: 8px;
 }
 
-.user-info {
-  cursor: pointer;
+.user-show2 {
+  padding: 0.2em 0.5em;
+  margin: 2em 0;
+  color: #565656;
+  background: #ffeaea;
+  box-shadow: 0px 0px 0px 10px #ffeaea;
+  border: dashed 2px #ffc3c3;
+  border-radius: 8px;
+  width: 50%;
+  margin: auto;
 }
 
-.user-info.moji {
-  color: red;
-}
-
-
-/*---------- #menu ----------*/
-#menu {
-  width: 100%;
-  max-width: 250px;
-  height: 100%;
-  background: #EDE574;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #E1F5C4, #EDE574); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 10;
-  transform: translate(250px);
-  transition: all .5s;
-}
-#menu.open {
-  transform: translate(0);
-}
-#menu ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-#menu li {
-  padding: 8px;
-  color: black;
-  // border-bottom: 1px solid black;
-}
-
-#menu li#menu-title {
-  color: #FFFFFF;
-  background: #283048;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-
-/* --- .menu-background --- */
-.menu-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  content: "";
-  display: block;
-  width: 0;
-  height: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-.menu-background.open {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-}
 
 /* スマートフォン対応 */
 
@@ -187,7 +140,7 @@
   }
   .box_title{
     height: 50px;
-    
+
   }
   #teacher_bt{margin-bottom: 5%;height:45px;font-weight:bold;}
   .smart-cell {
@@ -206,5 +159,14 @@
     margin-left: 0;
     margin-top: 10%;
     padding-left: 40%;
+  }
+  #users-thead {
+    text-align: center;
+  }
+  .user-smart {
+    padding-left: 33%;
+  }
+  .user-show2 {
+    width: 100%;
   }
 }
