@@ -6,8 +6,8 @@
 
   <div id="content-meeting" class="meeting-status">
     <div id="meeting-title" class="bg-info" style="border-radius:12px;">
-      <div><span style="color: blue;"><%= "#{@children.count}" %>人中</span><span style="color: red;"><%= "#{@desired_count}" %>人返信済み</span></div>
-      <div style="color: red;">あと<%= @children.count - @desired_count %>人でスケジュール調整可能です。</div>
+      <div><%= "#{@children.count}" %>人中<span style="color: blue;"><%= "#{@desired_count}" %>人</span>返信済み</div>
+      <div>あと<span style="color: red;"><%= @children.count - @desired_count %>人</span>でスケジュール調整可能です。</div>
     </div>
 
     <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 100%; margin-top: 20px;">

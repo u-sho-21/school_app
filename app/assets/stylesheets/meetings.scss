@@ -17,6 +17,16 @@
   font-family: 'M PLUS Rounded 1c';
 }
 
+.meeting-count {
+  text-align: center;
+  font-size: 25px;
+  font-family: 'M PLUS Rounded 1c';
+}
+
+.meeting-description {
+  font-size: 14px;
+}
+
 /* content整え */
 
 #content-meeting {
@@ -343,6 +353,11 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   width: 90%;
 }
 
+.desired-user {
+  text-decoration: line-through; /* テキストの装飾に取り消し線を指定する */
+  color: blue;
+}
+
 /* スマートフォン対応 */
 
 @media screen and (max-width:767px){
@@ -351,6 +366,12 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   }
   #meeting-title {
     font-size: 18px;
+  }
+  .meeting-count {
+    font-size: 18px;
+  }
+  .meeting-description {
+    font-size: 11px;
   }
   #content-meeting {
     width: 100%;

@@ -235,8 +235,11 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
     @meetings_desired = @teacher.meetings.where(desired: true)
-    @meeting_times_all = @teacher.meeting_times.all
+    @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @children = @teacher.children.all
+    @meeting_finish_count = 0
+    @meeting_times.each{|meeting_time| @meeting_finish_count += 1 unless meeting_time.name.blank?}
     @children_name = []
     @teacher.children.each do |child|
       @children_name << child.full_name
