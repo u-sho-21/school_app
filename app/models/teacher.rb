@@ -38,4 +38,14 @@ class Teacher < ApplicationRecord
   def forget_teacher
     update_attribute(:remember_digest, nil)
   end
+
+  # 面談日時決定
+  def meeting_decision_update
+    self.meeting_times.update_all(status: :meeting_decision)
+  end
+
+  # 面談日時確定
+  def meeting_confirm_update
+    self.meeting_times.update_all(status: :meeting_confirm)
+  end
 end

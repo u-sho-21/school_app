@@ -1,17 +1,21 @@
 <div class="meeting-back">
-  <div id="meeting-top-title"><%= @child.full_name %>さんの面談管理ページ</div>
+  <div id="meeting-top-title"><%= @child.full_name %>さんの<br>面談管理ページ</div>
 
-  <% unless @meeting_children.present? %>
-    <h1 id="meeting-top-title">現在面談予定はございません。</h1>
-  <% else %>
-
-    <!-- 子供が二人以上いた場合 -->
-    <% unless @children.count == 1 %>
-      <h2 id="meeting-title">管理ページの切り替えはこちらから</h2>
-      <% @children.each do |child| %>
-        <p style="text-align: center;" id="meeting-title"><%= link_to "#{child.full_name}さんの管理ページへ", user_meetings_new_user_path(@user, child) unless child.id == @child.id %></p>
-      <% end %>
+  <!-- 子供が二人以上いた場合 -->
+  <% unless @children.count == 1 %>
+    <h2 id="meeting-title">管理ページの切り替えはこちらから</h2>
+    <% @children.each do |child| %>
+      <p style="text-align: center;" id="meeting-title"><%= link_to "#{child.full_name}さんの管理ページへ", user_meetings_new_user_path(@user, child) unless child.id == @child.id %></p>
     <% end %>
+  <% end %>
+
+  <% if @meeting_times_status == "meeting_confirm" %>
+    <h1 id="meeting-top-title" class="bg-info">面談日時が確定しました。</h1>
+    <div class="meeting-confirm-top meeting-new-user">
+      <div><%= @child.full_name %>さんの面談日時は</div>
+      <div><span style="color: red;">「<%= @meeting_confirm.time.to_s(:full_time) if @meeting_times.present? %>」</span></div>
+    </div>
+  <% elsif @meeting_times_status == "meeting_decision" %>
 
     <div class="meeting-user">
       <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px; background-color: #ffffff;">
@@ -140,8 +144,11 @@
         <% end %>  <!-- if meeting.desired == true -->
       <% end %>  <!-- @meeting_children.each do |meeting| -->
     </div>
-  <% end %>  <!-- unless @meeting_children.present? -->
+  <% else %>
+    <h1 id="meeting-top-title">現在面談予定はございません。</h1>
+  <% end %>  <!-- @meeting_times_status -->
 </div>
+
 
 <style>
   body {

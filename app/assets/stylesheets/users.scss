@@ -34,7 +34,7 @@
 }
 /*表示式*/
 
-.document_user_pdf_download_p{ 
+.document_user_pdf_download_p{
   color:blue;
 }
 .document_user_answer_phone_button{display: none;}
@@ -46,6 +46,38 @@
    color: floralwhite;
    padding: 5px 10px 5px 10px;
    margin-bottom: 1%;
+}
+
+/* 先生からのお便りページ */
+.pm-content {
+  text-align: left;
+  border-bottom: dotted 2px #223a70;
+  background: #eaedf7;
+  padding-bottom: 1%;
+}
+
+.pm-reply {
+  text-align: left;
+  background: #fddea5;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+/* 先生からのお便りページ背景 */
+.tm-back{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #e4fcff;/*背景色*/
+    border-top: solid 6px #1dc1d6;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
+}
+
+.pm-back{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #f1bf99;/*背景色*/
+    border-top: solid 6px #df7163;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
 }
 
 /* ------   スマートフォン -------   */
@@ -91,5 +123,9 @@
   }
   .document_user_answer_submit{
     margin-top: -5%;
+  }
+  /* 先生からのお便り */
+  .message-content {
+    width: 10%;
   }
 }

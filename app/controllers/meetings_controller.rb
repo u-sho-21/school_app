@@ -165,6 +165,10 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
+    if @meeting_times_status == "meeting_confirm"
+      @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
+    end
   end
 
   def select_date

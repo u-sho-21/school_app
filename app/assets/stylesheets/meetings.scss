@@ -27,6 +27,13 @@
   font-size: 14px;
 }
 
+.meeting-confirm-top {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'M PLUS Rounded 1c';
+}
+
 /* content整え */
 
 #content-meeting {
@@ -166,6 +173,13 @@
     border-style: solid;
     border-color: #dbebc4 #fff #dbebc4;
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.meeting-new-user {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #c1d8ac;
+    border: dashed 2px #5b8bd0;/*点線*/
 }
 
 
@@ -431,5 +445,8 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   }
   .schedule-btn {
     font-size: 14px;
+  }
+  .meeting-confirm-top {
+    font-size: 19px;
   }
 }
