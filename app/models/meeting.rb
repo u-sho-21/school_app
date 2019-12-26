@@ -3,4 +3,5 @@ class Meeting < ApplicationRecord
   belongs_to :child
 
   validates :date, presence: true
+
 end
