@@ -165,6 +165,10 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
+    if @meeting_times_status == "meeting_confirm"
+      @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
+    end
   end
 
   def select_date
@@ -235,8 +239,11 @@ class MeetingsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
     @meetings_desired = @teacher.meetings.where(desired: true)
-    @meeting_times_all = @teacher.meeting_times.all
+    @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
+    @children = @teacher.children.all
+    @meeting_finish_count = 0
+    @meeting_times.each{|meeting_time| @meeting_finish_count += 1 unless meeting_time.name.blank?}
     @children_name = []
     @teacher.children.each do |child|
       @children_name << child.full_name

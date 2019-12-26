@@ -4,6 +4,11 @@
     面談スケジュール調整
   </div>
 
+  <div class="meeting-count">
+    <p><%= "#{@children.count}" %>人中<span style="color: blue;"><%= "#{@meeting_finish_count}" %>人</span>の日時が登録済み</p>
+    <p>あと<span style="color: red;"><%= "#{@children.count - @meeting_finish_count}" %>人</span>で保護者に日時確定メッセージを送信できます。</p>
+  </div>
+
   <div id=content class="meeting-index">
     <%= form_with(url: teacher_schedule_update_path(@teacher), method: :patch, local:true) do |f| %>
       <div class="scroll-table">
@@ -25,12 +30,17 @@
                 <td rowspan="2" class="bg-warning" id="meeting-index">
                   <% @meetings_desired.each do |meeting| %>
                     <% if meeting.date == date %>
-                      <%= Child.find(meeting.child_id).full_name %><br>
+                      <div id="<%= meeting.id %>"><%= Child.find(meeting.child_id).full_name %></div>
+                    <% end %>
+                    <% if @meeting_times.any? {|meeting_time| meeting_time.name == Child.find(meeting.child_id).full_name} %>
+                      <script>
+                        $("#<%= meeting.id %>").addClass("desired-user");
+                      </script>
                     <% end %>
                   <% end %>
                 </td>
                 <!-- 面談時間 -->
-                <% @meeting_times_all.order(:time).each do |meeting_time| %>
+                <% @meeting_times.order(:time).each do |meeting_time| %>
                     <% if meeting_time.time.to_date == date %>
                       <td class="bg-info" style="min-width: 100px"><%= meeting_time.time.to_s(:time) %></td>
                     <% end %>
@@ -38,7 +48,7 @@
               </tr>
               <tr>
                 <!-- 面談者名 -->
-                <% @meeting_times_all.each do |meeting_time| %>
+                <% @meeting_times.each do |meeting_time| %>
                   <% if meeting_time.time.to_date == date %>
                     <%= fields_for "meeting_times[]", meeting_time do |af| %>
                       <% unless meeting_time.name.present? %>
@@ -63,15 +73,21 @@
           </tbody>
         </table>
       </div>
+      <div class="meeting-description">
+        <p><i class="fas fa-exclamation-triangle"></i>選択肢には保護者が面談可能な日時の部分にまだ日時が決まっていない保護者の名前が表示されます。</p>
+        <p><i class="fas fa-exclamation-triangle"></i>保護者の名前をクリックすることでその部分をキャンセルでき、選択肢にもキャンセルした保護者の名前が表示されるようになります。</p>
+      </div>
       <div id="submit-center">
         <%= f.submit "更新", class: "btn btn-success submit-edit" %>
       </div>
     <% end %>
-    <div id="submit-center">
-      <%= form_with(url: push_path, local:true) do |f| %>
-        <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
-      <% end %>
-    </div>
+    <%# if @children.count == @meeting_finish_count %> <!-- 全員決定時のみ表示 -->
+      <div id="submit-center">
+        <%= form_with(url: push_path, local:true) do |f| %>
+          <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
+        <% end %>
+      </div>
+    <%# end %>
   </div>
 </div>
 
