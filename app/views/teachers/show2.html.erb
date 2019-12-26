@@ -1,0 +1,44 @@
+<div id="meeting-top-title">
+  <i class="fas fa-user-circle"></i>
+  <%= @user.name + @user.name2%><br>
+  <%= link_to user_path(id: @user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete do %>
+    <span style="color: red;"><i class="fas fa-user-slash"></i></span>
+  <% end %>
+</div>
+
+<div class="user-show2">
+  <table class="table table-striped users-table bg-warning">
+    <thead class="text-center">
+      <tr>
+        <td id="users-thead"><i class="far fa-envelope"></i>メールアドレス</td>
+      </tr>
+      <tr>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <td id="users-thead"><i class="fas fa-phone-alt"></i>電話番号</td>
+      </tr>
+      <tr>
+        <td><%= @user.phone %></td>
+      </tr>
+      <tr>
+        <td id="users-thead"><i class="fas fa-user-graduate"></i>生徒名</td>
+      </tr>
+      <% @user.children.each do |child| %>
+        <tr>
+          <td><%= child.full_name %></td>
+        </tr>
+      <% end %>
+    </thead>
+  </table>
+</div>
+
+<div id="submit-center">
+  <%= link_to "一覧に戻る", teacher_teacher_index2_path(@teacher), class: "btn btn-default submit-single" %>
+</div>
+
+<style>
+  body {
+    background-color: #badcad;
+  }
+</style>

@@ -3,93 +3,42 @@
   保護者一覧
 </div>
 
-<script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-
-<table class="table table-striped users-table bg-warning" id="full_user">
-  <thead id="users-thead">
-    <tr>
-      <td><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
-      <td class="smart-cell"><i class="far fa-envelope"></i>メールアドレス</td>
-      <td class="smart-cell"><i class="fas fa-phone-alt"></i>電話番号</td>
-      <td><i class="fas fa-user-minus"></i>削除</td>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
+<div class="user-index2">
+  <table class="table table-striped users-table bg-warning">
+    <thead id="users-thead">
       <tr>
+        <td><i class="fas fa-users" style="color: #000000;"></i>ユーザー</td>
+        <td class="smart-cell"><i class="far fa-envelope"></i>メールアドレス</td>
+        <td class="smart-cell"><i class="fas fa-phone-alt"></i>電話番号</td>
+        <td class="smart-cell"><i class="fas fa-user-slash"></i>削除</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
         <% unless user.id == 1 %>  <!--教員管理用のユーザー取り除きました。-->
           <td>
-            <div id="<%= user.id %>" class="user-info">
-              <i class="fas fa-user-circle"></i><%= user.name + user.name2 %>
+            <div style="cursor: pointer;" class="user-smart">
+              <i class="fas fa-user-circle"></i>
+              <%= link_to "#{user.name + user.name2}", teacher_teacher_show2_path(@teacher, user) %>
             </div>
-
-
-            <script>
-              // メインコンテンツをヘッダーの高さ分だけずらす
-              var headerHeight = $('header').outerHeight();
-              $('#menu').css('margin-top', headerHeight + 'px');
-
-              // MENUボタンがクリックされたときの処理
-              $('#<%= user.id %>').on('click', function(){
-                if($(this).hasClass('active')) {
-                  $(this).removeClass('active');
-                  $('#menu').removeClass('open');
-                  $('.menu-background').removeClass('open');
-                } else {
-                  $(this).addClass('active');
-                  $('#menu-name').text('<%= user.name + user.name2 %>')
-                  $('#menu-email').text('<%= user.email %>')
-                  $('#menu-phone').text('<%= user.phone %>')
-                  $(this).addClass('moji');
-                  $('#menu').addClass('open');
-                  $('.menu-background').addClass('open');
-                }
-              });
-
-              // メニューの背景がクリックされたときの処理
-              $('.menu-background').on('click', function(){
-                if($(this).hasClass('open')) {
-                  $(this).removeClass('open');
-                  $('.user-info').removeClass('moji');
-                  $('#menu').removeClass('open');
-                }
-              });
-            </script>
-          </td>
           <td class="smart-cell"><%= user.email %></td>
           <td class="smart-cell"><%= user.phone %></td>
-          <td><%= link_to "削除", user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete, style: "color: red;" %></td>
+          <td class="smart-cell">
+            <%= link_to user_path(id: user.id, teacher_id: @teacher.id), data: {confirm: "本当に削除しますか？"}, method: :delete do %>
+              <span style="color: red;"><i class="fas fa-user-slash"></i></span>
+            <% end %>
+          </td>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-
-</table>
-
- <div id="menu">
-  <ul>
-    <li id="menu-title"><i class="fas fa-user-circle"></i>ユーザー名</li>
-    <li id="menu-name"></li>
-    <li id="menu-title"><i class="far fa-envelope"></i>メールアドレス</li>
-    <li id="menu-email"></li>
-    <li id="menu-title"><i class="fas fa-phone-alt"></i>電話番号</li>
-    <li id="menu-phone"></li>
-    <li id="menu-title"><i class="fas fa-user-graduate"></i>生徒名</li>
-    <%  @users.each do |user| %>
-      <% user.children.each do |child| %>
-        <li class="child-<%= child.id %>"></li>
-        <script>
-          $('#<%= user.id %>').on('click', function(){
-            $('.child-<%= child.id %>').text('<%= child.full_name %>');
-          });
-          $('.menu-background').on('click', function(){
-            $('.child-<%= child.id %>').text('');
-          });
-        </script>
+        </tr>
       <% end %>
-    <% end %>
-  </ul>
+    </tbody>
+  </table>
 </div>
 
-<div class="menu-background"></div>
+<style>
+  body {
+    background-color: #badcad;
+  }
+</style>

@@ -42,7 +42,7 @@ class LinebotController < ApplicationController
             "contents": [
               {
                 "type": "text",
-                "text": "面談のお知らせ",
+                "text": "面談日確定のお知らせ",
                 "size": "xl",
                 "weight": "bold"
               },
@@ -132,7 +132,7 @@ class LinebotController < ApplicationController
             "contents": [
               {
                 "type": "text",
-                "text": "面談日時確定のお知らせ",
+                "text": "面談のお知らせ",
                 "size": "xl",
                 "weight": "bold"
               },
