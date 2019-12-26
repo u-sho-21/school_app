@@ -1,47 +1,74 @@
-<h1 id="meeting-top-title"><%= @user.name + @user.name2 %>さんの管理ページ</h1>
+<h2 class="user_show_title">
+  <div class="user_title-border"><%= @user.name + @user.name2 %>さんの個別ページ</div>
+</h2>
 <link rel="stylesheet" href="/assets/stylesheets/css/font-awesome.min.css">
 
-<div id="user-top">
-  <div id="one">
-    <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), class: "" do %>
-      <i class="far fa-calendar-check"></i>
-      <div>面談ページへ</div>
-    <% end %>
+<div class="container">
+ <div class="row" style="background:none;">
+  <div class="col-md-8 col-md-offset-2 user_icon_area">
+  <label class="user_area_label">メニュー</label>
+   <div class="row" style="background:none;">
+     
+     <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="far fa-calendar-check"></i></span>
+         <div class="user_icon_title">面談ページへ</div>
+       <% end %>
+     </div>
+
+      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to  user_documets_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-file-alt"></i></span>
+         <div class="user_icon_title">提出ページへ</div>
+       <% end %>
+     </div>
+
+     <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to  edit_user_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-user"></i></span>
+         <div class="user_icon_title">保護者情報編集</div>
+       <% end %>
+     </div>
+     
+      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to user_users_index2_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-user-graduate"></i></span>
+         <div class="user_icon_title">生徒さん登録/編集</div>
+       <% end %>
+     </div>
+
+
+
+   </div><br><!-- row1 -->
+
+  <div class="row" style="background:none;">
+
+     <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to user_p_message_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-paper-plane"></i></span>
+         <div class="user_icon_title">先生へ連絡する</div>
+       <% end %>
+     </div>
+
+      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+       <%= link_to  user_users_messages_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-envelope-open-text"></i></span>
+         <div class="user_icon_title">先生からのお便り</div>
+       <% end %>
+     </div>
+
+   </div><!-- row2 -->
+  <!-- /main col -->
   </div>
-  <div id="two">
-    <%= link_to  user_documets_path(@user), class: "" do %>
-      <i class="fas fa-file-alt"></i>
-      <div>提出ページへ</div>
-    <% end %>
-  </div>
-  <div id="three">
-    <%= link_to  edit_user_path(@user), class: "" do %>
-      <i class="fas fa-user"></i>
-      <div>保護者情報編集</div>
-    <% end %>
-  </div>
-  <div id="four">
-    <%= link_to  user_users_index2_path(@user), class: "" do %>
-       <i class="fas fa-user-graduate"></i>
-       <div>生徒さん登録/編集</div>
-    <% end %>
-  </div>
-  <div id="five">
-    <%= link_to user_p_message_path(@user), class: "" do  %>
-      <i class="fas fa-paper-plane"></i>
-      <div>先生へ連絡する</div>
-    <% end %>
-  </div>
-  <div id="six">
-    <%= link_to  user_users_messages_path(@user), class: "" do %>
-      <i class="fas fa-envelope-open-text"></i>
-      <div>先生からのお便り</div>
-    <% end %>
-  </div>
+ <!-- /main row -->
+ </div>
+<!-- /container -->
+</div>
 
 <style>
   body {
-    background-image: url("/image01.jpg");
+    background-image: url("/pta3.jpg");
+    background-size:cover
   }
 
 </style>
