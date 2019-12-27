@@ -86,7 +86,7 @@ class LinebotController < ApplicationController
                 "action": {
                   "type": "uri",
                   "label": "サイトへ",
-                  "uri": "https://school-app-pta.herokuapp.com"
+                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
                 }
               }
             ]
