@@ -108,11 +108,12 @@
 }
 /*保護者提出済みページタイトル*/
 .document_user_submit_title{
-   border-radius: 6px;
-   background-color:#c0c0c0;
-   color: #fff;
+   border-left: 8px solid #FF4F50;
+   background-color:#7B68EE;
+   color: #FFF;
    font-size: 20px;
    padding: 16px;
+   text-align: left;
 }
 #document_user_reply_show{
    
@@ -123,11 +124,12 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febf01', endColorstr='#febf01',GradientType=0 ); 
     color:#0000CD ;
     font-size: 20px;
-    border-radius: 6px;
-    border-left:20px solid red;
+    border-radius: 4px;
+    border-left:10px solid red;
     padding: 22px;
     margin: 5% 0;
-    margin-top:0;
+    margin-top:5%;
+    margin-bottom: -1%;
 
 }
 #document_user_reply_table{
@@ -242,6 +244,12 @@
   }
   .document_user_select td{
       padding:20px;
+  }
+  #document_user_reply_show{
+      margin-bottom: -5%;
+  }
+  #document_user_reply_show{
+      margin-bottom: 1%;
   }
 
 }

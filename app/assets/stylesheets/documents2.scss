@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 /*表示式教員*/
 #document_hyouji_title{  /*タイトル*/
     color: #000080;
@@ -130,7 +131,27 @@
 .document_teacher_index_table_phone{display: none;}
 .document_index_back_btn2{width: 25%;}
 .document_index_back_btn2_phone{display: none;}
-  
+.document_user_response_back_btn{
+  width: 20%;
+  margin-left: 8%;
+  margin-bottom: 1%;
+}
+.document_user_response_back_btn_phone{display: none;}
+/*-----教員保護者提出確認ページ--------*/
+ .document_user_response_h1{
+  font-family: 'M PLUS Rounded 1c';
+    font-weight: bold;
+ }
+ .document_user_response_h2{
+    color: blue;
+    font-family: 'M PLUS Rounded 1c';
+    font-weight: bold;
+    font-size: 24px;
+ }
+ .document_span_pc_response{font-size: 24px;}
+ .document_span_phone_response{display: none;}
+ 
+/* --- smart-phone ----*/
 @media screen and (max-width:767px){
     #document_form_pc_button{display:none;}
     #document_hyouji_title,#document_hyouji_title2,#document_hyouji_title3{
@@ -173,6 +194,7 @@
     .teacher_create_form_title{
       font-size: 22px;
   }
+  
   /*-----------教員提出一覧ページ-------------------------------------------------*/
 .document_index_title_h1{
   color: #000099;
@@ -195,8 +217,23 @@
   .document_index_submit_btn3{margin-right: 40%;} 
   #document_explain_span{width: 200%;margin-left: -50%;} 
   .document_index_back_btn2_phone{display: block;margin-top: 10%;}
+  .document_user_response_back_btn{display: none;}
+  .document_user_response_back_btn_phone{width: 100;display: block;}
+  /*-----教員保護者提出確認ページ--------*/
+ .document_user_response_h1{
+    font-family: 'M PLUS Rounded 1c';
+    font-weight: bold;
+    font-size: 30px;
+ }
+ .document_user_response_h2{
+     font-size: 20px;
+     margin-top: -5%;
+  }
+  .document_span_pc_response{display: none;}
+  .document_span_phone_response{display: block;margin-top: -8%;font-size: 18px;margin-bottom: 6%;}
 }  
 @media screen and (min-width:768px){
     #document_form_phone_button{display:none;}
+    
     
 }

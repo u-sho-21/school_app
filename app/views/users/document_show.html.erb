@@ -1,14 +1,16 @@
 <div class="text-center text-success">
-  <h1 class="title_font"><%= "#{@user.name}さんページ" %></h1>
+  <h1 class="title_font document_user_all_h1" style="color:#333300"><i class="fas fa-user-alt"></i>&emsp;<%= "#{@user.name}さんページ" %></h1>
 </div>
-<div class="bg-primary" style="border-top:1px dotted"></div>
-<div class="row">
+<div class="bg-primary" style="border-top:1px dotted"></div><br>
+<div class="row user_document_all_row">
   <div class="col-md-10 col-md-offset-1">
-  　<h2 class="title_font" style="font-size:20px">提出状況</h2>
-   <%= link_to "メニューへ",user_path(@user),class:"btn btn-info",style:"margin-top:-2%" %>
-   <span class="title_font">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
+  　<h2 class="title_font document_jyoukyou_h2">提出状況</h2>
+   <%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_pc_btn" %>
+   <span class="title_font" style="color:#8A2BE2;font-weight:bold;">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
    
    <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
+   <!-- pc用テーブル -->
+
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
@@ -51,10 +53,70 @@
         <% end %>
       </tbody>
     </table>
+   <!-- /pc用テーブル -->
+
+   <!-- phone用テーブル -->
+
+     <table class="table table-bordered" id="document_user_table_phone">
+      <thead>
+        <tr>
+          <th style="width:90%;">タイトル</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each do |document| %>
+          <% if document.public %>
+          <tr>
+            <td>
+              <br>
+            　<!-- スマホタイトル群 -->
+             
+  　　　　　　　　<% if document.answers.count == 0 %>
+                   <div class="document_user_all_phone_table_td_div"><%= document.title %></div>
+                <% else %> 
+                   <div class="document_user_all_phone_table_td_div"><span style="color:green;"><i class="fas fa-check-circle"></i>
+                  <%= link_to document.title,user_file_show_path(@user,document) %></span></div>
+                <% end %>
+          
+              <!-- /スマホタイトル群 -->
+
+             <% if document.deadline > Date.today %>
+              <span id="document_users_span"><%= "期限#{document.deadline}"  %></span>
+             <% else %>
+               <span id="document_users_span">終了</span>
+             <% end %>
+              <% unless document.answers.count == 0 %>
+                 <div style="color:blue;margin-top:1%;"><i class="fas fa-share-square"></i>提出済み</div>
+              <% end %>
+            </td>
+            
+            <td>
+                  <% if document.answers.count == 0 && document.deadline > Date.today  %>
+                    <!-- ユーザー1の時は表示しない -->
+                    <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
+                  <% elsif document.answers.count > 0 && document.deadline > Date.today  %> 
+                    <%= link_to "やり直す",user_document_view_path(@user,document),class:"btn btn-warning" unless @user.id == 1%> 
+               <% end %>
+            </td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+   <!-- /phone用テーブル -->
+
+
     <% else %>
       <div class="bg-info text-center" style="padding:2%;">まだ提出物ありません。</div>
     <% end %>
   </div>
 </div>
 <hr>
-
+<%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_phone_btn" %>
+<style>
+body{
+  background:#cba777;
+}
+</style>

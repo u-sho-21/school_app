@@ -1,17 +1,15 @@
 <div id="document_answer_reply" class="modal fade" role="dialog" tabindex="-1" areahidden="true" style="width:80%;margin-left:10%;"></div>
 
 <div class="text-center">
-  <h1 class=" title_font" style="letter-spacing:8px;">保護者提出一覧</h1>
-  <h2 class=" title_font" style="font-size:22px">提出物タイトル:<span style="color:red"><%= @document.title %></span></h2>
+  <h1 class="title_font document_user_response_h1">保護者提出一覧</h1>
+  <h2 class="title_font document_user_response_h2">提出物タイトル<span style="color:red" class="document_span_pc_response"><%= @document.title %></span></h2>
+  <span style="color:red" class="document_span_phone_response">[<%= @document.title %>]</span></h2>
 </div>
-<%= link_to "戻る",documents_path,class:"btn btn-default",style:"width:20%;margin-bottom:1px" %>
-<h1 id="document_user_reply_show" class="title_font">各保護者の提出内容</h1>
-
-
+<%= link_to "戻る",documents_path,class:"btn btn-default document_user_response_back_btn" %>
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-
+    <h1 id="document_user_reply_show" class="title_font">各保護者の提出内容</h1>
      <!--ページネーション-->
     <%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
     <table class="table table-responsive" id="document_user_reply_table">
@@ -33,7 +31,7 @@
                     <strong><%= user.userAnswers(@document).reply.split(':')[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
                 
                   <% else %>
-                    <strong style="color:red;font-size:30px;">まだ回答されてません。</strong>
+                    <strong style="color:red;font-size:20px;">まだ回答されてません。</strong>
                   <% end %>  
                  
                 </div>
@@ -56,6 +54,7 @@
     </table>
   </div>
 </div>
+<%= link_to "戻る",documents_path,class:"btn btn-default document_user_response_back_btn_phone" %>
 <script>
  
   function func(num) {
@@ -70,3 +69,6 @@
     }
   }
 </script>
+<style>
+ body{background:#f0f0f0;}
+</style>
