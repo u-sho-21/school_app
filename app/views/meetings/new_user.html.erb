@@ -13,7 +13,7 @@
     <h1 id="meeting-top-title" class="bg-info">面談日時が確定しました。</h1>
     <div class="meeting-confirm-top meeting-new-user">
       <div><%= @child.full_name %>さんの面談日時は</div>
-      <div><span style="color: red;">「<%= @meeting_confirm.time.to_s(:full_time) if @meeting_times.present? %>」</span></div>
+      <div><span style="color: red;">「<%= @meeting_confirm.time.to_s(:full_time) if @meeting_confirm.present? %>」</span></div>
     </div>
   <% elsif @meeting_times_status == "meeting_decision" %>
 

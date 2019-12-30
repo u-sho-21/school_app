@@ -6,7 +6,7 @@
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
-      
+
       <%= f.label :content, "内容", class: "label-signup" %>
       <br><span style="color: red">100文字以内で入力してください。</span>
       <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
@@ -33,7 +33,9 @@
   });
 
   $(function(){
-    jQuery("#form_1").validationEngine();
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
   });
 
 </script>

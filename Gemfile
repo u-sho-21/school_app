@@ -13,14 +13,15 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks',   '~> 5'
 gem 'jbuilder',     '~> 2.5'
-gem 'faker-japanese'              # ダーミーユーザー作成
-gem 'pry-rails'                   # コンソール表示変更&「binding.pry」でデバック
-gem 'jquery-ui-rails'             # DatePickerで使用
-gem 'line-bot-api'                # line-botで使用
-gem 'dotenv-rails'                # 環境変数で使用？
-gem 'select2-rails'               # select2で使用
-gem 'font-awesome-sass'           # AWESOME
-gem 'jQuery-Validation-Engine-rails' # jQueryでバリデーション
+gem 'faker-japanese'                  # ダーミーユーザー作成
+gem 'pry-rails'                       # コンソール表示変更&「binding.pry」でデバック
+gem 'jquery-ui-rails'                 # DatePickerで使用
+gem 'line-bot-api'                    # line-botで使用
+gem 'dotenv-rails'                    # 環境変数で使用？
+gem 'select2-rails'                   # select2で使用
+gem 'font-awesome-sass'               # AWESOME
+gem 'jQuery-Validation-Engine-rails'  # jQueryでバリデーション
+gem 'rails-i18n'                      # エラーメッセージ日本語化
 
 group :development, :test do
   gem 'sqlite3'

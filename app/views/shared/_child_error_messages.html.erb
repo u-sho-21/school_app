@@ -1,7 +1,7 @@
 <% if @child.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
-      The form contains <%= pluralize(@child.errors.count, "error") %>.
+      入力エラーが <%= pluralize(@child.errors.count, "件あります。") %>
     </div>
     <ul>
     <% @child.errors.full_messages.each do |msg| %>
