@@ -1,23 +1,33 @@
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(model: @user, html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
   <%= render 'shared/error_messages' %>
 
   <%= f.label :name, "姓", class: "label-signup" %>
-  <%= f.text_field :name, class: "form-control" %>
+  <%= f.text_field :name, class: "form-control validate[required,maxSize[10]]" %>
 
   <%= f.label :name2, "名", class: "label-signup" %>
-  <%= f.text_field :name2, class: "form-control" %>
+  <%= f.text_field :name2, class: "form-control validate[required,maxSize[10]]" %>
 
   <%= f.label :email, "メールアドレス", class: "label-signup" %>
-  <%= f.email_field :email, class: "form-control" %>
+  <%= f.email_field :email, class: "form-control validate[required,custom[email]]" %>
 
   <%= f.label :phone, "電話番号", class: "label-signup" %>
-  <%= f.text_field :phone, class: "form-control" %>
+  <%= f.text_field :phone, class: "form-control validate[required, custom[phone]]" %>
 
   <%= f.label :password, "パスワード", class: "label-signup" %>
-  <%= f.password_field :password, class: "form-control" %>
+  <%= f.password_field :password, class: "form-control fa", placeholder:"\uf084 ６文字以上で入力してください。" %>
 
   <%= f.label :password_confirmation, "パスワード確認", class: "label-signup" %>
-  <%= f.password_field :password_confirmation, class: "form-control" %>
+  <%= f.password_field :password_confirmation, class: "form-control fa", placeholder:"\uf00c パスワード確認" %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-signup" %>
 <% end %>
+
+<script>
+
+  $(function(){
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
+  });
+
+</script>
