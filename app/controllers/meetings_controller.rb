@@ -171,11 +171,11 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def select_date
-    @teacher = Teacher.find(params[:teacher_id])
-    @select_date = @teacher.meetings.find(params[:status])
-    @select_dates = date_meeting_time(@teacher, @select_date.date)
-  end
+  # def select_date
+  #   @teacher = Teacher.find(params[:teacher_id])
+  #   @select_date = @teacher.meetings.find(params[:status])
+  #   @select_dates = date_meeting_time(@teacher, @select_date.date)
+  # end
 
   # 希望日登録モーダル
   def desired

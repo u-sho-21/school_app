@@ -101,6 +101,16 @@
     beforeShow: function(input, inst){
       inst.dpDiv.css({marginTop: 0 + 'px', marginLeft: -40 + 'px'});
     }
+    minDate: '0',  // 過去の日付を選択不可
+    hideIfNoPrevNext: true,  // 前月矢印削除
+    onSelect: function(selected_date) {   // 日付が選択された時、日付をテキストフィールドへセット
+      var nowText = $("#kouho").val();
+      if (nowText === "") {
+        $("#kouho").val(selected_date);
+      }else {
+        $("#kouho").val(nowText + "\n" + selected_date);
+      }
+    }
   });
 </script>
 
