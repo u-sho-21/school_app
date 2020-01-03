@@ -162,7 +162,7 @@ class MeetingsController < ApplicationController
     @child = Child.find(params[:child_id])
     @teacher = Teacher.find(@child.teacher_id)
     @meeting_children = @teacher.meetings.where(child_id: @child.id)
-    @meetings = @teacher.meetings.all
+    @meetings = @teacher.meetings.all.order(:date)
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
@@ -171,11 +171,11 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def select_date
-    @teacher = Teacher.find(params[:teacher_id])
-    @select_date = @teacher.meetings.find(params[:status])
-    @select_dates = date_meeting_time(@teacher, @select_date.date)
-  end
+  # def select_date
+  #   @teacher = Teacher.find(params[:teacher_id])
+  #   @select_date = @teacher.meetings.find(params[:status])
+  #   @select_dates = date_meeting_time(@teacher, @select_date.date)
+  # end
 
   # 希望日登録モーダル
   def desired
