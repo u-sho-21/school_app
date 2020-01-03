@@ -8,15 +8,23 @@
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-md-5"><%= image_tag("/explain/modal/img7.png",style:"width:100%;") %></div>
+        <div class="col-md-5"><%= image_tag("/explain/modal/select01.png",style:"width:100%;") %></div>
         <div class="col-md-1"><br>
-          <h1 syle="font-size:20px:">&emsp;➔</h1>
+          <h1 syle="font-size:20px:" class="modal_h1_pc"><i class="fas fa-arrow-right"></i></h1>
+          <span syle="font-size:24px:" class="modal_h1_phone"><i class="fas fa-arrow-down"></i></span>
           <label class="text-primary">書類のタイトルと本体の作成です。</label>
         </div>
-        <div class="col-md-5"><%= image_tag("/explain/modal/img01.png",style:"width:100%;") %></div>
+        <div class="col-md-5"><%= image_tag("/explain/modal/select02.png",style:"width:100%;margin-top:1%;height:250px;") %></div>
       </div>
     </div>
-    <div class="text-danger text-center" style="font-size:28px;"><label>赤い枠の部分を作成します。</label></div>
+    <div class="text-danger text-center" style="font-size:24px;"><label>青い矢印の部分を作成します。</label></div>
   </div>
   </div>
 </div>
+<style>
+.modal_h1_phone{display:none;}
+@media screen and (max-width: 815px){
+  .modal_h1_pc{display: none;}
+  .modal_h1_phone{display:block;margin-left:45%;}
+}
+</style>

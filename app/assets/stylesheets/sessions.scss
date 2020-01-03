@@ -21,3 +21,26 @@
     font-weight: normal;
   }
 }
+.label-login{
+  margin-top: 5%;
+  background-color: #d0d0d0;
+  padding: 2px 0;
+  margin-bottom: 2%;
+  color: brown;
+}
+.login_field{
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #c0c0c0;
+  font-size: 24px;
+  margin-top: 2%;
+  outline: 0;
+}
+.person_icon i {
+  font-size: 60px;
+  border-radius: 50%;
+  background-color:pink;
+  padding: 24px;
+  margin-bottom: -1%;
+  margin-top: -1%;
+}

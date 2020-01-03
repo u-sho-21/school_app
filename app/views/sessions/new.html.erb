@@ -1,14 +1,15 @@
-<div id="meeting-top-title">ログイン</div>
+<div id="meeting-top-title" style="color:#0000bb"><span style="color:brown"><i class="fas fa-lock"></i></span>&emsp;ログイン</div>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div class="row" style="background:none;">
+  <div class="col-md-6 col-md-offset-3 cols">
     <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+      <div class="person_icon text-center"><div class="deep"><i class="fas fa-user"></i></div></div>
 
       <%= f.label :email, "メールアドレス", class: "label-login" %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email,class:"login_field fa",placeholder:"\uf0e0" %>
 
       <%= f.label :password, "パスワード", class: "label-login" %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.password_field :password, class: 'login_field fa',placeholder:"\uf084" %>
 
       <%= f.label :remember_me, class: "checkbox inline checkbox-login", for: "remember-me" do %>
         <%= f.check_box :remember_me, id: "remember-me" %>
@@ -16,12 +17,40 @@
       <% end %>
 
       <div id="submit-center">
-        <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-success submit-width" %>
-        <%= f.submit "ログイン", class: "btn btn-lg btn-primary submit-width" %>
+        <%= link_to  signup_path, class: "btn btn-lg btn-success submit-width" do %>
+          <i class="fas fa-user-plus"></i>
+          新規登録
+        <% end %>
+        <%= button_tag :type => "submit", :class =>"btn btn-lg btn-primary submit-width" do %>
+          <i class="fas fa-sign-in-alt"></i>ログイン
+        <% end %>
+         
       </div>
     <% end %>
     <div id="teacher-login">
-      <%= link_to "教員はこちら", login_teacher_path %>
+      <%= link_to  login_teacher_path do %>
+       <i class="fas fa-user-tie"></i>
+       教員はこちら
+      <% end %>
     </div>
   </div>
 </div>
+<style>
+ body{
+   background: #FAF0E6
+ }
+ .cols{
+   padding: 3%;
+   padding-bottom:1%;
+   background:#fff;
+   border-radius:6px;
+   box-shadow:-1px 5px 6px 5px #d06da3
+ }
+ #meeting-top-title{font-size:38px;margin:4% 2% 2% 0 ;}
+ .form-control{
+   
+   border-bottom: 1px solid #d0d0d0;
+ }
+ #submit-center{margin-top:4%;}
+ #teacher-login{font-size:26px;text-decoration:underline;}
+</style>
