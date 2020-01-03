@@ -17,133 +17,138 @@
     </div>
   <% elsif @meeting_times_status == "meeting_decision" %>
 
-    <div class="meeting-user">
-      <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px; background-color: #ffffff;">
-        <thead>
-          <tr style="background: #FF9933; color: white;">
-            <td>日付</td>
-            <td colspan="<%= @times_count.count %>">面談時間</td>
-          </tr>
-        </thead>
-
-        <tbody style="background: #ffffff;">
-          <% dates.sort.each do |date| %>
-            <tr>
-              <td rowspan="2"> <!-- 日付 -->
-                <%= date.to_s(:date) %>
-              </td>
-              <td colspan="<%= @times_count.count %>">
-                <span style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></span>
-                <span style="color: red;">希望者数: <%= desired_count(@teacher, date) %></span>
-              </td>
+    <% if Date.today > @meetings.first.date - 5 %>
+      <h1 id="meeting-top-title" class="bg-info">スケジュール調整中のため、編集できません。</h1>
+    <% else %>
+      <div class="meeting-user">
+        <p style="color: red;"><i class="fas fa-exclamation-circle" style="color: red;"></i>「<%= (@meetings.first.date - 5).to_s(:date) %>」まで編集可能</p>
+        <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px; background-color: #ffffff;">
+          <thead>
+            <tr style="background: #FF9933; color: white;">
+              <td>日付</td>
+              <td colspan="<%= @times_count.count %>">面談時間</td>
             </tr>
+          </thead>
 
-            <tr>
-              <% @meeting_times.order(:time).each do |meeting_time| %>
-                <% if meeting_time.time.to_date == date %>
-                  <td><%= meeting_time.time.to_s(:time) %></td> <!-- 面談時間 -->
-                <% end %>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div id="submit-center">
-        <%= link_to "希望日登録", user_meetings_desired_path(@user), remote: true, class: "btn btn-success submit-width" %>
-      </div>
-      <div id="desired" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-    </div>
-
-    <div class="meeting-time" style="margin-top: 20px;">
-      <% @meeting_children.each do |meeting| %>
-        <% if meeting.desired == true %>
-          <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
-          <table class="table-bordered table-striped table-condensed meeting-table bg-warning" style="width: 100%; margin-top: 20px;">
-            <thead>
-              <tr style="background: #FF9933; color: white;">
-                <td>日付</td>
-                <td>不可時間</td>
-                <td>可・不可チェック</td>
+          <tbody style="background: #ffffff;">
+            <% dates.sort.each do |date| %>
+              <tr>
+                <td rowspan="2"> <!-- 日付 -->
+                  <%= date.to_s(:date) %>
+                </td>
+                <td colspan="<%= @times_count.count %>">
+                  <span style="color: blue;">予約件数: <%= yoyaku_count(@teacher, date) %></span>
+                  <span style="color: red;">希望者数: <%= desired_count(@teacher, date) %></span>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              <% dates.sort.each do |date| %>
-                <tr>
-                  <!-- 日付 -->
-                  <td><%= date %></td>
-                  <!-- 都合の悪い時間 -->
-                  <td>
-                    <% @meeting_children.each do |meeting| %>
-                      <% if meeting.date == date && meeting.desired == true || meeting.date == date && meeting.status == 2 %>
-                        <% not_time(meeting).each do |not_time| %>
-                          <%= not_time %>
+
+              <tr>
+                <% @meeting_times.order(:time).each do |meeting_time| %>
+                  <% if meeting_time.time.to_date == date %>
+                    <td><%= meeting_time.time.to_s(:time) %></td> <!-- 面談時間 -->
+                  <% end %>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div id="submit-center">
+          <%= link_to "希望日登録", user_meetings_desired_path(@user), remote: true, class: "btn btn-success submit-width" %>
+        </div>
+        <div id="desired" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+      </>
+
+      <div class="meeting-time" style="margin-top: 20px;">
+        <% @meeting_children.each do |meeting| %>
+          <% if meeting.desired == true %>
+            <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
+            <table class="table-bordered table-striped table-condensed meeting-table bg-warning" style="width: 100%; margin-top: 20px;">
+              <thead>
+                <tr style="background: #FF9933; color: white;">
+                  <td>日付</td>
+                  <td>不可時間</td>
+                  <td>可・不可チェック</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% dates.sort.each do |date| %>
+                  <tr>
+                    <!-- 日付 -->
+                    <td><%= date %></td>
+                    <!-- 都合の悪い時間 -->
+                    <td>
+                      <% @meeting_children.each do |meeting| %>
+                        <% if meeting.date == date && meeting.desired == true || meeting.date == date && meeting.status == 2 %>
+                          <% not_time(meeting).each do |not_time| %>
+                            <%= not_time %>
+                          <% end %>
                         <% end %>
                       <% end %>
-                    <% end %>
-                  </td>
-                  <!-- 可・不可チェック -->
-                  <td>
-                    <% @meeting_children.each do |meeting| %>
+                    </td>
+                    <!-- 可・不可チェック -->
+                    <td>
+                      <% @meeting_children.each do |meeting| %>
 
-                        <% if meeting.date == date && meeting.desired == true %>
-                          <div class="btn-group" role="group" style="float: left; margin-bottom: 2%;">
-                            <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control not-time-select", name: "nottime[#{meeting.id}][]" } %>
-                            <script>
-                              $('.<%= meeting.id %>').select2({
-                                maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
-                                placeholder: '都合の悪い時間を選択して下さい',
-                                language: {
-                                  maximumSelected: (args) => 'すべての時間を選択してしまいます。'
-                                },
-                                allowClear: true
-                              });
-                            </script>
-                          </div>
-                          <div>面談希望日</div>
-                        <% elsif  meeting.date == date && meeting.status == 2 %>
+                          <% if meeting.date == date && meeting.desired == true %>
+                            <div class="btn-group" role="group" style="float: left; margin-bottom: 2%;">
+                              <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control not-time-select", name: "nottime[#{meeting.id}][]" } %>
+                              <script>
+                                $('.<%= meeting.id %>').select2({
+                                  maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
+                                  placeholder: '都合の悪い時間を選択して下さい',
+                                  language: {
+                                    maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+                                  },
+                                  allowClear: true
+                                });
+                              </script>
+                            </div>
+                            <div>面談希望日</div>
+                          <% elsif  meeting.date == date && meeting.status == 2 %>
 
-                          <div class="btn-group" role="group" style="float: left; margin-bottom: 2%;">
-                            <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control not-time-select", name: "nottime[#{meeting.id}][]" } %>
-                            <script>
-                              $('.<%= meeting.id %>').select2({
-                                maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
-                                placeholder: '都合の悪い時間を選択して下さい',
-                                language: {
-                                  maximumSelected: (args) => 'すべての時間を選択してしまいます。'
-                                },
-                                allowClear: true
-                              });
-                            </script>
+                            <div class="btn-group" role="group" style="float: left; margin-bottom: 2%;">
+                              <%= f.select :nottime, date_meeting_time(@teacher, meeting.date.to_s(:date)), { include_hidden: false }, { multiple: true, class: "#{meeting.id} form-control not-time-select", name: "nottime[#{meeting.id}][]" } %>
+                              <script>
+                                $('.<%= meeting.id %>').select2({
+                                  maximumSelectionLength: <%= select2_limit(@teacher, meeting) %>,
+                                  placeholder: '都合の悪い時間を選択して下さい',
+                                  language: {
+                                    maximumSelected: (args) => 'すべての時間を選択してしまいます。'
+                                  },
+                                  allowClear: true
+                                });
+                              </script>
 
-                          </div>
-                          <div class="btn-group" role="group">
-                            <%= f.submit "可", disabled: true, style: "background: #005FFF; color: white; width: 60px", class: "btn btn-default" %>
+                            </div>
+                            <div class="btn-group" role="group">
+                              <%= f.submit "可", disabled: true, style: "background: #005FFF; color: white; width: 60px", class: "btn btn-default" %>
 
-                            <%= f.submit "不可", name: meeting.id, style: " background: #FFABCE; color: white; width: 60px", class: "btn btn-default" %>
-                          </div>
-                        <% elsif  meeting.date == date && meeting.status == 3 %>
-                          <div class="btn-group" role="group">
-                            <%= f.submit "可", name: meeting.id, style: "background: #A4C6FF; color: white; width: 60px;" ,class: "btn btn-default" %>
+                              <%= f.submit "不可", name: meeting.id, style: " background: #FFABCE; color: white; width: 60px", class: "btn btn-default" %>
+                            </div>
+                          <% elsif  meeting.date == date && meeting.status == 3 %>
+                            <div class="btn-group" role="group">
+                              <%= f.submit "可", name: meeting.id, style: "background: #A4C6FF; color: white; width: 60px;" ,class: "btn btn-default" %>
 
-                            <%= f.submit "不可", disabled: true, style: "background: #FF0461; color: white; width: 60px", class: "btn btn-default" %>
-                          </div>
+                              <%= f.submit "不可", disabled: true, style: "background: #FF0461; color: white; width: 60px", class: "btn btn-default" %>
+                            </div>
 
-                        <% end %>
+                          <% end %>
 
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          <div id="submit-center">
-            <%= f.submit "都合の悪い時間の更新", class: "btn btn-success submit-edit" %>
-            <%= link_to "戻る", user_path(@user), class: "btn btn-primary submit-edit", id: "line-btn" %>
-          </div>
-          <% end %>  <!-- form_with~ -->
-        <% end %>  <!-- if meeting.desired == true -->
-      <% end %>  <!-- @meeting_children.each do |meeting| -->
-    </div>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div id="submit-center">
+              <%= f.submit "都合の悪い時間の更新", class: "btn btn-success submit-edit" %>
+              <%= link_to "戻る", user_path(@user), class: "btn btn-primary submit-edit", id: "line-btn" %>
+            </div>
+            <% end %>  <!-- form_with~ -->
+          <% end %>  <!-- if meeting.desired == true -->
+        <% end %>  <!-- @meeting_children.each do |meeting| -->
+      </div>
+    <% end %>
   <% else %>
     <h1 id="meeting-top-title">現在面談予定はございません。</h1>
   <% end %>  <!-- @meeting_times_status -->

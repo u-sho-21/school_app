@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1"}, id: "form_2", local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
@@ -12,7 +12,7 @@
       <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
       <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
-      <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "js-searchable form-control" } %>
+      <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", id: "select_user" } %>
 
 
       <%= f.submit "送信", class: "btn btn-primary btn-block btn-signup" %>
@@ -35,6 +35,25 @@
   $(function(){
     jQuery("#form_1").validationEngine('attach', {
       promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
+  });
+
+
+  $(function() {
+
+    // ①submit()に関数をバインド
+    $('form').submit(function() {
+
+        // もしセレクトボックスが空欄だったら…
+        if($("#select_user").val() == null) {
+
+          // 警告を出す
+          alert('送信ユーザーを選択してください。');
+
+          // 処理を中断
+          return false;
+
+        }
     });
   });
 

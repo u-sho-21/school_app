@@ -15,7 +15,7 @@
     </thead>
 
     <tbody>
-      <% @users.each do |user| %>
+      <% @users.order(:id).each do |user| %>
         <tr>
         <% unless user.id == 1 %>  <!--教員管理用のユーザー取り除きました。-->
           <td>
