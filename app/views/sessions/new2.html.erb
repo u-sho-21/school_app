@@ -1,14 +1,15 @@
-<div id="meeting-top-title">ログイン</div>
+<div id="meeting-top-title" style="color:#FAEBD7"><span style="color:#0000CD"><i class="fas fa-lock"></i></span>&emsp;教員用ログイン</div>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div class="row" style="background:none;">
+  <div class="col-md-6 col-md-offset-3 cols">
     <%= form_with(scope: :session, url: teacher_login_path, local: true) do |f| %>
+       <div class="person_icon_teacher text-center"><div class="deep"><i class="fas fa-user-tie"></i></div></div>
 
-      <%= f.label :email, "メールアドレス", class: "label-login" %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.label :email, "メールアドレス", class: "label-login_teacher" %>
+      <%= f.email_field :email, class: 'login_field fa',placeholder:"\uf0e0" %>
 
-      <%= f.label :password, "パスワード", class: "label-login" %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.label :password, "パスワード", class: "label-login_teacher" %>
+      <%= f.password_field :password, class: 'login_field fa',placeholder:"\uf084" %>
 
       <%= f.label :remember_me, class: "checkbox inline checkbox-login", for: "remember-me" do %>
         <%= f.check_box :remember_me, id: "remember-me" %>
@@ -16,11 +17,35 @@
       <% end %>
 
       <div id="submit-center">
-        <%= f.submit "ログイン", class: "btn btn-lg btn-primary submit-width" %>
+       <%= button_tag :type => "submit", :class =>"btn btn-lg btn-primary submit-width", style:"background:#2C7CFF" do %>
+          <span style="color:pink"><i class="fas fa-sign-in-alt"></i></span>ログイン
+        <% end %>
       </div>
     <% end %>
     <div id="teacher-login">
-      <%= link_to "保護者はこちら", root_path %>
+      <%= link_to root_path do %>
+        <i class="fas fa-user"></i>
+        保護者はこちら
+      <% end %>
     </div>
   </div>
 </div>
+<style>
+ body{
+   background: #6495ED;
+ }
+ .cols{
+   padding: 3%;
+   padding-bottom:1%;
+   background:#fff;
+   border-radius:6px;
+   box-shadow:-1px 5px 6px 5px #005FFF
+ }
+ #meeting-top-title{font-size:38px;margin:4% 2% 2% 0 ;}
+ .form-control{
+   
+   border-bottom: 1px solid #d0d0d0;
+ }
+ #submit-center{margin-top:4%;}
+ #teacher-login{font-size:26px;text-decoration:underline;}
+</style>
