@@ -166,6 +166,7 @@ class MeetingsController < ApplicationController
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
+    @limit_date = @meetings.first.date - 5
     if @meeting_times_status == "meeting_confirm"
       @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
     end
@@ -237,7 +238,8 @@ class MeetingsController < ApplicationController
   # 面談スケジュール調整ページ
   def index
     @teacher = Teacher.find(params[:teacher_id])
-    @meetings = @teacher.meetings.all
+    @meetings = @teacher.meetings.all.order(:date)
+    @limit_date = @meetings.first.date - 5
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
@@ -254,6 +256,10 @@ class MeetingsController < ApplicationController
     #   flash[:info] = "未返信の方がいるため、スケジュール調整はまだできません。"
     #   redirect_to teacher_meeting_index2_url(@teacher)
     # end
+    if Date.today < @limit_date || Date.today == @limit_date
+      flash[:info] = "まだ保護者の編集期間中です。"
+      redirect_to teacher_meeting_index2_url(@teacher)
+    end
   end
 
   # schedule_updateアクションのCSRFトークン認証を無効
@@ -293,6 +299,10 @@ class MeetingsController < ApplicationController
     @children.each do |child|
       @desired_count += desired_true_count(@teacher, child.id)
     end
+    @teacher = Teacher.find(params[:teacher_id])
+    @meetings = @teacher.meetings.all.order(:date)
+    @limit_date = @meetings.first.date - 5
+    @limit_date_count = (@limit_date - Date.today).to_i
   end
 
   private
