@@ -134,6 +134,28 @@
     border-top: solid 6px #df7163;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);/*影*/
 }
+/*保護者提出一覧ページ*/
+
+
+.user_document_all_row{  /*row*/
+  background-color: #f0f0f0;
+  border: 1px solid #1dc1d6;
+  box-shadow: 2px 1px 2px 3px #c0c0c0;
+}
+.document_jyoukyou_h2{ /*提出状況h2*/
+  background-color: #9999CC;
+  border-left: 4px solid #A0522D;
+  color: #F8F8FF;
+  margin-left: 27%;
+  padding: 10px 0;
+  width: 40%;
+}
+.document_user_all_pc_btn{ /*戻るボタンpc*/
+  margin-top: -1%;
+}
+.document_user_all_phone_btn{ /*戻るボタンphone*/
+   display: none;
+}
 
 /* ------   スマートフォン -------   */
 @media screen and (max-width:767px){
@@ -203,5 +225,42 @@
   /* 先生からのお便り */
   .message-content {
     width: 10%;
+  }
+  /*保護者提出一覧ページ*/
+  .document_user_all_h1{ /*見出し*/
+    font-size: 28px;
+  }
+  .document_jyoukyou_h2{ /*提出状況h2*/
+    margin: 0;
+    margin-bottom: 3%;
+    width: 100%;
+  }
+  .document_user_all_pc_btn{ /*戻るボタンpc*/
+    display: none;
+  }
+  .document_user_all_phone_btn{
+    background-color: #c0c0c0;
+    display: block;
+    padding: 20px 0;
+    width: 100%;
+  }
+  .document_user_all_phone_table_td_div{
+    border-bottom: 1px solid #a0a0a0;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: -15%;
+    margin-bottom: 2%;
+    padding-bottom: 1%;
+  }
+
+}
+@media screen and (min-width:566px) and (max-width:767px){
+  .document_user_all_phone_table_td_div{
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0%;
+    margin-bottom: 10%;
+   
+    
   }
 }

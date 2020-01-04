@@ -7,16 +7,26 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="row">
-        <div class="col-md-5"><%= image_tag("/explain/modal/img10.png",style:"width:100%;") %></div>
+      <div class="row"  style="background:#fff;">
+        <div class="col-md-5"><%= image_tag("/explain/modal/input03.png",style:"width:100%;margin-top:10%;height:180px;") %></div>
         <div class="col-md-1"><br>
-          <h1 syle="font-size:20px:">&emsp;➔</h1>
-          <label class="text-primary">書類のタイトルと本体の作成です。</label>
+          <h1 syle="font-size:20px:" class="modal_h1_pc"><i class="fas fa-arrow-right"></i></h1>
+         <span syle="font-size:90px:" class="modal_h1_phone"><i class="fas fa-arrow-down"></i></span>
+         
         </div>
-        <div class="col-md-5"><%= image_tag("/explain/modal/img10.png",style:"width:100%;") %></div>
+        <div class="col-md-5"><%= image_tag("/explain/modal/input04.png",style:"width:100%;margin-top:3%;height:250px;") %></div>
+         <label class="text-primary" margin-top:-50%;>質問項目の作成です。</label>
+        
       </div>
     </div>
-    <div class="text-danger text-center" style="font-size:28px;"><label>赤い枠の部分を作成します。</label></div>
+    <div class="text-danger text-center" style="font-size:18px;"><label>青の矢印の部分を作成します。</label></div>
   </div>
   </div>
 </div>
+<style>
+.modal_h1_phone{display:none;}
+@media screen and (max-width: 815px){
+  .modal_h1_pc{display: none;}
+  .modal_h1_phone{display:block;margin-left:45%;}
+}
+</style>
