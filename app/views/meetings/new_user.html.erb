@@ -17,11 +17,11 @@
     </div>
   <% elsif @meeting_times_status == "meeting_decision" %>
 
-    <% if Date.today > @meetings.first.date - 5 %>
+    <% if Date.today > @limit_date %>
       <h1 id="meeting-top-title" class="bg-info">スケジュール調整中のため、編集できません。</h1>
     <% else %>
       <div class="meeting-user">
-        <p style="color: red;"><i class="fas fa-exclamation-circle" style="color: red;"></i>「<%= (@meetings.first.date - 5).to_s(:date) %>」まで編集可能</p>
+        <p style="color: red;"><i class="fas fa-exclamation-circle" style="color: red;"></i>「<%= @limit_date.to_s(:date) %>」まで編集可能</p>
         <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px; background-color: #ffffff;">
           <thead>
             <tr style="background: #FF9933; color: white;">
