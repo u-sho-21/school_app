@@ -43,8 +43,8 @@
 .teacher_icon_title{
   color: rgba(255, 255, 255,1);
   font-weight: bold;
-  font-size: 15px;
-  margin-left: -50%;
+  font-size: 13px;
+  margin-left: -25%;
 }
 .teacher_link_icon:hover{
   background-color: cyan;
@@ -117,6 +117,59 @@
   width: 50%;
   margin: auto;
 }
+/*.................................動画説明ページ............................................................................*/
+.teacher_help_h1 {
+  margin-bottom: 5%;
+  h1{
+    font-family: 'M PLUS Rounded 1c';
+    font-weight: bold;
+    color: blue;
+    }
+  p{
+    font-family: 'M PLUS Rounded 1c';
+    font-weight: bold;
+    color: orange;
+  }
+}
+
+.movie_button{ /*面談動画ボタン*/
+  width: 100%;
+  padding: 20px 0;
+  font-size: 20px;
+  margin-bottom: 1%;
+}
+#movie_meeting{ /*面談動画エリア*/
+  display: none;
+  
+}
+#movie_document{ /*提出動画エリア*/
+  display: none;
+  
+}
+#movie_other{ /*その他動画エリア*/
+  display: none;
+  
+}
+/* youtube */
+.video{
+  width:100%;
+
+}
+.video-div {
+  margin:4% 0;
+ h3{ margin-top: -3%;
+  background: orange;
+  border-bottom: 4px solid blue;
+  border-radius: 4px;
+  padding: 20px 0;
+ }
+}
+.video iframe{
+  width:100%;
+  height: 400px;
+  margin-top: -2%;
+}
+/* /youtube */
 
 
 /* スマートフォン対応 */
@@ -168,5 +221,13 @@
   }
   .user-show2 {
     width: 100%;
+  }
+  .video-div {
+    margin:6% 0 3% 0;
+   h3{ margin-top: -3%;
+    font-size: 10px;
+    font-weight: bold;;
+    padding: 10px 0;
+   }
   }
 }

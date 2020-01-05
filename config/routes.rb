@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     get 'meetings', to: 'meetings#index', as: :meetings_index                                                  # 面談スケジュール調整ページ
     get 'meetings/status', to: 'meetings#index2', as: :meeting_index2                                          # 面談状況確認ページ
     patch 'meetings', to: 'meetings#schedule_update', as: :schedule_update                                     # 面談スケジュール更新
+    collection do 
+      get 'help'                                                                                               #教員説明ヘルプページ
+    end  
   end
 
   resources :users do

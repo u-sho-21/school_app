@@ -72,7 +72,7 @@
         <div class="col-md-1 col-xs-6 col-md-offset-1" >
           <%= link_to teacher_t_message_path(@teacher),id:"teacher_bt" do %>
             <span class="teacher_link_icon"><i class="fas fa-comments"></i></span>
-            <div class="teacher_icon_title">個別連絡</div>
+            <div class="teacher_icon_title">&emsp;&emsp;個別連絡</div>
           <% end %>
         </div>
       </div>
@@ -82,9 +82,19 @@
        <div class="col-md-1 col-xs-6 col-md-offset-1" >
           <%= link_to teacher_teacher_index2_path(@teacher), class: "last" do %>
             <span class="teacher_link_icon"> <i class="fas fa-users"></i></span>
-            <div class="teacher_icon_title">保護者一覧</div>
+            <div class="teacher_icon_title">&emsp;保護者一覧</div>
+          <% end %>
+      </div>
+
+       <div class="col-md-1 col-xs-6 col-md-offset-1" >
+          <%= link_to help_teachers_path(params:{teacher_id: @teacher}),id:"teacher_bt" do %>
+            <span class="teacher_link_icon"><i class="fas fa-question-circle"></i></span>
+            <div class="teacher_icon_title">&emsp;&emsp;&emsp;ヘルプ</div>
           <% end %>
         </div>
+
+
+
      </div>
      <!-- /row3-->
 

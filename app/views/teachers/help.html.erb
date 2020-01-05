@@ -1,0 +1,85 @@
+<div class="teacher_help_h1 text-center">
+  <h1>機能説明ページ</h1>
+  <p>*各機能の使い方を動画や説明文にて、説明します。<br>
+  必要に応じてボタンをクリックしてご利用ください。
+</div>
+<div class="row" style="background:none;">
+ <div class="col-md-10 col-md-offset-1">
+ <!--面談機能エリア-->
+
+ <button id="movieMeetingBtn" class="btn  btn-primary movie_button">面談機能説明 ▼</button>
+  <div id="movie_meeting">
+    <h1>sample</h1>
+  </div>
+
+ <!--提出機能エリア-->  
+  <button id="movieDocumentBtn" class="btn  btn-primary movie_button">提出機能説明 ▼</button>
+  <div id="movie_document">
+    <div class="video">
+      <div class="text-center text-danger video-div">
+       <h3>1.書類作成の際の外部サービスのリンクの取得について説明します。</h3>
+      </div><br>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/bhSad7RWkl0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!--その他機能エリア-->  
+  <button id="movieOtherBtn" class="btn  btn-primary movie_button">その他機能説明 ▼</button>
+  <div id="movie_other">
+    <h1>sample</h1>
+  </div>
+
+
+
+ </div><!--/col -->
+</div><!--/row -->
+
+
+
+
+<script>
+  var btn = $('#movieMeetingBtn');
+  var btn2 = $('#movieDocumentBtn');
+  var btn3 = $('#movieOtherBtn');
+  var count = 1;
+  var count2 = 1;
+  var count3 = 1;
+/*面談*/
+  btn.on('click',function(){
+     $('#movie_meeting').slideToggle();
+     if(count%2 == 0){
+         btn.text('面談機能説明 ▼');
+     }  
+     else{
+         btn.text('面談機能説明 ▲');
+     }
+    count++;
+  });
+  /*提出*/
+  btn2.on('click',function(){
+     $('#movie_document').slideToggle();
+     if(count2%2 == 0){
+         btn2.text('提出機能説明 ▼');
+     }  
+     else{
+         btn2.text('提出機能説明 ▲');
+     }
+    count2++;
+  });
+  /*その他*/
+  btn3.on('click',function(){
+     $('#movie_other').slideToggle();
+     if(count3%2 == 0){
+         btn3.text('その他機能説明 ▼');
+     }  
+     else{
+         btn3.text('その他機能説明 ▲');
+     }
+    count3++;
+  });
+
+</script>
+ 
+<style>
+ body{background-color:#f0f0f0;}
+</style>
