@@ -1,9 +1,9 @@
 class MeetingsController < ApplicationController
-  # before_action :correct_teacher,   only: [:new]
+  before_action :correct_teacher,   only: [:new, :create, :edit, :create2, :update, :destroy, :index, :schedule_update, :index2]
 
   # 面談日時登録ページ
   def new
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
     @hour = (0..23).to_a.map { |v| "%02d" % v }
@@ -18,7 +18,7 @@ class MeetingsController < ApplicationController
 
   # 面談日レコード作成
   def create
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:date].blank?
         @teacher.meetings.all.delete_all
@@ -79,7 +79,7 @@ class MeetingsController < ApplicationController
 
   # 面談日時編集・送信ページ
   def edit
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     @hour = (0..23).to_a.map { |v| "%02d" % v }
     list1 = (0..11).to_a.freeze
     list2 = (1..11).to_a.freeze
@@ -100,7 +100,7 @@ class MeetingsController < ApplicationController
 
   # 面談時間レコード作成
   def create2
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
     @started_time_1 = params[:published_at_hour]
     @started_time_2 = params[:published_at_minute_1]
@@ -127,7 +127,7 @@ class MeetingsController < ApplicationController
 
   # 面談日時レコード更新
   def update
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       meeting_times_params.each do |key, value|
         meeting_time = MeetingTime.find(key)
@@ -141,7 +141,7 @@ class MeetingsController < ApplicationController
 
   # 面談日時個別削除
   def destroy
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     if params[:id]
       @meeting_time = @teacher.meeting_times.find(params[:id])
       @meeting_time.destroy
@@ -170,12 +170,6 @@ class MeetingsController < ApplicationController
       @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
     end
   end
-
-  # def select_date
-  #   @teacher = Teacher.find(params[:teacher_id])
-  #   @select_date = @teacher.meetings.find(params[:status])
-  #   @select_dates = date_meeting_time(@teacher, @select_date.date)
-  # end
 
   # 希望日登録モーダル
   def desired
@@ -236,7 +230,7 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール調整ページ
   def index
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times = @teacher.meeting_times.all
@@ -261,7 +255,7 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール更新
   def schedule_update
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       if meeting_times_params.present?
         meeting_times_params.each do |key, value|
@@ -287,7 +281,7 @@ class MeetingsController < ApplicationController
 
   # 面談状況確認ページ
   def index2
-    @teacher = Teacher.find(params[:teacher_id])
+    # @teacher = Teacher.find(params[:teacher_id])
     @children = @teacher.children.all
     @desired_count = 0
     @children.each do |child|
