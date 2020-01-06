@@ -1,31 +1,22 @@
 class MeetingsController < ApplicationController
-  # before_action :correct_teacher,   only: [:new]
+  before_action :correct_teacher,   only: [:new, :create, :edit, :create2, :update, :destroy, :index, :schedule_update, :index2]
+  before_action :correct_user,      only: [:new_user, :desired, :desired_update]
 
   # 面談日時登録ページ
   def new
-    @teacher = Teacher.find(params[:teacher_id])
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
-    @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list1 = (0..11).to_a.freeze
-    list2 = (1..11).to_a.freeze
-    @minutes_list1 = list1.map { |v| v * 5 }
-    @minutes_list2 = list2.map { |v| v * 5 }
-    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
-    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
-    @frame_list = [1,2,3,4,5,6,7,8]
+    time_list
   end
 
   # 面談日レコード作成
   def create
-    @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:date].blank?
-        @teacher.meetings.all.delete_all
-        @teacher.meeting_times.all.delete_all
+        @teacher.meeting_delete_all
         params[:date].split("\r\n").each do |day|
           unless @teacher.meetings.any? {|meeting| meeting.date == day}
-            @teacher.children.where(teacher_id: @teacher.id).each do |child|
+            @teacher.children.all.each do |child|
               record = @teacher.meetings.build(date: day, child_id: child.id)
               record.save
             end
@@ -40,16 +31,9 @@ class MeetingsController < ApplicationController
     end
 
     if params[:commit] == "追加"
-      @started_time_1 = params[:published_at_hour]
-      @started_time_2 = params[:published_at_minute_1]
-      @minutes = params[:published_at_minute_2]
-      @frame = params[:frame]
-      addtime_1 = @started_time_1.to_i
-      addtime_2 = @started_time_2.to_i
-      @times = times(addtime_1, addtime_2, @frame, @minutes)
-
+      @times = times
       unless @teacher.meetings.any? {|meeting| meeting.date.to_date == params[:date].to_date}
-        @teacher.children.where(teacher_id: @teacher).each do |child|
+        @teacher.children.all.each do |child|
           record = @teacher.meetings.build(date: params[:date], child_id: child.id)
           record.save
         end
@@ -70,8 +54,7 @@ class MeetingsController < ApplicationController
     end
 
     if params[:commit] == "初期化"
-      Meeting.where(teacher_id: @teacher.id).delete_all
-      MeetingTime.where(teacher_id: @teacher.id).delete_all
+      @teacher.meeting_delete_all
       flash[:danger] = "面談日程を初期化しました。"
       redirect_to teacher_meetings_new_url
     end
@@ -79,15 +62,7 @@ class MeetingsController < ApplicationController
 
   # 面談日時編集・送信ページ
   def edit
-    @teacher = Teacher.find(params[:teacher_id])
-    @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list1 = (0..11).to_a.freeze
-    list2 = (1..11).to_a.freeze
-    @minutes_list1 = list1.map { |v| v * 5 }
-    @minutes_list2 = list2.map { |v| v * 5 }
-    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
-    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
-    @frame_list = [1,2,3,4,5,6,7,8]
+    time_list
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all.order(:time)
     @times = @teacher.meeting_times.map { |time| time.time }
@@ -100,18 +75,10 @@ class MeetingsController < ApplicationController
 
   # 面談時間レコード作成
   def create2
-    @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
-    @started_time_1 = params[:published_at_hour]
-    @started_time_2 = params[:published_at_minute_1]
-    @minutes = params[:published_at_minute_2]
-    @frame = params[:frame]
-    addtime_1 = @started_time_1.to_i
-    addtime_2 = @started_time_2.to_i
-
     if params[:commit] == "登録"
       @teacher.meeting_times.all.delete_all
-      @times = times(addtime_1, addtime_2, @frame, @minutes)
+      @times = times
 
       dates.each do |date|
         @times.each do |time|
@@ -127,7 +94,6 @@ class MeetingsController < ApplicationController
 
   # 面談日時レコード更新
   def update
-    @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       meeting_times_params.each do |key, value|
         meeting_time = MeetingTime.find(key)
@@ -141,7 +107,6 @@ class MeetingsController < ApplicationController
 
   # 面談日時個別削除
   def destroy
-    @teacher = Teacher.find(params[:teacher_id])
     if params[:id]
       @meeting_time = @teacher.meeting_times.find(params[:id])
       @meeting_time.destroy
@@ -157,42 +122,20 @@ class MeetingsController < ApplicationController
 
   # 保護者面談日時登録ページ
   def new_user
-    @user = User.find(params[:user_id])
-    @children = Child.where(user_id: @user.id)
-    @child = Child.find(params[:child_id])
-    @teacher = Teacher.find(@child.teacher_id)
-    @meeting_children = @teacher.meetings.where(child_id: @child.id)
-    @meetings = @teacher.meetings.all.order(:date)
-    @meeting_times = @teacher.meeting_times.all
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
+    @limit_date = @meetings.first.date - 5
     if @meeting_times_status == "meeting_confirm"
       @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
     end
   end
 
-  # def select_date
-  #   @teacher = Teacher.find(params[:teacher_id])
-  #   @select_date = @teacher.meetings.find(params[:status])
-  #   @select_dates = date_meeting_time(@teacher, @select_date.date)
-  # end
-
   # 希望日登録モーダル
   def desired
-    @user = User.find(params[:user_id])
-    @child = Child.find(params[:child_id])
-    @children = Child.where(user_id: @user.id)
-    @teacher = Teacher.find(@child.teacher_id)
-    @meetings = @teacher.meetings.all
-    @meeting_times = @teacher.meeting_times.all
   end
 
   # 面談希望日等決定
   def desired_update
-    @user = User.find(params[:user_id])
-    @child = Child.find(params[:child_id])
-    @teacher = Teacher.find(@child.teacher_id)
-
     # 希望日登録
     if params[:commit] == "登録"
       @meeting_desired = @teacher.meetings.find_by(child_id: @child.id, desired: true)
@@ -206,7 +149,6 @@ class MeetingsController < ApplicationController
     end
 
     # 可・不可切り替え
-    @meeting_children = @teacher.meetings.where(child_id: @child.id)
     @meeting_children.each do |meeting_child|
       if params[:"#{meeting_child.id}"] == "可"
         @teacher.meetings.find(meeting_child.id).update_attributes(status: 2)
@@ -219,7 +161,6 @@ class MeetingsController < ApplicationController
 
     # 都合の悪い時間更新
     if params[:commit] == "都合の悪い時間の更新"
-      @meeting_children = @teacher.meetings.where(child_id: @child.id)
       params_count = params.each{|params| params}
       if params_count.count > 8
         @meeting_children.each do |meeting|
@@ -236,24 +177,20 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール調整ページ
   def index
-    @teacher = Teacher.find(params[:teacher_id])
-    @meetings = @teacher.meetings.all
+    @meetings = @teacher.meetings.all.order(:date)
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times = @teacher.meeting_times.all
+    @desired_count = @teacher.desired_count
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @children = @teacher.children.all
     @meeting_finish_count = 0
     @meeting_times.each{|meeting_time| @meeting_finish_count += 1 unless meeting_time.name.blank?}
-    @children_name = []
-    @teacher.children.each do |child|
-      @children_name << child.full_name
+    @children_name = @teacher.children_name_array
+
+    if @meetings.first.limit_date_present(limit_date(@meetings.first))
+      flash[:info] = "まだ保護者の編集期間中です。"
+      redirect_to teacher_meeting_index2_url(@teacher)
     end
-    @desired_count = @teacher.meetings.where(desired: false).count
-    # 全員返信でない場合表示されないように
-    # unless @desired_count == 0
-    #   flash[:info] = "未返信の方がいるため、スケジュール調整はまだできません。"
-    #   redirect_to teacher_meeting_index2_url(@teacher)
-    # end
   end
 
   # schedule_updateアクションのCSRFトークン認証を無効
@@ -261,7 +198,6 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール更新
   def schedule_update
-    @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       if meeting_times_params.present?
         meeting_times_params.each do |key, value|
@@ -287,12 +223,13 @@ class MeetingsController < ApplicationController
 
   # 面談状況確認ページ
   def index2
-    @teacher = Teacher.find(params[:teacher_id])
     @children = @teacher.children.all
     @desired_count = 0
     @children.each do |child|
       @desired_count += desired_true_count(@teacher, child.id)
     end
+    @teacher = Teacher.find(params[:teacher_id])
+    @meetings = @teacher.meetings.all.order(:date)
   end
 
   private
@@ -308,6 +245,21 @@ class MeetingsController < ApplicationController
     def correct_teacher
       @teacher = Teacher.find(params[:teacher_id])
       unless current_teacher?(@teacher)
+        flash[:danger] = "ユーザー本人しかアクセスできません。"
+        redirect_to(root_url)
+      end
+    end
+
+    # 現在ログインしている保護者かどうか
+    def correct_user
+      @user = User.find(params[:user_id])
+      @child = Child.find(params[:child_id])
+      @children = Child.where(user_id: @user.id)
+      @teacher = Teacher.find(@child.teacher_id)
+      @meeting_children = @teacher.meetings.where(child_id: @child.id)
+      @meetings = @teacher.meetings.all.order(:date)
+      @meeting_times = @teacher.meeting_times.all
+      unless current_user?(@user)
         flash[:danger] = "ユーザー本人しかアクセスできません。"
         redirect_to(root_url)
       end
