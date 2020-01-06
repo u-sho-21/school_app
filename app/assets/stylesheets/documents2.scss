@@ -137,6 +137,7 @@
   margin-bottom: 1%;
 }
 .document_user_response_back_btn_phone{display: none;}
+.document_index_submit_btn3_no2{display: none;} 
 /*-----教員保護者提出確認ページ--------*/
  .document_user_response_h1{
   font-family: 'M PLUS Rounded 1c';
@@ -214,7 +215,8 @@
     margin-top: 10%;
     th{background-color: orange;}
   }
-  .document_index_submit_btn3{margin-right: 40%;} 
+  .document_index_submit_btn3_no2{margin-right: 40%;display: block;} 
+  .document_index_submit_btn3_no1{display: none;} 
   #document_explain_span{width: 200%;margin-left: -50%;} 
   .document_index_back_btn2_phone{display: block;margin-top: 10%;}
   .document_user_response_back_btn{display: none;}

@@ -82,7 +82,14 @@
           <% end %>  
          </tbody>
        </table>
+       <div class="text-right document_index_submit_btn3_no1">
+         <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
+         <%= f.submit "複数削除",class:"btn btn-danger" %>
+       </div>
+      <% end %> 
+       
 <!-- *******************スマホ用テーブル****************************************************** -->
+       <%= form_with(url:document_check_delete_path,local:true) do |f| %>
        <table class="table table-bordered document_teacher_index_table_phone">
         <thead>
           <tr>
@@ -136,7 +143,7 @@
 
 <!-- /*******************スマホ用テーブル****************************************************** -->
 
-       <div class="text-right document_index_submit_btn3">
+       <div class="text-right document_index_submit_btn3_no2">
          <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
          <%= f.submit "複数削除",class:"btn btn-danger" %>
        </div>

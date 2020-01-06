@@ -24,12 +24,17 @@ class DocumentSelectsController < ApplicationController
       record = item.document_selects.build(content: params[:content],document_item_id: item.id)
       record.randam = randam 
       record.save
-    end  
+    end 
+    @select_count =  DocumentSelect.where(document_item_id: @document_item.id).all.count
     @document_select = DocumentSelect.where(document_item_id: @document_item.id).last
-    flash[:danger] = "引き続き項目作るならフォーム入力して送信を終わりなら終了ボタン押してください"
-    redirect_to document_item_select_path(@document_select.document_item_id)
-    end    
+    if @select_count >=2
+      flash[:danger] = "引き続き項目作るならフォーム入力して送信を終わりなら終了ボタン押してください"
+    elsif @select_count <2
+      flash[:danger] = "一つ目を作成しました。引き続き二つ目作成してください。"
+    end 
+    redirect_to document_item_select_path(@document_select.document_item_id)   
   end
+end
 
   #選択式作成質問ページモーダル
   def select_modal
