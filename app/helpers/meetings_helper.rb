@@ -7,32 +7,36 @@ module MeetingsHelper
   end
 
   # 面談時間格納
-  def times(addtime_1, addtime_2, frame, minutes)
-    @times = []
-    @times_1 = []
-    @times_2 = []
-    for i in 0..frame.to_i-1 do
+  def times
+    addtime_1 = params[:published_at_hour].to_i
+    addtime_2 = params[:published_at_minute_1].to_i
+    minutes = params[:published_at_minute_2].to_i
+    frame = params[:frame].to_i
+    times = []
+    times_1 = []
+    times_2 = []
+    for i in 0..frame - 1 do
       if i > 0
-        addtime_2 += minutes.to_i
+        addtime_2 += minutes
         if addtime_2 >= 60 # 60分を超えたら時間繰り上げ
           addtime_1 += 1
           addtime_2 -= 60
-          @times_1 << addtime_1.to_s
-          @times_2 << addtime_2.to_s
+          times_1 << addtime_1.to_s
+          times_2 << addtime_2.to_s
         else
-          @times_1 << addtime_1.to_s
-          @times_2 << addtime_2.to_s
+          times_1 << addtime_1.to_s
+          times_2 << addtime_2.to_s
         end
-        @time = format("%02d:%02d", @times_1[i], @times_2[i]) # 0埋めのためにフォーマット
-        @times << @time
+        time = format("%02d:%02d", times_1[i], times_2[i]) # 0埋めのためにフォーマット
+        times << time
       else
-        @times_1 << addtime_1.to_s
-        @times_2 << addtime_2.to_s
-        @time = format("%02d:%02d", @times_1[i], @times_2[i]) # 0埋めのためにフォーマット
-        @times << @time
+        times_1 << addtime_1.to_s
+        times_2 << addtime_2.to_s
+        time = format("%02d:%02d", times_1[i], times_2[i]) # 0埋めのためにフォーマット
+        times << time
       end
     end
-    return @times
+    return times
   end
 
   # 面談時間のセレクトリスト

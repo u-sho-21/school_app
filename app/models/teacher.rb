@@ -59,4 +59,13 @@ class Teacher < ApplicationRecord
   def desired_count
     self.meetings.where(desired: false).count
   end
+
+  # 生徒名格納
+  def children_name_array
+    children_name = []
+    self.children.each do |child|
+      children_name << child.full_name
+    end
+    return children_name
+  end
 end
