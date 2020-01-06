@@ -6,8 +6,15 @@
 
   <div id="content-meeting" class="meeting-status">
     <div id="meeting-title" class="bg-info" style="border-radius:12px;">
-      <div><%= "#{@children.count}" %>人中<span style="color: blue;"><%= "#{@desired_count}" %>人</span>返信済み</div>
-      <div>あと<span style="color: red;"><%= @children.count - @desired_count %>人</span>でスケジュール調整可能です。</div>
+      <div><%= "#{@children.count}" %>人中<span style="color: red;"><%= "#{@desired_count}" %>人</span>返信済み</div>
+      <div>保護者の編集期間終了後、スケジュール調整可能です。</div>
+      <div>
+        <% if Date.today > limit_date(@meetings.first) %>
+          <div><span style="color: blue;">スケジュール調整できます。</span></div>
+        <% else %>
+          <div>あと<span style="color: blue;"><%= limit_date_count(limit_date(@meetings.first)) + 1 %>日</span></div>
+        <% end %>
+      </div>
     </div>
 
     <table class="table-bordered table-striped table-condensed meeting-table bg-success" style="width: 100%; margin-top: 20px;">
