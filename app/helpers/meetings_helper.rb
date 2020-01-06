@@ -35,6 +35,28 @@ module MeetingsHelper
     return @times
   end
 
+  # 面談時間のセレクトリスト
+  def time_list
+    @hour = (0..23).to_a.map { |v| "%02d" % v }
+    list1 = (0..11).to_a.freeze
+    list2 = (1..11).to_a.freeze
+    @minutes_list1 = list1.map { |v| v * 5 }
+    @minutes_list2 = list2.map { |v| v * 5 }
+    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
+    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
+    @frame_list = [1,2,3,4,5,6,7,8]
+  end
+
+  # 保護者の編集期間
+  def limit_date(meetings_first)
+    meetings_first.date - 5
+  end
+
+  # 保護者の編集期間の現日時からの計算
+  def limit_date_count(limit_date)
+    (limit_date - Date.today).to_i
+  end
+
   # 予約件数
   def yoyaku_count(teacher, date)
     yoyaku = teacher.meetings.where(date: date , status: 2).count

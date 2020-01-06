@@ -9,10 +9,10 @@
       <div><%= "#{@children.count}" %>人中<span style="color: red;"><%= "#{@desired_count}" %>人</span>返信済み</div>
       <div>保護者の編集期間終了後、スケジュール調整可能です。</div>
       <div>
-        <% if Date.today > @limit_date %>
+        <% if Date.today > limit_date(@meetings.first) %>
           <div><span style="color: blue;">スケジュール調整できます。</span></div>
         <% else %>
-          <div>あと<span style="color: blue;"><%= @limit_date_count + 1 %>日</span></div>
+          <div>あと<span style="color: blue;"><%= limit_date_count(limit_date(@meetings.first)) + 1 %>日</span></div>
         <% end %>
       </div>
     </div>

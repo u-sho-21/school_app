@@ -3,26 +3,16 @@ class MeetingsController < ApplicationController
 
   # 面談日時登録ページ
   def new
-    # @teacher = Teacher.find(params[:teacher_id])
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
-    @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list1 = (0..11).to_a.freeze
-    list2 = (1..11).to_a.freeze
-    @minutes_list1 = list1.map { |v| v * 5 }
-    @minutes_list2 = list2.map { |v| v * 5 }
-    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
-    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
-    @frame_list = [1,2,3,4,5,6,7,8]
+    time_list
   end
 
   # 面談日レコード作成
   def create
-    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "登録"
       unless params[:date].blank?
-        @teacher.meetings.all.delete_all
-        @teacher.meeting_times.all.delete_all
+        @teacher.meeting_delete_all
         params[:date].split("\r\n").each do |day|
           unless @teacher.meetings.any? {|meeting| meeting.date == day}
             @teacher.children.where(teacher_id: @teacher.id).each do |child|
@@ -70,8 +60,7 @@ class MeetingsController < ApplicationController
     end
 
     if params[:commit] == "初期化"
-      Meeting.where(teacher_id: @teacher.id).delete_all
-      MeetingTime.where(teacher_id: @teacher.id).delete_all
+      @teacher.meeting_delete_all
       flash[:danger] = "面談日程を初期化しました。"
       redirect_to teacher_meetings_new_url
     end
@@ -79,15 +68,7 @@ class MeetingsController < ApplicationController
 
   # 面談日時編集・送信ページ
   def edit
-    # @teacher = Teacher.find(params[:teacher_id])
-    @hour = (0..23).to_a.map { |v| "%02d" % v }
-    list1 = (0..11).to_a.freeze
-    list2 = (1..11).to_a.freeze
-    @minutes_list1 = list1.map { |v| v * 5 }
-    @minutes_list2 = list2.map { |v| v * 5 }
-    @minutes1 = @minutes_list1.map { |v| "%02d" % v }
-    @minutes2 = @minutes_list2.map { |v| "%02d" % v }
-    @frame_list = [1,2,3,4,5,6,7,8]
+    time_list
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all.order(:time)
     @times = @teacher.meeting_times.map { |time| time.time }
@@ -100,7 +81,6 @@ class MeetingsController < ApplicationController
 
   # 面談時間レコード作成
   def create2
-    # @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all
     @started_time_1 = params[:published_at_hour]
     @started_time_2 = params[:published_at_minute_1]
@@ -127,7 +107,6 @@ class MeetingsController < ApplicationController
 
   # 面談日時レコード更新
   def update
-    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       meeting_times_params.each do |key, value|
         meeting_time = MeetingTime.find(key)
@@ -141,7 +120,6 @@ class MeetingsController < ApplicationController
 
   # 面談日時個別削除
   def destroy
-    # @teacher = Teacher.find(params[:teacher_id])
     if params[:id]
       @meeting_time = @teacher.meeting_times.find(params[:id])
       @meeting_time.destroy
@@ -231,11 +209,10 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール調整ページ
   def index
-    # @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all.order(:date)
-    @limit_date = @meetings.first.date - 5
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times = @teacher.meeting_times.all
+    @desired_count = @teacher.desired_count
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @children = @teacher.children.all
     @meeting_finish_count = 0
@@ -244,13 +221,9 @@ class MeetingsController < ApplicationController
     @teacher.children.each do |child|
       @children_name << child.full_name
     end
-    @desired_count = @teacher.meetings.where(desired: false).count
-    # 全員返信でない場合表示されないように
-    # unless @desired_count == 0
-    #   flash[:info] = "未返信の方がいるため、スケジュール調整はまだできません。"
-    #   redirect_to teacher_meeting_index2_url(@teacher)
-    # end
-    if Date.today < @limit_date || Date.today == @limit_date
+    # @desired_count = @teacher.meetings.where(desired: false).count
+
+    if @meetings.first.limit_date_present(limit_date(@meetings.first))
       flash[:info] = "まだ保護者の編集期間中です。"
       redirect_to teacher_meeting_index2_url(@teacher)
     end
@@ -261,7 +234,6 @@ class MeetingsController < ApplicationController
 
   # 面談スケジュール更新
   def schedule_update
-    # @teacher = Teacher.find(params[:teacher_id])
     if params[:commit] == "更新"
       if meeting_times_params.present?
         meeting_times_params.each do |key, value|
@@ -287,7 +259,6 @@ class MeetingsController < ApplicationController
 
   # 面談状況確認ページ
   def index2
-    # @teacher = Teacher.find(params[:teacher_id])
     @children = @teacher.children.all
     @desired_count = 0
     @children.each do |child|
@@ -295,8 +266,6 @@ class MeetingsController < ApplicationController
     end
     @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all.order(:date)
-    @limit_date = @meetings.first.date - 5
-    @limit_date_count = (@limit_date - Date.today).to_i
   end
 
   private

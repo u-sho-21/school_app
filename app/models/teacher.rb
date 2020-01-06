@@ -48,4 +48,15 @@ class Teacher < ApplicationRecord
   def meeting_confirm_update
     self.meeting_times.update_all(status: :meeting_confirm)
   end
+
+  # 面談関連のレコードを全て初期化
+  def meeting_delete_all
+    self.meetings.all.delete_all
+    self.meeting_times.all.delete_all
+  end
+
+  # 面談返信数カウント
+  def desired_count
+    self.meetings.where(desired: false).count
+  end
 end
