@@ -14,7 +14,9 @@
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
-          <th class="th" width="27%">期限</th>
+          <th class="th" width="27%">
+            期限
+          </th>
           <th class="th" colspan="2">タイトル</th>
         </tr>
       </thead>
@@ -36,7 +38,7 @@
               <% if document.answers.count == 0 %>
                 <%= document.title %>
               <% else %> 
-                <span style="color:green"><i class="fas fa-check-circle"></i></span>
+                <span style="color:green;"><i class="fas fa-check-circle"></i></span>
                 <%= link_to document.title,user_file_show_path(@user,document) %> 
               <% end %> 
             </td>
@@ -104,7 +106,7 @@
         <% end %>
       </tbody>
     </table>
-
+　　<div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
    <!-- /phone用テーブル -->
 
 
