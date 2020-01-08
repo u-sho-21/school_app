@@ -186,7 +186,6 @@ end
      document.public =true
      document.save
   end  
-  flash[:success] = "保護者に提出しました。"
   redirect_to documents_url(params:{send: "提出確定"})
 end
 
