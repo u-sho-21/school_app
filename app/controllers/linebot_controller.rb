@@ -271,7 +271,7 @@ class LinebotController < ApplicationController
                 "action": {
                   "type": "uri",
                   "label": "サイトへ",
-                  "uri": "https://school-app-pta.herokuapp.com"
+                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
                 }
               }
             ]
@@ -282,7 +282,7 @@ class LinebotController < ApplicationController
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
       flash[:success] = "送信完了"
-      redirect_to teacher_path(current_teacher)
+      redirect_to documents_path(params:{teacher_id: current_teacher.id})
     end
   end
 end
