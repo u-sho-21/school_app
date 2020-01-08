@@ -253,3 +253,38 @@
   }
 
 }
+@media screen and (max-width:767px) and (min-width:600px){
+    
+  .document_select_radio{
+        width: 2.3em;
+        height: 2.3em;
+        
+        
+    }  
+  #document_select_label{
+    display: block;
+    width:10%;
+    margin-top:7%;
+    margin-left: 1%;
+  }
+  .document_user_select_radio{
+    display: block;
+    font-size: 16px;
+    width: 50%;
+    height: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+    margin-top: -8%;
+    margin-left: 15%;
+  }
+  .document_user_select td{
+      padding:20px;
+  }
+  #document_user_reply_show{
+      margin-bottom: -5%;
+  }
+  #document_user_reply_show{
+      margin-bottom: 1%;
+  }
+
+}

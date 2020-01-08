@@ -111,7 +111,7 @@
                   <% end %><br><br>
                    <!-- 書類タイプ -->
                    <% if document.document_items.all.count > 0 %>
-                     <div><strong style="background:#f0f0f0;padding:1% 0;">提出期限:<span style="color:red"><%= document.deadline %></span></strong></div>
+                     <div><strong style="background:#f0f0f0;padding:0.5% 0;">提出期限:<span style="color:red"><%= document.deadline %></span></strong></div>
                    <% elsif document.document_items.all.count == 0 %>
                      <div><strong style="background:#f0f0f0;padding:1% 0;">期限:<span style="color:red"><%= document.deadline %></span></strong></div>
                    <% end %>
