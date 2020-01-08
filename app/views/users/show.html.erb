@@ -1,6 +1,11 @@
 <h2 class="user_show_title">
   <div class="user_title-border"><%= @user.name + @user.name2 %>さんの個別ページ</div>
 </h2>
+
+<div class="line-friend">
+  <a href="https://lin.ee/qWnlt5p"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+</div>
+
 <link rel="stylesheet" href="/assets/stylesheets/css/font-awesome.min.css">
 
 <div class="container">
@@ -8,7 +13,7 @@
   <div class="col-md-8 col-md-offset-2 user_icon_area">
   <label class="user_area_label">メニュー</label>
    <div class="row" style="background:none;">
-     
+
      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
        <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="far fa-calendar-check"></i></span>
@@ -29,7 +34,7 @@
          <div class="user_icon_title">保護者情報編集</div>
        <% end %>
      </div>
-     
+
       <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
        <%= link_to user_users_index2_path(@user), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="fas fa-user-graduate"></i></span>
