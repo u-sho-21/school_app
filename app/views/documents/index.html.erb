@@ -1,4 +1,4 @@
-
+<%= provide(:title, "提出一覧") %>
 <div class="title_font document_index_title_h1">
   <h1><i class="fas fa-book-open"></i>&emsp;教員書類管理ページ</h1>
 </div><br>
@@ -6,7 +6,7 @@
 
 <!--保護者提出後モーダルにてline push_pathにpost送信-->
 
-<% if params[:send] == "提出確定" && logged_in_teacher? %>
+<% if params[:send].present? && logged_in_teacher? %>
    <div id="document_line" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
      <div class="modal-dialog">
        <div class="modal-content">
@@ -17,7 +17,7 @@
            </button>
         </div>
         <div class="modal-body">
-          <%= form_with(url:push_path,local:true) do |f| %>
+          <%= form_with(url:push_path(params:{line: params[:send]}),local:true) do |f| %>
             <div class="text-center">保護者へ通知しますよろしいでしょうか？ <br><br>
                <%= f.submit "提出を通知する。",class:"btn btn-primary"%>
             </div>  

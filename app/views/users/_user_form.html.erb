@@ -1,25 +1,42 @@
 <%= form_with(model: @user, html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
   <%= render 'shared/error_messages' %>
 
-  <%= f.label :name, "姓", class: "label-signup" %>
-  <%= f.text_field :name, class: "form-control validate[required,maxSize[10]]" %>
+  <%= f.label :name,  class: "label-signup new_user_label" do %>
+    姓<span style="color:red">&emsp;(*必須です)</span>
+  <% end %>
 
-  <%= f.label :name2, "名", class: "label-signup" %>
-  <%= f.text_field :name2, class: "form-control validate[required,maxSize[10]]" %>
+  <%= f.text_field :name, class: "form-control validate[required,maxSize[10]]",placeholder:"(例)佐藤" %>
 
-  <%= f.label :email, "メールアドレス", class: "label-signup" %>
-  <%= f.email_field :email, class: "form-control validate[required,custom[email]]" %>
+  <%= f.label :name2,  class: "label-signup new_user_label" do %>
+    名<span style="color:red">&emsp;(*必須です)</span>
+   <% end %>
 
-  <%= f.label :phone, "電話番号", class: "label-signup" %>
-  <%= f.text_field :phone, class: "form-control validate[required, custom[phone]]" %>
+  <%= f.text_field :name2, class: "form-control validate[required,maxSize[10]]",placeholder:"(例)太郎" %>
 
-  <%= f.label :password, "パスワード", class: "label-signup" %>
+  <%= f.label :email, class: "label-signup new_user_label" do %>
+    メールアドレス<span style="color:red">&emsp;(*必須です)</span>
+  <% end %>
+
+  <%= f.email_field :email, class: "form-control fa validate[required,custom[email]]",placeholder:"\uf0e0  (例)sample@example.com" %>
+
+  <%= f.label :phone, class: "label-signup new_user_label" do %>
+     電話番号<span style="color:red">&emsp;(*必須です)</span>
+  <% end %>
+
+  <%= f.text_field :phone, class: "form-control fa validate[required, custom[phone]]",placeholder:"\uf095 (例)自宅または携帯番号" %>
+
+  <%= f.label :password, class: "label-signup new_user_label" do %>
+     パスワード<span style="color:red">&emsp;(*必須です)</span>
+  <% end %>
   <%= f.password_field :password, class: "form-control fa", placeholder:"\uf084 ６文字以上で入力してください。" %>
 
-  <%= f.label :password_confirmation, "パスワード確認", class: "label-signup" %>
+  <%= f.label :password_confirmation, class: "label-signup new_user_label" do %>
+      パスワード確認<span style="color:red">&emsp;(*必須です)</span>
+  <% end %>
+
   <%= f.password_field :password_confirmation, class: "form-control fa", placeholder:"\uf00c パスワード確認" %>
 
-  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-signup" %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-signup",style:"padding:2% 0;margin-top:5%;" %>
 <% end %>
 
 <script>
