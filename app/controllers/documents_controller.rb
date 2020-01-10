@@ -6,7 +6,19 @@ class DocumentsController < ApplicationController
   def index
     if params[:input]
       flash.now[:success] = "作成しました。"
+    end 
+
+    #Lineから送られたデーターもとに提出済み処理
+    if params[:line_send]
+      document = Document.find(params[:line_send])
+      @documents = Document.where(memo: document.memo, randam: document.randam)
+      @documents.each do |document|
+        document.public =true
+        document.save
+      end  
     end  
+
+
     #教員をユーザーid 1にセットしそれを元に資料を操作していく
     @user = User.find 1 #教員
     @users_count = User.all.count-1 #教員の数のみマイナス
@@ -181,12 +193,7 @@ end
  #保護者へ作成した書類公表
  def public_change
    document = Document.find(params[:document_id])
-   @documents = Document.where(memo: document.memo, randam: document.randam)
-   @documents.each do |document|
-     document.public =true
-     document.save
-  end  
-  redirect_to documents_url(params:{send: "提出確定"})
+   redirect_to documents_url(params:{send: document.id})
 end
 
 #選択式作成初期ページモーダル
