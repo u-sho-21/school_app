@@ -1,7 +1,7 @@
-<h1 id="meeting-top-title">先生へ連絡</h1>
+<h1 id="meeting-top-title"><i class="fas fa-paper-plane"></i>&nbsp;先生へ連絡</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div>
+  <div class="message">
     <%= form_with(model: @p_message, url: user_p_message_create_path(@user), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
@@ -17,6 +17,12 @@
     <% end %>
   </div>
 </div>
+
+<style>
+body {
+    background: #a7d28d;
+  }
+</style>
 
 <script>
 

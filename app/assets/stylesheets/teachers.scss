@@ -54,18 +54,19 @@
 .message {
   width: 50%;
   margin: auto;
+  background-color: #eaedf7;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px 4px #aaaab0;
 }
 
-.message-top {
-  position: relative;
-  padding: 0.25em 0;
-}
-.message-top:after {
-  content: "";
-  display: block;
-  height: 4px;
-  background: -webkit-linear-gradient(to right, rgb(230, 90, 90), transparent);
-  background: linear-gradient(to right, rgb(230, 90, 90), transparent);
+.message_reply {
+  width: 50%;
+  margin: auto;
+  background-color: #dbebc4;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px 4px #aaaab0;
 }
 
 /* teacher-top*/
@@ -250,6 +251,9 @@
    }
   }
   .message {
+    width: 100%;
+  }
+  .message_reply {
     width: 100%;
   }
 /*動画説明ページ */
