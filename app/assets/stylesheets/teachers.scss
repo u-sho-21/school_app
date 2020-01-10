@@ -50,6 +50,25 @@
   color: cyan;
 }
 
+/* 個別連絡 */
+.message {
+  width: 50%;
+  margin: auto;
+  background-color: #eaedf7;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px 4px #aaaab0;
+}
+
+.message_reply {
+  width: 50%;
+  margin: auto;
+  background-color: #dbebc4;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px 4px #aaaab0;
+}
+
 /* teacher-top*/
 .box_srcollbar {
   overflow:auto;
@@ -140,15 +159,15 @@
 }
 #movie_meeting{ /*面談動画エリア*/
   display: none;
-  
+
 }
 #movie_document{ /*提出動画エリア*/
   display: none;
-  
+
 }
 #movie_other{ /*その他動画エリア*/
   display: none;
-  
+
 }
 /* youtube */
 .video{
@@ -231,11 +250,17 @@
     padding: 10px 0;
    }
   }
-/*動画説明ページ */  
+  .message {
+    width: 100%;
+  }
+  .message_reply {
+    width: 100%;
+  }
+/*動画説明ページ */
   .teacher_help_h1 {
     p{
       font-size: 9px;
     }
   }
-  
+
 }
