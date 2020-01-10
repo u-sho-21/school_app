@@ -282,7 +282,7 @@ class LinebotController < ApplicationController
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
       flash[:success] = "送信完了"
-      redirect_to documents_path(params:{teacher_id: current_teacher.id})
+      redirect_to documents_path(params:{teacher_id: current_teacher.id, line_send: params[:line]})
     end
   end
 end
