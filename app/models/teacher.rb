@@ -44,7 +44,7 @@ class Teacher < ApplicationRecord
     self.meeting_times.update_all(status: :meeting_decision)
   end
 
-  # 面談日時確定
+  # 面談スケジュール確定
   def meeting_confirm_update
     self.meeting_times.update_all(status: :meeting_confirm)
   end
