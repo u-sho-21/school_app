@@ -1,19 +1,44 @@
-<div id="meeting-top-title">生徒新規登録</div>
+<%= provide(:title,"生徒新規登録") %>
+<div id="meeting-top-title"><i class="fas fa-user-graduate"></i>
+<i class="fas fa-plus" style="font-size:14px;"></i>生徒新規登録</div>
 
-<div class="row">
+<div class="row" style="background:none">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @child, url: child_create2_path(@user), local: true) do |f| %>
       <%= render 'shared/child_error_messages' %>
 
-      <%= f.label :name_1, "姓", class: "label-signup" %>
-      <%= f.text_field :name_1, class: "form-control", value: @user.name %>
+      <%= f.label :name_1,  class: "label-signup new_user_label" do  %>
+           姓<span style="color:red">&emsp;(*必須です)</span>
+      <% end %>     
+      <%= f.text_field :name_1, class: "form-control", placeholder:"(例)佐藤", value: @user.name %>
 
-      <%= f.label :name_2, "名", class: "label-signup" %>
-      <%= f.text_field :name_2, class: "form-control" %>
+      <%= f.label :name_2, class: "label-signup new_user_label" do  %>
+        名<span style="color:red">&emsp;(*必須です)</span>
+      <% end %>
+
+      <%= f.text_field :name_2, class: "form-control", placeholder:"(例)太郎" %>
 
       <%= f.hidden_field :teacher_id, :value => @teacher.id %>
 
-      <%= f.submit "登録", class: "btn btn-primary btn-block btn-signup" %>
+      <%= f.submit "登録", class: "btn btn-primary btn-block btn-signup",style:"background:#4689FF" %>
     <% end %>
   </div>
 </div>
+
+<style>
+ body{
+   background:#fffeee;
+ }
+ .col-md-6{
+   background:#f0f0f0;
+   border-radius:6px;
+   box-shadow:-1px 2px 1px 3px #e0e0e0;
+   padding:2% 6%;
+ }
+ .form-control{
+   margin-bottom:3%;
+ }
+ #meeting-top-title{
+   color:blue;
+ }
+</style>
