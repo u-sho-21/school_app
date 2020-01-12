@@ -65,6 +65,7 @@ class MeetingsController < ApplicationController
     time_list
     @meetings = @teacher.meetings.all
     @meeting_times = @teacher.meeting_times.all.order(:time)
+    @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
     @times = @teacher.meeting_times.map { |time| time.time }
     # 面談日登録がない場合表示されない
     unless @teacher.meeting_times.first.present?
