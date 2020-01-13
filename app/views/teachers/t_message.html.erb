@@ -15,10 +15,15 @@
 
       <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
       <%#= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", id: "select_user" } %>
-      <% @users_name.each do |user| %>
-        <%= check_box_tag 't_message[select_user][]', user, checked = false, :id => "select_user" %>
-        <%= user %>
-      <% end %>
+      <br>
+      <div class="checkbox">
+        <% @users_name.each do |user| %>
+          <label class="checkbox_label">
+            <%= check_box_tag 't_message[select_user][]', user, checked = false, id: "select_user", class: "checkbox-input" %>
+            <span class="checkbox-parts"><%= user %></span>
+          </label>
+        <% end %>
+      </div>
 
       <%= f.submit "送信", class: "btn btn-primary btn-block btn-signup" %>
     <% end %>
@@ -26,9 +31,50 @@
 </div>
 
 <style>
+
 body {
-    background: #a2c2e6;
-  }
+  background: #a2c2e6;
+}
+
+.checkbox_label{
+  width: 160px;
+}
+
+.checkbox-input{
+  display: none;
+}
+.checkbox-parts{
+  padding-left: 20px;
+  position:relative;
+  margin-right: 20px;
+}
+.checkbox-parts::before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+.checkbox-input:checked + .checkbox-parts{
+  color: #d01137;
+}
+.checkbox-input:checked + .checkbox-parts::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 5px;
+  width: 7px;
+  height: 14px;
+  transform: rotate(40deg);
+  border-bottom: 3px solid #d01137;
+  border-right: 3px solid #d01137;
+}
+
 </style>
 
 
@@ -64,6 +110,10 @@ body {
           // 処理を中断
           return false;
 
+        if($(document.getElementById("#select_user") != null)
+
+          alert('存在しない');
+          return false;
         }
     });
   });
