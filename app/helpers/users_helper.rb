@@ -6,9 +6,9 @@ module UsersHelper
 
     case user.name + user.name2
       when *t_message_user
-        content = t_message.content
+        content = true
       else
-        content = ""
+        content = false
     end
     return content
   end
