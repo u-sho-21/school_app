@@ -63,7 +63,20 @@ class User < ApplicationRecord
     return answerData
     
   end
-  
+  #期限切れが全資料かどうか
+  def tileLimit?
+    result = false
+    self.documents.all.each do|document|
+      
+      if document.deadline < Date.today 
+             next
+      elsif document.deadline > Date.today
+          result=true   
+          break
+      end  
+    end  
+    return result
+  end
   
   
 end

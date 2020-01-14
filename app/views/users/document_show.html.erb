@@ -1,3 +1,5 @@
+<%= provide(:title,"提出一覧") %>
+
 <div class="text-center text-success">
   <h1 class="title_font document_user_all_h1" style="color:#333300"><i class="fas fa-user-alt"></i>&emsp;<%= "#{@user.name}さんページ" %></h1>
 </div>
@@ -14,10 +16,14 @@
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
+        <% if !@user.tileLimit? %>
           <th class="th" width="27%">
             期限
           </th>
           <th class="th" colspan="2">タイトル</th>
+        <% else %>  
+        <th colspan="2">データがありません</th>
+        <% end %>  
         </tr>
       </thead>
       <tbody>
@@ -55,10 +61,13 @@
         <% end %>
       </tbody>
     </table>
+     <% else %>
+      <div class="bg-info text-center" style="padding:2%;">まだ提出物ありません。</div>
+    <% end %>
    <!-- /pc用テーブル -->
 
    <!-- phone用テーブル -->
-
+    <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
      <table class="table table-bordered" id="document_user_table_phone">
       <thead>
         <tr>

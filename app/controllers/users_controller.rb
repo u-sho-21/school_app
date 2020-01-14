@@ -79,6 +79,12 @@ class UsersController < ApplicationController
     @input_count = @document.document_items.all.count
     @select_count = select_zerocount?
     @user = User.find(params[:user_id]) 
+    @user.documents.each do |document|
+      if document.deadline < Date.today
+        document.public = false
+        document.save
+      end  
+    end  
   end
 
   #保護者提出外部サービスﾘﾝｸ
