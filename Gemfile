@@ -22,6 +22,7 @@ gem 'select2-rails'                   # select2で使用
 gem 'font-awesome-sass'               # AWESOME
 gem 'jQuery-Validation-Engine-rails'  # jQueryでバリデーション
 gem 'rails-i18n'                      # エラーメッセージ日本語化
+gem 'browser'                         # ブラウザ判定
 
 group :development, :test do
   gem 'sqlite3'

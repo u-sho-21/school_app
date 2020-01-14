@@ -1,7 +1,7 @@
 <div class="tm-back">
   <h1 id="meeting-top-title">先生からのお便り一覧</h1>
 
-  <% if @t_messages.any? {|t_message| t_message_content(t_message, @user).present?} %>
+  <% if @t_messages.any? {|t_message| t_message_content(t_message, @user) == true} %>
     <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
       <thead>
         <tr style="background: #FF9933; color: white;">
@@ -13,6 +13,7 @@
 
       <tbody>
         <% @t_messages.each do |t_message| %>
+          <% if t_message_content(t_message, @user) == true %>
             <tr>
               <!-- 日付 -->
               <td style="width: 30%;"><%= t_message.created_at.to_s(:date) %></td>
@@ -26,6 +27,7 @@
             <tr class="collapse" id="tm-<%= t_message.id %>">
               <td colspan="3" class="bg-warning" style="text-align: left;"><span style="color: green;">内容</span>：<br><%= t_message.content %></td>
             </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
