@@ -63,6 +63,9 @@ Rails.application.routes.draw do
     collection do
       get 'pdf_modal'
     end
+    member do
+      post 'message'
+    end  
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
   post 'document/create2',to:'documents#create2',as: :document_create2                                         #入力式書類登録処理

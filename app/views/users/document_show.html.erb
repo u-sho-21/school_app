@@ -8,15 +8,16 @@
   <div class="col-md-10 col-md-offset-1">
   　<h2 class="title_font document_jyoukyou_h2">提出状況</h2>
    <%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_pc_btn" %>
-   <span class="title_font" style="color:#8A2BE2;font-weight:bold;">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
-   
+    <% if @user.tileLimit? %>
+     <span class="title_font" style="color:#8A2BE2;font-weight:bold;">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
+   <% end %>
    <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
    <!-- pc用テーブル -->
 
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
-        <% if !@user.tileLimit? %>
+        <% if @user.tileLimit? %>
           <th class="th" width="27%">
             期限
           </th>
@@ -71,8 +72,12 @@
      <table class="table table-bordered" id="document_user_table_phone">
       <thead>
         <tr>
-          <th style="width:90%;">タイトル</th>
-          <th></th>
+          <% if @user.tileLimit? %>
+            <th style="width:90%;">タイトル</th>
+            <th></th>
+          <% else %>
+            <th colspan="2">データがありません</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -115,7 +120,9 @@
         <% end %>
       </tbody>
     </table>
-　　<div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
+     <% if @user.tileLimit? %>
+　　   <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
+     <% end %>
    <!-- /phone用テーブル -->
 
 

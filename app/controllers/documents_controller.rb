@@ -196,6 +196,21 @@ end
    redirect_to documents_url(params:{send: document.id})
 end
 
+def  message
+  user = User.find 1
+  documents = user.documents.all
+  documents.each do |dc|
+    @documents = Document.where(memo: dc.memo, randam: dc.randam)
+    @documents.each do |document|
+      document.public =true
+      document.save
+    end  
+  end  
+      
+  redirect_to documents_path
+end
+
+
 #選択式作成初期ページモーダル
 def select_modal
 end

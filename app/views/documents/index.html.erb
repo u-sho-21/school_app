@@ -2,7 +2,13 @@
 <div class="title_font document_index_title_h1">
   <h1><i class="fas fa-book-open"></i>&emsp;教員書類管理ページ</h1>
 </div><br>
-<%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %><br><br>
+
+<%= form_with(url:message_document_path(1),local:true) do |f| %>
+  <%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %>
+  <%= f.submit "通知する",class:"btn btn-primary" if Rails.env.development?%>
+  <%= "開発者環境のみ表示" if Rails.env.development?%>
+<% end %>
+<br><br>
 
 <!--保護者提出後モーダルにてline push_pathにpost送信-->
 
