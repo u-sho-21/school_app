@@ -53,8 +53,8 @@
 .user_icon_title{
   color: rgb(11, 33, 235);
   font-weight: bold;
-  font-size: 16px;
-  margin-left: -40%;
+  font-size: 14px;
+  margin-left: -12%;
 
 }
 .user_link_icon:hover{
@@ -197,6 +197,7 @@
    display: none;
 }
 
+
 /* ------   スマートフォン -------   */
 @media screen and (max-width:767px){
   /* user show */
@@ -229,9 +230,9 @@
     margin-right:2%;
   }
   .user_icon_title{
-    font-size: 12px;
+    font-size: 8px;
     font-weight: bold;
-    margin-left:-10%;
+    margin-left:-5%;
     width: 100%;
   }
 
