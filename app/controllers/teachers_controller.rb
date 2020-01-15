@@ -37,6 +37,9 @@ class TeachersController < ApplicationController
       flash[:success] = "送信しました。"
       redirect_to teacher_path(@teacher)
     else
+      @users = User.joins(:children).where(children: {teacher_id: @teacher.id})
+      @users_name = @users.uniq.map{|m| m.name + m.name2}
+      flash.now[:danger] = "送信ユーザーを選択してください。"
       render :t_message
     end
   end
