@@ -14,7 +14,6 @@
       <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
       <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
-      <br>
       <% if browser.ie? %>
         <div class="checkbox">
           <% @users_name.each do |user| %>
