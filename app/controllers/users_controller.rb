@@ -68,9 +68,14 @@ class UsersController < ApplicationController
   #保護者提出ページ
   def document_show
     @user = User.find(params[:user_id])
-    @documents = @user.documents.all.where('deadline > ?',Date.today).order("id asc")
+    @documents = @user.documents.all.where('deadline >= ?',Date.today).order("id asc")
     public_check
-    
+    @user.documents.each do |document|
+      if document.deadline < Date.today
+        document.public = false
+        document.save
+      end  
+    end  
   end
 
   #保護者提出一覧ページ
@@ -79,12 +84,7 @@ class UsersController < ApplicationController
     @input_count = @document.document_items.all.count
     @select_count = select_zerocount?
     @user = User.find(params[:user_id]) 
-    @user.documents.each do |document|
-      if document.deadline < Date.today
-        document.public = false
-        document.save
-      end  
-    end  
+    
   end
 
   #保護者提出外部サービスﾘﾝｸ

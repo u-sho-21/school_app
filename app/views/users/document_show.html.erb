@@ -8,31 +8,27 @@
   <div class="col-md-10 col-md-offset-1">
   　<h2 class="title_font document_jyoukyou_h2">提出状況</h2>
    <%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_pc_btn" %>
-    <% if @user.tileLimit? %>
+   
      <span class="title_font" style="color:#8A2BE2;font-weight:bold;">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
-   <% end %>
+   
    <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
    <!-- pc用テーブル -->
 
     <table class="table table-bordered" id="document_user_table">
       <thead>
         <tr>
-        <% if @user.tileLimit? %>
           <th class="th" width="27%">
             期限
           </th>
-          <th class="th" colspan="2">タイトル</th>
-        <% else %>  
-        <th colspan="2">データがありません</th>
-        <% end %>  
+          <th colspan="2"></th>
         </tr>
       </thead>
       <tbody>
         <% @documents.each do |document| %>
-          <% if document.public %>
+          <% if document.public  %>
           <tr>
             <td>
-             <% if document.deadline > Date.today %>
+             <% if document.deadline >= Date.today %>
               <span id="document_users_span"><%= "期限#{document.deadline}"  %></span>
              <% else %>
                <span id="document_users_span">終了</span>
@@ -50,7 +46,7 @@
               <% end %> 
             </td>
             <td>
-                  <% if document.answers.count == 0 && document.deadline > Date.today  %>
+                  <% if document.answers.count == 0 && document.deadline >= Date.today  %>
                     <!-- ユーザー1の時は表示しない -->
                     <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
                   <% elsif document.answers.count > 0 && document.deadline > Date.today  %> 
@@ -58,6 +54,7 @@
                <% end %>
             </td>
           </tr>
+        
           <% end %>
         <% end %>
       </tbody>
@@ -72,12 +69,8 @@
      <table class="table table-bordered" id="document_user_table_phone">
       <thead>
         <tr>
-          <% if @user.tileLimit? %>
             <th style="width:90%;">タイトル</th>
             <th></th>
-          <% else %>
-            <th colspan="2">データがありません</th>
-          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -96,7 +89,7 @@
                 <% end %>
           
               <!-- /スマホタイトル群 -->
-
+             <% if document.deadline >= Date.today %>
               <span id="document_users_span"><%= "期限#{document.deadline}"  %></span>
              <% else %>
                <span id="document_users_span">終了</span>
@@ -107,7 +100,7 @@
             </td>
             
             <td>
-                  <% if document.answers.count == 0 && document.deadline > Date.today  %>
+                  <% if document.answers.count == 0 && document.deadline >= Date.today  %>
                     <!-- ユーザー1の時は表示しない -->
                     <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
                   <% elsif document.answers.count > 0 && document.deadline > Date.today  %> 
@@ -116,12 +109,14 @@
             </td>
           </tr>
           <% end %>
+         <% end %> 
         <% end %>
       </tbody>
     </table>
-     <% if @user.tileLimit? %>
+    
+    
 　　   <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
-     <% end %>
+   
    <!-- /phone用テーブル -->
   </div>
 </div>
