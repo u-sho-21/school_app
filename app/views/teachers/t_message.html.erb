@@ -4,7 +4,7 @@
 
 <div>
   <div class="message">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', id: "form_1", name: "form1"}, local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1", name: "form1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
