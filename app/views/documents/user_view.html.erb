@@ -29,8 +29,8 @@
                 <span style="color:red">質問:</span><%= items[answerNO].content %>
                 <div id="document_user_reply_div">
                   <span>保護者回答</span><br>
-                  <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(':')[answerNO].present? %>
-                    <strong><%= user.userAnswers(@document).reply.split(':')[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
+                  <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(":\t")[answerNO].present? %>
+                    <strong><%= user.userAnswers(@document).reply.split(":\t")[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
                 
                   <% else %>
                     <strong style="color:red;font-size:20px;">まだ回答されてません。</strong>
@@ -39,7 +39,7 @@
                 </div>
                  <div style="text-align:right;color:orange">
                   <% unless user.userAnswers(@document).nil? %>
-                    <% unless user.userAnswers(@document).reply.split(":")[answerNO].blank? %>
+                    <% unless user.userAnswers(@document).reply.split(":\t")[answerNO].blank? %>
                       <%= link_to answer_modal_path(user.userAnswers(@document),answerNO),remote:true  do  %>   <!-- userモデル参照-->
                         <i class="fas fa-search-plus"></i>
                         ピックアップ

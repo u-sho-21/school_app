@@ -155,8 +155,8 @@
        </div>
       <% end %> 
       <% else %>
-       <div style="background-color:#c0c0c0;padding:2%;border-radius:10px;text-align:center;width:100%;">
-           <h1 style="color:#fff;font-weight:bold;">書類がありません</h1>
+       <div style="text-align:center;width:100%;margin-top:2%;"><br>
+           <h1 style="color:##696969;font-weight:bold;" class="empty">書類がありません</h1>
            <style>.col-md-8{background-color:#c0c0c0;}</style>
        </div>
       <% end %>
@@ -168,3 +168,13 @@
      $("#document_line").modal("show");
   });
 </script>
+<style>
+ .empty{
+   font-size:26px;
+ }
+ @media screen and (max-width: 767px){
+  .empty{
+   font-size:18px;
+ }
+ }
+</style>

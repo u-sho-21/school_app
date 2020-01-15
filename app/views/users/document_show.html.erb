@@ -97,7 +97,6 @@
           
               <!-- /スマホタイトル群 -->
 
-             <% if document.deadline > Date.today %>
               <span id="document_users_span"><%= "期限#{document.deadline}"  %></span>
              <% else %>
                <span id="document_users_span">終了</span>
@@ -124,11 +123,6 @@
 　　   <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
      <% end %>
    <!-- /phone用テーブル -->
-
-
-    <% else %>
-      <div class="bg-info text-center" style="padding:2%;">まだ提出物ありません。</div>
-    <% end %>
   </div>
 </div>
 <hr>
