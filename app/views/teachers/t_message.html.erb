@@ -4,7 +4,7 @@
 
 <div>
   <div class="message">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', id: "form_1", name: "form1"}, local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1", name: "form1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
@@ -14,7 +14,6 @@
       <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
       <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
-      <br>
       <% if browser.ie? %>
         <div class="checkbox">
           <% @users_name.each do |user| %>
@@ -83,24 +82,22 @@ body {
 
 <script>
 
-  $('.js-searchable').select2({
-    maximumSelectionLength: 5,
-    placeholder: '送信ユーザー選択',
-    language: {
-      maximumSelected: (args) => '一度の送信では最大５人までです。'
-    },
-    allowClear: true
-  });
-
-  $(function(){
-    jQuery("#form_1").validationEngine('attach', {
-      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
-    });
-  });
-
   var agent = window.navigator.userAgent.toLowerCase(); //ブラウザ情報取得
 
   $(function() {
+
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
+
+    $('.js-searchable').select2({
+      maximumSelectionLength: 5,
+      placeholder: '送信ユーザー選択',
+      language: {
+        maximumSelected: (args) => '一度の送信では最大５人までです。'
+      },
+      allowClear: true
+    });
 
     // ①submit()に関数をバインド
     $('form').submit(function() {
@@ -134,7 +131,6 @@ body {
           // 処理を中断
           return false;
         }
-
       }
     });
   });
