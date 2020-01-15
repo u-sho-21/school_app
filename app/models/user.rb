@@ -69,7 +69,7 @@ class User < ApplicationRecord
     self.documents.all.each do|document|
       
       if document.deadline < Date.today 
-             next
+          result = false
       elsif document.deadline > Date.today
           result=true   
           break
