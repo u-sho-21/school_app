@@ -39,7 +39,7 @@ class TeachersController < ApplicationController
     else
       @users = User.joins(:children).where(children: {teacher_id: @teacher.id})
       @users_name = @users.uniq.map{|m| m.name + m.name2}
-      flash.now[:danger] = "入力に誤りがあります。"
+      flash.now[:danger] = "送信ユーザーを選択してください。"
       render :t_message
     end
   end

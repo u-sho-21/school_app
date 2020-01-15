@@ -92,15 +92,14 @@ body {
     allowClear: true
   });
 
-  $(function(){
-    jQuery("#form_1").validationEngine('attach', {
-      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
-    });
-  });
 
   var agent = window.navigator.userAgent.toLowerCase(); //ブラウザ情報取得
 
   $(function() {
+
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
 
     // ①submit()に関数をバインド
     $('form').submit(function() {
