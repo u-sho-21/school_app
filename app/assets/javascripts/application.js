@@ -18,5 +18,4 @@
 //= require jquery.validationEngine
 //= require select2
 //= require bootstrap
-//= require turbolinks
 //= require_tree .

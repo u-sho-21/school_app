@@ -68,9 +68,14 @@ class UsersController < ApplicationController
   #保護者提出ページ
   def document_show
     @user = User.find(params[:user_id])
-    @documents = @user.documents.all.where('deadline > ?',Date.today).order("id asc")
+    @documents = @user.documents.all.where('deadline >= ?',Date.today).order("id asc")
     public_check
-    
+    @user.documents.each do |document|
+      if document.deadline < Date.today
+        document.public = false
+        document.save
+      end  
+    end  
   end
 
   #保護者提出一覧ページ
@@ -79,12 +84,7 @@ class UsersController < ApplicationController
     @input_count = @document.document_items.all.count
     @select_count = select_zerocount?
     @user = User.find(params[:user_id]) 
-    @user.documents.each do |document|
-      if document.deadline < Date.today
-        document.public = false
-        document.save
-      end  
-    end  
+    
   end
 
   #保護者提出外部サービスﾘﾝｸ
@@ -103,12 +103,12 @@ def selectform
   @document.document_items.count.times do |i|
     str = "rd"+(i+1).to_s
     if params[str].present?
-      reply += params[str] + ":"
+      reply += params[str] + ":\t"
     elsif params[str].blank?
-      reply += " :"
+      reply += ":\t"
     end  
   end
-  objs = reply.split(":")
+  objs = reply.split(":\t")
   objs.each do |obj|
     if obj.blank?
       flash[:danger] = "必須です。必ず各項目選択ください。" 
@@ -135,18 +135,18 @@ def inputform
   @document.document_items.count.times do |i|
     str= "tx"+i.to_s 
     if params[str].present?
-      reply += params[str]+":"
+      reply += params[str]+":\t"
     else
       reply += "null:"  
     end  
   end  
-    objs = reply.split(":")
+    objs = reply.split(":\t")
     reply =""
     objs.length.times do |i|
       if objs[i] == "null"
         objs[i] = ""
       end  
-      reply += objs[i].to_s+":"
+      reply += objs[i].to_s+":\t"
     end
     objs.each do |ob|
       if ob.blank?
@@ -170,7 +170,7 @@ def file_show
   @user = User.find(params[:user_id])
   @items = @document.document_items.all
   @count = @items.count
-  @answers = @document.answers.last.reply.split(":")
+  @answers = @document.answers.last.reply.split(":\t")
 
 end
   

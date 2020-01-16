@@ -193,7 +193,7 @@ end
  #保護者へ作成した書類公表
  def public_change
    document = Document.find(params[:document_id])
-   redirect_to documents_url(params:{send: document.id})
+   redirect_to documents_url(params:{send: document.id}),data: {"turbolinks" => false}
 end
 
 def  message

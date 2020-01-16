@@ -77,6 +77,19 @@ class User < ApplicationRecord
     end  
     return result
   end
-  
+
+  def public_allfalse?
+    result = true
+    documents = self.documents.where(public: true)
+    documents.each do |document|
+      if document.public == false
+         next
+      elsif document.public == true
+         result = false
+         break
+      end 
+    end 
+    return result 
+  end
   
 end

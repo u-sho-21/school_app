@@ -212,7 +212,7 @@ class LinebotController < ApplicationController
 
       message={
         "type": "flex",
-        "altText": "this is a flex message",
+        "altText": "書類を送信しました。確認ください。",
         "contents": {
           "type": "bubble",
           "hero": {
