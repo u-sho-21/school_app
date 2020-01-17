@@ -79,7 +79,9 @@ body {
 
 </style>
 
-<script>
+<script type="text/javascript">
+
+$(function(){
   jQuery("#form_1").validationEngine('attach', {
     promptPosition: "topRight: -70" //アラートの吹き出し位置調整
   });
@@ -92,4 +94,5 @@ body {
     },
     allowClear: true
   });
+});
 </script>
