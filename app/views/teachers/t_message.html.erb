@@ -4,7 +4,7 @@
 
 <div>
   <div class="message">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1", name: "form1"}, local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
@@ -79,18 +79,17 @@ body {
 
 </style>
 
-
 <script>
   jQuery("#form_1").validationEngine('attach', {
     promptPosition: "topRight: -70" //アラートの吹き出し位置調整
   });
 
-  $('.js-searchable').select2({
-    maximumSelectionLength: 5,
-    placeholder: '送信ユーザー選択',
-    language: {
-      maximumSelected: (args) => '一度の送信では最大５人までです。'
-    },
-    allowClear: true
-  });
+  // $('.js-searchable').select2({
+  //   maximumSelectionLength: 5,
+  //   placeholder: '送信ユーザー選択',
+  //   language: {
+  //     maximumSelected: (args) => '一度の送信では最大５人までです。'
+  //   },
+  //   allowClear: true
+  // });
 </script>
