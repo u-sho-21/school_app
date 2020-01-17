@@ -4,7 +4,7 @@
 
 <div>
   <div class="message">
-    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1", name: "form1"}, local: true) do |f| %>
+    <%= form_with(model: @t_message, url: teacher_t_message_create_path(@teacher), html: {role: 'form', :id => "form_1"}, local: true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
@@ -24,7 +24,7 @@
           <% end %>
         </div>
       <% else %>
-        <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "js-searchable form-control", id: "select_user" } %>
+        <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "form-control", id: "js-searchable" } %>
       <% end %>
 
       <%= f.submit "送信", class: "btn btn-primary btn-block btn-signup" %>
@@ -79,60 +79,20 @@ body {
 
 </style>
 
+<script type="text/javascript">
 
-<script>
-
-  var agent = window.navigator.userAgent.toLowerCase(); //ブラウザ情報取得
-
-  $(function() {
-
-    jQuery("#form_1").validationEngine('attach', {
-      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
-    });
-
-    $('.js-searchable').select2({
-      maximumSelectionLength: 5,
-      placeholder: '送信ユーザー選択',
-      language: {
-        maximumSelected: (args) => '一度の送信では最大５人までです。'
-      },
-      allowClear: true
-    });
-
-    // ①submit()に関数をバインド
-    $('form').submit(function() {
-
-      if(agent.indexOf('msie') > -1) {
-
-        var flag = false; // 選択されているか否かを判定する変数
-
-        for (var i = 0; i < document.form1.elements.length; i++) {
-
-          // i番目のチェックボックスがチェックされているかを判定
-          if (document.form1.elements[i].checked) {
-            flag = true;
-          }
-        }
-
-        if (!flag) {
-          // 警告を出す
-          alert('送信ユーザーを選択してください。');
-          // 処理を中断
-          return false;
-        }
-
-      }else{
-
-        // もしセレクトボックスが空欄だったら…
-        if($("#select_user").val() == null) {
-          // 警告を出す
-          alert('送信ユーザーを選択してください。');
-
-          // 処理を中断
-          return false;
-        }
-      }
-    });
+$(function(){
+  jQuery("#form_1").validationEngine('attach', {
+    promptPosition: "topRight: -70" //アラートの吹き出し位置調整
   });
 
+  $("#js-searchable").select2({
+    maximumSelectionLength: 5,
+    placeholder: '送信ユーザー選択',
+    language: {
+      maximumSelected: (args) => '一度の送信では最大５人までです。'
+    },
+    allowClear: true
+  });
+});
 </script>
