@@ -84,12 +84,19 @@ body {
     promptPosition: "topRight: -70" //アラートの吹き出し位置調整
   });
 
-  // $('.js-searchable').select2({
-  //   maximumSelectionLength: 5,
-  //   placeholder: '送信ユーザー選択',
-  //   language: {
-  //     maximumSelected: (args) => '一度の送信では最大５人までです。'
-  //   },
-  //   allowClear: true
-  // });
+  //-- ブラウザ判定例 --//
+  var agent = window.navigator.userAgent.toLowerCase(); //ブラウザ情報取得
+
+
+  if(agent.indexOf('msie') > -1) {
+  } else {
+    $('.js-searchable').select2({
+      maximumSelectionLength: 5,
+      placeholder: '送信ユーザー選択',
+      language: {
+        maximumSelected: (args) => '一度の送信では最大５人までです。'
+      },
+      allowClear: true
+    });
+  }
 </script>
