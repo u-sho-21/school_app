@@ -7,8 +7,8 @@
 
 <%= form_with(url:message_document_path(1),local:true) do |f| %>
   <%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %>
-  <%= f.submit "通知する",class:"btn btn-primary" if Rails.env.development?%>
-  <%= "開発者環境のみ表示" if Rails.env.development?%>
+  <%= f.submit "通知する",class:"btn btn-primary" %>
+ 
 <% end %>
 <br><br>
 
@@ -79,10 +79,10 @@
                  <% if document.publicCheck? %>
                    <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete %>
                  <% else %>
-                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger",method: :delete %>
+                   <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger",style:"width:48%;",method: :delete %>
                  <% end %>
-                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary" unless document.publicCheck? == true %>
-                  <%= link_to "保護者に提出",public_change_path(document),data:{confirm:"提出しますと保護者に通知されますので編集出来なくなりますがよろしいでしょうか？"},class:"btn btn-success" unless document.publicCheck? == true %>
+                  <%= link_to "編集",edit_document_path(document),class:"btn btn-primary",style:"width:48%;" unless document.publicCheck? == true %>
+                 
               </td>
               <td><%= af.check_box :check,class:"form-check-input" %></td>
             </tr>
@@ -136,7 +136,6 @@
                  <% else %>
                    <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete %>
                   <%= link_to "編集",edit_document_path(document),class:"btn btn-primary btn-block" unless document.publicCheck? == true %>
-                  <%= link_to "保護者に提出",public_change_path(document),data:{confirm:"提出しますと保護者に通知されますので編集出来なくなりますがよろしいでしょうか？"},class:"btn btn-success btn-block" unless document.publicCheck? == true %>
                  <% end %>  
                 </td>
                 <!-- /第2column -->
