@@ -8,7 +8,7 @@
 <%= form_with(url:push_path,local:true) do |f| %>
   <%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %>
   <%= f.submit "通知する",class:"btn btn-primary" %>
- 
+
 <% end %>
 <br><br>
 
@@ -28,7 +28,7 @@
           <%= form_with(url:push_path(params:{line: params[:send]}),local:true) do |f| %>
             <div class="text-center">保護者へ通知しますよろしいでしょうか？ <br><br>
                <%= f.submit "提出を通知する。",class:"btn btn-primary"%>
-            </div>  
+            </div>
           <% end %>
         </div>
        </div>
@@ -40,7 +40,7 @@
 <div style="border-top:1px dotted blue;"></div><br>
 <div class="row" style="background:#f0f0f0">
   <div class="col-md-10 col-md-offset-1">
-   <% if @documents.count >0 %>   
+   <% if @documents.count >0 %>
       <%= form_with(url:document_check_delete_path,local:true) do |f| %>
        <table class="table table-bordered" id= "teacher_document_table" style="margin-top:3%;">
          <thead>
@@ -67,13 +67,13 @@
                 <% elsif document.document_items.all.count == 0 %>
                   期限:<span style="color:red"><%= document.deadline %></span>
                 <% elsif document.deadline.blank? %>
-                 指定無し  
+                 指定無し
                 <% end %>
               </td>
               <td>
                 <% if document.memo.present? && document.document_items.count > 0 && document.publicCheck? %>
                   <%= link_to reply_count(document.memo,document.randam).to_s + "/" + @users_count.to_s,document_users_view_path(document)  %>
-                <% end %>  
+                <% end %>
               </td>
               <td>
                  <% if document.publicCheck? %>
@@ -82,20 +82,20 @@
                    <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger",style:"width:48%;",method: :delete %>
                  <% end %>
                   <%= link_to "編集",edit_document_path(document),class:"btn btn-primary",style:"width:48%;" unless document.publicCheck? == true %>
-                 
+
               </td>
               <td><%= af.check_box :check,class:"form-check-input" %></td>
             </tr>
             <% end %>
-          <% end %>  
+          <% end %>
          </tbody>
        </table>
        <div class="text-right document_index_submit_btn3_no1">
          <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
          <%= f.submit "複数削除",class:"btn btn-danger" %>
        </div>
-      <% end %> 
-       
+      <% end %>
+
 <!-- *******************スマホ用テーブル****************************************************** -->
        <%= form_with(url:document_check_delete_path,local:true) do |f| %>
        <table class="table table-bordered document_teacher_index_table_phone">
@@ -126,7 +126,7 @@
 
                    <% if document.memo.present? && document.document_items.count > 0 && document.publicCheck? %>
                      <%= link_to "提出数:#{reply_count(document.memo,document.randam).to_s}" + "/" + @users_count.to_s,document_users_view_path(document),class:"btn btn-block",style:"background:#c0c0c0;color:#fff;"  %>
-                   <% end %>  
+                   <% end %>
                 </td>
                 <!--/ 第一column -->
                 <!-- 第2column -->
@@ -136,7 +136,7 @@
                  <% else %>
                    <%= link_to "削除",file_delete_path(document),data:{confirm:"本当に削除しますか？"},class:"btn btn-danger btn-block",method: :delete %>
                   <%= link_to "編集",edit_document_path(document),class:"btn btn-primary btn-block" unless document.publicCheck? == true %>
-                 <% end %>  
+                 <% end %>
                 </td>
                 <!-- /第2column -->
                 <!-- 第3column -->
@@ -154,7 +154,7 @@
          <span  id="document_explain_span">*複数まとめて削除する場合チェックいれてボタン押してください</span>
          <%= f.submit "複数削除",class:"btn btn-danger" %>
        </div>
-      <% end %> 
+      <% end %>
       <% else %>
        <div style="text-align:center;width:100%;margin-top:2%;"><br>
            <h1 style="color:##696969;font-weight:bold;" class="empty">書類がありません</h1>
