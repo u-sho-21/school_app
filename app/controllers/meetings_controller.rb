@@ -189,10 +189,10 @@ class MeetingsController < ApplicationController
     @meeting_times.each{|meeting_time| @meeting_finish_count += 1 unless meeting_time.name.blank?}
     @children_name = @teacher.children_name_array
 
-    # if @meetings.first.limit_date_present(limit_date(@meetings.first))
-    #   flash[:info] = "まだ保護者の編集期間中です。"
-    #   redirect_to teacher_meeting_index2_url(@teacher)
-    # end
+    if @meetings.first.limit_date_present(limit_date(@meetings.first))
+      flash[:info] = "まだ保護者の編集期間中です。"
+      redirect_to teacher_meeting_index2_url(@teacher)
+    end
   end
 
   # schedule_updateアクションのCSRFトークン認証を無効
