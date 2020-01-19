@@ -396,7 +396,7 @@ private
       @document = Document.find(params[:document_id])
     end  
   end
-
+#
  
   
   #質問編集パラメーター
