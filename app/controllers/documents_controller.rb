@@ -197,15 +197,8 @@ end
 end
 
 def  message
-  user = User.find 1
-  documents = user.documents.all
-  documents.each do |dc|
-    @documents = Document.where(memo: dc.memo, randam: dc.randam)
-    @documents.each do |document|
-      document.public =true
-      document.save
-    end  
-  end  
+ 
+ 
       
   redirect_to documents_path
 end
