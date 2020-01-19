@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(version: 20191203130047) do
   create_table "meeting_times", force: :cascade do |t|
     t.datetime "time"
     t.string "name"
-    t.integer "status", default: 0
     t.integer "teacher_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
