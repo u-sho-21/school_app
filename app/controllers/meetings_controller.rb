@@ -125,7 +125,8 @@ class MeetingsController < ApplicationController
   def new_user
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
-    @limit_date = @meetings.first.date - 5
+    @meetings = @teacher.meetings.all.order(:date)
+    @limit_date = @meetings.first.date - 5 if @meetings.present?
     if @meeting_times_status == "meeting_confirm"
       @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
     end
@@ -231,6 +232,10 @@ class MeetingsController < ApplicationController
     end
     @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all.order(:date)
+    unless @teacher.meeting_times.first.present?
+      flash[:info] = "面談日時が登録されていません。"
+      redirect_to teacher_url(@teacher)
+    end
   end
 
   private
