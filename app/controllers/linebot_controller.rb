@@ -192,7 +192,7 @@ class LinebotController < ApplicationController
 
     end
 
-    if params[:commit] == "提出を通知する。"
+    if params[:commit] == "通知する"
       require 'line/bot'  # gem 'line-bot-api'
 
       client = Line::Bot::Client.new { |config|
@@ -279,8 +279,6 @@ class LinebotController < ApplicationController
         }
       }
 
-      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
-      response = client.push_message(group_id, message)
       user = User.find 1
       documents = user.documents.all
       documents.each do |dc|
@@ -288,8 +286,12 @@ class LinebotController < ApplicationController
         @documents.each do |document|
           document.public =true
           document.save
-        end  
-      end  
+        end
+      end
+
+      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
+      response = client.push_message(group_id, message)
+
       flash[:success] = "送信完了"
       redirect_to documents_path(params:{teacher_id: current_teacher.id})
     end
