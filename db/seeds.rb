@@ -2,7 +2,7 @@
 
 require 'faker/japanese'
 
-#初期書類作成用ユーザー
+初期書類作成用ユーザー
 User.create!(name: "学校",
              name2:"管理者",
              email: "admon@example.com",
