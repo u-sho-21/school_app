@@ -5,7 +5,7 @@
   <h1><i class="fas fa-book-open"></i>&emsp;教員書類管理ページ</h1>
 </div><br>
 
-<%= form_with(url:message_document_path(1),local:true) do |f| %>
+<%= form_with(url:push_path,local:true) do |f| %>
   <%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %>
   <%= f.submit "通知する",class:"btn btn-primary" %>
  
