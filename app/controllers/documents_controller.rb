@@ -373,7 +373,22 @@ end
    @document = Document.find(params[:document_id])
    @users = User.paginate(page: params[:page],per_page: 10).order('id asc')
  end
+
+ #集計ページ
+ def aggre
+   user = User.find 1
+   @documents = user.documents.all
+  
+   @userCount = User.all.count-1
+  
+ end  
+
  
+
+
+
+
+
 
 #*******************************************PRIVATE***************************************************************************
 private
