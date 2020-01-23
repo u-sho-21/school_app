@@ -14,7 +14,7 @@
              <% count = 0 %>
              <% if i ==0 %>
               <label class="doc">
-                書類タイトル<br>
+                <strong class="s_title">書類タイトル</strong><br>
                 &emsp;<%= "#{item.document.title}"  %>
               </label>
              <% end %>
@@ -67,7 +67,13 @@
      font-weight:bold;
   }
   .doc{
-    font-size:24px;
+    font-size:18px;
+    
+  }
+  .s_title{
+    background:blue;
+    color:#fff;
+    padding:1px 10px;
   }
   @media screen and (max-width:767px){
     .agree-top{

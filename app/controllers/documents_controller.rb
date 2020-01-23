@@ -173,6 +173,18 @@ def file_delete
   flash[:danger] = "資料を削除しました。"
   redirect_to documents_url
 end
+#確認画面
+def confirm
+  @array = []
+  delete_parameter.each do |id,item|
+    if item[:check] == "1"
+      document = Document.find id
+      @array << document
+    end 
+  end  
+end
+ 
+
 
 #複数document削除
 def check_delete
@@ -197,9 +209,6 @@ end
 end
 
 def  message
- 
- 
-      
   redirect_to documents_path
 end
 
@@ -419,7 +428,7 @@ private
 
   #document複数削除パラメーター
   def delete_parameter
-    params.permit(boxs: [:check])[:boxs]
+    params.permit(boxs: [:check, :id])[:boxs]
   end
   
 end

@@ -12,36 +12,16 @@
 <% end %>
 <br><br>
 
-<!--保護者提出後モーダルにてline push_pathにpost送信-->
-
-<% if params[:send].present? && logged_in_teacher? %>
-   <div id="document_line" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
-     <div class="modal-dialog">
-       <div class="modal-content">
-        <div class="modal-header">
-          <div class="text-center">保護者へ通知</div>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-           </button>
-        </div>
-        <div class="modal-body">
-          <%= form_with(url:push_path(params:{line: params[:send]}),local:true) do |f| %>
-            <div class="text-center">保護者へ通知しますよろしいでしょうか？ <br><br>
-               <%= f.submit "提出を通知する。",class:"btn btn-primary"%>
-            </div>
-          <% end %>
-        </div>
-       </div>
-     </div>
-   </div>
-<% end %>
-
+<!--モーダル-->
+  <div id="document_delete" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
 <!--モーダル処理終了-->
+
+
 <div style="border-top:1px dotted blue;"></div><br>
 <div class="row" style="background:#f0f0f0">
   <div class="col-md-10 col-md-offset-1">
    <% if @documents.count >0 %>
-      <%= form_with(url:document_check_delete_path,local:true) do |f| %>
+      <%= form_with(url: {action: 'confirm'},local:true) do |f| %>
        <table class="table table-bordered" id= "teacher_document_table" style="margin-top:3%;">
          <thead>
            <tr>
@@ -85,6 +65,7 @@
 
               </td>
               <td><%= af.check_box :check,class:"form-check-input" %></td>
+              <%= af.hidden_field :id, value: document.id %>
             </tr>
             <% end %>
           <% end %>
