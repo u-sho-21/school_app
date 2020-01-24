@@ -6,8 +6,8 @@
       </button>
       <div class="modal-title meeting-modal-title" style="color: black;"><%= @t_message.title %></div>
     </div>
-    <div class="modal-body modal-desired">
-      <%= form_with(model: @t_message, url: teacher_t_message_update_path(@teacher, id: @t_message.id), method: :patch, local:true) do |f| %>
+    <div class="modal-body">
+      <%= form_with(model: @t_message, url: teacher_t_message_update_path(@teacher, id: @t_message.id), html: {role: 'form', :id => "form_1"}, method: :patch, local:true) do |f| %>
 
       <%= f.label :title, "タイトル", class: "label-signup", style: "color: black;" %>
       <%= f.text_field :title, class: "form-control validate[required,maxSize[20]]" %>
@@ -23,3 +23,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
+  });
+</script>
