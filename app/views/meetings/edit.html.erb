@@ -37,8 +37,8 @@
             </tbody>
           </table>
         </div>
-      <% end %>
-      <div><i class="fas fa-exclamation-circle" style="color: red;"></i>日時確定して保護者に通知済みのため編集はできません。</div>
+      <% end %><br>
+      <div class="eraser-content"><i class="fas fa-exclamation-triangle fa-fw" style="color: red;"></i>日時確定して保護者に通知済みのため編集はできません。</div>
     </div>
 
   <% else %>
@@ -111,7 +111,7 @@
                   <% @meeting_times.each do |meeting_time| %>
                     <% if meeting_time.time.to_date == date %>
                       <%= fields_for "meeting_times[]", meeting_time do |af| %>
-                          <td style="background: #ffffff;"><%= af.time_select :time, minute_step: 5 %></td>
+                          <td style="background: #ffffff;"><%= af.time_select :time, minute_step: 15 %></td>
                       <% end %>
                     <% end %>
                   <% end %>
@@ -120,7 +120,7 @@
             </tbody>
           </table>
         </div>
-        <div style="text-align: left;"><i class="fas fa-exclamation-circle" style="color: red;"></i><i class="fas fa-eraser"></i>アイコンは削除</div>
+        <div class="eraser-content"><i class="fas fa-exclamation-triangle fa-fw" style="color: red;"></i><i class="fas fa-eraser"></i>アイコンで削除できます。</div>
         <div id="submit-center">
           <%= f.submit "更新", class: "btn btn-success submit-edit" %>
         </div>
@@ -134,9 +134,13 @@
   <% end %>
 </div>
 
+<style>
+  body {
+    background-color: #f7f5e6;;
+  }
+</style>
 
-<script>
-
+<script type="text/javascript">
   $('.date-picker').datepicker({
     beforeShow: function(input, inst){
       inst.dpDiv.css({marginTop: 0 + 'px', marginLeft: -40 + 'px'});
@@ -153,10 +157,3 @@
     }
   });
 </script>
-
-
-<style>
-  body {
-    background-color: #f7f5e6;;
-  }
-</style>
