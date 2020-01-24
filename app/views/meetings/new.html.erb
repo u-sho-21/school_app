@@ -24,8 +24,11 @@
           <tbody>
             <tr>
               <td>
-                <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %> :
-                <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+                <div>
+                  <%= f.select :published_at_hour, @hour, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+                  <span>:</span>
+                  <%= f.select :published_at_minute_1, @minutes1, {}, class: 'form-control box select-font', style: "width: 45%;" %>
+                </div>
               </td>
               <td><%= f.select :published_at_minute_2, @minutes2, {}, class: 'form-control select-font' %></td>
               <td><%= f.select :frame, @frame_list, {}, class: 'form-control select-font' %></td>
@@ -87,7 +90,7 @@
   // datepicker関連
   $(function(){
     $("#datepicker").datepicker({
-      minDate: '0',  // 過去の日付を選択不可
+      minDate: '5',  // 現在日から5日後前を選択不可(保護者編集期間を5日にしているため)
       hideIfNoPrevNext: true,  // 前月矢印削除
       onSelect: function(selected_date) {   // 日付が選択された時、日付をテキストフィールドへセット
         var nowText = $("#kouho").val();

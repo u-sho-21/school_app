@@ -142,10 +142,7 @@
 
 <script type="text/javascript">
   $('.date-picker').datepicker({
-    beforeShow: function(input, inst){
-      inst.dpDiv.css({marginTop: 0 + 'px', marginLeft: -40 + 'px'});
-    }
-    minDate: '0',  // 過去の日付を選択不可
+    minDate: '5',  // 現在日から5日後前を選択不可(保護者編集期間を5日にしているため)
     hideIfNoPrevNext: true,  // 前月矢印削除
     onSelect: function(selected_date) {   // 日付が選択された時、日付をテキストフィールドへセット
       var nowText = $("#kouho").val();
