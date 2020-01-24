@@ -9,8 +9,8 @@
     <div class="modal-body modal-desired">
       <%= form_with(url: user_desired_update_path(user_id: @user.id, child_id: @child.id), method: :patch, local:true) do |f| %>
 
-        <%= f.label "面談希望日を選択してください" %>
-        <%= f.select :status, options_from_collection_for_select(@teacher.meetings.where(child_id: @child.id).order(:date), :date, :date), {}, id: "status", class: "form-control form-desired" %>
+        <%= f.label :status, "面談希望日を選択してください" %><br>
+        <%= f.select :status, options_from_collection_for_select(@meetings_children, :date, :date), {}, id: "status", class: "form-control form-desired" %>
 
         <div id="desired-button">
           <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

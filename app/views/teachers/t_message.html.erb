@@ -1,6 +1,6 @@
-<% provide(:title, "個別連絡") %>
+<% provide(:title, "お便り送信") %>
 
-<h1 id="meeting-top-title"><i class="fas fa-comments"></i>&nbsp;個別連絡</h1>
+<h1 id="meeting-top-title"><i class="far fa-newspaper"></i>&nbsp;お便り送信</h1>
 
 <div>
   <div class="message">
@@ -13,86 +13,21 @@
       <br><span style="color: red">100文字以内で入力してください。</span>
       <%= f.text_area :content, class: "form-control validate[required,maxSize[100]]", style: "height: 100px" %>
 
-      <%= f.label :select_user, "送信ユーザー", class: "label-signup" %>
-      <% if browser.ie? %>
-        <div class="checkbox">
-          <% @users_name.each do |user| %>
-            <label class="checkbox_label">
-              <%= check_box_tag 't_message[select_user][]', user, checked = false, class: "checkbox-input" %>
-              <span class="checkbox-parts"><%= user %></span>
-            </label>
-          <% end %>
-        </div>
-      <% else %>
-        <%= f.select :select_user, @users_name, { include_hidden: false }, { multiple: true, class: "form-control", id: "js-searchable" } %>
-      <% end %>
-
       <%= f.submit "送信", class: "btn btn-primary btn-block btn-signup" %>
     <% end %>
   </div>
 </div>
 
 <style>
-
-body {
-  background: #a2c2e6;
-}
-
-.checkbox_label{
-  width: 160px;
-}
-
-.checkbox-input{
-  display: none;
-}
-.checkbox-parts{
-  padding-left: 20px;
-  position:relative;
-  margin-right: 20px;
-}
-.checkbox-parts::before{
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  border: 1px solid #999;
-  border-radius: 4px;
-}
-.checkbox-input:checked + .checkbox-parts{
-  color: #d01137;
-}
-.checkbox-input:checked + .checkbox-parts::after{
-  content: "";
-  display: block;
-  position: absolute;
-  top: -5px;
-  left: 5px;
-  width: 7px;
-  height: 14px;
-  transform: rotate(40deg);
-  border-bottom: 3px solid #d01137;
-  border-right: 3px solid #d01137;
-}
-
+  body {
+    background: #a2c2e6;
+  }
 </style>
 
 <script type="text/javascript">
-
-$(function(){
-  jQuery("#form_1").validationEngine('attach', {
-    promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+  $(function(){
+    jQuery("#form_1").validationEngine('attach', {
+      promptPosition: "topRight: -70" //アラートの吹き出し位置調整
+    });
   });
-
-  $("#js-searchable").select2({
-    maximumSelectionLength: 5,
-    placeholder: '送信ユーザー選択',
-    language: {
-      maximumSelected: (args) => '一度の送信では最大５人までです。'
-    },
-    allowClear: true
-  });
-});
 </script>

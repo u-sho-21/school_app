@@ -1,14 +1,12 @@
 <%=provide(:title,"メニュー") %>
 <div id="meeting-top-title" class="title_font meeting-top-title">教員トップページ</div>
 <div class="box_srcollbar">
-  <div class="box_title"><span style="color:#a0a0a0;"><i class="far fa-newspaper"></i>&nbsp;</span>案内済みお便り一覧</div>
-  <% @t_messages.each do |t_message| %>
-    <span style="color:yellow"><%= t_message.created_at.to_s(:date) %><span>
-    <span style="color:#fff;margin-left:5%;"><%= link_to t_message.title, teacher_t_message_modal_path(@teacher, id: t_message.id), remote: true %></span>
-    <div id="message-modal-<%= t_message.id %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-    <br>
+  <div class="box_title"><span style="color:#a0a0a0;"><i class="fas fa-phone">&emsp;</span></i>保護者からのお問い合わせ</div>
+  <% @p_messages.each do |p_message| %>
+    <span style="color:yellow"><%= p_message.created_at.to_s(:date) %><span>
+    <span style="color:#fff;margin-left:5%;"><%= link_to p_message.title, teacher_t_message_reply_path(@teacher, id: p_message.id),style:"color:#fff" %></span>
+    <%= "(返信済み)" if p_message.reply.present? %><br>
   <% end %>
-
 </div>
    <label class="teacher_menu_title">メニュー</label>
     <div class="col-md-9 col-md-offset-2" style="padding-bottom:6%;">
@@ -73,7 +71,7 @@
         <div class="col-md-1 col-xs-6 col-md-offset-1" >
           <%= link_to teacher_t_message_path(@teacher),id:"teacher_bt" do %>
             <span class="teacher_link_icon"><i class="fas fa-comments"></i></span>
-            <div class="teacher_icon_title">&emsp;&emsp;お便り送信</div>
+            <div class="teacher_icon_title">&emsp;&emsp;個別連絡</div>
           <% end %>
         </div>
       </div>
