@@ -38,14 +38,14 @@
 			  <% if  logged_in_teacher? %>
 
 			    <li class="<%= "active" if active == "show" %> "><%= link_to "トップページ", teacher_path(current_teacher),style:"color:#f0f0f0;" %></li>
-				<li class="<%= "active" if active == "index2" %>"><%= link_to "面談スケジュール",teacher_meeting_index2_path(current_teacher),style:"color:#f0f0f0;" %></li>
+				<li class="<%= "active" if active == "index2" %>"><%= link_to "面談返信状況",teacher_meeting_index2_path(current_teacher),style:"color:#f0f0f0;" %></li>
 				<li class="<%= "active" if active == "index" %>"><%= link_to "提出状況", documents_path(params:{teacher_id: current_teacher}),style:"color:#f0f0f0;" %></li>
-				<li class="<%= "active" if active == "t_message" %>"><%= link_to "保護者連絡", teacher_t_message_path(current_teacher),style:"color:#f0f0f0;"  %></li>
+				<li class="<%= "active" if active == "t_message" %>"><%= link_to "お便り送信", teacher_t_message_path(current_teacher),style:"color:#f0f0f0;"  %></li>
 			  <% elsif logged_in? && current_user.children.count >0 %>
 			    <li class="<%= "active" if active == "show" %>"><%= link_to "トップページ", user_path(current_user),style:"color:#f0f0f0;" %></li>
 				<li class="<%= "active" if active == "new_user" %>"><%= link_to "面談ページへ", user_meetings_new_user_path(user_id: current_user.id, child_id: session[:child_id] ),style:"color:#f0f0f0;" %></li>
 				<li class="<%= "active" if active == "document_show"%>"><%= link_to "提出ページへ",  user_documets_path(current_user),style:"color:#f0f0f0;" %></li>
-				<li class="<%= "active" if active == "messages"%>"><%= link_to "お便り",user_users_messages_path(current_user),style:"color:#f0f0f0;" %></li>
+				<li class="<%= "active" if active == "messages"%>"><%= link_to "お便り一覧",user_users_messages_path(current_user),style:"color:#f0f0f0;" %></li>
 			  <% end %>
 			</ul>
 

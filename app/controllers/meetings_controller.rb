@@ -134,6 +134,7 @@ class MeetingsController < ApplicationController
 
   # 希望日登録モーダル
   def desired
+    @meetings_children = @teacher.meetings.where(child_id: @child.id).order(:date)
   end
 
   # 面談希望日等決定
@@ -182,12 +183,12 @@ class MeetingsController < ApplicationController
     @meetings = @teacher.meetings.all.order(:date)
     @meetings_desired = @teacher.meetings.where(desired: true)
     @meeting_times = @teacher.meeting_times.all
-    @desired_count = @teacher.desired_count
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
     @children = @teacher.children.all
     @meeting_finish_count = 0
     @meeting_times.each{|meeting_time| @meeting_finish_count += 1 unless meeting_time.name.blank?}
     @children_name = @teacher.children_name_array
+
 
     # if @meetings.first.limit_date_present(limit_date(@meetings.first))
     #   flash[:info] = "まだ保護者の編集期間中です。"

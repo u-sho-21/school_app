@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
     get 'show2/:user_id', to: 'teachers#show2', as: :teacher_show2                                             # 保護者詳細ページ
     get 't_message', to: 'teachers#t_message', as: :t_message                                                  # 個別連絡ページ
-    post 't_message_create', to: 'teachers#t_message_create', as: :t_message_create                            # 個別連絡送信
+    post 't_message_create', to: 'teachers#t_message_create', as: :t_message_create                            # お便り送信
+    get ':id/t_message_modal', to: 'teachers#t_message_modal', as: :t_message_modal                            # お便りモーダル
+    patch ':id/t_message_update', to: 'teachers#t_message_update', as: :t_message_update                       # お便り更新
     get ':id/t_message_reply', to: 'teachers#t_message_reply', as: :t_message_reply                            # 保護者への返信ページ
     patch ':id/t_message_reply_send', to: 'teachers#t_message_reply_send', as: :t_message_reply_send           # 保護者への返信処理
     get 'meetings/new', to: 'meetings#new'                                                                     # 面談日時登録ページ
@@ -28,9 +30,9 @@ Rails.application.routes.draw do
     get 'meetings', to: 'meetings#index', as: :meetings_index                                                  # 面談スケジュール調整ページ
     get 'meetings/status', to: 'meetings#index2', as: :meeting_index2                                          # 面談状況確認ページ
     patch 'meetings', to: 'meetings#schedule_update', as: :schedule_update                                     # 面談スケジュール更新
-    collection do 
+    collection do
       get 'help'                                                                                               #教員説明ヘルプページ
-    end  
+    end
   end
 
   resources :users do
@@ -67,7 +69,7 @@ Rails.application.routes.draw do
     end
     member do
       post 'message'
-    end  
+    end
   end
   get 'document/new2',to:"documents#new2",as: :new2_document                                                   #入力式書類作成ページ
   post 'document/create2',to:'documents#create2',as: :document_create2                                         #入力式書類登録処理

@@ -1,7 +1,7 @@
 <div class="tm-back">
-  <h1 id="meeting-top-title">先生からのお便り一覧</h1>
+  <h1 id="meeting-top-title"><i class="fas fa-envelope-open-text"></i>&nbsp;お便り一覧</h1>
 
-  <% if @t_messages.any? {|t_message| t_message_content(t_message, @user) == true} %>
+  <% if @t_messages.present? %>
     <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
       <thead>
         <tr style="background: #FF9933; color: white;">
@@ -13,66 +13,24 @@
 
       <tbody>
         <% @t_messages.each do |t_message| %>
-          <% if t_message_content(t_message, @user) == true %>
-            <tr>
-              <!-- 日付 -->
-              <td style="width: 30%;"><%= t_message.created_at.to_s(:date) %></td>
-              <!-- タイトル -->
-              <td><%= t_message.title %></td>
-              <!-- 内容 -->
-              <td class="message-content" data-toggle="collapse" data-target="#tm-<%= t_message.id %>" aria-expanded="false" aria-controls="collapseExample2">
-                <%= button_tag "内容", class: "btn btn-success" %>
-              </td>
-            </tr>
-            <tr class="collapse" id="tm-<%= t_message.id %>">
-              <td colspan="3" class="bg-warning" style="text-align: left;"><span style="color: green;">内容</span>：<br><%= t_message.content %></td>
-            </tr>
-          <% end %>
+          <tr>
+            <!-- 日付 -->
+            <td style="width: 30%;"><%= t_message.created_at.to_s(:date) %></td>
+            <!-- タイトル -->
+            <td><%= t_message.title %></td>
+            <!-- 内容 -->
+            <td class="message-content" data-toggle="collapse" data-target="#tm-<%= t_message.id %>" aria-expanded="false" aria-controls="collapseExample2">
+              <%= button_tag "内容", class: "btn btn-success" %>
+            </td>
+          </tr>
+          <tr class="collapse" id="tm-<%= t_message.id %>">
+            <td colspan="3" class="bg-warning" style="text-align: left;"><span style="color: green;">内容</span>：<br><%= t_message.content %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
   <% else %>
     <div id="meeting-title">お便りなし</div>
-  <% end %>
-</div>
-
-<div class="pm-back">
-  <h1 id="meeting-top-title">先生からの返信</h1>
-
-  <% if @p_messages.first.present? %>
-    <table class="table-bordered table-striped table-condensed meeting-table" style="width: 100%; margin-top: 20px;">
-      <thead>
-        <tr style="background: #FF9933; color: white;">
-          <td style="width: 30%;">返信日</td>
-          <td>タイトル</td>
-          <td>内容</td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @p_messages.each do |p_message| %>
-            <tr>
-              <td><%= p_message.updated_at.to_s(:date) %></td>
-              <td><%= p_message.title %></td>
-              <% if p_message.reply.present? %>
-                <td class="message-content" data-toggle="collapse" data-target="#pm-<%= p_message.id %>" aria-expanded="false" aria-controls="collapseExample2">
-                  <%= button_tag "内容", class: "btn btn-success" %>
-                </td>
-              <% else %>
-                <td>返信なし</td>
-              <% end %>
-            </tr>
-            <tr class="collapse" id="pm-<%= p_message.id %>">
-              <td colspan="3">
-              <div class="pm-content"><span style="color: blue;">相談内容</span>：<br><%= p_message.content %></div>
-              <div class="pm-reply"><span style="color: red;">返信内容</span>：<br><%= p_message.reply if p_message.reply.present? %></div>
-              </td>
-            </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <div id="meeting-title">メッセージ連絡をしていません。</div>
   <% end %>
 </div>
 

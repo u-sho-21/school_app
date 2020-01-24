@@ -79,17 +79,23 @@
         <p><i class="fas fa-exclamation-triangle"></i>選択肢には保護者が面談可能な日時の部分にまだ日時が決まっていない保護者の名前が表示されます。</p>
         <p><i class="fas fa-exclamation-triangle"></i>保護者の名前をクリックすることでその部分をキャンセルでき、選択肢にもキャンセルした保護者の名前が表示されるようになります。</p>
       </div>
-      <div id="submit-center">
-        <%= f.submit "更新", class: "btn btn-success submit-edit" %>
-      </div>
+      <% unless @meetings.first.limit_date_present(limit_date(@meetings.first)) %>
+        <div id="submit-center">
+          <%= f.submit "更新", class: "btn btn-success submit-edit" %>
+        </div>
+      <% else %>
+        <div id="submit-center">
+          <button class="btn btn-success submit-edit2" readonly: true>スケジュールを決定は、<br>保護者の編集期間終了後から可能です。</button>
+        </div>
+      <% end %>
     <% end %>
-    <%# if @children.count == @meeting_finish_count %> <!-- 全員決定時のみ表示 -->
+    <% if @children.count == @meeting_finish_count %> <!-- 全員決定時のみ表示 -->
       <div id="submit-center">
         <%= form_with(url: push_path, local:true) do |f| %>
           <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
         <% end %>
       </div>
-    <%# end %>
+    <% end %>
   </div>
 </div>
 

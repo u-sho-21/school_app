@@ -207,6 +207,13 @@
   text-align: center;
 }
 
+/* 面談日時編集ページ */
+
+.eraser-content {
+  text-align: left;
+  font-size: 18px;
+}
+
 /* datepicker */
 
 .ui-widget-header {   //header部分
@@ -293,6 +300,10 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   font-family: 'M PLUS Rounded 1c';
 }
 
+.yoyaku-edit {
+  font-size: 18px;
+}
+
 /* 希望日モーダル */
 
 .meeting-modal-title {
@@ -342,6 +353,11 @@ td.ui-datepicker-week-end a.ui-state-highlight{
 
 .submit-edit {
   width: 40%;
+  font-size: 18px;
+  font-family: 'M PLUS Rounded 1c';
+}
+
+.submit-edit2 {
   font-size: 18px;
   font-family: 'M PLUS Rounded 1c';
 }
@@ -414,6 +430,10 @@ td.ui-datepicker-week-end a.ui-state-highlight{
     width: 100%;
     font-size: 14px;
   }
+  .submit-edit2 {
+    width: 100%;
+    font-size: 14px;
+  }
   #submit-center {
     .btn-lg {
       font-size: 14px;
@@ -448,5 +468,11 @@ td.ui-datepicker-week-end a.ui-state-highlight{
   }
   .meeting-confirm-top {
     font-size: 19px;
+  }
+  .eraser-content {
+    font-size: 14px;
+  }
+  .yoyaku-edit {
+    font-size: 14px;
   }
 }
