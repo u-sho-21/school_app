@@ -11,13 +11,13 @@
     <% end %>
   <% end %>
 
-  <% if @meeting_times_status == "meeting_confirm" %>
+  <% if @meeting_times_status == "meeting_confirm" %> <!-- 面談日時のが確定している -->
     <h1 id="meeting-top-title" class="bg-info">面談日時が確定しました。</h1>
     <div class="meeting-confirm-top meeting-new-user">
       <div><%= @child.full_name %>さんの面談日時は</div>
       <div><span style="color: red;">「<%= @meeting_confirm.time.to_s(:full_time) if @meeting_confirm.present? %>」</span></div>
     </div>
-  <% elsif @meeting_times_status == "meeting_decision" %>
+  <% elsif @meeting_times_status == "meeting_decision" %> <!-- まだ、日時は決まっていない -->
 
     <% if Date.today > @limit_date %> <!-- 編集期間 -->
       <h1 id="meeting-top-title" class="bg-info">スケジュール調整中のため、予約できません。</h1>
