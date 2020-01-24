@@ -121,7 +121,7 @@ def create3
   end
   @document = Document.all.last  #作られたユーザーごとの資料の最後
   flash[:success] = "作成しました。"
-  redirect_to teacher_url(1)
+  redirect_to documents_url
   return
 end  
 
@@ -365,8 +365,8 @@ end
     selects.each do |select|
       select.destroy
     end  
-    flash[:info] = "削除しました。"
-    redirect_to edit_document_url(select.document_item.document)
+    flash[:danger] = "削除しました。"
+    redirect_to documents_path
   end
 
 #保護者側書類show
