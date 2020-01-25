@@ -59,7 +59,11 @@
       <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
        <%= link_to  user_users_messages_path(@user), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="fas fa-envelope-open-text"></i></span>
-         <div class="user_icon_title">お便り一覧<%= render 'new_label' if @t_message.new_arrival? %></div>
+         <div class="user_icon_title">お便り一覧
+          <% if @t_message.present? %>
+            <%= render 'new_label' if @t_message.new_arrival? %>
+          <% end %>
+          </div>
        <% end %>
      </div>
 

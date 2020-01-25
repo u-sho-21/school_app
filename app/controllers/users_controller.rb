@@ -10,9 +10,7 @@ class UsersController < ApplicationController
     if @child.nil?
       redirect_to signup_child_url
     end
-    if @teacher.t_messages.present?
-      @t_message = @teacher.t_messages.last
-    end
+    @t_message = @teacher.t_messages.last
   end
 
   # 保護者新規作成ページ
