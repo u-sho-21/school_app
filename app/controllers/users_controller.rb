@@ -5,10 +5,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @child = @user.children.first
+    @teacher = Teacher.find(@child.teacher_id)
     session[:child_id] = @child.id unless @child.nil?
     if @child.nil?
       redirect_to signup_child_url
     end
+    @t_message = @teacher.t_messages.last
   end
 
   # 保護者新規作成ページ
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
       @teacher = Teacher.find 1
     else
       @teacher = Teacher.find(@child.teacher_id)
-    end     
+    end
     @child = @user.children.build
   end
 
@@ -74,8 +76,8 @@ class UsersController < ApplicationController
       if document.deadline < Date.today
         document.public = false
         document.save
-      end  
-    end  
+      end
+    end
   end
 
   #保護者提出一覧ページ
@@ -83,22 +85,22 @@ class UsersController < ApplicationController
     @document = Document.find(params[:id])
     @input_count = @document.document_items.all.count
     @select_count = select_zerocount?
-    @user = User.find(params[:user_id]) 
-    
+    @user = User.find(params[:user_id])
+
   end
 
   #保護者提出外部サービスﾘﾝｸ
   def link
     @document = Document.find(params[:id])
   end
-  
+
   #選択式保護者処理
 def selectform
- 
+
   @document = Document.find(params[:id])
   if @document.answers.count >0
     @document.answers.destroy_all
-  end  
+  end
   @user = User.find @document.user.id
   answer = Answer.new
   answer.randam = @document.randam
@@ -110,64 +112,64 @@ def selectform
       reply += params[str] + ":\t"
     elsif params[str].blank?
       reply += ":\t"
-    end  
+    end
   end
   objs = reply.split(":\t")
   unless objs.count == @document.document_items.count
-      flash[:danger] = "必須です。必ず各項目選択ください。" 
-      redirect_to user_document_view_path(@user,@document,params:{reply: reply}) 
+      flash[:danger] = "必須です。必ず各項目選択ください。"
+      redirect_to user_document_view_path(@user,@document,params:{reply: reply})
   else
     answer.reply = reply
     answer.select = true
     answer.user_id = current_user.id
     if answer.save
      redirect_to user_url(current_user)
-    else 
-      render :selectform 
-    end 
-  end    
+    else
+      render :selectform
+    end
+  end
 end
 
 #入力式保護者処理
-def inputform  
+def inputform
   @document = Document.find(params[:id])
   @user = User.find @document.user.id
   answer = Answer.new
   answer.document_id = params[:id]
   reply = ""
   @document.document_items.count.times do |i|
-    str= "tx"+i.to_s 
+    str= "tx"+i.to_s
     if params[str].present?
       reply += params[str]+":\t"
     else
-      reply += "null:\t"  
-    end  
-  end  
+      reply += "null:\t"
+    end
+  end
     objs = reply.split(":\t")
     reply =""
     objs.length.times do |i|
       if objs[i] == "null"
         objs[i] = ""
-      end  
+      end
       reply += objs[i].to_s+":\t"
     end
     objs.each do |ob|
       if ob.blank?
-        flash[:danger] = "必須です。入力してください。" 
+        flash[:danger] = "必須です。入力してください。"
         redirect_to user_document_view_path(@user,@document,params:{reply: reply})
         return
-      end  
-    end  
+      end
+    end
   answer.reply = reply
   answer.user_id = current_user.id
   if answer.save
     redirect_to user_url(current_user)
   else
     render :inputform
-  end  
+  end
 end
 
-#保護者提出済みファイル表示ページ  
+#保護者提出済みファイル表示ページ
 def file_show
   @document = Document.find(params[:document_id])
   @user = User.find(params[:user_id])
@@ -176,7 +178,7 @@ def file_show
   @answers = @document.answers.last.reply.split(":\t")
 
 end
-  
+
   # 保護者削除
   def destroy
     @user = User.find(params[:id])
@@ -241,6 +243,7 @@ end
     @user = User.find(params[:user_id])
     @child = @user.children.first
     @teacher = Teacher.find(@child.teacher_id)
+    @t_message = @teacher.t_messages.last
     @t_messages = @teacher.t_messages.all
     @p_messages = @user.p_messages.all
   end
@@ -268,7 +271,7 @@ end
     end
   end
 
-  
+
 
   private
     # 保護者情報登録/更新
