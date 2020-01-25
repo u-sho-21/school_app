@@ -6,7 +6,7 @@ class TMessage < ApplicationRecord
 
   # 新規お便りチェック
   def new_arrival?
-    created_at + 1.week > Date.today if created_at.present?
+    created_at + 1.week > Date.today
   end
 
 end
