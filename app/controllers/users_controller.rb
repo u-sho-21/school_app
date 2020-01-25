@@ -6,10 +6,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @child = @user.children.first
     @teacher = Teacher.find(@child.teacher_id)
-    @t_message = @teacher.t_messages.last
     session[:child_id] = @child.id unless @child.nil?
     if @child.nil?
       redirect_to signup_child_url
+    end
+    if @teacher.t_messages.present?
+      @t_message = @teacher.t_messages.last
     end
   end
 
