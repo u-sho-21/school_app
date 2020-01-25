@@ -17,7 +17,7 @@
             <!-- 日付 -->
             <td style="width: 30%;"><%= t_message.created_at.to_s(:date) %></td>
             <!-- タイトル -->
-            <td><%= t_message.title %></td>
+            <td><div style="display: flex;"><%= render 'new_label' if @t_message.new_arrival? %>&emsp;<%= t_message.title %></div></td>
             <!-- 内容 -->
             <td class="message-content" data-toggle="collapse" data-target="#tm-<%= t_message.id %>" aria-expanded="false" aria-controls="collapseExample2">
               <%= button_tag "内容", class: "btn btn-success" %>
