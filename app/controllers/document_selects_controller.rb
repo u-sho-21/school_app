@@ -12,16 +12,20 @@ class DocumentSelectsController < ApplicationController
   def create
     @document_item = DocumentItem.find(params[:document_item_id])
     randam = SecureRandom.alphanumeric(10)
+    num = rand(100)
     if params[:content].blank?
       flash[:danger] = "必ず書き込んでください。"
       redirect_to document_item_select_url(@document_item)
     elsif params[:content].length > 50   
       flash[:danger] = "50文字以内でお願いします。"
       redirect_to document_item_select_url(@document_item)
+    elsif !@document_item.select_non_uniq(params[:content])  
+      flash[:danger] = "同じ選択肢がすでにあります。異なる内容にしてください。"
+      redirect_to document_item_select_url(@document_item)
     else
       @document_items = DocumentItem.where(content: @document_item.content,randam: @document_item.randam) #前項のdocumentからのid content
       @document_items.each do |item|
-      record = item.document_selects.build(content: params[:content],document_item_id: item.id)
+      record = item.document_selects.build(content: params[:content].to_s+":"+num.to_s,document_item_id: item.id)
       record.randam = randam 
       record.save
     end 

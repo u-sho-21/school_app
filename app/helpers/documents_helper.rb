@@ -76,5 +76,50 @@ module DocumentsHelper
      end 
      return result
    end
-              
+
+   def selectName(name)
+     array = []
+     items = DocumentItem.where(content: name)
+      items.each do |item|
+        item.document_selects.all.each do |select|
+          array << select.content
+        end  
+      end
+      array2 = array.uniq  
+     return array2
+   end    
+   def selectCount(select_name)
+    user = User.find 1
+    user.documents.all.each do |document|
+      document.document_items.all.each do |item|
+        @select = item.document_selects.find_by(content:select_name).content
+      end  
+    end  
+    
+   end
+
+   def answer_count(item)
+     array = []
+     items = DocumentItem.where(content: item.content, randam: item.randam)
+     items.each do |item|
+       record = item.document.answers
+       if record.count >0
+        array << record.reply
+       end 
+     end
+     return array
+   end  
+   
+   def agree_count(number)
+     count = 0;
+     return count+=number
+   end
+
+   def totals(select)
+    array = []
+    
+    
+   end
+  
+   
 end

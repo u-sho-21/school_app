@@ -1,5 +1,14 @@
 <%= provide(:title, "提出確認") %>
 
+<!--ページネーション数対策 -->
+<% if @users.all.count >=10 %>
+  <style>
+    #document_user_reply_table{
+      margin-top:-2%;
+    }
+  </style>
+<% end %>
+
 <div id="document_answer_reply" class="modal fade" role="dialog" tabindex="-1" areahidden="true" style="width:80%;margin-left:10%;"></div>
 
 <div class="text-center">

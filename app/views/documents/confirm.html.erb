@@ -1,0 +1,26 @@
+<h1>こちらを削除します</h1>
+
+<%= form_with(url:document_check_delete_path,local:true) do |f| %>
+<table class="table table-bordered">
+  <thead>
+    <th style="background:orange;width:70%">タイトル</th>
+    <th style="background:orange">期限</th>
+    <th style="background:orange;width:10%;">チェック</th>
+  </thead>
+  <tbody>
+    <% @array.each do |document| %>
+      <%= fields_for "boxs[]",document do |af| %>
+      <tr>
+        <td><strong><%= document.title %></strong></td>
+        <td><%= document.deadline %></td>
+        <td style="text-align:center;"><%= af.check_box :check,:checked=>true %></td>
+      </tr>
+    <% end %>  
+    <% end %>
+  </tbody>
+</table>
+<div class="text-center">
+  <%= f.submit "削除確定",class:"btn btn-primary" %>
+  <%= link_to "取り消して戻る",documents_path,class:"btn btn-default" %>
+  <% end %>
+</div>

@@ -1,6 +1,8 @@
 class Document < ApplicationRecord
   has_many :document_items,dependent: :destroy
   has_many :answers,dependent: :destroy
+  
+  
   belongs_to :user
   #バリデーション
   validates :title,presence:true,length: { maximum: 50 }
@@ -54,6 +56,4 @@ class Document < ApplicationRecord
   end
   
 
-  
-  
 end

@@ -83,6 +83,19 @@ module DocumentItemsHelper
       @teacher = Teacher.find(session[:teacher_id])
     end  
   end  
-    
+#合計集計数
 
+def answerCount
+  array = []
+  myanswers = Answer.where.not(reply: nil).where.not(user_id: 1).where(select:true)
+  myanswers.each do |myanswer|
+      record = myanswer.reply.split(":\t")
+      record.each do |rd|
+        array << rd
+      end  
+  end 
+  return array.group_by(&:itself)
+end
+
+  
 end
