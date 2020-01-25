@@ -96,8 +96,12 @@ class UsersController < ApplicationController
 def selectform
  
   @document = Document.find(params[:id])
+  if @document.answers.count >0
+    @document.answers.destroy_all
+  end  
   @user = User.find @document.user.id
   answer = Answer.new
+  answer.randam = @document.randam
   answer.document_id = params[:id]
   reply = ""
   @document.document_items.count.times do |i|
@@ -109,20 +113,19 @@ def selectform
     end  
   end
   objs = reply.split(":\t")
-  objs.each do |obj|
-    if obj.blank?
+  unless objs.count == @document.document_items.count
       flash[:danger] = "必須です。必ず各項目選択ください。" 
-      redirect_to user_document_view_path(@user,@document,params:{reply: reply})
-      return   
-    end  
-  end  
-  answer.reply = reply
-  answer.user_id = current_user.id
-  if answer.save
-   redirect_to user_url(current_user)
-  else 
-    render :selectform 
-  end 
+      redirect_to user_document_view_path(@user,@document,params:{reply: reply}) 
+  else
+    answer.reply = reply
+    answer.select = true
+    answer.user_id = current_user.id
+    if answer.save
+     redirect_to user_url(current_user)
+    else 
+      render :selectform 
+    end 
+  end    
 end
 
 #入力式保護者処理
@@ -137,7 +140,7 @@ def inputform
     if params[str].present?
       reply += params[str]+":\t"
     else
-      reply += "null:"  
+      reply += "null:\t"  
     end  
   end  
     objs = reply.split(":\t")
@@ -264,6 +267,8 @@ end
       render :p_message
     end
   end
+
+  
 
   private
     # 保護者情報登録/更新

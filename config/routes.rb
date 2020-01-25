@@ -64,6 +64,8 @@ Rails.application.routes.draw do
     get   'users_view' ,to:'documents#user_view'                                                               #保護者提出回答一覧
     collection do
       get 'pdf_modal'
+      get 'aggre'                                                                                              #集計ページ
+      post 'confirm'
     end
     member do
       post 'message'

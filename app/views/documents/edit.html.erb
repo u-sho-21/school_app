@@ -45,8 +45,8 @@
             <tr>
               <td><%= af.text_area :content,rows:4,class:"form-control" %></td>
               <td>
-                <%= link_to "削除",document_destroy_path(item,params:{obj: @document.id}),data:{confirm:"削除しますか？"},method: :delete,class:"btn btn-primary btn-lg document_edit_delete_button",style:"width:80%;" if @document.document_items.count > 1 %>
-                <%= link_to "選択肢表示",document_select_editmodal_path(item),remote:true,class:"btn btn-success btn-lg document_edit_select_button",style:"width:80%;" if item.document_selects.count >0 %>
+                <%= link_to "削除",document_destroy_path(item,params:{obj: @document.id}),data:{confirm:"削除しますか？"},method: :delete,class:"btn btn-danger btn-lg document_edit_delete_button",style:"width:80%;" if @document.document_items.count > 1 %>
+                <%= link_to "選択肢表示",document_select_editmodal_path(item),remote:true,class:"btn btn-primary btn-lg document_edit_select_button",style:"width:80%;" if item.document_selects.count >0 %>
               </td>
             </tr>
           <% end %>  

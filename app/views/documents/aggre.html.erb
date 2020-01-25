@@ -1,0 +1,89 @@
+<h1 class="agree-top">選択書類集計ページ</h1>
+<div class="text-left">
+  <%= link_to "戻る",documents_path, class:"btn btn-default", style:"width:30%;margin-bottom:1.5%;"  %>
+</div> 
+
+<table class="table table-bordered" style="background:#fff";>
+  <% @documents.each_with_index do |document,p| %>
+  
+    <tr>
+      <th>
+         
+         <table class="table table-bordered" style="background:#fffeee">
+           <% document.document_items.where(select_check: true).each_with_index do |item ,i| %>
+             <% count = 0 %>
+             <% if i ==0 %>
+              <label class="doc">
+                <strong class="s_title">書類タイトル</strong><br>
+                &emsp;<%= "#{item.document.title}"  %>
+              </label>
+             <% end %>
+             <tr>
+               <th style="background:#f0f0f0" colspan="2" width=80%>
+                  選択肢内容:<span style="color:blue;"><%= item.content %>
+                  <div class="text-right" style="margin-right:1%;">集計数</div>
+               </th>
+               
+             </tr>
+             
+             <% item.document_selects.all.each_with_index do |select,t| %>
+              <tr>
+                <td width=90%><%= select.content.split(":")[0] %></td>
+                <td style="text-align:right;font-size:">
+                  <% if answerCount[select.content].present?  %>
+                  　<%= answerCount[select.content].count  %>
+                      <% count +=  answerCount[select.content].count  %>
+                  <% else %>
+                     &emsp;0
+                  <% end %>  
+              
+                </td>
+              </tr>
+              <tr>
+              <% if i == document.document_items.count-1 %>
+                <% if t == item.document_selects.all.count-1 %>
+                  <th colspan="2" style="background:orange" class="agree">
+                    <div class="text-center">合計集計:<span style="color:blue"><%= count %>件:<%= "(#{@userCount}人中)" %></span></div>
+                  </th>
+                <% end %>
+              <% end %>    
+              </tr>   
+             <% end %>
+           <% end %>
+           <tr>
+           </tr>
+           
+         </table>
+      </th>
+    </tr>
+  <% end %>
+</table>
+
+<style>
+   body{background:#f0f0f0;}
+  .agree-top{
+     font-family: 'M PLUS Rounded 1c';
+     color:blue;
+     font-weight:bold;
+  }
+  .doc{
+    font-size:18px;
+    
+  }
+  .s_title{
+    background:blue;
+    color:#fff;
+    padding:1px 10px;
+  }
+  @media screen and (max-width:767px){
+    .agree-top{
+      font-size:26px;
+    }
+    .doc{
+      font-size:18px;
+    }
+   .agree div{
+     margin-top:-1%;
+    }
+  }
+</style>

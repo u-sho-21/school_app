@@ -121,7 +121,7 @@ def create3
   end
   @document = Document.all.last  #作られたユーザーごとの資料の最後
   flash[:success] = "作成しました。"
-  redirect_to teacher_url(1)
+  redirect_to documents_url
   return
 end  
 
@@ -173,6 +173,18 @@ def file_delete
   flash[:danger] = "資料を削除しました。"
   redirect_to documents_url
 end
+#確認画面
+def confirm
+  @array = []
+  delete_parameter.each do |id,item|
+    if item[:check] == "1"
+      document = Document.find id
+      @array << document
+    end 
+  end  
+end
+ 
+
 
 #複数document削除
 def check_delete
@@ -197,9 +209,6 @@ end
 end
 
 def  message
- 
- 
-      
   redirect_to documents_path
 end
 
@@ -356,8 +365,8 @@ end
     selects.each do |select|
       select.destroy
     end  
-    flash[:info] = "削除しました。"
-    redirect_to edit_document_url(select.document_item.document)
+    flash[:danger] = "削除しました。"
+    redirect_to documents_path
   end
 
 #保護者側書類show
@@ -373,7 +382,22 @@ end
    @document = Document.find(params[:document_id])
    @users = User.paginate(page: params[:page],per_page: 10).order('id asc')
  end
+
+ #集計ページ
+ def aggre
+   user = User.find 1
+   @documents = user.documents.all
+  
+   @userCount = User.all.count-1
+  
+ end  
+
  
+
+
+
+
+
 
 #*******************************************PRIVATE***************************************************************************
 private
@@ -404,7 +428,7 @@ private
 
   #document複数削除パラメーター
   def delete_parameter
-    params.permit(boxs: [:check])[:boxs]
+    params.permit(boxs: [:check, :id])[:boxs]
   end
   
 end

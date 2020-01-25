@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(version: 20191203130047) do
 
   create_table "answers", force: :cascade do |t|
     t.text "reply"
+    t.string "randam"
+    t.boolean "select", default: false
     t.integer "user_id"
     t.integer "document_id"
     t.datetime "created_at", null: false

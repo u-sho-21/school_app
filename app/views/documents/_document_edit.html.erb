@@ -32,7 +32,7 @@
                  <% @document_item.document_selects.each do |select| %>
                    <%= fields_for "selects[]",select do |af| %>
                     <tr>
-                      <td><%=af.text_field :content,style:"height:60px;",class:"form-control" %></td>
+                      <td><%=af.text_field :content,style:"height:60px;",class:"form-control",value:select.content.split(":")[0] %></td>
                       <td>
                         <%= link_to "削除",document_select_destroy_path(select),data:{confirm:"削除してよろしいですか？"},method: :delete,class:"btn btn-danger btn-lg btn-block" if @document_item.document_selects.count>=3 %>
                       </td>
