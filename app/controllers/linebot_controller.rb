@@ -1,4 +1,5 @@
 class LinebotController < ApplicationController
+  before_action :desired_mail,   only: [:push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
@@ -103,7 +104,6 @@ class LinebotController < ApplicationController
 
     if params[:commit] == "日時決定送信"
       require 'line/bot'
-      @teacher = Teacher.find(current_teacher.id)
       @teacher.meeting_decision_update
 
       client = Line::Bot::Client.new { |config|
@@ -185,8 +185,15 @@ class LinebotController < ApplicationController
         }
       }
 
+      @users.each do |user|
+        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
+
+
+
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
 
@@ -296,4 +303,13 @@ class LinebotController < ApplicationController
       redirect_to documents_path(params:{teacher_id: current_teacher.id})
     end
   end
+
+  private
+    # before_action
+
+    # メール希望者のアドレス取得
+    def desired_mail
+      @teacher = Teacher.find(current_teacher.id)
+      @users = User.where(send_select: false)
+    end
 end

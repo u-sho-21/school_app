@@ -36,8 +36,25 @@
 
   <%= f.password_field :password_confirmation, class: "form-control fa", placeholder:"\uf00c パスワード確認" %>
 
+  <%= f.label :send_select, "メール案内を希望しない", class: "label-signup new_user_label" %><br>
+  <%= f.check_box :send_select, {} , true, false %>
+
+  <div class="push-guide-title">
+    <p class="push-guide">下記からLINEグループにご参加いただけると案内をLINEでプッシュ通知いたします。</p>
+    <div class="line-friend">
+      <a href="https://lin.ee/qWnlt5p"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+    </div>
+    <p class="push-guide"><i class="fas fa-exclamation-triangle fa-fw" style="color: red;"></i>メールまたはLINEどちらかの案内はご登録お願いいたします。</p>
+  </div>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-signup",style:"padding:2% 0;margin-top:5%;" %>
 <% end %>
+
+<style>
+  input[type=checkbox] {
+    transform: scale(1.5);
+  }
+</style>
 
 <script>
 

@@ -5,12 +5,15 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @child = @user.children.first
-    @teacher = Teacher.find(@child.teacher_id)
     session[:child_id] = @child.id unless @child.nil?
     if @child.nil?
       redirect_to signup_child_url
+    else
+      @teacher = Teacher.find(@child.teacher_id)
     end
-    @t_message = @teacher.t_messages.last
+    if @teacher.present?
+      @t_message = @teacher.t_messages.last
+    end
   end
 
   # 保護者新規作成ページ
@@ -276,7 +279,7 @@ end
   private
     # 保護者情報登録/更新
     def user_params
-      params.require(:user).permit(:name, :name2, :email, :phone, :password, :password_confirmation)
+      params.require(:user).permit(:name, :name2, :email, :phone, :password, :password_confirmation, :send_select)
     end
 
     # 生徒情報登録/更新
