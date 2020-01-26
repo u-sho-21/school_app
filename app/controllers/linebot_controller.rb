@@ -1,4 +1,5 @@
 class LinebotController < ApplicationController
+  before_action :desired_mail,   only: [:push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
@@ -185,13 +186,15 @@ class LinebotController < ApplicationController
         }
       }
 
-      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
-      response = client.push_message(group_id, message)
-
       @children.each do |child|
         @user = User.find_by(child_id: child.id)
         SendmailMailer.meeting1_mail(@user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
+
+      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
+      response = client.push_message(group_id, message)
+
+
 
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
