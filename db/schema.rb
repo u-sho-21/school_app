@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20191203130047) do
     t.string "remember_digest"
     t.string "name2"
     t.string "phone"
+    t.boolean "send_select", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

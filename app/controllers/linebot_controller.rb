@@ -311,6 +311,6 @@ class LinebotController < ApplicationController
     # メール希望者のアドレス取得
     def desired_mail
       @teacher = Teacher.find(current_teacher.id)
-      @users = User.all
+      @users = User.where(send_select: false)
     end
 end
