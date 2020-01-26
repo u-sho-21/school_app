@@ -375,6 +375,18 @@ def show
   @input_count = @document.document_items.all.count
   @select_count = select_zerocount?
   @user = User.find(params[:user]) if params[:user].present?
+  respond_to do |format|
+    format.html do
+    end  
+
+    format.pdf do
+      test_pdf = TestPdf.new(@document.id)
+      send_data test_pdf.render,
+        filename:    "#{@document.title}.pdf",
+        type:        'application/pdf',
+        disposition: 'inline' # 画面に表示
+    end
+  end
 end  
 
 #保護者の提出した書類教員確認ページ

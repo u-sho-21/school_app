@@ -23,6 +23,8 @@ gem 'font-awesome-sass'               # AWESOME
 gem 'jQuery-Validation-Engine-rails'  # jQueryでバリデーション
 gem 'rails-i18n'                      # エラーメッセージ日本語化
 gem 'browser'                         # ブラウザ判定
+gem 'prawn'                           #pdf用you
+gem 'prawn-table'                     #pdfでテーブル使うのに使用
 
 group :development, :test do
   gem 'sqlite3'

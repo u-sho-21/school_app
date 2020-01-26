@@ -26,11 +26,15 @@
   font-weight: bold;
   color: blue;
   letter-spacing: 22px;
-  padding: 2px 0;
+  padding: 0.5px 0 2px 0;
   margin-left: 16%;
   margin-bottom: 5%;
   width: 60%;
-  h3{color: black;font-weight: bold;font-family: monospace;margin-bottom: 2%;border-bottom: 2px dotted black; padding-bottom: 12px;}
+  h3{
+    color: black;font-weight: bold;font-family: monospace;margin-bottom: 2%;
+    border-bottom: 2px dotted black; 
+    padding-bottom: 12px;
+  }
 }
 .user_icon_area{
   background: rgba(189, 195, 201, 0.7);
