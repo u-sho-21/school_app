@@ -85,6 +85,15 @@
   margin-bottom: 3%;
 }
 
+.push-guide-title {
+  padding-top: 3%;
+  font-family: 'M PLUS Rounded 1c';
+}
+
+.push-guide {
+  font-size: 15px;
+}
+
 /* user show */
 /* 生徒登録/編集ページ */
 
@@ -107,7 +116,7 @@
 .child_edit_table{
   background: #fff;
   border-radius: 6px;
- 
+
 }
 
 #child-signup {
@@ -293,6 +302,7 @@
     margin-bottom: 2%;
     padding-bottom: 1%;
   }
+
   /* 生徒登録/編集ページ */
 
 .student_h1{
