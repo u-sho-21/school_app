@@ -104,7 +104,6 @@ class LinebotController < ApplicationController
 
     if params[:commit] == "日時決定送信"
       require 'line/bot'
-      @teacher = Teacher.find(current_teacher.id)
       @teacher.meeting_decision_update
 
       client = Line::Bot::Client.new { |config|
