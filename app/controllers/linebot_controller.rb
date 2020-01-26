@@ -187,6 +187,12 @@ class LinebotController < ApplicationController
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
+
+      @children.each do |child|
+        @user = User.find_by(child_id: child.id)
+        SendmailMailer.meeting1_mail(@user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
 
@@ -296,4 +302,13 @@ class LinebotController < ApplicationController
       redirect_to documents_path(params:{teacher_id: current_teacher.id})
     end
   end
+
+  private
+    # before_action
+
+    # メール希望者のアドレス取得
+    def desired_mail
+      @teacher = Teacher.find(current_teacher.id)
+      @children = Child.where(teacher_id: @teacher.id)
+    end
 end
