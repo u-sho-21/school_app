@@ -39,7 +39,7 @@
                 <div id="document_user_reply_div">
                   <span>保護者回答</span><br>
                   <% if !user.userAnswers(@document).nil? && user.userAnswers(@document).reply.split(":\t")[answerNO].present? %>
-                    <strong><%= user.userAnswers(@document).reply.split(":\t")[answerNO] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
+                    <strong><%= user.userAnswers(@document).reply.split(":\t")[answerNO].split(":")[0] unless user.userAnswers(@document).nil? %><strong><br> <!-- userモデル参照-->
                 
                   <% else %>
                     <strong style="color:red;font-size:20px;">まだ回答されてません。</strong>
