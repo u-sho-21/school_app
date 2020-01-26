@@ -3,7 +3,7 @@ class SendmailMailer < ApplicationMailer
 
 
   def meeting1_mail(user)
-    @username = username.name + username.name2
+    @username = user.name + user.name2
     mail(to: user.email, subject: "面談日時のお知らせ")
   end
 end
