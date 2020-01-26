@@ -186,8 +186,8 @@ class LinebotController < ApplicationController
         }
       }
 
-      @children.each do |child|
-        SendmailMailer.meeting1_mail(User.find_by(child_id: child.id)).deliver_later  #メーラに作成したメソッドを呼び出す。
+      @users.each do |user|
+        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
@@ -311,6 +311,6 @@ class LinebotController < ApplicationController
     # メール希望者のアドレス取得
     def desired_mail
       @teacher = Teacher.find(current_teacher.id)
-      @children = Child.where(teacher_id: @teacher.id)
+      @users = User.all
     end
 end
