@@ -5,12 +5,16 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @child = @user.children.first
-    @teacher = Teacher.find(@child.teacher_id)
+    # @teacher = Teacher.find(@child.teacher_id)
     session[:child_id] = @child.id unless @child.nil?
     if @child.nil?
       redirect_to signup_child_url
+    else
+      @teacher = Teacher.find(@child.teacher_id)
     end
-    @t_message = @teacher.t_messages.last
+    if @teacher.present?
+      @t_message = @teacher.t_messages.last
+    end
   end
 
   # 保護者新規作成ページ
