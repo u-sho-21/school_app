@@ -384,7 +384,7 @@ def show
       send_data test_pdf.render,
         filename:    "#{@document.title}.pdf",
         type:        'application/pdf',
-        disposition: 'inline' # 画面に表示
+        disposition: 'inline' 
     end
   end
 end  
