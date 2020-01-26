@@ -187,8 +187,7 @@ class LinebotController < ApplicationController
       }
 
       @children.each do |child|
-        @user = User.find_by(child_id: child.id)
-        SendmailMailer.meeting1_mail(@user).deliver_later  #メーラに作成したメソッドを呼び出す。
+        SendmailMailer.meeting1_mail(User.find_by(child_id: child.id)).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
