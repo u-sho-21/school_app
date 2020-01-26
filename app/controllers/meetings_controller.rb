@@ -15,10 +15,12 @@ class MeetingsController < ApplicationController
       unless params[:date].blank?
         @teacher.meeting_delete_all
         params[:date].split("\r\n").each do |day|
-          unless @teacher.meetings.any? {|meeting| meeting.date == day}
+          unless @teacher.meetings.any? {|meeting| meeting.date == day }
             @teacher.children.all.each do |child|
-              record = @teacher.meetings.build(date: day, child_id: child.id)
-              record.save
+              if @teacher.meetings.find_by(date: day ,child_id: child.id).nil?
+                record = @teacher.meetings.build(date: day, child_id: child.id)
+                record.save
+              end
             end
           end
         end
