@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  before_action :desired_mail,   only: [:meeting1_push, :push]
+  before_action :desired_mail,   only: [:meeting1_push, :document_push, :push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
@@ -108,6 +108,116 @@ class LinebotController < ApplicationController
     end
   end
 
+  def document_push
+    if params[:commit] == "通知する"
+      require 'line/bot'  # gem 'line-bot-api'
+
+      client = Line::Bot::Client.new { |config|
+        config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+        config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      }
+
+      # message={
+      # type: 'text',
+      # text: 'テスト'
+      # }
+
+      # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
+      # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
+      # "url": "埋め込みurl"                                              onedriveの場合
+      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
+
+      message={
+        "type": "flex",
+        "altText": "書類を送信しました。確認ください。",
+        "contents": {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": image_url,
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "書類提出のお願いします。",
+                "size": "xl",
+                "weight": "bold"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "下記からサイトにアクセスして、\n確認をお願いします。",
+                        "weight": "bold",
+                        "margin": "sm",
+                        "wrap": true,
+                        "flex": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "spacer",
+                "size": "xxl"
+              },
+              {
+                "type": "button",
+                "style": "primary",
+                "color": "#FF9933",
+                "action": {
+                  "type": "uri",
+                  "label": "サイトへ",
+                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
+                }
+              }
+            ]
+          }
+        }
+      }
+
+      user = User.find 1
+      documents = user.documents.all
+      documents.each do |dc|
+        @documents = Document.where(memo: dc.memo, randam: dc.randam)
+        @documents.each do |document|
+          document.public =true
+          document.save
+        end
+      end
+
+      @users.each do |user|
+        Meeting1Mailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
+      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
+      response = client.push_message(group_id, message)
+
+      flash[:success] = "送信完了"
+      redirect_to documents_path(params:{teacher_id: current_teacher.id})
+    end
+  end
+
   def push
 
 
@@ -206,111 +316,7 @@ class LinebotController < ApplicationController
 
     end
 
-    if params[:commit] == "通知する"
-      require 'line/bot'  # gem 'line-bot-api'
 
-      client = Line::Bot::Client.new { |config|
-        config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-        config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-      }
-
-      # message={
-      # type: 'text',
-      # text: 'テスト'
-      # }
-
-      # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
-      # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
-      # "url": "埋め込みurl"                                              onedriveの場合
-      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
-
-      message={
-        "type": "flex",
-        "altText": "書類を送信しました。確認ください。",
-        "contents": {
-          "type": "bubble",
-          "hero": {
-            "type": "image",
-            "url": image_url,
-            "size": "full",
-            "aspectRatio": "20:13",
-            "aspectMode": "cover"
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "md",
-            "contents": [
-              {
-                "type": "text",
-                "text": "書類提出のお願いします。",
-                "size": "xl",
-                "weight": "bold"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "下記からサイトにアクセスして、\n確認をお願いします。",
-                        "weight": "bold",
-                        "margin": "sm",
-                        "wrap": true,
-                        "flex": 0
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "spacer",
-                "size": "xxl"
-              },
-              {
-                "type": "button",
-                "style": "primary",
-                "color": "#FF9933",
-                "action": {
-                  "type": "uri",
-                  "label": "サイトへ",
-                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
-                }
-              }
-            ]
-          }
-        }
-      }
-
-      user = User.find 1
-      documents = user.documents.all
-      documents.each do |dc|
-        @documents = Document.where(memo: dc.memo, randam: dc.randam)
-        @documents.each do |document|
-          document.public =true
-          document.save
-        end
-      end
-
-
-
-      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
-      response = client.push_message(group_id, message)
-
-      flash[:success] = "送信完了"
-      redirect_to documents_path(params:{teacher_id: current_teacher.id})
-    end
   end
 
   private

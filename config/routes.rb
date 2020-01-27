@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
   post '/push' => 'linebot#push'                                                                               # Lineプッシュ処理
   post '/meeting1_push' => "linebot#meeting1_push", as: :meeting1_push                                         # 面談日時決定のプッシュ
+  post '/document_push' => "linebot#document_push", as: :document_push                                         # 提出のプッシュ
 
   resources :teachers do
     get 'index2', to: 'teachers#index2', as: :teacher_index2                                                   # 保護者一覧ページ
