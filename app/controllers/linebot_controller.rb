@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  before_action :desired_mail,   only: [:push]
+  before_action :desired_mail,   only: [:meeting1_push, :push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
