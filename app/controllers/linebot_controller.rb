@@ -290,10 +290,6 @@ class LinebotController < ApplicationController
         }
       }
 
-      @users.each do |user|
-        SendmailMailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
-
       user = User.find 1
       documents = user.documents.all
       documents.each do |dc|
@@ -302,6 +298,10 @@ class LinebotController < ApplicationController
           document.public =true
           document.save
         end
+      end
+
+      @users.each do |user|
+        SendmailMailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]

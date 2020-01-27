@@ -87,8 +87,14 @@
         <div id="submit-center">
           <button class="btn btn-success submit-edit2" readonly: true>スケジュールを決定は、<br>保護者の編集期間終了後から可能です。</button>
           <!-- テスト時のみ使用 -->
+          <div>テスト時のみ</div>
           <div id="submit-center">
             <%= f.submit "更新", class: "btn btn-success submit-edit" %>
+          </div>
+          <div id="submit-center">
+            <%= form_with(url: push_path, local:true) do |f| %>
+              <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
+            <% end %>
           </div>
           <!-- テスト時のみ使用 -->
         </div>
