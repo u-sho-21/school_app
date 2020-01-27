@@ -104,7 +104,7 @@
 
     <% if @children.count == @meeting_finish_count %> <!-- 全員決定時のみ表示 -->
       <div id="submit-center">
-        <%= form_with(url: push_path, local:true) do |f| %>
+        <%= form_with(url: meeting1_push_path, local:true) do |f| %>
           <%= f.submit "スケジュール決定送信", data: {confirm: "LINEグループに通知しますがよろしいですか？"}, class: "btn btn-primary submit-edit", id: "line-btn" %>
         <% end %>
       </div>

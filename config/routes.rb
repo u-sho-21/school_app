@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   post   '/login/teacher', to: 'sessions#create2', as: :teacher_login                                          # 教員ログイン処理
   delete '/logout', to: 'sessions#destroy'                                                                     # 保護者ログアウト処理
   delete '/logout/teacher', to: 'sessions#destroy2', as: :teacher_logout                                       # 教員ログアウト処理
-  post '/push' => 'linebot#push'                                                                               # Lineプッシュ処理
-  post '/meeting1_push' => "linebot#meeting1_push", as: :meeting1_push                                         # 面談日時決定のプッシュ
+  post '/meeting2_push' => 'linebot#meeting2_push', as: :meeting2_push                                         # 面談日時決定のプッシュ
+  post '/meeting1_push' => "linebot#meeting1_push", as: :meeting1_push                                         # 面談日時確定のプッシュ
   post '/document_push' => "linebot#document_push", as: :document_push                                         # 提出のプッシュ
 
   resources :teachers do

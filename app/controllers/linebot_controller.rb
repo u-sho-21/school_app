@@ -1,5 +1,5 @@
 class LinebotController < ApplicationController
-  before_action :desired_mail,   only: [:meeting1_push, :document_push, :push]
+  before_action :desired_mail,   only: [:meeting1_push, :meeting2_push, :document_push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
@@ -108,6 +108,103 @@ class LinebotController < ApplicationController
     end
   end
 
+  def meeting2_push
+    if params[:commit] == "日時決定送信"
+      require 'line/bot'
+      @teacher.meeting_decision_update
+
+      client = Line::Bot::Client.new { |config|
+        config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+        config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      }
+
+      # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
+      # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
+      # "url": "埋め込みurl"                                              onedriveの場合
+      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
+
+      message={
+        "type": "flex",
+        "altText": "面談の日時が決まりました。サイトから希望日の登録をお願いいたします。",
+        "contents": {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": image_url,
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "面談のお知らせ",
+                "size": "xl",
+                "weight": "bold"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "下記からサイトにアクセスして、\n希望日の登録をお願いいたします。",
+                        "weight": "bold",
+                        "margin": "sm",
+                        "wrap": true,
+                        "flex": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "spacer",
+                "size": "xxl"
+              },
+              {
+                "type": "button",
+                "style": "primary",
+                "color": "#FF9933",
+                "action": {
+                  "type": "uri",
+                  "label": "サイトへ",
+                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
+                }
+              }
+            ]
+          }
+        }
+      }
+
+      @users.each do |user|
+        Meeting2Mailer.meeting2_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
+      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
+      response = client.push_message(group_id, message)
+
+      flash[:success] = "送信完了"
+      redirect_to teacher_path(current_teacher)
+
+    end
+  end
+
   def document_push
     if params[:commit] == "通知する"
       require 'line/bot'  # gem 'line-bot-api'
@@ -207,7 +304,7 @@ class LinebotController < ApplicationController
       end
 
       @users.each do |user|
-        Meeting1Mailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+        DocumentMailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
@@ -218,106 +315,7 @@ class LinebotController < ApplicationController
     end
   end
 
-  def push
 
-
-    if params[:commit] == "日時決定送信"
-      require 'line/bot'
-      @teacher.meeting_decision_update
-
-      client = Line::Bot::Client.new { |config|
-        config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-        config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-      }
-
-      # "url": "https://push-test-pta.herokuapp.com/ファイル名(拡張子も)"   publicの場合
-      # "url": "https://drive.google.com/uc?id=ファイルID"                googledriveの場合
-      # "url": "埋め込みurl"                                              onedriveの場合
-      image_url = "https://school-app-pta.herokuapp.com/image01.jpg"
-
-      message={
-        "type": "flex",
-        "altText": "面談の日時が決まりました。サイトから希望日の登録をお願いいたします。",
-        "contents": {
-          "type": "bubble",
-          "hero": {
-            "type": "image",
-            "url": image_url,
-            "size": "full",
-            "aspectRatio": "20:13",
-            "aspectMode": "cover"
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "md",
-            "contents": [
-              {
-                "type": "text",
-                "text": "面談のお知らせ",
-                "size": "xl",
-                "weight": "bold"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "下記からサイトにアクセスして、\n希望日の登録をお願いいたします。",
-                        "weight": "bold",
-                        "margin": "sm",
-                        "wrap": true,
-                        "flex": 0
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "spacer",
-                "size": "xxl"
-              },
-              {
-                "type": "button",
-                "style": "primary",
-                "color": "#FF9933",
-                "action": {
-                  "type": "uri",
-                  "label": "サイトへ",
-                  "uri": "https://school-app-pta.herokuapp.com?openExternalBrowser=1"
-                }
-              }
-            ]
-          }
-        }
-      }
-
-      @users.each do |user|
-        Meeting2Mailer.meeting2_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
-
-      group_id = ENV["LINE_CHANNEL_GROUP_ID"]
-      response = client.push_message(group_id, message)
-
-      flash[:success] = "送信完了"
-      redirect_to teacher_path(current_teacher)
-
-    end
-
-
-  end
 
   private
     # before_action
