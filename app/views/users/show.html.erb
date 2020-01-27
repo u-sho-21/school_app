@@ -1,7 +1,8 @@
 <%= provide(:title,"#{@user.name}さんページ") %>
-<h2 class="user_show_title">
-  <div class="user_title-border"><%= @user.name + @user.name2 %>さんの個別ページ</div>
-</h2>
+<div class="text-center user_show_title">
+   <h3><i class="fas fa-home"></i>個人ページ</h3>
+    <span style="color:black;font-size:16px";>名前：</span><i class="fas fa-user-circle"></i><%= "#{@user.name + @user.name2}さん" %>
+</div>
 
 <div class="line-friend">
   <a href="https://lin.ee/qWnlt5p"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
@@ -11,39 +12,39 @@
 
 <div class="container">
  <div class="row" style="background:none;">
-  <div class="col-md-8 col-md-offset-2 user_icon_area">
+  <div class="col-md-7 col-md-offset-2 user_icon_area">
   <label class="user_area_label">メニュー</label>
    <div class="row" style="background:none;">
 
      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
        <%= link_to user_meetings_new_user_path(user_id: @user.id, child_id: @child.id), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="far fa-calendar-check"></i></span>
-         <div class="user_icon_title">面談ページへ</div>
+         <div class="user_icon_title">&emsp;面談<br>ページへ</div>
        <% end %>
      </div>
 
-      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+      <div class= "col-md-2 col-xs-3 col-md-offset-2 col-xs-offset-2">
        <%= link_to  user_documets_path(@user), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="fas fa-file-alt"></i></span>
-         <div class="user_icon_title">提出ページへ</div>
+         <div class="user_icon_title">&emsp;提出<br>ページへ</div>
        <% end %>
      </div>
 
-     <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+     <div class= "col-md-2 col-xs-3 col-md-offset-2 col-xs-offset-2">
        <%= link_to  edit_user_path(@user), style:"text-decoration: none;" do %>
           <span class="user_link_icon"><i class="fas fa-user-edit"></i></span>
-          <div class="user_icon_title">保護者情報編集</div>
+          <div class="user_icon_title">&ensp;保護者<br>情報編集</div>
        <% end %>
      </div>
 
-      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+     <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2 phone-icon">
        <%= link_to user_users_index2_path(@user), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="fas fa-user-graduate"></i></span>
-         <div class="user_icon_title">生徒さん登録/編集</div>
+         <div class="user_icon_title">&ensp;生徒さん<br>登録/編集</div>
        <% end %>
      </div>
 
-
+      
 
    </div><br><!-- row1 -->
 
@@ -56,10 +57,19 @@
        <% end %>
      </div> -->
 
-      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2">
+      <div class= "col-md-2 col-xs-3 col-md-offset-1 col-xs-offset-2 pc-icon">
+       <%= link_to user_users_index2_path(@user), style:"text-decoration: none;" do %>
+         <span class="user_link_icon"><i class="fas fa-user-graduate"></i></span>
+         <div class="user_icon_title">&ensp;生徒さん<br>登録/編集</div>
+       <% end %>
+     </div>
+
+
+
+      <div class= "col-md-2 col-xs-3 col-md-offset-2 col-xs-offset-2">
        <%= link_to  user_users_messages_path(@user), style:"text-decoration: none;" do %>
          <span class="user_link_icon"><i class="fas fa-envelope-open-text"></i></span>
-         <div class="user_icon_title">お便り一覧
+         <div class="user_icon_title">&emsp;お便り<br>&emsp;一覧
           <% if @t_message.present? %>
             <%= render 'new_label' if @t_message.new_arrival? %>
           <% end %>
@@ -79,6 +89,12 @@
   body {
     background-image: url("/pta3.jpg");
     background-size:cover
+  }
+  .phone-icon{display:none;}
+  @media screen and (max-width:767px){
+    .phone-icon{display:block;}
+    .pc-icon{display:none;}
+    .col-md-2{margin-bottom:10%;}
   }
 
 </style>

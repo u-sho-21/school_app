@@ -10,6 +10,12 @@
   <% end %>
   <% if !current_teacher.nil? %>
     <%= link_to "戻る",documents_path,class:"btn btn-default",style:"margin-bottom:1%;width:20%" %> 
+    <% if @document.item_check %>
+      <div class="pdf-area text-left">
+      <%= link_to "PDF出力", document_path(@document, format: :pdf),class:"btn btn-primary" %><br>
+      <p class="text-primary">PC,スマートフォンをお持ちでない保護者ダウンロードしてお使いください。</p>
+      </div>  
+    <% end %>
   <% end %>
 
 </div>
@@ -21,4 +27,9 @@
 <% elsif @input_count == 0 %>  
    <%= render 'layouts/documents/pdf' %>  
 <% end %>
-
+<style>
+.pdf-area{margin-bottom:-1%;}
+@media screen and (max-width: 767px){
+  .pdf-area p{font-size:9px;}
+}
+</style>

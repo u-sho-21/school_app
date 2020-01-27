@@ -14,6 +14,7 @@
 
 .line-friend {
   text-align: center;
+  margin-right: 10%;
   margin-bottom: 3%;
 }
 
@@ -23,42 +24,41 @@
   background-color: pink;
   border-radius: 6px;
   font-weight: bold;
-  color: #3c1585d5;
-  letter-spacing: 8px;
-  padding: 12px 0;
+  color: blue;
+  letter-spacing: 22px;
+  padding: 0.5px 0 2px 0;
   margin-left: 16%;
   margin-bottom: 5%;
-  width: 70%;
-  .user_title-border{
-    border: 2px dotted #b895f5d5;
-    padding: 8px 0;
-    margin-left: 3%;
-    width: 95%;
+  width: 60%;
+  h3{
+    color: black;font-weight: bold;font-family: monospace;margin-bottom: 2%;
+    border-bottom: 2px dotted black; 
+    padding-bottom: 12px;
   }
 }
 .user_icon_area{
-  background: rgba(29, 236, 10, 0.9);
+  background: rgba(189, 195, 201, 0.7);
   border-radius: 8px;
-  box-shadow:2px 3px 4px 5px green;
+  box-shadow:2px 3px 4px 5px #222;
   padding: 20px 0;
 }
 .user_link_icon{
   font-size: 80px;
-  color: rgb(11, 33, 235);
+  color: #000;
   margin-left: -25%;
   padding: 20px;
   border-radius: 50%;
   text-decoration: none;
 }
 .user_icon_title{
-  color: rgb(11, 33, 235);
+  color: #000;
   font-weight: bold;
   font-size: 14px;
-  margin-left: -12%;
+  margin-left: 8%;
 
 }
 .user_link_icon:hover{
-  color: cyan;
+  color: yellow;
   text-decoration: none;
 }
 .user_link_icon:visited{
@@ -208,17 +208,18 @@
 
 
 /* ------   スマートフォン -------   */
-@media screen and (max-width:767px){
+@media screen and (max-width:822px){
   /* user show */
   .user_show_title{
     font-size: 18px;
-    color: #3c1585d5;
-    letter-spacing: 0;
+    letter-spacing: 9px;
     background-color: pink;
     width: 100%;
     margin: 0;
     margin-top: 10%;
     margin-bottom: 6%;
+    padding-top:3px;
+    h3{font-size: 18px;padding-top:3px;}
   }
   /* user show */
   #user-top {
@@ -241,7 +242,8 @@
   .user_icon_title{
     font-size: 14px;
     font-weight: bold;
-    margin-left:-5%;
+    margin-left:1%;
+    margin-bottom: 1%;
     width: 100%;
   }
 
@@ -324,6 +326,10 @@
 .child_edit_table{
   background: #fff;
   td{font-size: 16px;}
+}
+.line-friend {
+  
+  margin-bottom: 5%;
 }
 
 
