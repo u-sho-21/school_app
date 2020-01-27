@@ -189,9 +189,9 @@ class LinebotController < ApplicationController
         }
       }
 
-      @users.each do |user|
-        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
+      # @users.each do |user|
+      #   SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      # end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
