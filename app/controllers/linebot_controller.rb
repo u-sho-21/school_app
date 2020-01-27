@@ -5,7 +5,8 @@ class LinebotController < ApplicationController
   protect_from_forgery :except => [:push]
 
   # LINEプッシュ処理
-  def push
+
+  def meeting1_push
     if params[:commit] == "スケジュール決定送信"
       require 'line/bot'  # gem 'line-bot-api'
       @teacher = Teacher.find(current_teacher.id)
@@ -105,6 +106,10 @@ class LinebotController < ApplicationController
       redirect_to teacher_path(current_teacher)
 
     end
+  end
+
+  def push
+
 
     if params[:commit] == "日時決定送信"
       require 'line/bot'
