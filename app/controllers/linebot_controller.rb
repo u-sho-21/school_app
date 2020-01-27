@@ -96,7 +96,7 @@ class LinebotController < ApplicationController
       }
 
       @users.each do |user|
-        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+        Meeting1Mailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
@@ -190,13 +190,11 @@ class LinebotController < ApplicationController
       }
 
       @users.each do |user|
-        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+        Meeting2Mailer.meeting2_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
-
-
 
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
@@ -300,9 +298,7 @@ class LinebotController < ApplicationController
         end
       end
 
-      @users.each do |user|
-        SendmailMailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
-      end
+
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
