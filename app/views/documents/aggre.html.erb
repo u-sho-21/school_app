@@ -2,7 +2,7 @@
 <div class="text-left">
   <%= link_to "戻る",documents_path, class:"btn btn-default", style:"width:30%;margin-bottom:1.5%;"  %>
 </div> 
-
+<% if @check %>
 <table class="table table-bordered" style="background:#fff";>
   <% @documents.each_with_index do |document,p| %>
   
@@ -58,7 +58,9 @@
     </tr>
   <% end %>
 </table>
-
+<% else %> <!--選択式がない場合 -->
+  <div class="text-center"><h4 style="font-weight:bold;background:#fff;padding:20px 0;">まだ選択式の書類はありません。</h4></div>
+<% end %>
 <style>
    body{background:#f0f0f0;}
   .agree-top{

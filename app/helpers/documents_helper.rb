@@ -114,12 +114,25 @@ module DocumentsHelper
      count = 0;
      return count+=number
    end
+#集計ページにて選択式があるか確認メソッド
 
-   def totals(select)
-    array = []
-    
-    
-   end
+  def select_agree_check
+    count = 0
+    user = User.find 1
+    documents = user.documents.all
+    documents.each do |document|
+      items = document.document_items.where(select_check: true)
+      if items.count > 0
+        count += 1
+      end 
+    end  
+    if count > 0
+      return true
+    else
+      return false
+    end  
+  end
+  
   
    
 end
