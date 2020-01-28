@@ -1,11 +1,12 @@
 class LinebotController < ApplicationController
-  before_action :desired_mail,   only: [:push]
+  before_action :desired_mail,   only: [:meeting1_push, :meeting2_push, :document_push]
 
   # pushアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:push]
 
   # LINEプッシュ処理
-  def push
+
+  def meeting1_push
     if params[:commit] == "スケジュール決定送信"
       require 'line/bot'  # gem 'line-bot-api'
       @teacher = Teacher.find(current_teacher.id)
@@ -95,13 +96,19 @@ class LinebotController < ApplicationController
        }
       }
 
+      @users.each do |user|
+        Meeting1Mailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
 
     end
+  end
 
+  def meeting2_push
     if params[:commit] == "日時決定送信"
       require 'line/bot'
       @teacher.meeting_decision_update
@@ -186,19 +193,19 @@ class LinebotController < ApplicationController
       }
 
       @users.each do |user|
-        SendmailMailer.meeting1_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+        Meeting2Mailer.meeting2_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
       end
 
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
 
-
-
       flash[:success] = "送信完了"
       redirect_to teacher_path(current_teacher)
 
     end
+  end
 
+  def document_push
     if params[:commit] == "通知する"
       require 'line/bot'  # gem 'line-bot-api'
 
@@ -296,6 +303,10 @@ class LinebotController < ApplicationController
         end
       end
 
+      @users.each do |user|
+        DocumentMailer.document_mail(user).deliver_later  #メーラに作成したメソッドを呼び出す。
+      end
+
       group_id = ENV["LINE_CHANNEL_GROUP_ID"]
       response = client.push_message(group_id, message)
 
@@ -303,6 +314,8 @@ class LinebotController < ApplicationController
       redirect_to documents_path(params:{teacher_id: current_teacher.id})
     end
   end
+
+
 
   private
     # before_action
