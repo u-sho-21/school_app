@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     delete 'meetings/destroy', to: 'meetings#destroy', as: :meetings_destroy                                   # 面談日時個別削除
     get 'meetings', to: 'meetings#index', as: :meetings_index                                                  # 面談スケジュール調整ページ
     get 'meetings/status', to: 'meetings#index2', as: :meeting_index2                                          # 面談状況確認ページ
+    get 'meetings/:user_id/:child_id/status', to: 'meetings#user_status', as: :user_status                                    # 面談状況個人ページ
     patch 'meetings', to: 'meetings#schedule_update', as: :schedule_update                                     # 面談スケジュール更新
     collection do
       get 'help'                                                                                               #教員説明ヘルプページ

@@ -241,6 +241,15 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # 面談状況個人ページ
+  def user_status
+    @user = User.find(params[:user_id])
+    @child = Child.find(params[:child_id])
+    @teacher = Teacher.find(params[:teacher_id])
+    @meeting_children = @teacher.meetings.where(child_id: @child.id)
+    @meetings = @teacher.meetings.all.order(:date)
+  end
+
   private
 
     # 面談日時レコード更新時に使用
