@@ -7,11 +7,13 @@
 <div class="row user_document_all_row">
   <div class="col-md-10 col-md-offset-1">
   　<h2 class="title_font document_jyoukyou_h2">提出状況</h2>
-   <%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_pc_btn" %>
-   
-     <span class="title_font" style="color:#8A2BE2;font-weight:bold;">提出なさりますとチェックマークが表示され、押しますと提出した内容確認できます。</span>
+   <%= link_to "メニューへ",user_path(@user),class:"btn btn-info document_user_all_pc_btn",style:"margin-bottom:-1%;" %>
    
    <% if @user.documents.all.count > 0 && @user.documentPublic?   %>
+   <div class="title_font p" style="color:#8A2BE2;font-weight:bold;">
+     提出が完了すると書類のタイトルにチェックマーク[　✔︎ ]が表示されます。<br>
+     チェックマークをクリックすると内容の確認ができます。
+   </div><br>
    <!-- pc用テーブル -->
 
     <table class="table table-bordered" id="document_user_table">
@@ -20,7 +22,7 @@
           <th class="th" width="27%">
             期限
           </th>
-          <th colspan="2"></th>
+          <th colspan="2" style="text-align:center;">タイトル</th>
         </tr>
       </thead>
       <tbody>
@@ -37,7 +39,7 @@
                  <div style="color:blue;margin-top:1%;"><i class="fas fa-share-square"></i>提出済み</div>
               <% end %>
             </td>
-            <td width="60%">
+            <td width="60%" style="border-right:none;">
               <% if document.answers.count == 0 %>
                 <%= document.title %>
               <% else %> 
@@ -45,7 +47,7 @@
                 <%= link_to document.title,user_file_show_path(@user,document) %> 
               <% end %> 
             </td>
-            <td>
+            <td style="border-left:none;"> 
                   <% if document.answers.count == 0 && document.deadline >= Date.today  %>
                     <!-- ユーザー1の時は表示しない -->
                     <%= link_to "資料を見る",user_document_view_path(@user,document),class:"btn btn-info" unless @user.id == 1 %>
@@ -59,8 +61,10 @@
         <% end %>
       </tbody>
     </table>
+    <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
      <% else %>
-      <div class="bg-info text-center" style="padding:2%;">まだ提出物ありません。</div>
+      <br><br>
+      <div class="bg-info text-center info2" style="padding:2%;">まだ提出物ありません。</div>
     <% end %>
    <!-- /pc用テーブル -->
 
@@ -114,9 +118,6 @@
       </tbody>
     </table>
     
-    
-　　   <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
-   
    <!-- /phone用テーブル -->
   </div>
 </div>
@@ -125,5 +126,9 @@
 <style>
 body{
   background:#cba777;
+}
+@media screen and (max-width:767px){
+  .p{font-size:8px;}
+  .info2{padding:2% 0;margin-top:-10%;}
 }
 </style>

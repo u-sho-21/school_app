@@ -25,7 +25,16 @@ class DocumentsController < ApplicationController
     @documents = @user.documents.all.order('id asc')   
   #教員ページにてitem_check/select_check(途中でブラウザ閉じurlによるページ移動)trueでdocument_item/document_selectゼロならdocument削除
     document_delete2
+
+    #公開してない資料数
+    @not_public = Document.where(public: false).where('deadline>=?',Date.today).count
+    if @not_public > 0
+      flash[:success] = "保護者に未提出の書類があります。ご確認ください。"
+    end
   end
+
+
+
 #選択式新規作成ページ
   def new
     @document = Document.new
@@ -399,9 +408,8 @@ end
  def aggre
    user = User.find 1
    @documents = user.documents.all
-  
    @userCount = User.all.count-1
-  
+   @check = select_agree_check
  end  
 
  
