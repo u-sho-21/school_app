@@ -41,7 +41,7 @@ class User < ApplicationRecord
 
   #ユーザーのドキュメントに提出されたものがあるかどうか？
   def documentPublic?
-    documents = self.documents.where(public: true)
+    documents = self.documents.where(public: true).where('deadline >=?',Date.today)
     if documents.count >0
       return true
     else

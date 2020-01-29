@@ -7,13 +7,16 @@
 
 <%= form_with(url:document_push_path,local:true) do |f| %>
   <%= link_to "メニューへ","/teachers/1",class:"btn btn-default document_index_back_btn2" %>
-  <%= f.submit "通知する",class:"btn btn-primary" %>
+
+  <% if @not_public > 0%>
+    <%= f.submit "通知する",class:"btn btn-primary" %>
+  <% end %> 
+
   <%= link_to "集計ページへ",aggre_documents_path,class:"btn btn-success" %>
 <% end %>
 <br><br>
 
 <!--モーダル-->
-  <div id="document_delete" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true"></div>
 <!--モーダル処理終了-->
 
 

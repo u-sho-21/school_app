@@ -2,21 +2,21 @@
 <div class="text-left">
   <%= link_to "戻る",documents_path, class:"btn btn-default", style:"width:30%;margin-bottom:1.5%;"  %>
 </div> 
-
+<% if @check %>
 <table class="table table-bordered" style="background:#fff";>
   <% @documents.each_with_index do |document,p| %>
   
     <tr>
-      <th>
+      <th style="border:none;">
          
-         <table class="table table-bordered" style="background:#fffeee">
+         <table class="table table-bordered sec-tv" style="background:#fffeee;">
            <% document.document_items.where(select_check: true).each_with_index do |item ,i| %>
              <% count = 0 %>
              <% if i ==0 %>
               <label class="doc">
-                <strong class="s_title">書類タイトル</strong><br>
+                <strong class="s_title">書類タイトル</strong><br><br>
                 &emsp;<%= "#{item.document.title}"  %>
-              </label>
+              </label><br><br><br>
              <% end %>
              <tr>
                <th style="background:#f0f0f0" colspan="2" width=80%>
@@ -58,7 +58,9 @@
     </tr>
   <% end %>
 </table>
-
+<% else %> <!--選択式がない場合 -->
+  <div class="text-center"><h4 style="font-weight:bold;background:#fff;padding:20px 0;">まだ選択式の書類はありません。</h4></div>
+<% end %>
 <style>
    body{background:#f0f0f0;}
   .agree-top{
@@ -75,6 +77,9 @@
     color:#fff;
     padding:1px 10px;
   }
+  .sec-tv{
+    margin-top:-2%;
+  }
   @media screen and (max-width:767px){
     .agree-top{
       font-size:26px;
@@ -84,6 +89,9 @@
     }
    .agree div{
      margin-top:-1%;
+    }
+    .sec-tv{
+      margin-top:-10%;
     }
   }
 </style>
