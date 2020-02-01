@@ -23,7 +23,7 @@
       <tbody>
         <% @children.each do |child| %>
           <tr>
-            <td style="text-align: left; padding-left: 5%;"><i class="fas fa-user-circle" style="color: #000000;"></i><%= child.full_name %></td>
+            <td style="text-align: left; padding-left: 5%;"><i class="fas fa-user-circle" style="color: #000000;"></i><%= link_to child.full_name, teacher_user_status_path(@teacher, user_id: child.user_id, child_id: child.id) %></td>
             <% if desired_status(@teacher, child.id) == "返信済み" %>
               <td style="color: red;"><span style="color: green;"><i class="far fa-check-circle"></i></span><%= desired_status(@teacher, child.id) %></td>
             <% else %>

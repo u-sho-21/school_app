@@ -6,6 +6,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = @teacher.meetings.build
     @meetings = @teacher.meetings.all
+    @meeting_times = MeetingTime.includes(:teacher).where(teacher_id: @teacher.id)
     time_list
   end
 
@@ -126,11 +127,16 @@ class MeetingsController < ApplicationController
   # 保護者面談日時登録ページ
   def new_user
     @times_count = @teacher.meeting_times.map{|m| m.time.to_s(:time)}.uniq
-    @meeting_times_status = @teacher.meeting_times.first.status if @meeting_times.present?
+
     @meetings = @teacher.meetings.all.order(:date)
     @limit_date = @meetings.first.date - 5 if @meetings.present?
-    if @meeting_times_status == "meeting_confirm"
+
+    if MeetingTime.first.present?
+      @meeting_times_status = MeetingTime.includes(:teacher).where(teacher_id: @teacher.id).first
       @meeting_confirm = @teacher.meeting_times.find_by(name: @child.full_name)
+    else
+      flash[:info] = "現在面談予定はございません。"
+      redirect_to user_url(@user)
     end
   end
 
@@ -235,10 +241,27 @@ class MeetingsController < ApplicationController
     end
     @teacher = Teacher.find(params[:teacher_id])
     @meetings = @teacher.meetings.all.order(:date)
-    unless @teacher.meeting_times.first.present?
+    # 面談日時のstatus状況では開けないように
+    if @teacher.meeting_times.first.nil?
       flash[:info] = "面談日時が登録されていません。"
       redirect_to teacher_url(@teacher)
+    else
+      @meeting_times_status = MeetingTime.includes(:teacher).where(teacher_id: @teacher.id).first
+      if @meeting_times_status.default?
+        flash[:info] = "面談日時がまだ確定されていません。下記ボタンから日時を確定してください。"
+        redirect_to teacher_meetings_edit_url(@teacher)
+      end
     end
+
+  end
+
+  # 面談状況個人ページ
+  def user_status
+    @user = User.find(params[:user_id])
+    @child = Child.find(params[:child_id])
+    @teacher = Teacher.find(params[:teacher_id])
+    @meeting_children = @teacher.meetings.where(child_id: @child.id)
+    @meetings = @teacher.meetings.all.order(:date)
   end
 
   private

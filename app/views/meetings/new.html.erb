@@ -6,6 +6,16 @@
     面談日時登録
   </div>
 
+  <% if @meeting_times.present? %>
+      <%= form_with(url: teacher_meeting_create_path(@teacher), local: true) do |f| %>
+      <div id="datepicker-submit">
+        <p id="meeting-title">面談日時の編集および保護者への案内メッセージの送信は<%= link_to 'こちら', teacher_meetings_edit_path(@teacher) %>から</p>
+        <%= f.submit "初期化", data: {confirm: "初期化してよろしいですか？"}, class: "btn btn-danger submit-width" %>
+      </div>
+      <% end %>
+
+  <% else %>
+
   <div id="datepicker"></div>
 
   <% unless @meetings.empty? %>
@@ -77,6 +87,7 @@
       </div>
     <% end %>
   </div>
+  <% end %>
 </div>
 
 <style>

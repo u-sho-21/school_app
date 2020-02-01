@@ -8,4 +8,5 @@ class MeetingTime < ApplicationRecord
     meeting_confirm: 2, # 面談日時確定
   }
 
+
 end
