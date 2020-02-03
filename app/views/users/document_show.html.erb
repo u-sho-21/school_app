@@ -61,7 +61,7 @@
         <% end %>
       </tbody>
     </table>
-    <div style="font-size:6px;color:red;margin-top:-2%;" id="deadline">(*期限過ぎますと表示されなくなります)</div>  
+    <div style="color:red;margin-top:-2%;" id="deadline">*期限切れ一週間後<br>表示されなくなります。</div>  
      <% else %>
       <br><br>
       <div class="bg-info text-center info2" style="padding:2%;">まだ提出物ありません。</div>
@@ -127,6 +127,7 @@
 body{
   background:#cba777;
 }
+.deadline{fon-size:16px;}
 @media screen and (max-width:767px){
   .p{font-size:8px;}
   .info2{padding:2% 0;margin-top:-10%;}

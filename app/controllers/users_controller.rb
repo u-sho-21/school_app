@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     @documents = @user.documents.all.where('deadline >= ?',Date.today).order("id asc")
     public_check
     @user.documents.each do |document|
-      if document.deadline < Date.today
+      if document.deadline+6 < Date.today
         document.public = false
         document.save
       end
