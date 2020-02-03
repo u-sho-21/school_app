@@ -28,7 +28,7 @@
 
     <!--編集フォーム-->
     <%= form_with(model: @document,url:document_update_item_path(@document),local:true,method: :patch) do |f| %>
-    <%= f.submit "質問を編集する",class:"btn btn-info"%>
+    <%= f.submit "質問を編集する",class:"btn btn-info", style:"margin-bottom:1.3%;"%>
     <span id="document_explain_span">
     　　編集を確定させるにはこのボタンを押してください。
     </span>

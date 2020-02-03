@@ -17,8 +17,8 @@
           <div class="col-md-10 col-md-offset-1">
             <%= form_with(url:document_update_select_path(@document_item),local:true, method: :patch) do |f| %>
            <div class="text-left">
-             <%=f.submit "選択肢を編集する",class:"btn btn-primary" %>
-             <span id="document_explain_span">
+             <%=f.submit "選択肢を編集する",class:"btn btn-primary",style:"margin-bottom:2%;margin-top:3%;" %>
+             <span id="document_explain_span" style="margin-top:3%;">
     　　       編集を確定させるにはこのボタンを押してください。
              </span>
            </div>  
